@@ -1,3 +1,17 @@
 TODO List for Sphinx Page
 - Buttons are different colors
-
+- Dates and version numbers
+- Descriptive titles
+- green/yellow bg color for code (#F6F6F6)
+- take out defunct/retired w_tools
+- w_direct?
+- Weighted Ensemble Algorithm section
+- WEST>Setup>Running transfer pages to sphinx
+- WEST Extension > Plugins MAB scheme? What for?
+- Overview is Empty? Delete
+- Update Style Guide - flak8 and black + precommit
+- Soure Code Management - delete
+- WESTPA Modules API? -> python API? (wait to change) 
+- tab groups can be changed in /westpa/doc/sphinx_index.rst
+- Link back to github wiki, westpa.github.io/westpa
+- copyright names and years
