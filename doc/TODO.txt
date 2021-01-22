@@ -15,3 +15,4 @@ TODO List for Sphinx Page
 - tab groups can be changed in /westpa/doc/sphinx_index.rst
 - Link back to github wiki, westpa.github.io/westpa
 - copyright names and years
+- Missing w_direct page
