@@ -6,6 +6,7 @@ Advanced References
 
 .. toctree::
    :maxdepth: 1
+   :caption: For Users:
 
     WEST                      <users_guide/west>
     WEST tools                <users_guide/west_tools>
@@ -13,6 +14,8 @@ Advanced References
     WEST extensions           <users_guide/westext>
     Command line tool index   <users_guide/command_line_tools>
     HDF5 file schema          <users_guide/hdf5>
+    Checklist                 <users_guide/checklist.rst>
+    FAQs                      <users_guide/faq.rst>
 
 
 --------------
@@ -21,6 +24,7 @@ For Developers
 
 .. toctree::
    :maxdepth: 1
+   :caption: For Developers:
 
     Overview                           <development/overview>
     Code and documentation style guide <development/style_guide>
