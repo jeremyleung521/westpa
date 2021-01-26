@@ -40,7 +40,7 @@
     
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="w_ntop" href="w_ntop.html" />
+    <link rel="next" title="w_stateprobs" href="w_stateprobs.html" />
     <link rel="prev" title="w_kinavg" href="w_kinavg.html" /> 
 </head>
 
@@ -108,19 +108,24 @@
 <li class="toctree-l2"><a class="reference internal" href="w_assign.html"> w_assign</a></li>
 <li class="toctree-l2"><a class="reference internal" href="w_trace.html"> w_trace</a></li>
 <li class="toctree-l2"><a class="reference internal" href="w_fluxanl.html"> w_fluxanl</a></li>
+<li class="toctree-l2"><a class="reference internal" href="w_ipa.html"> w_ipa</a></li>
 <li class="toctree-l2"><a class="reference internal" href="w_pdist.html"> w_pdist</a></li>
 <li class="toctree-l2"><a class="reference internal" href="w_succ.html"> w_succ</a></li>
-<li class="toctree-l2"><a class="reference internal" href="plothist.html"> plothist</a></li>
 <li class="toctree-l2"><a class="reference internal" href="w_crawl.html"> w_crawl</a></li>
 <li class="toctree-l2"><a class="reference internal" href="w_direct.html"> w_direct</a></li>
-<li class="toctree-l2"><a class="reference internal" href="w_kinavg.html"> w_kinavg</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#"> w_kinetics</a></li>
-<li class="toctree-l2"><a class="reference internal" href="w_ntop.html"> w_ntop</a></li>
-<li class="toctree-l2"><a class="reference internal" href="w_eddist.html"> w_eddist</a></li>
 <li class="toctree-l2"><a class="reference internal" href="w_select.html"> w_select</a></li>
-<li class="toctree-l2"><a class="reference internal" href="w_stateprobs.html"> w_stateprobs</a></li>
 <li class="toctree-l2"><a class="reference internal" href="w_states.html"> w_states</a></li>
+<li class="toctree-l2"><a class="reference internal" href="w_eddist.html"> w_eddist</a></li>
+<li class="toctree-l2"><a class="reference internal" href="w_ntop.html"> w_ntop</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plothist.html"> plothist</a></li>
 <li class="toctree-l2"><a class="reference internal" href="ploterr.html"> ploterr</a></li>
+<li class="toctree-l2"><a class="reference internal" href="w_kinavg.html"> w_kinavg</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#"> w_kinetics</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#output-format">Output format</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#command-line-options">Command-line options</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="w_stateprobs.html"> w_stateprobs</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../hdf5.html"> HDF5 file schema</a></li>
@@ -206,6 +211,90 @@
             
   <div class="section" id="w-kinetics">
 <span id="id1"></span><h1>w_kinetics<a class="headerlink" href="#w-kinetics" title="Permalink to this headline">¶</a></h1>
+<p>WARNING: w_kinetics is being deprecated.  Please use w_direct instead.</p>
+<p>usage:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">w_kinetics</span> <span class="n">trace</span> <span class="p">[</span><span class="o">-</span><span class="n">h</span><span class="p">]</span> <span class="p">[</span><span class="o">-</span><span class="n">W</span> <span class="n">WEST_H5FILE</span><span class="p">]</span> <span class="p">[</span><span class="o">--</span><span class="n">first</span><span class="o">-</span><span class="nb">iter</span> <span class="n">N_ITER</span><span class="p">]</span> <span class="p">[</span><span class="o">--</span><span class="n">last</span><span class="o">-</span><span class="nb">iter</span> <span class="n">N_ITER</span><span class="p">]</span>
+                       <span class="p">[</span><span class="o">--</span><span class="n">step</span><span class="o">-</span><span class="nb">iter</span> <span class="n">STEP</span><span class="p">]</span> <span class="p">[</span><span class="o">-</span><span class="n">a</span> <span class="n">ASSIGNMENTS</span><span class="p">]</span> <span class="p">[</span><span class="o">-</span><span class="n">o</span> <span class="n">OUTPUT</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>Calculate state-to-state rates and transition event durations by tracing
+trajectories.</p>
+<p>A bin assignment file (usually “assign.h5”) including trajectory labeling
+is required (see “w_assign –help” for information on generating this file).</p>
+<p>This subcommand for w_direct is used as input for all other w_direct
+subcommands, which will convert the flux data in the output file into
+average rates/fluxes/populations with confidence intervals.</p>
+<div class="section" id="output-format">
+<h2>Output format<a class="headerlink" href="#output-format" title="Permalink to this headline">¶</a></h2>
+<p>The output file (-o/–output, by default “direct.h5”) contains the
+following datasets:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>``/conditional_fluxes`` [iteration][state][state]
+  *(Floating-point)* Macrostate-to-macrostate fluxes. These are **not**
+  normalized by the population of the initial macrostate.
+
+``/conditional_arrivals`` [iteration][stateA][stateB]
+  *(Integer)* Number of trajectories arriving at state *stateB* in a given
+  iteration, given that they departed from *stateA*.
+
+``/total_fluxes`` [iteration][state]
+  *(Floating-point)* Total flux into a given macrostate.
+
+``/arrivals`` [iteration][state]
+  *(Integer)* Number of trajectories arriving at a given state in a given
+  iteration, regardless of where they originated.
+
+``/duration_count`` [iteration]
+  *(Integer)* The number of event durations recorded in each iteration.
+
+``/durations`` [iteration][event duration]
+  *(Structured -- see below)*  Event durations for transition events ending
+  during a given iteration. These are stored as follows:
+
+    istate
+      *(Integer)* Initial state of transition event.
+    fstate
+      *(Integer)* Final state of transition event.
+    duration
+      *(Floating-point)* Duration of transition, in units of tau.
+    weight
+      *(Floating-point)* Weight of trajectory at end of transition, **not**
+      normalized by initial state population.
+</pre></div>
+</div>
+<p>Because state-to-state fluxes stored in this file are not normalized by
+initial macrostate population, they cannot be used as rates without further
+processing. The <code class="docutils literal notranslate"><span class="pre">w_direct</span> <span class="pre">kinetics</span></code> command is used to perform this normalization
+while taking statistical fluctuation and correlation into account. See
+<code class="docutils literal notranslate"><span class="pre">w_direct</span> <span class="pre">kinetics</span> <span class="pre">--help</span></code> for more information.  Target fluxes (total flux
+into a given state) require no such normalization.</p>
+</div>
+<div class="section" id="command-line-options">
+<h2>Command-line options<a class="headerlink" href="#command-line-options" title="Permalink to this headline">¶</a></h2>
+<p>optional arguments:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">-</span><span class="n">h</span><span class="p">,</span> <span class="o">--</span><span class="n">help</span>            <span class="n">show</span> <span class="n">this</span> <span class="n">help</span> <span class="n">message</span> <span class="ow">and</span> <span class="n">exit</span>
+</pre></div>
+</div>
+<p>WEST input data options:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">-</span><span class="n">W</span> <span class="n">WEST_H5FILE</span><span class="p">,</span> <span class="o">--</span><span class="n">west</span><span class="o">-</span><span class="n">data</span> <span class="n">WEST_H5FILE</span>
+                      <span class="n">Take</span> <span class="n">WEST</span> <span class="n">data</span> <span class="kn">from</span> <span class="nn">WEST_H5FILE</span> <span class="p">(</span><span class="n">default</span><span class="p">:</span> <span class="n">read</span> <span class="kn">from</span> <span class="nn">the</span> <span class="n">HDF5</span> <span class="n">file</span> <span class="n">specified</span> <span class="ow">in</span>
+                      <span class="n">west</span><span class="o">.</span><span class="n">cfg</span><span class="p">)</span><span class="o">.</span>
+</pre></div>
+</div>
+<p>iteration range:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">--</span><span class="n">first</span><span class="o">-</span><span class="nb">iter</span> <span class="n">N_ITER</span>   <span class="n">Begin</span> <span class="n">analysis</span> <span class="n">at</span> <span class="n">iteration</span> <span class="n">N_ITER</span> <span class="p">(</span><span class="n">default</span><span class="p">:</span> <span class="mi">1</span><span class="p">)</span><span class="o">.</span>
+<span class="o">--</span><span class="n">last</span><span class="o">-</span><span class="nb">iter</span> <span class="n">N_ITER</span>    <span class="n">Conclude</span> <span class="n">analysis</span> <span class="k">with</span> <span class="n">N_ITER</span><span class="p">,</span> <span class="n">inclusive</span> <span class="p">(</span><span class="n">default</span><span class="p">:</span> <span class="n">last</span> <span class="n">completed</span> <span class="n">iteration</span><span class="p">)</span><span class="o">.</span>
+<span class="o">--</span><span class="n">step</span><span class="o">-</span><span class="nb">iter</span> <span class="n">STEP</span>      <span class="n">Analyze</span><span class="o">/</span><span class="n">report</span> <span class="ow">in</span> <span class="n">blocks</span> <span class="n">of</span> <span class="n">STEP</span> <span class="n">iterations</span><span class="o">.</span>
+</pre></div>
+</div>
+<p>input/output options:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">-</span><span class="n">a</span> <span class="n">ASSIGNMENTS</span><span class="p">,</span> <span class="o">--</span><span class="n">assignments</span> <span class="n">ASSIGNMENTS</span>
+                      <span class="n">Bin</span> <span class="n">assignments</span> <span class="ow">and</span> <span class="n">macrostate</span> <span class="n">definitions</span> <span class="n">are</span> <span class="ow">in</span> <span class="n">ASSIGNMENTS</span> <span class="p">(</span><span class="n">default</span><span class="p">:</span>
+                      <span class="n">assign</span><span class="o">.</span><span class="n">h5</span><span class="p">)</span><span class="o">.</span>
+<span class="o">-</span><span class="n">o</span> <span class="n">OUTPUT</span><span class="p">,</span> <span class="o">--</span><span class="n">output</span> <span class="n">OUTPUT</span>
+                      <span class="n">Store</span> <span class="n">results</span> <span class="ow">in</span> <span class="n">OUTPUT</span> <span class="p">(</span><span class="n">default</span><span class="p">:</span> <span class="n">kintrace</span><span class="o">.</span><span class="n">h5</span><span class="p">)</span><span class="o">.</span>
+</pre></div>
+</div>
+</div>
 </div>
 
 
@@ -214,7 +303,7 @@
           </div>
           <footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-        <a href="w_ntop.html" class="btn btn-neutral float-right" title="w_ntop" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="w_stateprobs.html" class="btn btn-neutral float-right" title="w_stateprobs" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
         <a href="w_kinavg.html" class="btn btn-neutral float-left" title="w_kinavg" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
     </div>
 

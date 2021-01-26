@@ -30,6 +30,7 @@
 * copyright names and years
 * w_crawl is empty
 * fix faq link, check other links
+* side bar command_line_tool_index button should link to page instead of expanding, this might be more navigable
 
 
 ## Completed on 26Jan2021
@@ -37,6 +38,5 @@
 * added checklist and faq pages to users sidebar
 * added autosummary sphinx extension
     * autosummary doesn't work too well since most documentation is not appended to each respective function/class
-* Organized toc tree structure to match wiki formatting
-    * Added missing w_direct, w_ipa pages (currently empty)
-* Added w_trace documentation to w_trace rst file
+* Organized toc (CLI tools) tree structure to match wiki formatting
+* added documentation for w_trace, ploterr, w_crawl, w_fork, w_kinavg, w_kinetics, w_ntop, w_select, w_stateprobs, w_states, w_succ, new page with incomplete documentation for w_direct, w_ipa,updated plothist.rst formatting codeblock

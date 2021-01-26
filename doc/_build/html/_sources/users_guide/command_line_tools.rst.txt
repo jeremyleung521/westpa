@@ -25,22 +25,26 @@ Command Line Tool Index
     w_ipa        <command_line_tools/w_ipa>
     w_pdist      <command_line_tools/w_pdist>
     w_succ       <command_line_tools/w_succ>
-    plothist     <command_line_tools/plothist>
     w_crawl      <command_line_tools/w_crawl>
     w_direct     <command_line_tools/w_direct>
-    w_kinavg     <command_line_tools/w_kinavg>
-    w_kinetics   <command_line_tools/w_kinetics>
-    w_ntop       <command_line_tools/w_ntop>
-    w_eddist     <command_line_tools/w_eddist>
     w_select     <command_line_tools/w_select>
-    w_stateprobs <command_line_tools/w_stateprobs>
     w_states     <command_line_tools/w_states>
+    w_eddist     <command_line_tools/w_eddist>
+    w_ntop       <command_line_tools/w_ntop>
+
+
+.. toctree::
+   :maxdepth: 1
+   :caption: Plotting tools:
+
+    plothist     <command_line_tools/plothist>
     ploterr      <command_line_tools/ploterr>
 
 
 .. toctree::
    :maxdepth: 1
-   :caption: Put potentially deprecated tools here?:
+   :caption: Deprecated tools:
 
-
-
+    w_kinavg     <command_line_tools/w_kinavg>
+    w_kinetics   <command_line_tools/w_kinetics>
+    w_stateprobs <command_line_tools/w_stateprobs>
