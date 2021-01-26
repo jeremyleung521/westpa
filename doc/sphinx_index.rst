@@ -18,10 +18,6 @@ Advanced References
     FAQs                      <users_guide/faq.rst>
 
 
---------------
-For Developers
---------------
-
 .. toctree::
    :maxdepth: 1
    :caption: For Developers:
