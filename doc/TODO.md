@@ -17,19 +17,17 @@
 * Descriptive titles
 * green/yellow bg color for code (#F6F6F6)
 * take out defunct/retired w_tools
-* go through missing command line tool index
 * Weighted Ensemble Algorithm section
 * WEST>Setup>Running transfer pages to sphinx
 * WEST Extension > Plugins MAB scheme? What for?
-* Overview is Empty? Delete
+* Overview is Empty? Delete? Or fill out intro to WESTPA dev
 * Update Style Guide - flak8 and black + precommit
-* Soure Code Management - delete
+* Source Code Management - delete
 * WESTPA Modules API? -> python API? (wait to change) 
 * tab groups can be changed in /westpa/doc/sphinx_index.rst
 * Link back to github wiki, westpa.github.io/westpa
 * copyright names and years
-* w_crawl is empty
-* fix faq link, check other links
+* fix faq link on readme landing page, check other links
 * side bar command_line_tool_index button should link to page instead of expanding, this might be more navigable
 
 
@@ -39,4 +37,6 @@
 * added autosummary sphinx extension
     * autosummary doesn't work too well since most documentation is not appended to each respective function/class
 * Organized toc (CLI tools) tree structure to match wiki formatting
-* added documentation for w_trace, ploterr, w_crawl, w_fork, w_kinavg, w_kinetics, w_ntop, w_select, w_stateprobs, w_states, w_succ, new page with incomplete documentation for w_direct, w_ipa,updated plothist.rst formatting codeblock
+* all cli tools have at least some documentation now:
+    * w_trace, ploterr, w_crawl, w_fork, w_kinavg, w_kinetics, w_ntop, w_select, w_stateprobs, w_states, and w_succ were added/filled
+    * still need to update formatting of these to match previous structure
