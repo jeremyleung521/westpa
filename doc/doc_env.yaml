@@ -1,17 +1,21 @@
-name: documentation
+name: doc_env
 channels:
   - conda-forge
+  - defaults
 dependencies:
-    # Base depends
   - python
-  - pip
-
-  # Dependencies
+  - cython
   - numpy
-  - h5py
   - scipy
+  - h5py
+  - pyyaml
+  - pyzmq
+  - matplotlib-base
   - blessings
-
-    # Pip-only installs
-  #- pip:
-  #  - codecov
+  - ipykernel
+  - mpi4py
+  # testing
+  - pytest
+  - pytest-cov
+  - nose
+  - codecov

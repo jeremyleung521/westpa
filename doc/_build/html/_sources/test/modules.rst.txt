@@ -1,5 +1,5 @@
-src
-===
+westpa
+======
 
 .. toctree::
    :maxdepth: 4

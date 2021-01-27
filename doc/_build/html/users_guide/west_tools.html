@@ -33,15 +33,12 @@
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
         <script src="../_static/doctools.js"></script>
-        <script src="../_static/language_data.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
     
     <link rel="index" title="Index" href="../genindex.html" />
-    <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="WEST Work Manager" href="wwmgr.html" />
-    <link rel="prev" title="Analysis" href="west/analysis.html" /> 
+    <link rel="search" title="Search" href="../search.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -55,7 +52,7 @@
           
 
           
-            <a href="../sphinx_index.html" class="icon icon-home"> WESTPA
+            <a href="../sphinx_index2.html" class="icon icon-home"> WESTPA
           
 
           
@@ -93,36 +90,13 @@
               
             
             
-              <p class="caption"><span class="caption-text">For Users:</span></p>
-<ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="west.html"> WEST</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#"> WEST tools</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#overview">Overview</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#tools-for-setting-up-and-running-a-simulation">Tools for setting up and running a simulation</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#tools-for-analyzing-simulation-results">Tools for analyzing simulation results</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="#general-command-line-options">General Command Line Options</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#a-note-on-specifying-a-configuration-file">A note on specifying a configuration file</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="#work-manager-options">Work Manager Options</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#id1">Overview</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#general-work-manager-options">General work manager options</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#zeromq-zmq-work-manager">ZeroMQ (‘zmq’) work manager</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="#initializing-running-simulations">Initializing/Running Simulations</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="wwmgr.html"> WEST work manager</a></li>
-<li class="toctree-l1"><a class="reference internal" href="westext.html"> WEST extensions</a></li>
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../test/westpa.cli.core.html"> WESTPA</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../test/modules.html"> WESTPA tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="wwmgr.html"> WESTPA work manager</a></li>
 <li class="toctree-l1"><a class="reference internal" href="command_line_tools.html"> Command line tool index</a></li>
-<li class="toctree-l1"><a class="reference internal" href="hdf5.html"> HDF5 file schema</a></li>
-<li class="toctree-l1"><a class="reference internal" href="checklist.html"> Checklist</a></li>
-<li class="toctree-l1"><a class="reference internal" href="faq.html"> FAQs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="hdf5.html"> HDF5 file structure</a></li>
 </ul>
-<p class="caption"><span class="caption-text">For Developers:</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../development/overview.html"> Overview</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../development/style_guide.html"> Code and documentation style guide</a></li>
@@ -145,7 +119,7 @@
       <nav class="wy-nav-top" aria-label="top navigation">
         
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../sphinx_index.html">WESTPA</a>
+          <a href="../sphinx_index2.html">WESTPA</a>
         
       </nav>
 
@@ -176,7 +150,7 @@
 
   <ul class="wy-breadcrumbs">
     
-      <li><a href="../sphinx_index.html" class="icon icon-home"></a> &raquo;</li>
+      <li><a href="../sphinx_index2.html" class="icon icon-home"></a> &raquo;</li>
         
       <li>WEST Tools</li>
     
@@ -282,7 +256,7 @@ from and write to <em>HDF5</em> type files.</p>
 output as input). Must be done before some other analysis
 tools (e.g. <a class="reference internal" href="command_line_tools/w_kinetics.html#w-kinetics"><span class="std std-ref">w_kinetics</span></a>, <a class="reference internal" href="command_line_tools/w_kinavg.html#w-kinavg"><span class="std std-ref">w_kinavg</span></a>)</p></td>
 </tr>
-<tr class="row-odd"><td><p><span class="xref std std-ref">w_trace</span></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="command_line_tools/w_trace.html#w-trace"><span class="std std-ref">w_trace</span></a></p></td>
 <td><p>Trace the path of a given walker segment over a
 user-specified number of simulation iterations.</p></td>
 </tr>
@@ -433,10 +407,6 @@ simulation, see the <a class="reference internal" href="west/setup.html#setup"><
            
           </div>
           <footer>
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-        <a href="wwmgr.html" class="btn btn-neutral float-right" title="WEST Work Manager" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
-        <a href="west/analysis.html" class="btn btn-neutral float-left" title="Analysis" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-    </div>
 
   <hr/>
 
