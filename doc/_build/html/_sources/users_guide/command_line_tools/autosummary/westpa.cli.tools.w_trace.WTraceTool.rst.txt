@@ -1,0 +1,46 @@
+westpa.cli.tools.w\_trace.WTraceTool
+====================================
+
+.. currentmodule:: westpa.cli.tools.w_trace
+
+.. autoclass:: WTraceTool
+
+   
+   .. automethod:: __init__
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+   
+      ~WTraceTool.__init__
+      ~WTraceTool.add_all_args
+      ~WTraceTool.add_args
+      ~WTraceTool.emit_trace_h5
+      ~WTraceTool.emit_trace_text
+      ~WTraceTool.exclude_arg
+      ~WTraceTool.go
+      ~WTraceTool.include_arg
+      ~WTraceTool.main
+      ~WTraceTool.make_parser
+      ~WTraceTool.make_parser_and_process
+      ~WTraceTool.parse_dataset_string
+      ~WTraceTool.process_all_args
+      ~WTraceTool.process_args
+      ~WTraceTool.set_arg_default
+   
+   
+
+   
+   
+   .. rubric:: Attributes
+
+   .. autosummary::
+   
+      ~WTraceTool.description
+      ~WTraceTool.epilog
+      ~WTraceTool.pcoord_formats
+      ~WTraceTool.prog
+      ~WTraceTool.usage
+   
+   

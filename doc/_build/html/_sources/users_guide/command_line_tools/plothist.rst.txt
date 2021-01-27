@@ -38,7 +38,7 @@ Therefore, this tool is always called as:
 '``instant``\ ' mode
 ~~~~~~~~~~~~~~~~~~~~
 
-usage:
+usage::
 
 | ``$WEST_ROOT/bin/plothist instant [-h] input [-o PLOT_OUTPUT]``
 | ``                                [--hdf5-output HDF5_OUTPUT] [--text-output TEXT_OUTPUT]``
@@ -49,7 +49,7 @@ usage:
 '``average``\ ' mode
 ~~~~~~~~~~~~~~~~~~~~
 
-usage:
+usage::
 
 | ``$WEST_ROOT/bin/plothist average [-h] input [-o PLOT_OUTPUT]``
 | ``                                [--hdf5-output HDF5_OUTPUT] [--text-output TEXT_OUTPUT]``
@@ -60,7 +60,7 @@ usage:
 '``evolution``\ ' mode
 ~~~~~~~~~~~~~~~~~~~~~~
 
-usage:
+usage::
 
 | ``$WEST_ROOT/bin/plothist evolution [-h] input [-o PLOT_OUTPUT]``
 | ``                                  [--hdf5-output HDF5_OUTPUT]``

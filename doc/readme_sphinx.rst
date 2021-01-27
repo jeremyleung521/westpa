@@ -74,7 +74,7 @@ FAQ
 Responses to frequently asked questions (FAQ) can be found in the following page: 
   
 - `Frequently Asked Questions (FAQ)`_
-  
+
 
 A mailing list for WESTPA is available, at which one can ask questions (or see
 if a question one has was previously addressed). This is the preferred means
