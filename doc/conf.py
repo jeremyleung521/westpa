@@ -59,7 +59,7 @@ autosummary_generate = False
 autoclass_content = "both"
 autodoc_member_order = "bysource"
 autodoc_default_flags = ["members", "undoc-members", "show-inheritence"]
-autodoc_mock_import = ["h5py", "scipy", "assign", "westtools", "westpa"]
+#autodoc_mock_import = ["h5py", "scipy", "assign", "westtools", "westpa"]
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
