@@ -13,4 +13,4 @@ python:
   setup_py_install: true
 
 conda:
-  environment: doc_env.yaml
+  environment: doc/doc_env.yaml
