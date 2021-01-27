@@ -53,6 +53,7 @@ extensions = [
     'sphinx.ext.autodoc',
     'sphinx.ext.napoleon',
     'sphinx.ext.coverage',
+]
 
 autosummary_generate = True
 autoclass_content = "both"
