@@ -14,8 +14,3 @@ dependencies:
   - blessings
   - ipykernel
   - mpi4py
-  # testing
-  - pytest
-  - pytest-cov
-  - nose
-  - codecov
