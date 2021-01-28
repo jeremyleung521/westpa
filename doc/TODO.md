@@ -31,6 +31,13 @@
 * side bar command_line_tool_index button should link to page instead of expanding, this might be more navigable
 
 
+## Regarding autodoc
+* westext is not being surveyed by correctly, due to import errors
+* westpatools (westpa.cli.tools package) have odd description formatting. Might have to go back to fix docstrings in files.
+* Reorganize autodoc structure because all information are 5 levels in
+
+
+
 ## Completed on 26Jan2021
 * Added sidebar captions for (users/developers)
 * added checklist and faq pages to users sidebar
