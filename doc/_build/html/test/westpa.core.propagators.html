@@ -108,7 +108,7 @@
 <li class="toctree-l4"><a class="reference internal" href="westpa.work_managers.html">westpa.work_managers package</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="westpa.html#module-contents">Module contents</a></li>
+<li class="toctree-l3"><a class="reference internal" href="westpa.html#module-westpa">Module contents</a></li>
 </ul>
 </li>
 </ul>
@@ -202,11 +202,278 @@
 <div class="section" id="submodules">
 <h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
 </div>
-<div class="section" id="westpa-core-propagators-executable-module">
-<h2>westpa.core.propagators.executable module<a class="headerlink" href="#westpa-core-propagators-executable-module" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="module-westpa.core.propagators.executable">
+<span id="westpa-core-propagators-executable-module"></span><h2>westpa.core.propagators.executable module<a class="headerlink" href="#module-westpa.core.propagators.executable" title="Permalink to this headline">¶</a></h2>
+<dl class="py function">
+<dt id="westpa.core.propagators.executable.pcoord_loader">
+<code class="sig-prename descclassname">westpa.core.propagators.executable.</code><code class="sig-name descname">pcoord_loader</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">fieldname</span></em>, <em class="sig-param"><span class="n">pcoord_return_filename</span></em>, <em class="sig-param"><span class="n">destobj</span></em>, <em class="sig-param"><span class="n">single_point</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.core.propagators.executable.pcoord_loader" title="Permalink to this definition">¶</a></dt>
+<dd><p>Read progress coordinate data into the <code class="docutils literal notranslate"><span class="pre">pcoord</span></code> field on <code class="docutils literal notranslate"><span class="pre">destobj</span></code>.
+An exception will be raised if the data is malformed.  If <code class="docutils literal notranslate"><span class="pre">single_point</span></code> is true,
+then only one (N-dimensional) point will be read, otherwise system.pcoord_len points
+will be read.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="westpa.core.propagators.executable.aux_data_loader">
+<code class="sig-prename descclassname">westpa.core.propagators.executable.</code><code class="sig-name descname">aux_data_loader</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">fieldname</span></em>, <em class="sig-param"><span class="n">data_filename</span></em>, <em class="sig-param"><span class="n">segment</span></em>, <em class="sig-param"><span class="n">single_point</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.core.propagators.executable.aux_data_loader" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py class">
+<dt id="westpa.core.propagators.executable.ExecutablePropagator">
+<em class="property">class </em><code class="sig-prename descclassname">westpa.core.propagators.executable.</code><code class="sig-name descname">ExecutablePropagator</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">rc</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.core.propagators.executable.ExecutablePropagator" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#westpa.core.propagators.WESTPropagator" title="westpa.core.propagators.WESTPropagator"><code class="xref py py-class docutils literal notranslate"><span class="pre">westpa.core.propagators.WESTPropagator</span></code></a></p>
+<dl class="py attribute">
+<dt id="westpa.core.propagators.executable.ExecutablePropagator.ENV_CURRENT_ITER">
+<code class="sig-name descname">ENV_CURRENT_ITER</code><em class="property"> = 'WEST_CURRENT_ITER'</em><a class="headerlink" href="#westpa.core.propagators.executable.ExecutablePropagator.ENV_CURRENT_ITER" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="westpa.core.propagators.executable.ExecutablePropagator.ENV_CURRENT_SEG_ID">
+<code class="sig-name descname">ENV_CURRENT_SEG_ID</code><em class="property"> = 'WEST_CURRENT_SEG_ID'</em><a class="headerlink" href="#westpa.core.propagators.executable.ExecutablePropagator.ENV_CURRENT_SEG_ID" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="westpa.core.propagators.executable.ExecutablePropagator.ENV_CURRENT_SEG_DATA_REF">
+<code class="sig-name descname">ENV_CURRENT_SEG_DATA_REF</code><em class="property"> = 'WEST_CURRENT_SEG_DATA_REF'</em><a class="headerlink" href="#westpa.core.propagators.executable.ExecutablePropagator.ENV_CURRENT_SEG_DATA_REF" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="westpa.core.propagators.executable.ExecutablePropagator.ENV_CURRENT_SEG_INITPOINT">
+<code class="sig-name descname">ENV_CURRENT_SEG_INITPOINT</code><em class="property"> = 'WEST_CURRENT_SEG_INITPOINT_TYPE'</em><a class="headerlink" href="#westpa.core.propagators.executable.ExecutablePropagator.ENV_CURRENT_SEG_INITPOINT" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="westpa.core.propagators.executable.ExecutablePropagator.ENV_PARENT_SEG_ID">
+<code class="sig-name descname">ENV_PARENT_SEG_ID</code><em class="property"> = 'WEST_PARENT_ID'</em><a class="headerlink" href="#westpa.core.propagators.executable.ExecutablePropagator.ENV_PARENT_SEG_ID" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="westpa.core.propagators.executable.ExecutablePropagator.ENV_PARENT_DATA_REF">
+<code class="sig-name descname">ENV_PARENT_DATA_REF</code><em class="property"> = 'WEST_PARENT_DATA_REF'</em><a class="headerlink" href="#westpa.core.propagators.executable.ExecutablePropagator.ENV_PARENT_DATA_REF" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="westpa.core.propagators.executable.ExecutablePropagator.ENV_BSTATE_ID">
+<code class="sig-name descname">ENV_BSTATE_ID</code><em class="property"> = 'WEST_BSTATE_ID'</em><a class="headerlink" href="#westpa.core.propagators.executable.ExecutablePropagator.ENV_BSTATE_ID" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="westpa.core.propagators.executable.ExecutablePropagator.ENV_BSTATE_DATA_REF">
+<code class="sig-name descname">ENV_BSTATE_DATA_REF</code><em class="property"> = 'WEST_BSTATE_DATA_REF'</em><a class="headerlink" href="#westpa.core.propagators.executable.ExecutablePropagator.ENV_BSTATE_DATA_REF" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="westpa.core.propagators.executable.ExecutablePropagator.ENV_ISTATE_ID">
+<code class="sig-name descname">ENV_ISTATE_ID</code><em class="property"> = 'WEST_ISTATE_ID'</em><a class="headerlink" href="#westpa.core.propagators.executable.ExecutablePropagator.ENV_ISTATE_ID" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="westpa.core.propagators.executable.ExecutablePropagator.ENV_ISTATE_DATA_REF">
+<code class="sig-name descname">ENV_ISTATE_DATA_REF</code><em class="property"> = 'WEST_ISTATE_DATA_REF'</em><a class="headerlink" href="#westpa.core.propagators.executable.ExecutablePropagator.ENV_ISTATE_DATA_REF" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="westpa.core.propagators.executable.ExecutablePropagator.ENV_STRUCT_DATA_REF">
+<code class="sig-name descname">ENV_STRUCT_DATA_REF</code><em class="property"> = 'WEST_STRUCT_DATA_REF'</em><a class="headerlink" href="#westpa.core.propagators.executable.ExecutablePropagator.ENV_STRUCT_DATA_REF" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="westpa.core.propagators.executable.ExecutablePropagator.ENV_PCOORD_RETURN">
+<code class="sig-name descname">ENV_PCOORD_RETURN</code><em class="property"> = 'WEST_PCOORD_RETURN'</em><a class="headerlink" href="#westpa.core.propagators.executable.ExecutablePropagator.ENV_PCOORD_RETURN" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="westpa.core.propagators.executable.ExecutablePropagator.ENV_RAND16">
+<code class="sig-name descname">ENV_RAND16</code><em class="property"> = 'WEST_RAND16'</em><a class="headerlink" href="#westpa.core.propagators.executable.ExecutablePropagator.ENV_RAND16" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="westpa.core.propagators.executable.ExecutablePropagator.ENV_RAND32">
+<code class="sig-name descname">ENV_RAND32</code><em class="property"> = 'WEST_RAND32'</em><a class="headerlink" href="#westpa.core.propagators.executable.ExecutablePropagator.ENV_RAND32" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="westpa.core.propagators.executable.ExecutablePropagator.ENV_RAND64">
+<code class="sig-name descname">ENV_RAND64</code><em class="property"> = 'WEST_RAND64'</em><a class="headerlink" href="#westpa.core.propagators.executable.ExecutablePropagator.ENV_RAND64" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="westpa.core.propagators.executable.ExecutablePropagator.ENV_RAND128">
+<code class="sig-name descname">ENV_RAND128</code><em class="property"> = 'WEST_RAND128'</em><a class="headerlink" href="#westpa.core.propagators.executable.ExecutablePropagator.ENV_RAND128" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="westpa.core.propagators.executable.ExecutablePropagator.ENV_RANDFLOAT">
+<code class="sig-name descname">ENV_RANDFLOAT</code><em class="property"> = 'WEST_RANDFLOAT'</em><a class="headerlink" href="#westpa.core.propagators.executable.ExecutablePropagator.ENV_RANDFLOAT" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="westpa.core.propagators.executable.ExecutablePropagator.makepath">
+<em class="property">static </em><code class="sig-name descname">makepath</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">template</span></em>, <em class="sig-param"><span class="n">template_args</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">expanduser</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">expandvars</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">abspath</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">realpath</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.core.propagators.executable.ExecutablePropagator.makepath" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="westpa.core.propagators.executable.ExecutablePropagator.random_val_env_vars">
+<code class="sig-name descname">random_val_env_vars</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#westpa.core.propagators.executable.ExecutablePropagator.random_val_env_vars" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a set of environment variables containing random seeds. These are returned
+as a dictionary, suitable for use in <code class="docutils literal notranslate"><span class="pre">os.environ.update()</span></code> or as the <code class="docutils literal notranslate"><span class="pre">env</span></code> argument to
+<code class="docutils literal notranslate"><span class="pre">subprocess.Popen()</span></code>. Every child process executed by <code class="docutils literal notranslate"><span class="pre">exec_child()</span></code> gets these.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="westpa.core.propagators.executable.ExecutablePropagator.exec_child">
+<code class="sig-name descname">exec_child</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">executable</span></em>, <em class="sig-param"><span class="n">environ</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">stdin</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">stdout</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">stderr</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">cwd</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.core.propagators.executable.ExecutablePropagator.exec_child" title="Permalink to this definition">¶</a></dt>
+<dd><p>Execute a child process with the environment set from the current environment, the
+values of self.addtl_child_environ, the random numbers returned by self.random_val_env_vars, and
+the given <code class="docutils literal notranslate"><span class="pre">environ</span></code> (applied in that order). stdin/stdout/stderr are optionally redirected.</p>
+<p>This function waits on the child process to finish, then returns
+(rc, rusage), where rc is the child’s return code and rusage is the resource usage tuple from os.wait4()</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="westpa.core.propagators.executable.ExecutablePropagator.exec_child_from_child_info">
+<code class="sig-name descname">exec_child_from_child_info</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">child_info</span></em>, <em class="sig-param"><span class="n">template_args</span></em>, <em class="sig-param"><span class="n">environ</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.core.propagators.executable.ExecutablePropagator.exec_child_from_child_info" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="westpa.core.propagators.executable.ExecutablePropagator.update_args_env_basis_state">
+<code class="sig-name descname">update_args_env_basis_state</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">template_args</span></em>, <em class="sig-param"><span class="n">environ</span></em>, <em class="sig-param"><span class="n">basis_state</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.core.propagators.executable.ExecutablePropagator.update_args_env_basis_state" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="westpa.core.propagators.executable.ExecutablePropagator.update_args_env_initial_state">
+<code class="sig-name descname">update_args_env_initial_state</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">template_args</span></em>, <em class="sig-param"><span class="n">environ</span></em>, <em class="sig-param"><span class="n">initial_state</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.core.propagators.executable.ExecutablePropagator.update_args_env_initial_state" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="westpa.core.propagators.executable.ExecutablePropagator.update_args_env_iter">
+<code class="sig-name descname">update_args_env_iter</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">template_args</span></em>, <em class="sig-param"><span class="n">environ</span></em>, <em class="sig-param"><span class="n">n_iter</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.core.propagators.executable.ExecutablePropagator.update_args_env_iter" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="westpa.core.propagators.executable.ExecutablePropagator.update_args_env_segment">
+<code class="sig-name descname">update_args_env_segment</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">template_args</span></em>, <em class="sig-param"><span class="n">environ</span></em>, <em class="sig-param"><span class="n">segment</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.core.propagators.executable.ExecutablePropagator.update_args_env_segment" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="westpa.core.propagators.executable.ExecutablePropagator.template_args_for_segment">
+<code class="sig-name descname">template_args_for_segment</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">segment</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.core.propagators.executable.ExecutablePropagator.template_args_for_segment" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="westpa.core.propagators.executable.ExecutablePropagator.exec_for_segment">
+<code class="sig-name descname">exec_for_segment</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">child_info</span></em>, <em class="sig-param"><span class="n">segment</span></em>, <em class="sig-param"><span class="n">addtl_env</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.core.propagators.executable.ExecutablePropagator.exec_for_segment" title="Permalink to this definition">¶</a></dt>
+<dd><p>Execute a child process with environment and template expansion from the given
+segment.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="westpa.core.propagators.executable.ExecutablePropagator.exec_for_iteration">
+<code class="sig-name descname">exec_for_iteration</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">child_info</span></em>, <em class="sig-param"><span class="n">n_iter</span></em>, <em class="sig-param"><span class="n">addtl_env</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.core.propagators.executable.ExecutablePropagator.exec_for_iteration" title="Permalink to this definition">¶</a></dt>
+<dd><p>Execute a child process with environment and template expansion from the given
+iteration number.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="westpa.core.propagators.executable.ExecutablePropagator.exec_for_basis_state">
+<code class="sig-name descname">exec_for_basis_state</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">child_info</span></em>, <em class="sig-param"><span class="n">basis_state</span></em>, <em class="sig-param"><span class="n">addtl_env</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.core.propagators.executable.ExecutablePropagator.exec_for_basis_state" title="Permalink to this definition">¶</a></dt>
+<dd><p>Execute a child process with environment and template expansion from the
+given basis state</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="westpa.core.propagators.executable.ExecutablePropagator.exec_for_initial_state">
+<code class="sig-name descname">exec_for_initial_state</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">child_info</span></em>, <em class="sig-param"><span class="n">initial_state</span></em>, <em class="sig-param"><span class="n">addtl_env</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.core.propagators.executable.ExecutablePropagator.exec_for_initial_state" title="Permalink to this definition">¶</a></dt>
+<dd><p>Execute a child process with environment and template expansion from the given
+initial state.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="westpa.core.propagators.executable.ExecutablePropagator.get_pcoord">
+<code class="sig-name descname">get_pcoord</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">state</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.core.propagators.executable.ExecutablePropagator.get_pcoord" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the progress coordinate of the given basis or initial state.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="westpa.core.propagators.executable.ExecutablePropagator.gen_istate">
+<code class="sig-name descname">gen_istate</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">basis_state</span></em>, <em class="sig-param"><span class="n">initial_state</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.core.propagators.executable.ExecutablePropagator.gen_istate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generate a new initial state from the given basis state.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="westpa.core.propagators.executable.ExecutablePropagator.prepare_iteration">
+<code class="sig-name descname">prepare_iteration</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">n_iter</span></em>, <em class="sig-param"><span class="n">segments</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.core.propagators.executable.ExecutablePropagator.prepare_iteration" title="Permalink to this definition">¶</a></dt>
+<dd><p>Perform any necessary per-iteration preparation.  This is run by the work manager.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="westpa.core.propagators.executable.ExecutablePropagator.finalize_iteration">
+<code class="sig-name descname">finalize_iteration</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">n_iter</span></em>, <em class="sig-param"><span class="n">segments</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.core.propagators.executable.ExecutablePropagator.finalize_iteration" title="Permalink to this definition">¶</a></dt>
+<dd><p>Perform any necessary post-iteration cleanup.  This is run by the work manager.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="westpa.core.propagators.executable.ExecutablePropagator.propagate">
+<code class="sig-name descname">propagate</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">segments</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.core.propagators.executable.ExecutablePropagator.propagate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Propagate one or more segments, including any necessary per-iteration setup and teardown for this propagator.</p>
+</dd></dl>
+
+</dd></dl>
+
 </div>
-<div class="section" id="module-contents">
-<h2>Module contents<a class="headerlink" href="#module-contents" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="module-westpa.core.propagators">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-westpa.core.propagators" title="Permalink to this headline">¶</a></h2>
+<dl class="py function">
+<dt id="westpa.core.propagators.blocked_iter">
+<code class="sig-prename descclassname">westpa.core.propagators.</code><code class="sig-name descname">blocked_iter</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">blocksize</span></em>, <em class="sig-param"><span class="n">iterable</span></em>, <em class="sig-param"><span class="n">fillvalue</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.core.propagators.blocked_iter" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py class">
+<dt id="westpa.core.propagators.WESTPropagator">
+<em class="property">class </em><code class="sig-prename descclassname">westpa.core.propagators.</code><code class="sig-name descname">WESTPropagator</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">rc</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.core.propagators.WESTPropagator" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py method">
+<dt id="westpa.core.propagators.WESTPropagator.prepare_iteration">
+<code class="sig-name descname">prepare_iteration</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">n_iter</span></em>, <em class="sig-param"><span class="n">segments</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.core.propagators.WESTPropagator.prepare_iteration" title="Permalink to this definition">¶</a></dt>
+<dd><p>Perform any necessary per-iteration preparation.  This is run by the work manager.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="westpa.core.propagators.WESTPropagator.finalize_iteration">
+<code class="sig-name descname">finalize_iteration</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">n_iter</span></em>, <em class="sig-param"><span class="n">segments</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.core.propagators.WESTPropagator.finalize_iteration" title="Permalink to this definition">¶</a></dt>
+<dd><p>Perform any necessary post-iteration cleanup.  This is run by the work manager.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="westpa.core.propagators.WESTPropagator.get_pcoord">
+<code class="sig-name descname">get_pcoord</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">state</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.core.propagators.WESTPropagator.get_pcoord" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the progress coordinate of the given basis or initial state.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="westpa.core.propagators.WESTPropagator.gen_istate">
+<code class="sig-name descname">gen_istate</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">basis_state</span></em>, <em class="sig-param"><span class="n">initial_state</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.core.propagators.WESTPropagator.gen_istate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generate a new initial state from the given basis state.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="westpa.core.propagators.WESTPropagator.propagate">
+<code class="sig-name descname">propagate</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">segments</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.core.propagators.WESTPropagator.propagate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Propagate one or more segments, including any necessary per-iteration setup and teardown for this propagator.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="westpa.core.propagators.WESTPropagator.clear_basis_initial_states">
+<code class="sig-name descname">clear_basis_initial_states</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#westpa.core.propagators.WESTPropagator.clear_basis_initial_states" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="westpa.core.propagators.WESTPropagator.update_basis_initial_states">
+<code class="sig-name descname">update_basis_initial_states</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">basis_states</span></em>, <em class="sig-param"><span class="n">initial_states</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.core.propagators.WESTPropagator.update_basis_initial_states" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
 </div>
 </div>
 

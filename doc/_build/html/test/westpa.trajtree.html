@@ -108,7 +108,7 @@
 <li class="toctree-l4"><a class="reference internal" href="westpa.work_managers.html">westpa.work_managers package</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="westpa.html#module-contents">Module contents</a></li>
+<li class="toctree-l3"><a class="reference internal" href="westpa.html#module-westpa">Module contents</a></li>
 </ul>
 </li>
 </ul>
@@ -200,11 +200,78 @@
 <div class="section" id="submodules">
 <h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
 </div>
-<div class="section" id="westpa-trajtree-trajtree-module">
-<h2>westpa.trajtree.trajtree module<a class="headerlink" href="#westpa-trajtree-trajtree-module" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="module-westpa.trajtree.trajtree">
+<span id="westpa-trajtree-trajtree-module"></span><h2>westpa.trajtree.trajtree module<a class="headerlink" href="#module-westpa.trajtree.trajtree" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt id="westpa.trajtree.trajtree.trajnode">
+<em class="property">class </em><code class="sig-prename descclassname">westpa.trajtree.trajtree.</code><code class="sig-name descname">trajnode</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">n_iter</span></em>, <em class="sig-param"><span class="n">seg_id</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.trajtree.trajtree.trajnode" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">tuple</span></code></p>
+<p>Create new instance of trajnode(n_iter, seg_id)</p>
+<dl class="py method">
+<dt id="westpa.trajtree.trajtree.trajnode.n_iter">
+<em class="property">property </em><code class="sig-name descname">n_iter</code><a class="headerlink" href="#westpa.trajtree.trajtree.trajnode.n_iter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Alias for field number 0</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="westpa.trajtree.trajtree.trajnode.seg_id">
+<em class="property">property </em><code class="sig-name descname">seg_id</code><a class="headerlink" href="#westpa.trajtree.trajtree.trajnode.seg_id" title="Permalink to this definition">¶</a></dt>
+<dd><p>Alias for field number 1</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="westpa.trajtree.trajtree.TrajTreeSet">
+<em class="property">class </em><code class="sig-prename descclassname">westpa.trajtree.trajtree.</code><code class="sig-name descname">TrajTreeSet</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">segsel</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">data_manager</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.trajtree.trajtree.TrajTreeSet" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">westpa.trajtree._trajtree._trajtree_base</span></code></p>
+<dl class="py method">
+<dt id="westpa.trajtree.trajtree.TrajTreeSet.get_roots">
+<code class="sig-name descname">get_roots</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#westpa.trajtree.trajtree.TrajTreeSet.get_roots" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="westpa.trajtree.trajtree.TrajTreeSet.get_root_indices">
+<code class="sig-name descname">get_root_indices</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#westpa.trajtree.trajtree.TrajTreeSet.get_root_indices" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="westpa.trajtree.trajtree.TrajTreeSet.trace_trajectories">
+<code class="sig-name descname">trace_trajectories</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">visit</span></em>, <em class="sig-param"><span class="n">get_visitor_state</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">set_visitor_state</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">vargs</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">vkwargs</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.trajtree.trajtree.TrajTreeSet.trace_trajectories" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="westpa.trajtree.trajtree.FakeTrajTreeSet">
+<em class="property">class </em><code class="sig-prename descclassname">westpa.trajtree.trajtree.</code><code class="sig-name descname">FakeTrajTreeSet</code><a class="headerlink" href="#westpa.trajtree.trajtree.FakeTrajTreeSet" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#westpa.trajtree.trajtree.TrajTreeSet" title="westpa.trajtree.trajtree.TrajTreeSet"><code class="xref py py-class docutils literal notranslate"><span class="pre">westpa.trajtree.trajtree.TrajTreeSet</span></code></a></p>
+</dd></dl>
+
 </div>
-<div class="section" id="module-contents">
-<h2>Module contents<a class="headerlink" href="#module-contents" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="module-westpa.trajtree">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-westpa.trajtree" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt id="westpa.trajtree.TrajTreeSet">
+<em class="property">class </em><code class="sig-prename descclassname">westpa.trajtree.</code><code class="sig-name descname">TrajTreeSet</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">segsel</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">data_manager</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.trajtree.TrajTreeSet" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">westpa.trajtree._trajtree._trajtree_base</span></code></p>
+<dl class="py method">
+<dt id="westpa.trajtree.TrajTreeSet.get_roots">
+<code class="sig-name descname">get_roots</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#westpa.trajtree.TrajTreeSet.get_roots" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="westpa.trajtree.TrajTreeSet.get_root_indices">
+<code class="sig-name descname">get_root_indices</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#westpa.trajtree.TrajTreeSet.get_root_indices" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="westpa.trajtree.TrajTreeSet.trace_trajectories">
+<code class="sig-name descname">trace_trajectories</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">visit</span></em>, <em class="sig-param"><span class="n">get_visitor_state</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">set_visitor_state</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">vargs</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">vkwargs</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.trajtree.TrajTreeSet.trace_trajectories" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
 </div>
 </div>
 

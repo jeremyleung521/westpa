@@ -108,7 +108,7 @@
 <li class="toctree-l4"><a class="reference internal" href="westpa.work_managers.html">westpa.work_managers package</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="westpa.html#module-contents">Module contents</a></li>
+<li class="toctree-l3"><a class="reference internal" href="westpa.html#module-westpa">Module contents</a></li>
 </ul>
 </li>
 </ul>
@@ -203,29 +203,29 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="westpa.core.binning.html">westpa.core.binning package</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="westpa.core.binning.html#submodules">Submodules</a></li>
-<li class="toctree-l2"><a class="reference internal" href="westpa.core.binning.html#westpa-core-binning-assign-module">westpa.core.binning.assign module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="westpa.core.binning.html#westpa-core-binning-bins-module">westpa.core.binning.bins module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="westpa.core.binning.html#module-contents">Module contents</a></li>
+<li class="toctree-l2"><a class="reference internal" href="westpa.core.binning.html#module-westpa.core.binning.assign">westpa.core.binning.assign module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="westpa.core.binning.html#module-westpa.core.binning.bins">westpa.core.binning.bins module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="westpa.core.binning.html#module-westpa.core.binning">Module contents</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="westpa.core.kinetics.html">westpa.core.kinetics package</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="westpa.core.kinetics.html#submodules">Submodules</a></li>
-<li class="toctree-l2"><a class="reference internal" href="westpa.core.kinetics.html#westpa-core-kinetics-events-module">westpa.core.kinetics.events module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="westpa.core.kinetics.html#westpa-core-kinetics-matrates-module">westpa.core.kinetics.matrates module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="westpa.core.kinetics.html#westpa-core-kinetics-rate-averaging-module">westpa.core.kinetics.rate_averaging module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="westpa.core.kinetics.html#module-contents">Module contents</a></li>
+<li class="toctree-l2"><a class="reference internal" href="westpa.core.kinetics.html#module-westpa.core.kinetics.events">westpa.core.kinetics.events module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="westpa.core.kinetics.html#module-westpa.core.kinetics.matrates">westpa.core.kinetics.matrates module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="westpa.core.kinetics.html#module-westpa.core.kinetics.rate_averaging">westpa.core.kinetics.rate_averaging module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="westpa.core.kinetics.html#module-westpa.core.kinetics">Module contents</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="westpa.core.propagators.html">westpa.core.propagators package</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="westpa.core.propagators.html#submodules">Submodules</a></li>
-<li class="toctree-l2"><a class="reference internal" href="westpa.core.propagators.html#westpa-core-propagators-executable-module">westpa.core.propagators.executable module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="westpa.core.propagators.html#module-contents">Module contents</a></li>
+<li class="toctree-l2"><a class="reference internal" href="westpa.core.propagators.html#module-westpa.core.propagators.executable">westpa.core.propagators.executable module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="westpa.core.propagators.html#module-westpa.core.propagators">Module contents</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="westpa.core.reweight.html">westpa.core.reweight package</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="westpa.core.reweight.html#submodules">Submodules</a></li>
-<li class="toctree-l2"><a class="reference internal" href="westpa.core.reweight.html#westpa-core-reweight-matrix-module">westpa.core.reweight.matrix module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="westpa.core.reweight.html#module-contents">Module contents</a></li>
+<li class="toctree-l2"><a class="reference internal" href="westpa.core.reweight.html#module-westpa.core.reweight.matrix">westpa.core.reweight.matrix module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="westpa.core.reweight.html#module-westpa.core.reweight">Module contents</a></li>
 </ul>
 </li>
 </ul>
@@ -234,8 +234,415 @@
 <div class="section" id="submodules">
 <h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
 </div>
-<div class="section" id="westpa-core-data-manager-module">
-<h2>westpa.core.data_manager module<a class="headerlink" href="#westpa-core-data-manager-module" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="module-westpa.core.data_manager">
+<span id="westpa-core-data-manager-module"></span><h2>westpa.core.data_manager module<a class="headerlink" href="#module-westpa.core.data_manager" title="Permalink to this headline">¶</a></h2>
+<p>HDF5 data manager for WEST.</p>
+<p>Original HDF5 implementation: Joseph W. Kaus
+Current implementation: Matthew C. Zwier</p>
+<p>WEST exclusively uses the cross-platform, self-describing file format HDF5
+for data storage. This ensures that data is stored efficiently and portably
+in a manner that is relatively straightforward for other analysis tools
+(perhaps written in C/C++/Fortran) to access.</p>
+<dl class="simple">
+<dt>The data is laid out in HDF5 as follows:</dt><dd><ul class="simple">
+<li><p>summary – overall summary data for the simulation</p></li>
+<li><dl class="simple">
+<dt>/iterations/ – data for individual iterations, one group per iteration under /iterations</dt><dd><ul>
+<li><dl class="simple">
+<dt>iter_00000001/ – data for iteration 1</dt><dd><ul>
+<li><p>seg_index – overall information about segments in the iteration, including weight</p></li>
+<li><p>pcoord – progress coordinate data organized as [seg_id][time][dimension]</p></li>
+<li><p>wtg_parents – data used to reconstruct the split/merge history of trajectories</p></li>
+<li><p>recycling – flux and event count for recycled particles, on a per-target-state basis</p></li>
+<li><p>aux_data/ – auxiliary datasets (data stored on the ‘data’ field of Segment objects)</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+</dd>
+</dl>
+<p>The file root object has an integer attribute ‘west_file_format_version’ which can be used to
+determine how to access data even as the file format (i.e. organization of data within HDF5 file)
+evolves.</p>
+<dl class="simple">
+<dt>Version history:</dt><dd><dl class="simple">
+<dt>Version 7</dt><dd><ul class="simple">
+<li><p>Removed bin_assignments, bin_populations, and bin_rates from iteration group.</p></li>
+<li><p>Added new_segments subgroup to iteration group</p></li>
+</ul>
+</dd>
+<dt>Version 6</dt><dd><ul class="simple">
+<li><p>???</p></li>
+</ul>
+</dd>
+<dt>Version 5</dt><dd><ul class="simple">
+<li><p>moved iter_* groups into a top-level iterations/ group,</p></li>
+<li><p>added in-HDF5 storage for basis states, target states, and generated states</p></li>
+</ul>
+</dd>
+</dl>
+</dd>
+</dl>
+<dl class="py class">
+<dt id="westpa.core.data_manager.flushing_lock">
+<em class="property">class </em><code class="sig-prename descclassname">westpa.core.data_manager.</code><code class="sig-name descname">flushing_lock</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">lock</span></em>, <em class="sig-param"><span class="n">fileobj</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.core.data_manager.flushing_lock" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+</dd></dl>
+
+<dl class="py class">
+<dt id="westpa.core.data_manager.expiring_flushing_lock">
+<em class="property">class </em><code class="sig-prename descclassname">westpa.core.data_manager.</code><code class="sig-name descname">expiring_flushing_lock</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">lock</span></em>, <em class="sig-param"><span class="n">flush_method</span></em>, <em class="sig-param"><span class="n">nextsync</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.core.data_manager.expiring_flushing_lock" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+</dd></dl>
+
+<dl class="py class">
+<dt id="westpa.core.data_manager.WESTDataManager">
+<em class="property">class </em><code class="sig-prename descclassname">westpa.core.data_manager.</code><code class="sig-name descname">WESTDataManager</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">rc</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.core.data_manager.WESTDataManager" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Data manager for assisiting the reading and writing of WEST data from/to HDF5 files.</p>
+<dl class="py attribute">
+<dt id="westpa.core.data_manager.WESTDataManager.default_iter_prec">
+<code class="sig-name descname">default_iter_prec</code><em class="property"> = 8</em><a class="headerlink" href="#westpa.core.data_manager.WESTDataManager.default_iter_prec" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="westpa.core.data_manager.WESTDataManager.default_we_h5filename">
+<code class="sig-name descname">default_we_h5filename</code><em class="property"> = 'west.h5'</em><a class="headerlink" href="#westpa.core.data_manager.WESTDataManager.default_we_h5filename" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="westpa.core.data_manager.WESTDataManager.default_we_h5file_driver">
+<code class="sig-name descname">default_we_h5file_driver</code><em class="property"> = None</em><a class="headerlink" href="#westpa.core.data_manager.WESTDataManager.default_we_h5file_driver" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="westpa.core.data_manager.WESTDataManager.default_flush_period">
+<code class="sig-name descname">default_flush_period</code><em class="property"> = 60</em><a class="headerlink" href="#westpa.core.data_manager.WESTDataManager.default_flush_period" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="westpa.core.data_manager.WESTDataManager.default_aux_compression_threshold">
+<code class="sig-name descname">default_aux_compression_threshold</code><em class="property"> = 1048576</em><a class="headerlink" href="#westpa.core.data_manager.WESTDataManager.default_aux_compression_threshold" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="westpa.core.data_manager.WESTDataManager.binning_hchunksize">
+<code class="sig-name descname">binning_hchunksize</code><em class="property"> = 4096</em><a class="headerlink" href="#westpa.core.data_manager.WESTDataManager.binning_hchunksize" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="westpa.core.data_manager.WESTDataManager.table_scan_chunksize">
+<code class="sig-name descname">table_scan_chunksize</code><em class="property"> = 1024</em><a class="headerlink" href="#westpa.core.data_manager.WESTDataManager.table_scan_chunksize" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="westpa.core.data_manager.WESTDataManager.flushing_lock">
+<code class="sig-name descname">flushing_lock</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#westpa.core.data_manager.WESTDataManager.flushing_lock" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="westpa.core.data_manager.WESTDataManager.expiring_flushing_lock">
+<code class="sig-name descname">expiring_flushing_lock</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#westpa.core.data_manager.WESTDataManager.expiring_flushing_lock" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="westpa.core.data_manager.WESTDataManager.process_config">
+<code class="sig-name descname">process_config</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#westpa.core.data_manager.WESTDataManager.process_config" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="westpa.core.data_manager.WESTDataManager.system">
+<em class="property">property </em><code class="sig-name descname">system</code><a class="headerlink" href="#westpa.core.data_manager.WESTDataManager.system" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="westpa.core.data_manager.WESTDataManager.closed">
+<em class="property">property </em><code class="sig-name descname">closed</code><a class="headerlink" href="#westpa.core.data_manager.WESTDataManager.closed" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="westpa.core.data_manager.WESTDataManager.iter_group_name">
+<code class="sig-name descname">iter_group_name</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">n_iter</span></em>, <em class="sig-param"><span class="n">absolute</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.core.data_manager.WESTDataManager.iter_group_name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="westpa.core.data_manager.WESTDataManager.require_iter_group">
+<code class="sig-name descname">require_iter_group</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">n_iter</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.core.data_manager.WESTDataManager.require_iter_group" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the group associated with n_iter, creating it if necessary.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="westpa.core.data_manager.WESTDataManager.del_iter_group">
+<code class="sig-name descname">del_iter_group</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">n_iter</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.core.data_manager.WESTDataManager.del_iter_group" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="westpa.core.data_manager.WESTDataManager.get_iter_group">
+<code class="sig-name descname">get_iter_group</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">n_iter</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.core.data_manager.WESTDataManager.get_iter_group" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="westpa.core.data_manager.WESTDataManager.get_seg_index">
+<code class="sig-name descname">get_seg_index</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">n_iter</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.core.data_manager.WESTDataManager.get_seg_index" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="westpa.core.data_manager.WESTDataManager.current_iteration">
+<em class="property">property </em><code class="sig-name descname">current_iteration</code><a class="headerlink" href="#westpa.core.data_manager.WESTDataManager.current_iteration" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="westpa.core.data_manager.WESTDataManager.open_backing">
+<code class="sig-name descname">open_backing</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">mode</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.core.data_manager.WESTDataManager.open_backing" title="Permalink to this definition">¶</a></dt>
+<dd><p>Open the (already-created) HDF5 file named in self.west_h5filename.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="westpa.core.data_manager.WESTDataManager.prepare_backing">
+<code class="sig-name descname">prepare_backing</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#westpa.core.data_manager.WESTDataManager.prepare_backing" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create new HDF5 file</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="westpa.core.data_manager.WESTDataManager.close_backing">
+<code class="sig-name descname">close_backing</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#westpa.core.data_manager.WESTDataManager.close_backing" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="westpa.core.data_manager.WESTDataManager.flush_backing">
+<code class="sig-name descname">flush_backing</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#westpa.core.data_manager.WESTDataManager.flush_backing" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="westpa.core.data_manager.WESTDataManager.save_target_states">
+<code class="sig-name descname">save_target_states</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">tstates</span></em>, <em class="sig-param"><span class="n">n_iter</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.core.data_manager.WESTDataManager.save_target_states" title="Permalink to this definition">¶</a></dt>
+<dd><p>Save the given target states in the HDF5 file; they will be used for the next iteration to
+be propagated.  A complete set is required, even if nominally appending to an existing set,
+which simplifies the mapping of IDs to the table.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="westpa.core.data_manager.WESTDataManager.find_tstate_group">
+<code class="sig-name descname">find_tstate_group</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">n_iter</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.core.data_manager.WESTDataManager.find_tstate_group" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="westpa.core.data_manager.WESTDataManager.find_ibstate_group">
+<code class="sig-name descname">find_ibstate_group</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">n_iter</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.core.data_manager.WESTDataManager.find_ibstate_group" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="westpa.core.data_manager.WESTDataManager.get_target_states">
+<code class="sig-name descname">get_target_states</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">n_iter</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.core.data_manager.WESTDataManager.get_target_states" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a list of Target objects representing the target (sink) states that are in use for iteration n_iter.
+Future iterations are assumed to continue from the most recent set of states.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="westpa.core.data_manager.WESTDataManager.create_ibstate_group">
+<code class="sig-name descname">create_ibstate_group</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">basis_states</span></em>, <em class="sig-param"><span class="n">n_iter</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.core.data_manager.WESTDataManager.create_ibstate_group" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create the group used to store basis states and initial states (whose definitions are always
+coupled).  This group is hard-linked into all iteration groups that use these basis and
+initial states.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="westpa.core.data_manager.WESTDataManager.get_basis_states">
+<code class="sig-name descname">get_basis_states</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">n_iter</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.core.data_manager.WESTDataManager.get_basis_states" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a list of BasisState objects representing the basis states that are in use for iteration n_iter.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="westpa.core.data_manager.WESTDataManager.create_initial_states">
+<code class="sig-name descname">create_initial_states</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">n_states</span></em>, <em class="sig-param"><span class="n">n_iter</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.core.data_manager.WESTDataManager.create_initial_states" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create storage for <code class="docutils literal notranslate"><span class="pre">n_states</span></code> initial states associated with iteration <code class="docutils literal notranslate"><span class="pre">n_iter</span></code>, and
+return bare InitialState objects with only state_id set.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="westpa.core.data_manager.WESTDataManager.update_initial_states">
+<code class="sig-name descname">update_initial_states</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">initial_states</span></em>, <em class="sig-param"><span class="n">n_iter</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.core.data_manager.WESTDataManager.update_initial_states" title="Permalink to this definition">¶</a></dt>
+<dd><p>Save the given initial states in the HDF5 file</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="westpa.core.data_manager.WESTDataManager.get_initial_states">
+<code class="sig-name descname">get_initial_states</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">n_iter</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.core.data_manager.WESTDataManager.get_initial_states" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="westpa.core.data_manager.WESTDataManager.get_segment_initial_states">
+<code class="sig-name descname">get_segment_initial_states</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">segments</span></em>, <em class="sig-param"><span class="n">n_iter</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.core.data_manager.WESTDataManager.get_segment_initial_states" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieve all initial states referenced by the given segments.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="westpa.core.data_manager.WESTDataManager.get_unused_initial_states">
+<code class="sig-name descname">get_unused_initial_states</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">n_states</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">n_iter</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.core.data_manager.WESTDataManager.get_unused_initial_states" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieve any prepared but unused initial states applicable to the given iteration.
+Up to <code class="docutils literal notranslate"><span class="pre">n_states</span></code> states are returned; if <code class="docutils literal notranslate"><span class="pre">n_states</span></code> is None, then all unused states
+are returned.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="westpa.core.data_manager.WESTDataManager.prepare_iteration">
+<code class="sig-name descname">prepare_iteration</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">n_iter</span></em>, <em class="sig-param"><span class="n">segments</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.core.data_manager.WESTDataManager.prepare_iteration" title="Permalink to this definition">¶</a></dt>
+<dd><p>Prepare for a new iteration by creating space to store the new iteration’s data.
+The number of segments, their IDs, and their lineage must be determined and included
+in the set of segments passed in.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="westpa.core.data_manager.WESTDataManager.update_iter_group_links">
+<code class="sig-name descname">update_iter_group_links</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">n_iter</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.core.data_manager.WESTDataManager.update_iter_group_links" title="Permalink to this definition">¶</a></dt>
+<dd><p>Update the per-iteration hard links pointing to the tables of target and initial/basis states for the
+given iteration.  These links are not used by this class, but are remarkably convenient for third-party
+analysis tools and hdfview.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="westpa.core.data_manager.WESTDataManager.get_iter_summary">
+<code class="sig-name descname">get_iter_summary</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">n_iter</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.core.data_manager.WESTDataManager.get_iter_summary" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="westpa.core.data_manager.WESTDataManager.update_iter_summary">
+<code class="sig-name descname">update_iter_summary</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">summary</span></em>, <em class="sig-param"><span class="n">n_iter</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.core.data_manager.WESTDataManager.update_iter_summary" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="westpa.core.data_manager.WESTDataManager.del_iter_summary">
+<code class="sig-name descname">del_iter_summary</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">min_iter</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.core.data_manager.WESTDataManager.del_iter_summary" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="westpa.core.data_manager.WESTDataManager.update_segments">
+<code class="sig-name descname">update_segments</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">n_iter</span></em>, <em class="sig-param"><span class="n">segments</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.core.data_manager.WESTDataManager.update_segments" title="Permalink to this definition">¶</a></dt>
+<dd><p>Update segment information in the HDF5 file; all prior information for each
+<code class="docutils literal notranslate"><span class="pre">segment</span></code> is overwritten, except for parent and weight transfer information.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="westpa.core.data_manager.WESTDataManager.get_segments">
+<code class="sig-name descname">get_segments</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">n_iter</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">seg_ids</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">load_pcoords</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.core.data_manager.WESTDataManager.get_segments" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the given (or all) segments from a given iteration.</p>
+<p>If the optional parameter <code class="docutils literal notranslate"><span class="pre">load_auxdata</span></code> is true, then all auxiliary datasets
+available are loaded and mapped onto the <code class="docutils literal notranslate"><span class="pre">data</span></code> dictionary of each segment. If
+<code class="docutils literal notranslate"><span class="pre">load_auxdata</span></code> is None, then use the default <code class="docutils literal notranslate"><span class="pre">self.auto_load_auxdata</span></code>, which can
+be set by the option <code class="docutils literal notranslate"><span class="pre">load_auxdata</span></code> in the <code class="docutils literal notranslate"><span class="pre">[data]</span></code> section of <code class="docutils literal notranslate"><span class="pre">west.cfg</span></code>. This
+essentially requires as much RAM as there is per-iteration auxiliary data, so this
+behavior is not on by default.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="westpa.core.data_manager.WESTDataManager.get_all_parent_ids">
+<code class="sig-name descname">get_all_parent_ids</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">n_iter</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.core.data_manager.WESTDataManager.get_all_parent_ids" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="westpa.core.data_manager.WESTDataManager.get_parent_ids">
+<code class="sig-name descname">get_parent_ids</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">n_iter</span></em>, <em class="sig-param"><span class="n">seg_ids</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.core.data_manager.WESTDataManager.get_parent_ids" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a sequence of the parent IDs of the given seg_ids.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="westpa.core.data_manager.WESTDataManager.get_weights">
+<code class="sig-name descname">get_weights</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">n_iter</span></em>, <em class="sig-param"><span class="n">seg_ids</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.core.data_manager.WESTDataManager.get_weights" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the weights associated with the given seg_ids</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="westpa.core.data_manager.WESTDataManager.get_child_ids">
+<code class="sig-name descname">get_child_ids</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">n_iter</span></em>, <em class="sig-param"><span class="n">seg_id</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.core.data_manager.WESTDataManager.get_child_ids" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the seg_ids of segments who have the given segment as a parent.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="westpa.core.data_manager.WESTDataManager.get_children">
+<code class="sig-name descname">get_children</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">segment</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.core.data_manager.WESTDataManager.get_children" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return all segments which have the given segment as a parent</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="westpa.core.data_manager.WESTDataManager.prepare_run">
+<code class="sig-name descname">prepare_run</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#westpa.core.data_manager.WESTDataManager.prepare_run" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="westpa.core.data_manager.WESTDataManager.finalize_run">
+<code class="sig-name descname">finalize_run</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#westpa.core.data_manager.WESTDataManager.finalize_run" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="westpa.core.data_manager.WESTDataManager.save_new_weight_data">
+<code class="sig-name descname">save_new_weight_data</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">n_iter</span></em>, <em class="sig-param"><span class="n">new_weights</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.core.data_manager.WESTDataManager.save_new_weight_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Save a set of NewWeightEntry objects to HDF5. Note that this should
+be called for the iteration in which the weights appear in their
+new locations (e.g. for recycled walkers, the iteration following
+recycling).</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="westpa.core.data_manager.WESTDataManager.get_new_weight_data">
+<code class="sig-name descname">get_new_weight_data</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">n_iter</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.core.data_manager.WESTDataManager.get_new_weight_data" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="westpa.core.data_manager.WESTDataManager.find_bin_mapper">
+<code class="sig-name descname">find_bin_mapper</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">hashval</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.core.data_manager.WESTDataManager.find_bin_mapper" title="Permalink to this definition">¶</a></dt>
+<dd><p>Check to see if the given has value is in the binning table. Returns the index in the
+bin data tables if found, or raises KeyError if not.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="westpa.core.data_manager.WESTDataManager.get_bin_mapper">
+<code class="sig-name descname">get_bin_mapper</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">hashval</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.core.data_manager.WESTDataManager.get_bin_mapper" title="Permalink to this definition">¶</a></dt>
+<dd><p>Look up the given hash value in the binning table, unpickling and returning the corresponding
+bin mapper if available, or raising KeyError if not.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="westpa.core.data_manager.WESTDataManager.save_bin_mapper">
+<code class="sig-name descname">save_bin_mapper</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">hashval</span></em>, <em class="sig-param"><span class="n">pickle_data</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.core.data_manager.WESTDataManager.save_bin_mapper" title="Permalink to this definition">¶</a></dt>
+<dd><p>Store the given mapper in the table of saved mappers. If the mapper cannot be stored,
+PickleError will be raised. Returns the index in the bin data tables where the mapper is stored.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="westpa.core.data_manager.WESTDataManager.save_iter_binning">
+<code class="sig-name descname">save_iter_binning</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">n_iter</span></em>, <em class="sig-param"><span class="n">hashval</span></em>, <em class="sig-param"><span class="n">pickled_mapper</span></em>, <em class="sig-param"><span class="n">target_counts</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.core.data_manager.WESTDataManager.save_iter_binning" title="Permalink to this definition">¶</a></dt>
+<dd><p>Save information about the binning used to generate segments for iteration n_iter.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt id="westpa.core.data_manager.normalize_dataset_options">
+<code class="sig-prename descclassname">westpa.core.data_manager.</code><code class="sig-name descname">normalize_dataset_options</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">dsopts</span></em>, <em class="sig-param"><span class="n">path_prefix</span><span class="o">=</span><span class="default_value">''</span></em>, <em class="sig-param"><span class="n">n_iter</span><span class="o">=</span><span class="default_value">0</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.core.data_manager.normalize_dataset_options" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt id="westpa.core.data_manager.create_dataset_from_dsopts">
+<code class="sig-prename descclassname">westpa.core.data_manager.</code><code class="sig-name descname">create_dataset_from_dsopts</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">group</span></em>, <em class="sig-param"><span class="n">dsopts</span></em>, <em class="sig-param"><span class="n">shape</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">dtype</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">data</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">autocompress_threshold</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">n_iter</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.core.data_manager.create_dataset_from_dsopts" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt id="westpa.core.data_manager.require_dataset_from_dsopts">
+<code class="sig-prename descclassname">westpa.core.data_manager.</code><code class="sig-name descname">require_dataset_from_dsopts</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">group</span></em>, <em class="sig-param"><span class="n">dsopts</span></em>, <em class="sig-param"><span class="n">shape</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">dtype</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">data</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">autocompress_threshold</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">n_iter</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.core.data_manager.require_dataset_from_dsopts" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt id="westpa.core.data_manager.calc_chunksize">
+<code class="sig-prename descclassname">westpa.core.data_manager.</code><code class="sig-name descname">calc_chunksize</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">shape</span></em>, <em class="sig-param"><span class="n">dtype</span></em>, <em class="sig-param"><span class="n">max_chunksize</span><span class="o">=</span><span class="default_value">262144</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.core.data_manager.calc_chunksize" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculate a chunk size for HDF5 data, anticipating that access will slice
+along lower dimensions sooner than higher dimensions.</p>
+</dd></dl>
+
 </div>
 <div class="section" id="module-westpa.core.extloader">
 <span id="westpa-core-extloader-module"></span><h2>westpa.core.extloader module<a class="headerlink" href="#module-westpa.core.extloader" title="Permalink to this headline">¶</a></h2>
@@ -819,8 +1226,168 @@ the segment starts from the initial state with ID -(segment.parent_id+1)</p>
 </dd></dl>
 
 </div>
-<div class="section" id="westpa-core-sim-manager-module">
-<h2>westpa.core.sim_manager module<a class="headerlink" href="#westpa-core-sim-manager-module" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="module-westpa.core.sim_manager">
+<span id="westpa-core-sim-manager-module"></span><h2>westpa.core.sim_manager module<a class="headerlink" href="#module-westpa.core.sim_manager" title="Permalink to this headline">¶</a></h2>
+<dl class="py function">
+<dt id="westpa.core.sim_manager.grouper">
+<code class="sig-prename descclassname">westpa.core.sim_manager.</code><code class="sig-name descname">grouper</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">n</span></em>, <em class="sig-param"><span class="n">iterable</span></em>, <em class="sig-param"><span class="n">fillvalue</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.core.sim_manager.grouper" title="Permalink to this definition">¶</a></dt>
+<dd><p>Collect data into fixed-length chunks or blocks</p>
+</dd></dl>
+
+<dl class="py exception">
+<dt id="westpa.core.sim_manager.PropagationError">
+<em class="property">exception </em><code class="sig-prename descclassname">westpa.core.sim_manager.</code><code class="sig-name descname">PropagationError</code><a class="headerlink" href="#westpa.core.sim_manager.PropagationError" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">RuntimeError</span></code></p>
+</dd></dl>
+
+<dl class="py class">
+<dt id="westpa.core.sim_manager.WESimManager">
+<em class="property">class </em><code class="sig-prename descclassname">westpa.core.sim_manager.</code><code class="sig-name descname">WESimManager</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">rc</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.core.sim_manager.WESimManager" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py method">
+<dt id="westpa.core.sim_manager.WESimManager.process_config">
+<code class="sig-name descname">process_config</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#westpa.core.sim_manager.WESimManager.process_config" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="westpa.core.sim_manager.WESimManager.register_callback">
+<code class="sig-name descname">register_callback</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">hook</span></em>, <em class="sig-param"><span class="n">function</span></em>, <em class="sig-param"><span class="n">priority</span><span class="o">=</span><span class="default_value">0</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.core.sim_manager.WESimManager.register_callback" title="Permalink to this definition">¶</a></dt>
+<dd><p>Registers a callback to execute during the given <code class="docutils literal notranslate"><span class="pre">hook</span></code> into the simulation loop. The optional
+priority is used to order when the function is called relative to other registered callbacks.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="westpa.core.sim_manager.WESimManager.invoke_callbacks">
+<code class="sig-name descname">invoke_callbacks</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">hook</span></em>, <em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.core.sim_manager.WESimManager.invoke_callbacks" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="westpa.core.sim_manager.WESimManager.load_plugins">
+<code class="sig-name descname">load_plugins</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#westpa.core.sim_manager.WESimManager.load_plugins" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="westpa.core.sim_manager.WESimManager.report_bin_statistics">
+<code class="sig-name descname">report_bin_statistics</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">bins</span></em>, <em class="sig-param"><span class="n">save_summary</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.core.sim_manager.WESimManager.report_bin_statistics" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="westpa.core.sim_manager.WESimManager.get_bstate_pcoords">
+<code class="sig-name descname">get_bstate_pcoords</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">basis_states</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.core.sim_manager.WESimManager.get_bstate_pcoords" title="Permalink to this definition">¶</a></dt>
+<dd><p>For each of the given <code class="docutils literal notranslate"><span class="pre">basis_states</span></code>, calculate progress coordinate values
+as necessary.  The HDF5 file is not updated.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="westpa.core.sim_manager.WESimManager.report_basis_states">
+<code class="sig-name descname">report_basis_states</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">basis_states</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.core.sim_manager.WESimManager.report_basis_states" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="westpa.core.sim_manager.WESimManager.report_target_states">
+<code class="sig-name descname">report_target_states</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">target_states</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.core.sim_manager.WESimManager.report_target_states" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="westpa.core.sim_manager.WESimManager.initialize_simulation">
+<code class="sig-name descname">initialize_simulation</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">basis_states</span></em>, <em class="sig-param"><span class="n">target_states</span></em>, <em class="sig-param"><span class="n">segs_per_state</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">suppress_we</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.core.sim_manager.WESimManager.initialize_simulation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize a new weighted ensemble simulation, taking <code class="docutils literal notranslate"><span class="pre">segs_per_state</span></code> initial
+states from each of the given <code class="docutils literal notranslate"><span class="pre">basis_states</span></code>.</p>
+<p><code class="docutils literal notranslate"><span class="pre">w_init</span></code> is the forward-facing version of this function</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="westpa.core.sim_manager.WESimManager.prepare_iteration">
+<code class="sig-name descname">prepare_iteration</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#westpa.core.sim_manager.WESimManager.prepare_iteration" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="westpa.core.sim_manager.WESimManager.finalize_iteration">
+<code class="sig-name descname">finalize_iteration</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#westpa.core.sim_manager.WESimManager.finalize_iteration" title="Permalink to this definition">¶</a></dt>
+<dd><p>Clean up after an iteration and prepare for the next.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="westpa.core.sim_manager.WESimManager.get_istate_futures">
+<code class="sig-name descname">get_istate_futures</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#westpa.core.sim_manager.WESimManager.get_istate_futures" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add <code class="docutils literal notranslate"><span class="pre">n_states</span></code> initial states to the internal list of initial states assigned to
+recycled particles.  Spare states are used if available, otherwise new states are created.
+If created new initial states requires generation, then a set of futures is returned
+representing work manager tasks corresponding to the necessary generation work.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="westpa.core.sim_manager.WESimManager.propagate">
+<code class="sig-name descname">propagate</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#westpa.core.sim_manager.WESimManager.propagate" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="westpa.core.sim_manager.WESimManager.save_bin_data">
+<code class="sig-name descname">save_bin_data</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#westpa.core.sim_manager.WESimManager.save_bin_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculate and write flux and transition count matrices to HDF5. Population and rate matrices
+are likely useless at the single-tau level and are no longer written.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="westpa.core.sim_manager.WESimManager.check_propagation">
+<code class="sig-name descname">check_propagation</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#westpa.core.sim_manager.WESimManager.check_propagation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Check for failures in propagation or initial state generation, and raise an exception
+if any are found.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="westpa.core.sim_manager.WESimManager.run_we">
+<code class="sig-name descname">run_we</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#westpa.core.sim_manager.WESimManager.run_we" title="Permalink to this definition">¶</a></dt>
+<dd><p>Run the weighted ensemble algorithm based on the binning in self.final_bins and
+the recycled particles in self.to_recycle, creating and committing the next iteration’s
+segments to storage as well.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="westpa.core.sim_manager.WESimManager.prepare_new_iteration">
+<code class="sig-name descname">prepare_new_iteration</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#westpa.core.sim_manager.WESimManager.prepare_new_iteration" title="Permalink to this definition">¶</a></dt>
+<dd><p>Commit data for the coming iteration to the HDF5 file.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="westpa.core.sim_manager.WESimManager.run">
+<code class="sig-name descname">run</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#westpa.core.sim_manager.WESimManager.run" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="westpa.core.sim_manager.WESimManager.prepare_run">
+<code class="sig-name descname">prepare_run</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#westpa.core.sim_manager.WESimManager.prepare_run" title="Permalink to this definition">¶</a></dt>
+<dd><p>Prepare a new run.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="westpa.core.sim_manager.WESimManager.finalize_run">
+<code class="sig-name descname">finalize_run</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#westpa.core.sim_manager.WESimManager.finalize_run" title="Permalink to this definition">¶</a></dt>
+<dd><p>Perform cleanup at the normal end of a run</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="westpa.core.sim_manager.WESimManager.pre_propagation">
+<code class="sig-name descname">pre_propagation</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#westpa.core.sim_manager.WESimManager.pre_propagation" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="westpa.core.sim_manager.WESimManager.post_propagation">
+<code class="sig-name descname">post_propagation</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#westpa.core.sim_manager.WESimManager.post_propagation" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="westpa.core.sim_manager.WESimManager.pre_we">
+<code class="sig-name descname">pre_we</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#westpa.core.sim_manager.WESimManager.pre_we" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="westpa.core.sim_manager.WESimManager.post_we">
+<code class="sig-name descname">post_we</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#westpa.core.sim_manager.WESimManager.post_we" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
 </div>
 <div class="section" id="module-westpa.core.states">
 <span id="westpa-core-states-module"></span><h2>westpa.core.states module<a class="headerlink" href="#module-westpa.core.states" title="Permalink to this headline">¶</a></h2>
@@ -1018,8 +1585,83 @@ segments an initial states.</p>
 </dd></dl>
 
 </div>
-<div class="section" id="westpa-core-systems-module">
-<h2>westpa.core.systems module<a class="headerlink" href="#westpa-core-systems-module" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="module-westpa.core.systems">
+<span id="westpa-core-systems-module"></span><h2>westpa.core.systems module<a class="headerlink" href="#module-westpa.core.systems" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt id="westpa.core.systems.WESTSystem">
+<em class="property">class </em><code class="sig-prename descclassname">westpa.core.systems.</code><code class="sig-name descname">WESTSystem</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">rc</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.core.systems.WESTSystem" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>A description of the system being simulated, including the dimensionality and
+data type of the progress coordinate, the number of progress coordinate entries
+expected from each segment, and binning. To construct a simulation, the user must
+subclass WESTSystem and set several instance variables.</p>
+<p>At a minimum, the user must subclass <code class="docutils literal notranslate"><span class="pre">WESTSystem</span></code> and override
+<a href="#id1"><span class="problematic" id="id2">:method:`initialize`</span></a> to set the data type and dimensionality of progress
+coordinate data and define a bin mapper.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Variables</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>pcoord_ndim</strong> – The number of dimensions in the progress coordinate.
+Defaults to 1 (i.e. a one-dimensional progress
+coordinate).</p></li>
+<li><p><strong>pcoord_dtype</strong> – The data type of the progress coordinate, which must be
+callable (e.g. <code class="docutils literal notranslate"><span class="pre">np.float32</span></code> and <code class="docutils literal notranslate"><span class="pre">long</span></code> will work,
+but <code class="docutils literal notranslate"><span class="pre">'&lt;f4'</span></code> and <code class="docutils literal notranslate"><span class="pre">'&lt;i8'</span></code> will not).  Defaults to
+<code class="docutils literal notranslate"><span class="pre">np.float64</span></code>.</p></li>
+<li><p><strong>pcoord_len</strong> – The length of the progress coordinate time series
+generated by each segment, including <em>both</em> the initial
+and final values.  Defaults to 2 (i.e. only the initial
+and final progress coordinate values for a segment are
+returned from propagation).</p></li>
+<li><p><strong>bin_mapper</strong> – A bin mapper describing the progress coordinate space.</p></li>
+<li><p><a class="reference internal" href="#westpa.core.systems.WESTSystem.bin_target_counts" title="westpa.core.systems.WESTSystem.bin_target_counts"><strong>bin_target_counts</strong></a> – A vector of target counts, one per bin.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt id="westpa.core.systems.WESTSystem.bin_target_counts">
+<em class="property">property </em><code class="sig-name descname">bin_target_counts</code><a class="headerlink" href="#westpa.core.systems.WESTSystem.bin_target_counts" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="westpa.core.systems.WESTSystem.initialize">
+<code class="sig-name descname">initialize</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#westpa.core.systems.WESTSystem.initialize" title="Permalink to this definition">¶</a></dt>
+<dd><p>Prepare this system object for use in simulation or analysis,
+creating a bin space, setting replicas per bin, and so on. This
+function is called whenever a WEST tool creates an instance of the
+system driver.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="westpa.core.systems.WESTSystem.prepare_run">
+<code class="sig-name descname">prepare_run</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#westpa.core.systems.WESTSystem.prepare_run" title="Permalink to this definition">¶</a></dt>
+<dd><p>Prepare this system for use in a simulation run. Called by w_run in
+all worker processes.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="westpa.core.systems.WESTSystem.finalize_run">
+<code class="sig-name descname">finalize_run</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#westpa.core.systems.WESTSystem.finalize_run" title="Permalink to this definition">¶</a></dt>
+<dd><p>A hook for system-specific processing for the end of a simulation run
+(as defined by such things as maximum wallclock time, rather than perhaps
+more scientifically-significant definitions of “the end of a simulation run”)</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="westpa.core.systems.WESTSystem.new_pcoord_array">
+<code class="sig-name descname">new_pcoord_array</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">pcoord_len</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.core.systems.WESTSystem.new_pcoord_array" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return an appropriately-sized and -typed pcoord array for a timepoint, segment,
+or number of segments. If <code class="docutils literal notranslate"><span class="pre">pcoord_len</span></code> is not specified (or None), then
+a length appropriate for a segment is returned.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="westpa.core.systems.WESTSystem.new_region_set">
+<code class="sig-name descname">new_region_set</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#westpa.core.systems.WESTSystem.new_region_set" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
 </div>
 <div class="section" id="module-westpa.core.textio">
 <span id="westpa-core-textio-module"></span><h2>westpa.core.textio module<a class="headerlink" href="#module-westpa.core.textio" title="Permalink to this headline">¶</a></h2>
@@ -1070,14 +1712,395 @@ a comment character.</p>
 </dd></dl>
 
 </div>
-<div class="section" id="westpa-core-we-driver-module">
-<h2>westpa.core.we_driver module<a class="headerlink" href="#westpa-core-we-driver-module" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="module-westpa.core.we_driver">
+<span id="westpa-core-we-driver-module"></span><h2>westpa.core.we_driver module<a class="headerlink" href="#module-westpa.core.we_driver" title="Permalink to this headline">¶</a></h2>
+<dl class="py exception">
+<dt id="westpa.core.we_driver.ConsistencyError">
+<em class="property">exception </em><code class="sig-prename descclassname">westpa.core.we_driver.</code><code class="sig-name descname">ConsistencyError</code><a class="headerlink" href="#westpa.core.we_driver.ConsistencyError" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">RuntimeError</span></code></p>
+</dd></dl>
+
+<dl class="py exception">
+<dt id="westpa.core.we_driver.AccuracyError">
+<em class="property">exception </em><code class="sig-prename descclassname">westpa.core.we_driver.</code><code class="sig-name descname">AccuracyError</code><a class="headerlink" href="#westpa.core.we_driver.AccuracyError" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">RuntimeError</span></code></p>
+</dd></dl>
+
+<dl class="py class">
+<dt id="westpa.core.we_driver.NewWeightEntry">
+<em class="property">class </em><code class="sig-prename descclassname">westpa.core.we_driver.</code><code class="sig-name descname">NewWeightEntry</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">source_type</span></em>, <em class="sig-param"><span class="n">weight</span></em>, <em class="sig-param"><span class="n">prev_seg_id</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">prev_init_pcoord</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">prev_final_pcoord</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">new_init_pcoord</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">target_state_id</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">initial_state_id</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.core.we_driver.NewWeightEntry" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py attribute">
+<dt id="westpa.core.we_driver.NewWeightEntry.NW_SOURCE_RECYCLED">
+<code class="sig-name descname">NW_SOURCE_RECYCLED</code><em class="property"> = 0</em><a class="headerlink" href="#westpa.core.we_driver.NewWeightEntry.NW_SOURCE_RECYCLED" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="westpa.core.we_driver.WEDriver">
+<em class="property">class </em><code class="sig-prename descclassname">westpa.core.we_driver.</code><code class="sig-name descname">WEDriver</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">rc</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">system</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.core.we_driver.WEDriver" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>A class implemented Huber &amp; Kim’s weighted ensemble algorithm over Segment objects.
+This class handles all binning, recycling, and preparation of new Segment objects for the
+next iteration. Binning is accomplished using system.bin_mapper, and per-bin target counts
+are from system.bin_target_counts.</p>
+<p>The workflow is as follows:</p>
+<blockquote>
+<div><ol class="arabic simple">
+<li><p>Call <cite>new_iteration()</cite> every new iteration, providing any recycling targets that are
+in force and any available initial states for recycling.</p></li>
+<li><p>Call <cite>assign()</cite> to assign segments to bins based on their initial and end points. This
+returns the number of walkers that were recycled.</p></li>
+<li><p>Call <cite>run_we()</cite>, optionally providing a set of initial states that will be used to
+recycle walkers.</p></li>
+</ol>
+</div></blockquote>
+<p>Note the presence of flux_matrix, transition_matrix,
+current_iter_segments, next_iter_segments, recycling_segments,
+initial_binning, final_binning, next_iter_binning, and new_weights (to be documented soon).</p>
+<dl class="py attribute">
+<dt id="westpa.core.we_driver.WEDriver.weight_split_threshold">
+<code class="sig-name descname">weight_split_threshold</code><em class="property"> = 2.0</em><a class="headerlink" href="#westpa.core.we_driver.WEDriver.weight_split_threshold" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="westpa.core.we_driver.WEDriver.weight_merge_cutoff">
+<code class="sig-name descname">weight_merge_cutoff</code><em class="property"> = 1.0</em><a class="headerlink" href="#westpa.core.we_driver.WEDriver.weight_merge_cutoff" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="westpa.core.we_driver.WEDriver.process_config">
+<code class="sig-name descname">process_config</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#westpa.core.we_driver.WEDriver.process_config" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="westpa.core.we_driver.WEDriver.next_iter_segments">
+<em class="property">property </em><code class="sig-name descname">next_iter_segments</code><a class="headerlink" href="#westpa.core.we_driver.WEDriver.next_iter_segments" title="Permalink to this definition">¶</a></dt>
+<dd><p>Newly-created segments for the next iteration</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="westpa.core.we_driver.WEDriver.current_iter_segments">
+<em class="property">property </em><code class="sig-name descname">current_iter_segments</code><a class="headerlink" href="#westpa.core.we_driver.WEDriver.current_iter_segments" title="Permalink to this definition">¶</a></dt>
+<dd><p>Segments for the current iteration</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="westpa.core.we_driver.WEDriver.next_iter_assignments">
+<em class="property">property </em><code class="sig-name descname">next_iter_assignments</code><a class="headerlink" href="#westpa.core.we_driver.WEDriver.next_iter_assignments" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bin assignments (indices) for initial points of next iteration.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="westpa.core.we_driver.WEDriver.current_iter_assignments">
+<em class="property">property </em><code class="sig-name descname">current_iter_assignments</code><a class="headerlink" href="#westpa.core.we_driver.WEDriver.current_iter_assignments" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bin assignments (indices) for endpoints of current iteration.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="westpa.core.we_driver.WEDriver.recycling_segments">
+<em class="property">property </em><code class="sig-name descname">recycling_segments</code><a class="headerlink" href="#westpa.core.we_driver.WEDriver.recycling_segments" title="Permalink to this definition">¶</a></dt>
+<dd><p>Segments designated for recycling</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="westpa.core.we_driver.WEDriver.n_recycled_segs">
+<em class="property">property </em><code class="sig-name descname">n_recycled_segs</code><a class="headerlink" href="#westpa.core.we_driver.WEDriver.n_recycled_segs" title="Permalink to this definition">¶</a></dt>
+<dd><p>Number of segments recycled this iteration</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="westpa.core.we_driver.WEDriver.n_istates_needed">
+<em class="property">property </em><code class="sig-name descname">n_istates_needed</code><a class="headerlink" href="#westpa.core.we_driver.WEDriver.n_istates_needed" title="Permalink to this definition">¶</a></dt>
+<dd><p>Number of initial states needed to support recycling for this iteration</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="westpa.core.we_driver.WEDriver.clear">
+<code class="sig-name descname">clear</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#westpa.core.we_driver.WEDriver.clear" title="Permalink to this definition">¶</a></dt>
+<dd><p>Explicitly delete all Segment-related state.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="westpa.core.we_driver.WEDriver.new_iteration">
+<code class="sig-name descname">new_iteration</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">initial_states</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">target_states</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">new_weights</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">bin_mapper</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">bin_target_counts</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.core.we_driver.WEDriver.new_iteration" title="Permalink to this definition">¶</a></dt>
+<dd><p>Prepare for a new iteration. <code class="docutils literal notranslate"><span class="pre">initial_states</span></code> is a sequence of all InitialState objects valid
+for use in to generating new segments for the <em>next</em> iteration (after the one being begun with the call to
+new_iteration); that is, these are states available to recycle to. Target states which generate recycling events
+are specified in <code class="docutils literal notranslate"><span class="pre">target_states</span></code>, a sequence of TargetState objects. Both <code class="docutils literal notranslate"><span class="pre">initial_states</span></code>
+and <code class="docutils literal notranslate"><span class="pre">target_states</span></code> may be empty as required.</p>
+<p>The optional <code class="docutils literal notranslate"><span class="pre">new_weights</span></code> is a sequence of NewWeightEntry objects which will
+be used to construct the initial flux matrix.</p>
+<p>The given <code class="docutils literal notranslate"><span class="pre">bin_mapper</span></code> will be used for assignment, and <code class="docutils literal notranslate"><span class="pre">bin_target_counts</span></code> used for splitting/merging
+target counts; each will be obtained from the system object if omitted or None.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="westpa.core.we_driver.WEDriver.add_initial_states">
+<code class="sig-name descname">add_initial_states</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">initial_states</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.core.we_driver.WEDriver.add_initial_states" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add newly-prepared initial states to the pool available for recycling.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="westpa.core.we_driver.WEDriver.all_initial_states">
+<em class="property">property </em><code class="sig-name descname">all_initial_states</code><a class="headerlink" href="#westpa.core.we_driver.WEDriver.all_initial_states" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return an iterator over all initial states (available or used)</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="westpa.core.we_driver.WEDriver.assign">
+<code class="sig-name descname">assign</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">segments</span></em>, <em class="sig-param"><span class="n">initializing</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.core.we_driver.WEDriver.assign" title="Permalink to this definition">¶</a></dt>
+<dd><p>Assign segments to initial and final bins, and update the (internal) lists of used and available
+initial states. If <code class="docutils literal notranslate"><span class="pre">initializing</span></code> is True, then the “final” bin assignments will
+be identical to the initial bin assignments, a condition required for seeding a new iteration from
+pre-existing segments.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="westpa.core.we_driver.WEDriver.populate_initial">
+<code class="sig-name descname">populate_initial</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">initial_states</span></em>, <em class="sig-param"><span class="n">weights</span></em>, <em class="sig-param"><span class="n">system</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.core.we_driver.WEDriver.populate_initial" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create walkers for a new weighted ensemble simulation.</p>
+<p>One segment is created for each provided initial state, then binned and split/merged
+as necessary. After this function is called, next_iter_segments will yield the new
+segments to create, used_initial_states will contain data about which of the
+provided initial states were used, and avail_initial_states will contain data about
+which initial states were unused (because their corresponding walkers were merged
+out of existence).</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="westpa.core.we_driver.WEDriver.rebin_current">
+<code class="sig-name descname">rebin_current</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">parent_segments</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.core.we_driver.WEDriver.rebin_current" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reconstruct walkers for the current iteration based on (presumably) new binning.
+The previous iteration’s segments must be provided (as <code class="docutils literal notranslate"><span class="pre">parent_segments</span></code>) in order
+to update endpoint types appropriately.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="westpa.core.we_driver.WEDriver.construct_next">
+<code class="sig-name descname">construct_next</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#westpa.core.we_driver.WEDriver.construct_next" title="Permalink to this definition">¶</a></dt>
+<dd><p>Construct walkers for the next iteration, by running weighted ensemble recycling
+and bin/split/merge on the segments previously assigned to bins using <code class="docutils literal notranslate"><span class="pre">assign</span></code>.
+Enough unused initial states must be present in <code class="docutils literal notranslate"><span class="pre">self.avail_initial_states</span></code> for every recycled
+walker to be assigned an initial state.</p>
+<p>After this function completes, <code class="docutils literal notranslate"><span class="pre">self.flux_matrix</span></code> contains a valid flux matrix for this
+iteration (including any contributions from recycling from the previous iteration), and
+<code class="docutils literal notranslate"><span class="pre">self.next_iter_segments</span></code> contains a list of segments ready for the next iteration,
+with appropriate values set for weight, endpoint type, parent walkers, and so on.</p>
+</dd></dl>
+
+</dd></dl>
+
 </div>
-<div class="section" id="westpa-core-wm-ops-module">
-<h2>westpa.core.wm_ops module<a class="headerlink" href="#westpa-core-wm-ops-module" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="module-westpa.core.wm_ops">
+<span id="westpa-core-wm-ops-module"></span><h2>westpa.core.wm_ops module<a class="headerlink" href="#module-westpa.core.wm_ops" title="Permalink to this headline">¶</a></h2>
+<dl class="py function">
+<dt id="westpa.core.wm_ops.get_pcoord">
+<code class="sig-prename descclassname">westpa.core.wm_ops.</code><code class="sig-name descname">get_pcoord</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">state</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.core.wm_ops.get_pcoord" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt id="westpa.core.wm_ops.gen_istate">
+<code class="sig-prename descclassname">westpa.core.wm_ops.</code><code class="sig-name descname">gen_istate</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">basis_state</span></em>, <em class="sig-param"><span class="n">initial_state</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.core.wm_ops.gen_istate" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt id="westpa.core.wm_ops.prep_iter">
+<code class="sig-prename descclassname">westpa.core.wm_ops.</code><code class="sig-name descname">prep_iter</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">n_iter</span></em>, <em class="sig-param"><span class="n">segments</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.core.wm_ops.prep_iter" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt id="westpa.core.wm_ops.post_iter">
+<code class="sig-prename descclassname">westpa.core.wm_ops.</code><code class="sig-name descname">post_iter</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">n_iter</span></em>, <em class="sig-param"><span class="n">segments</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.core.wm_ops.post_iter" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt id="westpa.core.wm_ops.propagate">
+<code class="sig-prename descclassname">westpa.core.wm_ops.</code><code class="sig-name descname">propagate</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">basis_states</span></em>, <em class="sig-param"><span class="n">initial_states</span></em>, <em class="sig-param"><span class="n">segments</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.core.wm_ops.propagate" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 </div>
-<div class="section" id="westpa-core-yamlcfg-module">
-<h2>westpa.core.yamlcfg module<a class="headerlink" href="#westpa-core-yamlcfg-module" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="module-westpa.core.yamlcfg">
+<span id="westpa-core-yamlcfg-module"></span><h2>westpa.core.yamlcfg module<a class="headerlink" href="#module-westpa.core.yamlcfg" title="Permalink to this headline">¶</a></h2>
+<p>YAML-based configuration files for WESTPA</p>
+<dl class="py exception">
+<dt id="westpa.core.yamlcfg.ConfigValueWarning">
+<em class="property">exception </em><code class="sig-prename descclassname">westpa.core.yamlcfg.</code><code class="sig-name descname">ConfigValueWarning</code><a class="headerlink" href="#westpa.core.yamlcfg.ConfigValueWarning" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">UserWarning</span></code></p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="westpa.core.yamlcfg.warn_dubious_config_entry">
+<code class="sig-prename descclassname">westpa.core.yamlcfg.</code><code class="sig-name descname">warn_dubious_config_entry</code><span class="sig-paren">(</span><em class="sig-param">entry</em>, <em class="sig-param">value</em>, <em class="sig-param">expected_type=None</em>, <em class="sig-param">category=&lt;class 'westpa.core.yamlcfg.ConfigValueWarning'&gt;</em>, <em class="sig-param">stacklevel=1</em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.core.yamlcfg.warn_dubious_config_entry" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt id="westpa.core.yamlcfg.check_bool">
+<code class="sig-prename descclassname">westpa.core.yamlcfg.</code><code class="sig-name descname">check_bool</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">value</span></em>, <em class="sig-param"><span class="n">action</span><span class="o">=</span><span class="default_value">'warn'</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.core.yamlcfg.check_bool" title="Permalink to this definition">¶</a></dt>
+<dd><p>Check that the given <code class="docutils literal notranslate"><span class="pre">value</span></code> is boolean in type. If not, either
+raise a warning (if <code class="docutils literal notranslate"><span class="pre">action=='warn'</span></code>) or an exception (<code class="docutils literal notranslate"><span class="pre">action=='raise'</span></code>).</p>
+</dd></dl>
+
+<dl class="py exception">
+<dt id="westpa.core.yamlcfg.ConfigItemMissing">
+<em class="property">exception </em><code class="sig-prename descclassname">westpa.core.yamlcfg.</code><code class="sig-name descname">ConfigItemMissing</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">key</span></em>, <em class="sig-param"><span class="n">message</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.core.yamlcfg.ConfigItemMissing" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">KeyError</span></code></p>
+</dd></dl>
+
+<dl class="py exception">
+<dt id="westpa.core.yamlcfg.ConfigItemTypeError">
+<em class="property">exception </em><code class="sig-prename descclassname">westpa.core.yamlcfg.</code><code class="sig-name descname">ConfigItemTypeError</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">key</span></em>, <em class="sig-param"><span class="n">expected_type</span></em>, <em class="sig-param"><span class="n">message</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.core.yamlcfg.ConfigItemTypeError" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">TypeError</span></code></p>
+</dd></dl>
+
+<dl class="py exception">
+<dt id="westpa.core.yamlcfg.ConfigValueError">
+<em class="property">exception </em><code class="sig-prename descclassname">westpa.core.yamlcfg.</code><code class="sig-name descname">ConfigValueError</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">key</span></em>, <em class="sig-param"><span class="n">value</span></em>, <em class="sig-param"><span class="n">message</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.core.yamlcfg.ConfigValueError" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">ValueError</span></code></p>
+</dd></dl>
+
+<dl class="py class">
+<dt id="westpa.core.yamlcfg.YAMLConfig">
+<em class="property">class </em><code class="sig-prename descclassname">westpa.core.yamlcfg.</code><code class="sig-name descname">YAMLConfig</code><a class="headerlink" href="#westpa.core.yamlcfg.YAMLConfig" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py attribute">
+<dt id="westpa.core.yamlcfg.YAMLConfig.preload_config_files">
+<code class="sig-name descname">preload_config_files</code><em class="property"> = ['/etc/westpa/westrc', '/Users/RainbowIslands/.westrc']</em><a class="headerlink" href="#westpa.core.yamlcfg.YAMLConfig.preload_config_files" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="westpa.core.yamlcfg.YAMLConfig.update_from_file">
+<code class="sig-name descname">update_from_file</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">file</span></em>, <em class="sig-param"><span class="n">required</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.core.yamlcfg.YAMLConfig.update_from_file" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="westpa.core.yamlcfg.YAMLConfig.require">
+<code class="sig-name descname">require</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">key</span></em>, <em class="sig-param"><span class="n">type_</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.core.yamlcfg.YAMLConfig.require" title="Permalink to this definition">¶</a></dt>
+<dd><p>Ensure that a configuration item with the given <code class="docutils literal notranslate"><span class="pre">key</span></code> is present. If
+the optional <code class="docutils literal notranslate"><span class="pre">type_</span></code> is given, additionally require that the item has that
+type.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="westpa.core.yamlcfg.YAMLConfig.require_type_if_present">
+<code class="sig-name descname">require_type_if_present</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">key</span></em>, <em class="sig-param"><span class="n">type_</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.core.yamlcfg.YAMLConfig.require_type_if_present" title="Permalink to this definition">¶</a></dt>
+<dd><p>Ensure that the configuration item with the given <code class="docutils literal notranslate"><span class="pre">key</span></code> has the
+given type.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="westpa.core.yamlcfg.YAMLConfig.coerce_type_if_present">
+<code class="sig-name descname">coerce_type_if_present</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">key</span></em>, <em class="sig-param"><span class="n">type_</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.core.yamlcfg.YAMLConfig.coerce_type_if_present" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="westpa.core.yamlcfg.YAMLConfig.get">
+<code class="sig-name descname">get</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">key</span></em>, <em class="sig-param"><span class="n">default</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.core.yamlcfg.YAMLConfig.get" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="westpa.core.yamlcfg.YAMLConfig.get_typed">
+<code class="sig-name descname">get_typed</code><span class="sig-paren">(</span><em class="sig-param">key</em>, <em class="sig-param">type_</em>, <em class="sig-param">default=&lt;object object&gt;</em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.core.yamlcfg.YAMLConfig.get_typed" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="westpa.core.yamlcfg.YAMLConfig.get_path">
+<code class="sig-name descname">get_path</code><span class="sig-paren">(</span><em class="sig-param">key</em>, <em class="sig-param">default=&lt;object object&gt;</em>, <em class="sig-param">expandvars=True</em>, <em class="sig-param">expanduser=True</em>, <em class="sig-param">realpath=True</em>, <em class="sig-param">abspath=True</em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.core.yamlcfg.YAMLConfig.get_path" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="westpa.core.yamlcfg.YAMLConfig.get_pathlist">
+<code class="sig-name descname">get_pathlist</code><span class="sig-paren">(</span><em class="sig-param">key</em>, <em class="sig-param">default=&lt;object object&gt;</em>, <em class="sig-param">sep=':'</em>, <em class="sig-param">expandvars=True</em>, <em class="sig-param">expanduser=True</em>, <em class="sig-param">realpath=True</em>, <em class="sig-param">abspath=True</em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.core.yamlcfg.YAMLConfig.get_pathlist" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="westpa.core.yamlcfg.YAMLConfig.get_python_object">
+<code class="sig-name descname">get_python_object</code><span class="sig-paren">(</span><em class="sig-param">key</em>, <em class="sig-param">default=&lt;object object&gt;</em>, <em class="sig-param">path=None</em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.core.yamlcfg.YAMLConfig.get_python_object" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="westpa.core.yamlcfg.YAMLConfig.get_choice">
+<code class="sig-name descname">get_choice</code><span class="sig-paren">(</span><em class="sig-param">key</em>, <em class="sig-param">choices</em>, <em class="sig-param">default=&lt;object object&gt;</em>, <em class="sig-param">value_transform=None</em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.core.yamlcfg.YAMLConfig.get_choice" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="westpa.core.yamlcfg.YAMLSystem">
+<em class="property">class </em><code class="sig-prename descclassname">westpa.core.yamlcfg.</code><code class="sig-name descname">YAMLSystem</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">rc</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.core.yamlcfg.YAMLSystem" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>A description of the system being simulated, including the dimensionality and
+data type of the progress coordinate, the number of progress coordinate entries
+expected from each segment, and binning. To construct a simulation, the user must
+subclass WESTSystem and set several instance variables.</p>
+<p>At a minimum, the user must subclass <code class="docutils literal notranslate"><span class="pre">WESTSystem</span></code> and override
+<a href="#id3"><span class="problematic" id="id4">:method:`initialize`</span></a> to set the data type and dimensionality of progress
+coordinate data and define a bin mapper.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Variables</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>pcoord_ndim</strong> – The number of dimensions in the progress coordinate.
+Defaults to 1 (i.e. a one-dimensional progress
+coordinate).</p></li>
+<li><p><strong>pcoord_dtype</strong> – The data type of the progress coordinate, which must be
+callable (e.g. <code class="docutils literal notranslate"><span class="pre">np.float32</span></code> and <code class="docutils literal notranslate"><span class="pre">long</span></code> will work,
+but <code class="docutils literal notranslate"><span class="pre">'&lt;f4'</span></code> and <code class="docutils literal notranslate"><span class="pre">'&lt;i8'</span></code> will not).  Defaults to
+<code class="docutils literal notranslate"><span class="pre">np.float64</span></code>.</p></li>
+<li><p><strong>pcoord_len</strong> – The length of the progress coordinate time series
+generated by each segment, including <em>both</em> the initial
+and final values.  Defaults to 2 (i.e. only the initial
+and final progress coordinate values for a segment are
+returned from propagation).</p></li>
+<li><p><strong>bin_mapper</strong> – A bin mapper describing the progress coordinate space.</p></li>
+<li><p><a class="reference internal" href="#westpa.core.yamlcfg.YAMLSystem.bin_target_counts" title="westpa.core.yamlcfg.YAMLSystem.bin_target_counts"><strong>bin_target_counts</strong></a> – A vector of target counts, one per bin.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt id="westpa.core.yamlcfg.YAMLSystem.bin_target_counts">
+<em class="property">property </em><code class="sig-name descname">bin_target_counts</code><a class="headerlink" href="#westpa.core.yamlcfg.YAMLSystem.bin_target_counts" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="westpa.core.yamlcfg.YAMLSystem.initialize">
+<code class="sig-name descname">initialize</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#westpa.core.yamlcfg.YAMLSystem.initialize" title="Permalink to this definition">¶</a></dt>
+<dd><p>Prepare this system object for use in simulation or analysis,
+creating a bin space, setting replicas per bin, and so on. This
+function is called whenever a WEST tool creates an instance of the
+system driver.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="westpa.core.yamlcfg.YAMLSystem.prepare_run">
+<code class="sig-name descname">prepare_run</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#westpa.core.yamlcfg.YAMLSystem.prepare_run" title="Permalink to this definition">¶</a></dt>
+<dd><p>Prepare this system for use in a simulation run. Called by w_run in
+all worker processes.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="westpa.core.yamlcfg.YAMLSystem.finalize_run">
+<code class="sig-name descname">finalize_run</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#westpa.core.yamlcfg.YAMLSystem.finalize_run" title="Permalink to this definition">¶</a></dt>
+<dd><p>A hook for system-specific processing for the end of a simulation run
+(as defined by such things as maximum wallclock time, rather than perhaps
+more scientifically-significant definitions of “the end of a simulation run”)</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="westpa.core.yamlcfg.YAMLSystem.new_pcoord_array">
+<code class="sig-name descname">new_pcoord_array</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">pcoord_len</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.core.yamlcfg.YAMLSystem.new_pcoord_array" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return an appropriately-sized and -typed pcoord array for a timepoint, segment,
+or number of segments. If <code class="docutils literal notranslate"><span class="pre">pcoord_len</span></code> is not specified (or None), then
+a length appropriate for a segment is returned.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="westpa.core.yamlcfg.YAMLSystem.new_region_set">
+<code class="sig-name descname">new_region_set</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#westpa.core.yamlcfg.YAMLSystem.new_region_set" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
 </div>
 <div class="section" id="module-westpa.core">
 <span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-westpa.core" title="Permalink to this headline">¶</a></h2>

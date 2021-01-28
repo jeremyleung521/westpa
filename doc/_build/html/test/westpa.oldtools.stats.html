@@ -108,7 +108,7 @@
 <li class="toctree-l4"><a class="reference internal" href="westpa.work_managers.html">westpa.work_managers package</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="westpa.html#module-contents">Module contents</a></li>
+<li class="toctree-l3"><a class="reference internal" href="westpa.html#module-westpa">Module contents</a></li>
 </ul>
 </li>
 </ul>
@@ -202,17 +202,149 @@
 <div class="section" id="submodules">
 <h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
 </div>
-<div class="section" id="westpa-oldtools-stats-accumulator-module">
-<h2>westpa.oldtools.stats.accumulator module<a class="headerlink" href="#westpa-oldtools-stats-accumulator-module" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="module-westpa.oldtools.stats.accumulator">
+<span id="westpa-oldtools-stats-accumulator-module"></span><h2>westpa.oldtools.stats.accumulator module<a class="headerlink" href="#module-westpa.oldtools.stats.accumulator" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt id="westpa.oldtools.stats.accumulator.RunningStatsAccumulator">
+<em class="property">class </em><code class="sig-prename descclassname">westpa.oldtools.stats.accumulator.</code><code class="sig-name descname">RunningStatsAccumulator</code><span class="sig-paren">(</span><em class="sig-param">shape</em>, <em class="sig-param">dtype=&lt;class 'numpy.float64'&gt;</em>, <em class="sig-param">count_dtype=&lt;class 'numpy.uint64'&gt;</em>, <em class="sig-param">weight_dtype=&lt;class 'numpy.float64'&gt;</em>, <em class="sig-param">mask_value=nan</em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.oldtools.stats.accumulator.RunningStatsAccumulator" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py method">
+<dt id="westpa.oldtools.stats.accumulator.RunningStatsAccumulator.incorporate">
+<code class="sig-name descname">incorporate</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">index</span></em>, <em class="sig-param"><span class="n">value</span></em>, <em class="sig-param"><span class="n">weight</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.oldtools.stats.accumulator.RunningStatsAccumulator.incorporate" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="westpa.oldtools.stats.accumulator.RunningStatsAccumulator.average">
+<code class="sig-name descname">average</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#westpa.oldtools.stats.accumulator.RunningStatsAccumulator.average" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="westpa.oldtools.stats.accumulator.RunningStatsAccumulator.mean">
+<code class="sig-name descname">mean</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#westpa.oldtools.stats.accumulator.RunningStatsAccumulator.mean" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="westpa.oldtools.stats.accumulator.RunningStatsAccumulator.std">
+<code class="sig-name descname">std</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#westpa.oldtools.stats.accumulator.RunningStatsAccumulator.std" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
 </div>
-<div class="section" id="westpa-oldtools-stats-edfs-module">
-<h2>westpa.oldtools.stats.edfs module<a class="headerlink" href="#westpa-oldtools-stats-edfs-module" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="module-westpa.oldtools.stats.edfs">
+<span id="westpa-oldtools-stats-edfs-module"></span><h2>westpa.oldtools.stats.edfs module<a class="headerlink" href="#module-westpa.oldtools.stats.edfs" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt id="westpa.oldtools.stats.edfs.EDF">
+<em class="property">class </em><code class="sig-prename descclassname">westpa.oldtools.stats.edfs.</code><code class="sig-name descname">EDF</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">values</span></em>, <em class="sig-param"><span class="n">weights</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.oldtools.stats.edfs.EDF" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>A class for creating and manipulating empirical distribution functions (cumulative
+distribution functions derived from sample data).</p>
+<p>Construct a new EDF from the given values and (optionally) weights.</p>
+<dl class="py method">
+<dt id="westpa.oldtools.stats.edfs.EDF.from_array">
+<em class="property">static </em><code class="sig-name descname">from_array</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">array</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.oldtools.stats.edfs.EDF.from_array" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="westpa.oldtools.stats.edfs.EDF.from_arrays">
+<em class="property">static </em><code class="sig-name descname">from_arrays</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">x</span></em>, <em class="sig-param"><span class="n">F</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.oldtools.stats.edfs.EDF.from_arrays" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="westpa.oldtools.stats.edfs.EDF.as_array">
+<code class="sig-name descname">as_array</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#westpa.oldtools.stats.edfs.EDF.as_array" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return this EDF as a (N,2) array, where N is the number of unique values passed to
+the constructor.  Numpy type casting rules are applied (so, for instance, integral abcissae
+are converted to floating-point values).</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="westpa.oldtools.stats.edfs.EDF.quantiles">
+<code class="sig-name descname">quantiles</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">p</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.oldtools.stats.edfs.EDF.quantiles" title="Permalink to this definition">¶</a></dt>
+<dd><p>Treating the EDF as a quantile function, return the values of the (statistical) variable whose
+probabilities are at least p.  That is, Q(p) = inf {x: p &lt;= F(x) }.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="westpa.oldtools.stats.edfs.EDF.quantile">
+<code class="sig-name descname">quantile</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">p</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.oldtools.stats.edfs.EDF.quantile" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="westpa.oldtools.stats.edfs.EDF.median">
+<code class="sig-name descname">median</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#westpa.oldtools.stats.edfs.EDF.median" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="westpa.oldtools.stats.edfs.EDF.moment">
+<code class="sig-name descname">moment</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">n</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.oldtools.stats.edfs.EDF.moment" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculate the nth moment of this probability distribution</p>
+<p>&lt;x^n&gt; = int_{-inf}^{inf} x^n dF(x)</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="westpa.oldtools.stats.edfs.EDF.cmoment">
+<code class="sig-name descname">cmoment</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">n</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.oldtools.stats.edfs.EDF.cmoment" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculate the nth central moment of this probability distribution</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="westpa.oldtools.stats.edfs.EDF.mean">
+<code class="sig-name descname">mean</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#westpa.oldtools.stats.edfs.EDF.mean" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="westpa.oldtools.stats.edfs.EDF.var">
+<code class="sig-name descname">var</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#westpa.oldtools.stats.edfs.EDF.var" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the second central moment of this probability distribution.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="westpa.oldtools.stats.edfs.EDF.std">
+<code class="sig-name descname">std</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#westpa.oldtools.stats.edfs.EDF.std" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the standard deviation (root of the variance) of this probability distribution.</p>
+</dd></dl>
+
+</dd></dl>
+
 </div>
-<div class="section" id="westpa-oldtools-stats-mcbs-module">
-<h2>westpa.oldtools.stats.mcbs module<a class="headerlink" href="#westpa-oldtools-stats-mcbs-module" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="module-westpa.oldtools.stats.mcbs">
+<span id="westpa-oldtools-stats-mcbs-module"></span><h2>westpa.oldtools.stats.mcbs module<a class="headerlink" href="#module-westpa.oldtools.stats.mcbs" title="Permalink to this headline">¶</a></h2>
+<p>Tools for Monte Carlo bootstrap error analysis</p>
+<dl class="py function">
+<dt id="westpa.oldtools.stats.mcbs.add_mcbs_options">
+<code class="sig-prename descclassname">westpa.oldtools.stats.mcbs.</code><code class="sig-name descname">add_mcbs_options</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">parser</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.oldtools.stats.mcbs.add_mcbs_options" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add arguments concerning Monte Carlo bootstrap (<code class="docutils literal notranslate"><span class="pre">confidence</span></code> and <code class="docutils literal notranslate"><span class="pre">bssize</span></code>) to the given parser</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="westpa.oldtools.stats.mcbs.get_bssize">
+<code class="sig-prename descclassname">westpa.oldtools.stats.mcbs.</code><code class="sig-name descname">get_bssize</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">alpha</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.oldtools.stats.mcbs.get_bssize" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a bootstrap data set size appropriate for the given confidence level</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="westpa.oldtools.stats.mcbs.bootstrap_ci">
+<code class="sig-prename descclassname">westpa.oldtools.stats.mcbs.</code><code class="sig-name descname">bootstrap_ci</code><span class="sig-paren">(</span><em class="sig-param">estimator</em>, <em class="sig-param">data</em>, <em class="sig-param">alpha</em>, <em class="sig-param">n_sets=None</em>, <em class="sig-param">args=()</em>, <em class="sig-param">kwargs={}</em>, <em class="sig-param">sort=&lt;function msort&gt;</em>, <em class="sig-param">extended_output=False</em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.oldtools.stats.mcbs.bootstrap_ci" title="Permalink to this definition">¶</a></dt>
+<dd><p>Perform a Monte Carlo bootstrap of a (1-alpha) confidence interval for the given <code class="docutils literal notranslate"><span class="pre">estimator</span></code>.
+Returns (fhat, ci_lower, ci_upper), where fhat is the result of <code class="docutils literal notranslate"><span class="pre">estimator(data,</span> <span class="pre">*args,</span> <span class="pre">**kwargs)</span></code>,
+and <code class="docutils literal notranslate"><span class="pre">ci_lower</span></code> and <code class="docutils literal notranslate"><span class="pre">ci_upper</span></code> are the lower and upper bounds of the surrounding confidence
+interval, calculated by calling <code class="docutils literal notranslate"><span class="pre">estimator(syndata,</span> <span class="pre">*args,</span> <span class="pre">**kwargs)</span></code> on each synthetic data
+set <code class="docutils literal notranslate"><span class="pre">syndata</span></code>.  If <code class="docutils literal notranslate"><span class="pre">n_sets</span></code> is provided, that is the number of synthetic data sets generated,
+otherwise an appropriate size is selected automatically (see <code class="docutils literal notranslate"><span class="pre">get_bssize()</span></code>).</p>
+<p><code class="docutils literal notranslate"><span class="pre">sort</span></code>, if given, is applied to sort the results of calling <code class="docutils literal notranslate"><span class="pre">estimator</span></code> on each
+synthetic data set prior to obtaining the confidence interval.</p>
+<p>Individual entries in synthetic data sets are selected by the first index of <code class="docutils literal notranslate"><span class="pre">data</span></code>, allowing this
+function to be used on arrays of multidimensional data.</p>
+<p>If <code class="docutils literal notranslate"><span class="pre">extended_output</span></code> is True (by default not), instead of returning (fhat, lb, ub), this function returns
+(fhat, lb, ub, ub-lb, abs((ub-lb)/fhat), and max(ub-fhat,fhat-lb)) (that is, the estimated value, the
+lower and upper bounds of the confidence interval, the width of the confidence interval, the relative
+width of the confidence interval, and the symmetrized error bar of the confidence interval).</p>
+</dd></dl>
+
 </div>
-<div class="section" id="module-contents">
-<h2>Module contents<a class="headerlink" href="#module-contents" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="module-westpa.oldtools.stats">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-westpa.oldtools.stats" title="Permalink to this headline">¶</a></h2>
 </div>
 </div>
 

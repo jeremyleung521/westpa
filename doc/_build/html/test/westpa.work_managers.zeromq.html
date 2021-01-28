@@ -108,7 +108,7 @@
 <li class="toctree-l4 current"><a class="reference internal" href="westpa.work_managers.html">westpa.work_managers package</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="westpa.html#module-contents">Module contents</a></li>
+<li class="toctree-l3"><a class="reference internal" href="westpa.html#module-westpa">Module contents</a></li>
 </ul>
 </li>
 </ul>
@@ -202,20 +202,1093 @@
 <div class="section" id="submodules">
 <h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
 </div>
-<div class="section" id="westpa-work-managers-zeromq-core-module">
-<h2>westpa.work_managers.zeromq.core module<a class="headerlink" href="#westpa-work-managers-zeromq-core-module" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="module-westpa.work_managers.zeromq.core">
+<span id="westpa-work-managers-zeromq-core-module"></span><h2>westpa.work_managers.zeromq.core module<a class="headerlink" href="#module-westpa.work_managers.zeromq.core" title="Permalink to this headline">¶</a></h2>
+<p>Created on May 29, 2015</p>
+<p>&#64;author: mzwier</p>
+<dl class="py function">
+<dt id="westpa.work_managers.zeromq.core.randport">
+<code class="sig-prename descclassname">westpa.work_managers.zeromq.core.</code><code class="sig-name descname">randport</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">address</span><span class="o">=</span><span class="default_value">'127.0.0.1'</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.work_managers.zeromq.core.randport" title="Permalink to this definition">¶</a></dt>
+<dd><p>Select a random unused TCP port number on the given address.</p>
+</dd></dl>
+
+<dl class="py exception">
+<dt id="westpa.work_managers.zeromq.core.ZMQWMError">
+<em class="property">exception </em><code class="sig-prename descclassname">westpa.work_managers.zeromq.core.</code><code class="sig-name descname">ZMQWMError</code><a class="headerlink" href="#westpa.work_managers.zeromq.core.ZMQWMError" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">RuntimeError</span></code></p>
+<p>Base class for errors related to the ZeroMQ work manager itself</p>
+</dd></dl>
+
+<dl class="py exception">
+<dt id="westpa.work_managers.zeromq.core.ZMQWorkerMissing">
+<em class="property">exception </em><code class="sig-prename descclassname">westpa.work_managers.zeromq.core.</code><code class="sig-name descname">ZMQWorkerMissing</code><a class="headerlink" href="#westpa.work_managers.zeromq.core.ZMQWorkerMissing" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#westpa.work_managers.zeromq.core.ZMQWMError" title="westpa.work_managers.zeromq.core.ZMQWMError"><code class="xref py py-class docutils literal notranslate"><span class="pre">westpa.work_managers.zeromq.core.ZMQWMError</span></code></a></p>
+<p>Exception representing that a worker processing a task died or disappeared</p>
+</dd></dl>
+
+<dl class="py exception">
+<dt id="westpa.work_managers.zeromq.core.ZMQWMEnvironmentError">
+<em class="property">exception </em><code class="sig-prename descclassname">westpa.work_managers.zeromq.core.</code><code class="sig-name descname">ZMQWMEnvironmentError</code><a class="headerlink" href="#westpa.work_managers.zeromq.core.ZMQWMEnvironmentError" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#westpa.work_managers.zeromq.core.ZMQWMError" title="westpa.work_managers.zeromq.core.ZMQWMError"><code class="xref py py-class docutils literal notranslate"><span class="pre">westpa.work_managers.zeromq.core.ZMQWMError</span></code></a></p>
+<p>Class representing an error in the environment in which the ZeroMQ work manager is running.
+This includes such things as master/worker ID mismatches.</p>
+</dd></dl>
+
+<dl class="py exception">
+<dt id="westpa.work_managers.zeromq.core.ZMQWMTimeout">
+<em class="property">exception </em><code class="sig-prename descclassname">westpa.work_managers.zeromq.core.</code><code class="sig-name descname">ZMQWMTimeout</code><a class="headerlink" href="#westpa.work_managers.zeromq.core.ZMQWMTimeout" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#westpa.work_managers.zeromq.core.ZMQWMEnvironmentError" title="westpa.work_managers.zeromq.core.ZMQWMEnvironmentError"><code class="xref py py-class docutils literal notranslate"><span class="pre">westpa.work_managers.zeromq.core.ZMQWMEnvironmentError</span></code></a></p>
+<p>A timeout of a sort that indicatess that a master or worker has failed or never started.</p>
+</dd></dl>
+
+<dl class="py class">
+<dt id="westpa.work_managers.zeromq.core.Message">
+<em class="property">class </em><code class="sig-prename descclassname">westpa.work_managers.zeromq.core.</code><code class="sig-name descname">Message</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">message</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">payload</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">master_id</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">src_id</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.work_managers.zeromq.core.Message" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py attribute">
+<dt id="westpa.work_managers.zeromq.core.Message.SHUTDOWN">
+<code class="sig-name descname">SHUTDOWN</code><em class="property"> = 'shutdown'</em><a class="headerlink" href="#westpa.work_managers.zeromq.core.Message.SHUTDOWN" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="westpa.work_managers.zeromq.core.Message.ACK">
+<code class="sig-name descname">ACK</code><em class="property"> = 'ok'</em><a class="headerlink" href="#westpa.work_managers.zeromq.core.Message.ACK" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="westpa.work_managers.zeromq.core.Message.NAK">
+<code class="sig-name descname">NAK</code><em class="property"> = 'no'</em><a class="headerlink" href="#westpa.work_managers.zeromq.core.Message.NAK" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="westpa.work_managers.zeromq.core.Message.IDENTIFY">
+<code class="sig-name descname">IDENTIFY</code><em class="property"> = 'identify'</em><a class="headerlink" href="#westpa.work_managers.zeromq.core.Message.IDENTIFY" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="westpa.work_managers.zeromq.core.Message.TASKS_AVAILABLE">
+<code class="sig-name descname">TASKS_AVAILABLE</code><em class="property"> = 'tasks_available'</em><a class="headerlink" href="#westpa.work_managers.zeromq.core.Message.TASKS_AVAILABLE" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="westpa.work_managers.zeromq.core.Message.TASK_REQUEST">
+<code class="sig-name descname">TASK_REQUEST</code><em class="property"> = 'task_request'</em><a class="headerlink" href="#westpa.work_managers.zeromq.core.Message.TASK_REQUEST" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="westpa.work_managers.zeromq.core.Message.MASTER_BEACON">
+<code class="sig-name descname">MASTER_BEACON</code><em class="property"> = 'master_alive'</em><a class="headerlink" href="#westpa.work_managers.zeromq.core.Message.MASTER_BEACON" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="westpa.work_managers.zeromq.core.Message.RECONFIGURE_TIMEOUT">
+<code class="sig-name descname">RECONFIGURE_TIMEOUT</code><em class="property"> = 'reconfigure_timeout'</em><a class="headerlink" href="#westpa.work_managers.zeromq.core.Message.RECONFIGURE_TIMEOUT" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="westpa.work_managers.zeromq.core.Message.TASK">
+<code class="sig-name descname">TASK</code><em class="property"> = 'task'</em><a class="headerlink" href="#westpa.work_managers.zeromq.core.Message.TASK" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="westpa.work_managers.zeromq.core.Message.RESULT">
+<code class="sig-name descname">RESULT</code><em class="property"> = 'result'</em><a class="headerlink" href="#westpa.work_managers.zeromq.core.Message.RESULT" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="westpa.work_managers.zeromq.core.Message.idempotent_announcement_messages">
+<code class="sig-name descname">idempotent_announcement_messages</code><em class="property"> = {'master_alive', 'shutdown', 'tasks_available'}</em><a class="headerlink" href="#westpa.work_managers.zeromq.core.Message.idempotent_announcement_messages" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="westpa.work_managers.zeromq.core.Message.coalesce_announcements">
+<em class="property">classmethod </em><code class="sig-name descname">coalesce_announcements</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">messages</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.work_managers.zeromq.core.Message.coalesce_announcements" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="westpa.work_managers.zeromq.core.Task">
+<em class="property">class </em><code class="sig-prename descclassname">westpa.work_managers.zeromq.core.</code><code class="sig-name descname">Task</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">fn</span></em>, <em class="sig-param"><span class="n">args</span></em>, <em class="sig-param"><span class="n">kwargs</span></em>, <em class="sig-param"><span class="n">task_id</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.work_managers.zeromq.core.Task" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py method">
+<dt id="westpa.work_managers.zeromq.core.Task.execute">
+<code class="sig-name descname">execute</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#westpa.work_managers.zeromq.core.Task.execute" title="Permalink to this definition">¶</a></dt>
+<dd><p>Run this task, returning a Result object.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="westpa.work_managers.zeromq.core.Result">
+<em class="property">class </em><code class="sig-prename descclassname">westpa.work_managers.zeromq.core.</code><code class="sig-name descname">Result</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">task_id</span></em>, <em class="sig-param"><span class="n">result</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">exception</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">traceback</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.work_managers.zeromq.core.Result" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+</dd></dl>
+
+<dl class="py class">
+<dt id="westpa.work_managers.zeromq.core.PassiveTimer">
+<em class="property">class </em><code class="sig-prename descclassname">westpa.work_managers.zeromq.core.</code><code class="sig-name descname">PassiveTimer</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">duration</span></em>, <em class="sig-param"><span class="n">started</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.work_managers.zeromq.core.PassiveTimer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py attribute">
+<dt id="westpa.work_managers.zeromq.core.PassiveTimer.started">
+<code class="sig-name descname">started</code><a class="headerlink" href="#westpa.work_managers.zeromq.core.PassiveTimer.started" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="westpa.work_managers.zeromq.core.PassiveTimer.duration">
+<code class="sig-name descname">duration</code><a class="headerlink" href="#westpa.work_managers.zeromq.core.PassiveTimer.duration" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="westpa.work_managers.zeromq.core.PassiveTimer.expired">
+<em class="property">property </em><code class="sig-name descname">expired</code><a class="headerlink" href="#westpa.work_managers.zeromq.core.PassiveTimer.expired" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="westpa.work_managers.zeromq.core.PassiveTimer.expires_in">
+<em class="property">property </em><code class="sig-name descname">expires_in</code><a class="headerlink" href="#westpa.work_managers.zeromq.core.PassiveTimer.expires_in" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="westpa.work_managers.zeromq.core.PassiveTimer.reset">
+<code class="sig-name descname">reset</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">at</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.work_managers.zeromq.core.PassiveTimer.reset" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="westpa.work_managers.zeromq.core.PassiveTimer.start">
+<code class="sig-name descname">start</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">at</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.work_managers.zeromq.core.PassiveTimer.start" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="westpa.work_managers.zeromq.core.PassiveMultiTimer">
+<em class="property">class </em><code class="sig-prename descclassname">westpa.work_managers.zeromq.core.</code><code class="sig-name descname">PassiveMultiTimer</code><a class="headerlink" href="#westpa.work_managers.zeromq.core.PassiveMultiTimer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py method">
+<dt id="westpa.work_managers.zeromq.core.PassiveMultiTimer.add_timer">
+<code class="sig-name descname">add_timer</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">identifier</span></em>, <em class="sig-param"><span class="n">duration</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.work_managers.zeromq.core.PassiveMultiTimer.add_timer" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="westpa.work_managers.zeromq.core.PassiveMultiTimer.remove_timer">
+<code class="sig-name descname">remove_timer</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">identifier</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.work_managers.zeromq.core.PassiveMultiTimer.remove_timer" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="westpa.work_managers.zeromq.core.PassiveMultiTimer.change_duration">
+<code class="sig-name descname">change_duration</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">identifier</span></em>, <em class="sig-param"><span class="n">duration</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.work_managers.zeromq.core.PassiveMultiTimer.change_duration" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="westpa.work_managers.zeromq.core.PassiveMultiTimer.reset">
+<code class="sig-name descname">reset</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">identifier</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">at</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.work_managers.zeromq.core.PassiveMultiTimer.reset" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="westpa.work_managers.zeromq.core.PassiveMultiTimer.expired">
+<code class="sig-name descname">expired</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">identifier</span></em>, <em class="sig-param"><span class="n">at</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.work_managers.zeromq.core.PassiveMultiTimer.expired" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="westpa.work_managers.zeromq.core.PassiveMultiTimer.next_expiration">
+<code class="sig-name descname">next_expiration</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#westpa.work_managers.zeromq.core.PassiveMultiTimer.next_expiration" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="westpa.work_managers.zeromq.core.PassiveMultiTimer.next_expiration_in">
+<code class="sig-name descname">next_expiration_in</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#westpa.work_managers.zeromq.core.PassiveMultiTimer.next_expiration_in" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="westpa.work_managers.zeromq.core.PassiveMultiTimer.which_expired">
+<code class="sig-name descname">which_expired</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">at</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.work_managers.zeromq.core.PassiveMultiTimer.which_expired" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="westpa.work_managers.zeromq.core.ZMQCore">
+<em class="property">class </em><code class="sig-prename descclassname">westpa.work_managers.zeromq.core.</code><code class="sig-name descname">ZMQCore</code><a class="headerlink" href="#westpa.work_managers.zeromq.core.ZMQCore" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py attribute">
+<dt id="westpa.work_managers.zeromq.core.ZMQCore.PROTOCOL_MAJOR">
+<code class="sig-name descname">PROTOCOL_MAJOR</code><em class="property"> = 3</em><a class="headerlink" href="#westpa.work_managers.zeromq.core.ZMQCore.PROTOCOL_MAJOR" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="westpa.work_managers.zeromq.core.ZMQCore.PROTOCOL_MINOR">
+<code class="sig-name descname">PROTOCOL_MINOR</code><em class="property"> = 0</em><a class="headerlink" href="#westpa.work_managers.zeromq.core.ZMQCore.PROTOCOL_MINOR" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="westpa.work_managers.zeromq.core.ZMQCore.PROTOCOL_UPDATE">
+<code class="sig-name descname">PROTOCOL_UPDATE</code><em class="property"> = 0</em><a class="headerlink" href="#westpa.work_managers.zeromq.core.ZMQCore.PROTOCOL_UPDATE" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="westpa.work_managers.zeromq.core.ZMQCore.PROTOCOL_VERSION">
+<code class="sig-name descname">PROTOCOL_VERSION</code><em class="property"> = (3, 0, 0)</em><a class="headerlink" href="#westpa.work_managers.zeromq.core.ZMQCore.PROTOCOL_VERSION" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="westpa.work_managers.zeromq.core.ZMQCore.internal_transport">
+<code class="sig-name descname">internal_transport</code><em class="property"> = 'ipc'</em><a class="headerlink" href="#westpa.work_managers.zeromq.core.ZMQCore.internal_transport" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="westpa.work_managers.zeromq.core.ZMQCore.default_comm_mode">
+<code class="sig-name descname">default_comm_mode</code><em class="property"> = 'ipc'</em><a class="headerlink" href="#westpa.work_managers.zeromq.core.ZMQCore.default_comm_mode" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="westpa.work_managers.zeromq.core.ZMQCore.default_master_heartbeat">
+<code class="sig-name descname">default_master_heartbeat</code><em class="property"> = 20.0</em><a class="headerlink" href="#westpa.work_managers.zeromq.core.ZMQCore.default_master_heartbeat" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="westpa.work_managers.zeromq.core.ZMQCore.default_worker_heartbeat">
+<code class="sig-name descname">default_worker_heartbeat</code><em class="property"> = 20.0</em><a class="headerlink" href="#westpa.work_managers.zeromq.core.ZMQCore.default_worker_heartbeat" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="westpa.work_managers.zeromq.core.ZMQCore.default_timeout_factor">
+<code class="sig-name descname">default_timeout_factor</code><em class="property"> = 5.0</em><a class="headerlink" href="#westpa.work_managers.zeromq.core.ZMQCore.default_timeout_factor" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="westpa.work_managers.zeromq.core.ZMQCore.default_startup_timeout">
+<code class="sig-name descname">default_startup_timeout</code><em class="property"> = 120.0</em><a class="headerlink" href="#westpa.work_managers.zeromq.core.ZMQCore.default_startup_timeout" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="westpa.work_managers.zeromq.core.ZMQCore.default_shutdown_timeout">
+<code class="sig-name descname">default_shutdown_timeout</code><em class="property"> = 5.0</em><a class="headerlink" href="#westpa.work_managers.zeromq.core.ZMQCore.default_shutdown_timeout" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="westpa.work_managers.zeromq.core.ZMQCore.make_ipc_endpoint">
+<em class="property">classmethod </em><code class="sig-name descname">make_ipc_endpoint</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#westpa.work_managers.zeromq.core.ZMQCore.make_ipc_endpoint" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="westpa.work_managers.zeromq.core.ZMQCore.remove_ipc_endpoints">
+<em class="property">classmethod </em><code class="sig-name descname">remove_ipc_endpoints</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#westpa.work_managers.zeromq.core.ZMQCore.remove_ipc_endpoints" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="westpa.work_managers.zeromq.core.ZMQCore.make_tcp_endpoint">
+<em class="property">classmethod </em><code class="sig-name descname">make_tcp_endpoint</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">address</span><span class="o">=</span><span class="default_value">'127.0.0.1'</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.work_managers.zeromq.core.ZMQCore.make_tcp_endpoint" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="westpa.work_managers.zeromq.core.ZMQCore.make_internal_endpoint">
+<em class="property">classmethod </em><code class="sig-name descname">make_internal_endpoint</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#westpa.work_managers.zeromq.core.ZMQCore.make_internal_endpoint" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="westpa.work_managers.zeromq.core.ZMQCore.get_identification">
+<code class="sig-name descname">get_identification</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#westpa.work_managers.zeromq.core.ZMQCore.get_identification" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="westpa.work_managers.zeromq.core.ZMQCore.validate_message">
+<code class="sig-name descname">validate_message</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">message</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.work_managers.zeromq.core.ZMQCore.validate_message" title="Permalink to this definition">¶</a></dt>
+<dd><p>Validate incoming message. Raises an exception if the message is improperly formatted (TypeError)
+or does not correspond to the appropriate master (ZMQWMEnvironmentError).</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="westpa.work_managers.zeromq.core.ZMQCore.message_validation">
+<code class="sig-name descname">message_validation</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">msg</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.work_managers.zeromq.core.ZMQCore.message_validation" title="Permalink to this definition">¶</a></dt>
+<dd><p>A context manager for message validation. The instance variable <code class="docutils literal notranslate"><span class="pre">validation_fail_action</span></code>
+controls the behavior of this context manager:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>‘raise’: re-raise the exception that indicated failed validation. Useful for development.</p></li>
+<li><p>‘exit’ (default): report the error and exit the program.</p></li>
+<li><p>‘warn’: report the error and continue.</p></li>
+</ul>
+</div></blockquote>
+</dd></dl>
+
+<dl class="py method">
+<dt id="westpa.work_managers.zeromq.core.ZMQCore.recv_message">
+<code class="sig-name descname">recv_message</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">socket</span></em>, <em class="sig-param"><span class="n">flags</span><span class="o">=</span><span class="default_value">0</span></em>, <em class="sig-param"><span class="n">validate</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">timeout</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.work_managers.zeromq.core.ZMQCore.recv_message" title="Permalink to this definition">¶</a></dt>
+<dd><p>Receive a message object from the given socket, using the given flags.
+Message validation is performed if <code class="docutils literal notranslate"><span class="pre">validate</span></code> is true.
+If <code class="docutils literal notranslate"><span class="pre">timeout</span></code> is given, then it is the number of milliseconds to wait
+prior to raising a ZMQWMTimeout exception. <code class="docutils literal notranslate"><span class="pre">timeout</span></code> is ignored if
+<code class="docutils literal notranslate"><span class="pre">flags</span></code> includes <code class="docutils literal notranslate"><span class="pre">zmq.NOBLOCK</span></code>.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="westpa.work_managers.zeromq.core.ZMQCore.recv_all">
+<code class="sig-name descname">recv_all</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">socket</span></em>, <em class="sig-param"><span class="n">flags</span><span class="o">=</span><span class="default_value">0</span></em>, <em class="sig-param"><span class="n">validate</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.work_managers.zeromq.core.ZMQCore.recv_all" title="Permalink to this definition">¶</a></dt>
+<dd><p>Receive all messages currently available from the given socket.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="westpa.work_managers.zeromq.core.ZMQCore.recv_ack">
+<code class="sig-name descname">recv_ack</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">socket</span></em>, <em class="sig-param"><span class="n">flags</span><span class="o">=</span><span class="default_value">0</span></em>, <em class="sig-param"><span class="n">validate</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">timeout</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.work_managers.zeromq.core.ZMQCore.recv_ack" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="westpa.work_managers.zeromq.core.ZMQCore.send_message">
+<code class="sig-name descname">send_message</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">socket</span></em>, <em class="sig-param"><span class="n">message</span></em>, <em class="sig-param"><span class="n">payload</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">flags</span><span class="o">=</span><span class="default_value">0</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.work_managers.zeromq.core.ZMQCore.send_message" title="Permalink to this definition">¶</a></dt>
+<dd><p>Send a message object. Subclasses may override this to
+decorate the message with appropriate IDs, then delegate upward to actually send
+the message. <code class="docutils literal notranslate"><span class="pre">message</span></code> may either be a pre-constructed <code class="docutils literal notranslate"><span class="pre">Message</span></code> object or
+a message identifier, in which (latter) case <code class="docutils literal notranslate"><span class="pre">payload</span></code> will become the message payload.
+<code class="docutils literal notranslate"><span class="pre">payload</span></code> is ignored if <code class="docutils literal notranslate"><span class="pre">message</span></code> is a <code class="docutils literal notranslate"><span class="pre">Message</span></code> object.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="westpa.work_managers.zeromq.core.ZMQCore.send_reply">
+<code class="sig-name descname">send_reply</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">socket</span></em>, <em class="sig-param"><span class="n">original_message</span></em>, <em class="sig-param"><span class="n">reply</span><span class="o">=</span><span class="default_value">'ok'</span></em>, <em class="sig-param"><span class="n">payload</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">flags</span><span class="o">=</span><span class="default_value">0</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.work_managers.zeromq.core.ZMQCore.send_reply" title="Permalink to this definition">¶</a></dt>
+<dd><p>Send a reply to <code class="docutils literal notranslate"><span class="pre">original_message</span></code> on <code class="docutils literal notranslate"><span class="pre">socket</span></code>. The reply message
+is a Message object or a message identifier. The reply master_id and worker_id are
+set from <code class="docutils literal notranslate"><span class="pre">original_message</span></code>, unless master_id is not set, in which case it is
+set from self.master_id.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="westpa.work_managers.zeromq.core.ZMQCore.send_ack">
+<code class="sig-name descname">send_ack</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">socket</span></em>, <em class="sig-param"><span class="n">original_message</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.work_managers.zeromq.core.ZMQCore.send_ack" title="Permalink to this definition">¶</a></dt>
+<dd><p>Send an acknowledgement message, which is mostly just to respect REQ/REP
+recv/send patterns.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="westpa.work_managers.zeromq.core.ZMQCore.send_nak">
+<code class="sig-name descname">send_nak</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">socket</span></em>, <em class="sig-param"><span class="n">original_message</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.work_managers.zeromq.core.ZMQCore.send_nak" title="Permalink to this definition">¶</a></dt>
+<dd><p>Send a negative acknowledgement message.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="westpa.work_managers.zeromq.core.ZMQCore.send_inproc_message">
+<code class="sig-name descname">send_inproc_message</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">message</span></em>, <em class="sig-param"><span class="n">payload</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">flags</span><span class="o">=</span><span class="default_value">0</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.work_managers.zeromq.core.ZMQCore.send_inproc_message" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="westpa.work_managers.zeromq.core.ZMQCore.signal_shutdown">
+<code class="sig-name descname">signal_shutdown</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#westpa.work_managers.zeromq.core.ZMQCore.signal_shutdown" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="westpa.work_managers.zeromq.core.ZMQCore.shutdown_handler">
+<code class="sig-name descname">shutdown_handler</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">signal</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">frame</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.work_managers.zeromq.core.ZMQCore.shutdown_handler" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="westpa.work_managers.zeromq.core.ZMQCore.install_signal_handlers">
+<code class="sig-name descname">install_signal_handlers</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">signals</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.work_managers.zeromq.core.ZMQCore.install_signal_handlers" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="westpa.work_managers.zeromq.core.ZMQCore.install_sigint_handler">
+<code class="sig-name descname">install_sigint_handler</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#westpa.work_managers.zeromq.core.ZMQCore.install_sigint_handler" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="westpa.work_managers.zeromq.core.ZMQCore.startup">
+<code class="sig-name descname">startup</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#westpa.work_managers.zeromq.core.ZMQCore.startup" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="westpa.work_managers.zeromq.core.ZMQCore.shutdown">
+<code class="sig-name descname">shutdown</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#westpa.work_managers.zeromq.core.ZMQCore.shutdown" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="westpa.work_managers.zeromq.core.ZMQCore.join">
+<code class="sig-name descname">join</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#westpa.work_managers.zeromq.core.ZMQCore.join" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt id="westpa.work_managers.zeromq.core.shutdown_process">
+<code class="sig-prename descclassname">westpa.work_managers.zeromq.core.</code><code class="sig-name descname">shutdown_process</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">process</span></em>, <em class="sig-param"><span class="n">timeout</span><span class="o">=</span><span class="default_value">1.0</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.work_managers.zeromq.core.shutdown_process" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py class">
+<dt id="westpa.work_managers.zeromq.core.IsNode">
+<em class="property">class </em><code class="sig-prename descclassname">westpa.work_managers.zeromq.core.</code><code class="sig-name descname">IsNode</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">n_local_workers</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.work_managers.zeromq.core.IsNode" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py method">
+<dt id="westpa.work_managers.zeromq.core.IsNode.write_host_info">
+<code class="sig-name descname">write_host_info</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">filename</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.work_managers.zeromq.core.IsNode.write_host_info" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="westpa.work_managers.zeromq.core.IsNode.startup">
+<code class="sig-name descname">startup</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#westpa.work_managers.zeromq.core.IsNode.startup" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="westpa.work_managers.zeromq.core.IsNode.shutdown">
+<code class="sig-name descname">shutdown</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#westpa.work_managers.zeromq.core.IsNode.shutdown" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
 </div>
-<div class="section" id="westpa-work-managers-zeromq-node-module">
-<h2>westpa.work_managers.zeromq.node module<a class="headerlink" href="#westpa-work-managers-zeromq-node-module" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="module-westpa.work_managers.zeromq.node">
+<span id="westpa-work-managers-zeromq-node-module"></span><h2>westpa.work_managers.zeromq.node module<a class="headerlink" href="#module-westpa.work_managers.zeromq.node" title="Permalink to this headline">¶</a></h2>
+<p>Created on Jun 11, 2015</p>
+<p>&#64;author: mzwier</p>
+<dl class="py class">
+<dt id="westpa.work_managers.zeromq.node.ZMQNode">
+<em class="property">class </em><code class="sig-prename descclassname">westpa.work_managers.zeromq.node.</code><code class="sig-name descname">ZMQNode</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">upstream_rr_endpoint</span></em>, <em class="sig-param"><span class="n">upstream_ann_endpoint</span></em>, <em class="sig-param"><span class="n">n_local_workers</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.work_managers.zeromq.node.ZMQNode" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#westpa.work_managers.zeromq.core.ZMQCore" title="westpa.work_managers.zeromq.core.ZMQCore"><code class="xref py py-class docutils literal notranslate"><span class="pre">westpa.work_managers.zeromq.core.ZMQCore</span></code></a>, <a class="reference internal" href="#westpa.work_managers.zeromq.core.IsNode" title="westpa.work_managers.zeromq.core.IsNode"><code class="xref py py-class docutils literal notranslate"><span class="pre">westpa.work_managers.zeromq.core.IsNode</span></code></a></p>
+<dl class="py method">
+<dt id="westpa.work_managers.zeromq.node.ZMQNode.run">
+<code class="sig-name descname">run</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#westpa.work_managers.zeromq.node.ZMQNode.run" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="westpa.work_managers.zeromq.node.ZMQNode.is_master">
+<em class="property">property </em><code class="sig-name descname">is_master</code><a class="headerlink" href="#westpa.work_managers.zeromq.node.ZMQNode.is_master" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="westpa.work_managers.zeromq.node.ZMQNode.comm_loop">
+<code class="sig-name descname">comm_loop</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#westpa.work_managers.zeromq.node.ZMQNode.comm_loop" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="westpa.work_managers.zeromq.node.ZMQNode.startup">
+<code class="sig-name descname">startup</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#westpa.work_managers.zeromq.node.ZMQNode.startup" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
 </div>
-<div class="section" id="westpa-work-managers-zeromq-work-manager-module">
-<h2>westpa.work_managers.zeromq.work_manager module<a class="headerlink" href="#westpa-work-managers-zeromq-work-manager-module" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="module-westpa.work_managers.zeromq.work_manager">
+<span id="westpa-work-managers-zeromq-work-manager-module"></span><h2>westpa.work_managers.zeromq.work_manager module<a class="headerlink" href="#module-westpa.work_managers.zeromq.work_manager" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt id="westpa.work_managers.zeromq.work_manager.ZMQWorkManager">
+<em class="property">class </em><code class="sig-prename descclassname">westpa.work_managers.zeromq.work_manager.</code><code class="sig-name descname">ZMQWorkManager</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">n_local_workers</span><span class="o">=</span><span class="default_value">1</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.work_managers.zeromq.work_manager.ZMQWorkManager" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#westpa.work_managers.zeromq.core.ZMQCore" title="westpa.work_managers.zeromq.core.ZMQCore"><code class="xref py py-class docutils literal notranslate"><span class="pre">westpa.work_managers.zeromq.core.ZMQCore</span></code></a>, <a class="reference internal" href="westpa.work_managers.html#westpa.work_managers.core.WorkManager" title="westpa.work_managers.core.WorkManager"><code class="xref py py-class docutils literal notranslate"><span class="pre">westpa.work_managers.core.WorkManager</span></code></a>, <a class="reference internal" href="#westpa.work_managers.zeromq.core.IsNode" title="westpa.work_managers.zeromq.core.IsNode"><code class="xref py py-class docutils literal notranslate"><span class="pre">westpa.work_managers.zeromq.core.IsNode</span></code></a></p>
+<dl class="py method">
+<dt id="westpa.work_managers.zeromq.work_manager.ZMQWorkManager.add_wm_args">
+<em class="property">classmethod </em><code class="sig-name descname">add_wm_args</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">parser</span></em>, <em class="sig-param"><span class="n">wmenv</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.work_managers.zeromq.work_manager.ZMQWorkManager.add_wm_args" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="westpa.work_managers.zeromq.work_manager.ZMQWorkManager.from_environ">
+<em class="property">classmethod </em><code class="sig-name descname">from_environ</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">wmenv</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.work_managers.zeromq.work_manager.ZMQWorkManager.from_environ" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="westpa.work_managers.zeromq.work_manager.ZMQWorkManager.read_host_info">
+<em class="property">classmethod </em><code class="sig-name descname">read_host_info</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">filename</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.work_managers.zeromq.work_manager.ZMQWorkManager.read_host_info" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="westpa.work_managers.zeromq.work_manager.ZMQWorkManager.canonicalize_endpoint">
+<em class="property">classmethod </em><code class="sig-name descname">canonicalize_endpoint</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">endpoint</span></em>, <em class="sig-param"><span class="n">allow_wildcard_host</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.work_managers.zeromq.work_manager.ZMQWorkManager.canonicalize_endpoint" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="westpa.work_managers.zeromq.work_manager.ZMQWorkManager.n_workers">
+<em class="property">property </em><code class="sig-name descname">n_workers</code><a class="headerlink" href="#westpa.work_managers.zeromq.work_manager.ZMQWorkManager.n_workers" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="westpa.work_managers.zeromq.work_manager.ZMQWorkManager.submit">
+<code class="sig-name descname">submit</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">fn</span></em>, <em class="sig-param"><span class="n">args</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">kwargs</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.work_managers.zeromq.work_manager.ZMQWorkManager.submit" title="Permalink to this definition">¶</a></dt>
+<dd><p>Submit a task to the work manager, returning a <cite>WMFuture</cite> object representing the pending
+result. <code class="docutils literal notranslate"><span class="pre">fn(*args,**kwargs)</span></code> will be executed by a worker, and the return value assigned as the
+result of the returned future.  The function <code class="docutils literal notranslate"><span class="pre">fn</span></code> and all arguments must be picklable; note
+particularly that off-path modules (like the system module and any active plugins) are not
+picklable unless pre-loaded in the worker process (i.e. prior to forking the master).</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="westpa.work_managers.zeromq.work_manager.ZMQWorkManager.submit_many">
+<code class="sig-name descname">submit_many</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">tasks</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.work_managers.zeromq.work_manager.ZMQWorkManager.submit_many" title="Permalink to this definition">¶</a></dt>
+<dd><p>Submit a set of tasks to the work manager, returning a list of <cite>WMFuture</cite> objects representing
+pending results. Each entry in <code class="docutils literal notranslate"><span class="pre">tasks</span></code> should be a triple (fn, args, kwargs), which will result in
+fn(<a href="#id1"><span class="problematic" id="id2">*</span></a>args, <a href="#id3"><span class="problematic" id="id4">**</span></a>kwargs) being executed by a worker. The function <code class="docutils literal notranslate"><span class="pre">fn</span></code> and all arguments must be
+picklable; note particularly that off-path modules are not picklable unless pre-loaded in the worker
+process.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="westpa.work_managers.zeromq.work_manager.ZMQWorkManager.send_message">
+<code class="sig-name descname">send_message</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">socket</span></em>, <em class="sig-param"><span class="n">message</span></em>, <em class="sig-param"><span class="n">payload</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">flags</span><span class="o">=</span><span class="default_value">0</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.work_managers.zeromq.work_manager.ZMQWorkManager.send_message" title="Permalink to this definition">¶</a></dt>
+<dd><p>Send a message object. Subclasses may override this to
+decorate the message with appropriate IDs, then delegate upward to actually send
+the message. <code class="docutils literal notranslate"><span class="pre">message</span></code> may either be a pre-constructed <code class="docutils literal notranslate"><span class="pre">Message</span></code> object or
+a message identifier, in which (latter) case <code class="docutils literal notranslate"><span class="pre">payload</span></code> will become the message payload.
+<code class="docutils literal notranslate"><span class="pre">payload</span></code> is ignored if <code class="docutils literal notranslate"><span class="pre">message</span></code> is a <code class="docutils literal notranslate"><span class="pre">Message</span></code> object.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="westpa.work_managers.zeromq.work_manager.ZMQWorkManager.handle_result">
+<code class="sig-name descname">handle_result</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">socket</span></em>, <em class="sig-param"><span class="n">msg</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.work_managers.zeromq.work_manager.ZMQWorkManager.handle_result" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="westpa.work_managers.zeromq.work_manager.ZMQWorkManager.handle_task_request">
+<code class="sig-name descname">handle_task_request</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">socket</span></em>, <em class="sig-param"><span class="n">msg</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.work_managers.zeromq.work_manager.ZMQWorkManager.handle_task_request" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="westpa.work_managers.zeromq.work_manager.ZMQWorkManager.update_worker_information">
+<code class="sig-name descname">update_worker_information</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">msg</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.work_managers.zeromq.work_manager.ZMQWorkManager.update_worker_information" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="westpa.work_managers.zeromq.work_manager.ZMQWorkManager.check_workers">
+<code class="sig-name descname">check_workers</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#westpa.work_managers.zeromq.work_manager.ZMQWorkManager.check_workers" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="westpa.work_managers.zeromq.work_manager.ZMQWorkManager.remove_worker">
+<code class="sig-name descname">remove_worker</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">worker_id</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.work_managers.zeromq.work_manager.ZMQWorkManager.remove_worker" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="westpa.work_managers.zeromq.work_manager.ZMQWorkManager.shutdown_clear_tasks">
+<code class="sig-name descname">shutdown_clear_tasks</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#westpa.work_managers.zeromq.work_manager.ZMQWorkManager.shutdown_clear_tasks" title="Permalink to this definition">¶</a></dt>
+<dd><p>Abort pending tasks with error on shutdown.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="westpa.work_managers.zeromq.work_manager.ZMQWorkManager.comm_loop">
+<code class="sig-name descname">comm_loop</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#westpa.work_managers.zeromq.work_manager.ZMQWorkManager.comm_loop" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="westpa.work_managers.zeromq.work_manager.ZMQWorkManager.startup">
+<code class="sig-name descname">startup</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#westpa.work_managers.zeromq.work_manager.ZMQWorkManager.startup" title="Permalink to this definition">¶</a></dt>
+<dd><p>Perform any necessary startup work, such as spawning clients.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="westpa.work_managers.zeromq.work_manager.ZMQWorkManager.shutdown">
+<code class="sig-name descname">shutdown</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#westpa.work_managers.zeromq.work_manager.ZMQWorkManager.shutdown" title="Permalink to this definition">¶</a></dt>
+<dd><p>Cleanly shut down any active workers.</p>
+</dd></dl>
+
+</dd></dl>
+
 </div>
-<div class="section" id="westpa-work-managers-zeromq-worker-module">
-<h2>westpa.work_managers.zeromq.worker module<a class="headerlink" href="#westpa-work-managers-zeromq-worker-module" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="module-westpa.work_managers.zeromq.worker">
+<span id="westpa-work-managers-zeromq-worker-module"></span><h2>westpa.work_managers.zeromq.worker module<a class="headerlink" href="#module-westpa.work_managers.zeromq.worker" title="Permalink to this headline">¶</a></h2>
+<p>Created on May 29, 2015</p>
+<p>&#64;author: mzwier</p>
+<dl class="py class">
+<dt id="westpa.work_managers.zeromq.worker.ZMQWorker">
+<em class="property">class </em><code class="sig-prename descclassname">westpa.work_managers.zeromq.worker.</code><code class="sig-name descname">ZMQWorker</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">rr_endpoint</span></em>, <em class="sig-param"><span class="n">ann_endpoint</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.work_managers.zeromq.worker.ZMQWorker" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#westpa.work_managers.zeromq.core.ZMQCore" title="westpa.work_managers.zeromq.core.ZMQCore"><code class="xref py py-class docutils literal notranslate"><span class="pre">westpa.work_managers.zeromq.core.ZMQCore</span></code></a></p>
+<p>This is the outward facing worker component of the ZMQ work manager. This
+forms the interface to the master. This process cannot hang or crash due to an
+error in tasks it executes, so tasks are isolated in ZMQExecutor, which
+communicates with ZMQWorker via (what else?) ZeroMQ.</p>
+<dl class="py method">
+<dt id="westpa.work_managers.zeromq.worker.ZMQWorker.is_master">
+<em class="property">property </em><code class="sig-name descname">is_master</code><a class="headerlink" href="#westpa.work_managers.zeromq.worker.ZMQWorker.is_master" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="westpa.work_managers.zeromq.worker.ZMQWorker.update_master_info">
+<code class="sig-name descname">update_master_info</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">msg</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.work_managers.zeromq.worker.ZMQWorker.update_master_info" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="westpa.work_managers.zeromq.worker.ZMQWorker.identify">
+<code class="sig-name descname">identify</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">rr_socket</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.work_managers.zeromq.worker.ZMQWorker.identify" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="westpa.work_managers.zeromq.worker.ZMQWorker.request_task">
+<code class="sig-name descname">request_task</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">rr_socket</span></em>, <em class="sig-param"><span class="n">task_socket</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.work_managers.zeromq.worker.ZMQWorker.request_task" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="westpa.work_managers.zeromq.worker.ZMQWorker.handle_reconfigure_timeout">
+<code class="sig-name descname">handle_reconfigure_timeout</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">msg</span></em>, <em class="sig-param"><span class="n">timers</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.work_managers.zeromq.worker.ZMQWorker.handle_reconfigure_timeout" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="westpa.work_managers.zeromq.worker.ZMQWorker.handle_result">
+<code class="sig-name descname">handle_result</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">result_socket</span></em>, <em class="sig-param"><span class="n">rr_socket</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.work_managers.zeromq.worker.ZMQWorker.handle_result" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="westpa.work_managers.zeromq.worker.ZMQWorker.comm_loop">
+<code class="sig-name descname">comm_loop</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#westpa.work_managers.zeromq.worker.ZMQWorker.comm_loop" title="Permalink to this definition">¶</a></dt>
+<dd><p>Master communication loop for the worker process.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="westpa.work_managers.zeromq.worker.ZMQWorker.shutdown_executor">
+<code class="sig-name descname">shutdown_executor</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#westpa.work_managers.zeromq.worker.ZMQWorker.shutdown_executor" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="westpa.work_managers.zeromq.worker.ZMQWorker.install_signal_handlers">
+<code class="sig-name descname">install_signal_handlers</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">signals</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.work_managers.zeromq.worker.ZMQWorker.install_signal_handlers" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="westpa.work_managers.zeromq.worker.ZMQWorker.startup">
+<code class="sig-name descname">startup</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">process_index</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.work_managers.zeromq.worker.ZMQWorker.startup" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="westpa.work_managers.zeromq.worker.ZMQExecutor">
+<em class="property">class </em><code class="sig-prename descclassname">westpa.work_managers.zeromq.worker.</code><code class="sig-name descname">ZMQExecutor</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">task_endpoint</span></em>, <em class="sig-param"><span class="n">result_endpoint</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.work_managers.zeromq.worker.ZMQExecutor" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#westpa.work_managers.zeromq.core.ZMQCore" title="westpa.work_managers.zeromq.core.ZMQCore"><code class="xref py py-class docutils literal notranslate"><span class="pre">westpa.work_managers.zeromq.core.ZMQCore</span></code></a></p>
+<p>The is the component of the ZMQ WM worker that actually executes tasks.
+This is isolated in a separate process and controlled via ZMQ from
+the ZMQWorker.</p>
+<dl class="py method">
+<dt id="westpa.work_managers.zeromq.worker.ZMQExecutor.comm_loop">
+<code class="sig-name descname">comm_loop</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#westpa.work_managers.zeromq.worker.ZMQExecutor.comm_loop" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="westpa.work_managers.zeromq.worker.ZMQExecutor.startup">
+<code class="sig-name descname">startup</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">process_index</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.work_managers.zeromq.worker.ZMQExecutor.startup" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
 </div>
-<div class="section" id="module-contents">
-<h2>Module contents<a class="headerlink" href="#module-contents" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="module-westpa.work_managers.zeromq">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-westpa.work_managers.zeromq" title="Permalink to this headline">¶</a></h2>
+<dl class="py exception">
+<dt id="westpa.work_managers.zeromq.ZMQWMError">
+<em class="property">exception </em><code class="sig-prename descclassname">westpa.work_managers.zeromq.</code><code class="sig-name descname">ZMQWMError</code><a class="headerlink" href="#westpa.work_managers.zeromq.ZMQWMError" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">RuntimeError</span></code></p>
+<p>Base class for errors related to the ZeroMQ work manager itself</p>
+</dd></dl>
+
+<dl class="py exception">
+<dt id="westpa.work_managers.zeromq.ZMQWMTimeout">
+<em class="property">exception </em><code class="sig-prename descclassname">westpa.work_managers.zeromq.</code><code class="sig-name descname">ZMQWMTimeout</code><a class="headerlink" href="#westpa.work_managers.zeromq.ZMQWMTimeout" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#westpa.work_managers.zeromq.core.ZMQWMEnvironmentError" title="westpa.work_managers.zeromq.core.ZMQWMEnvironmentError"><code class="xref py py-class docutils literal notranslate"><span class="pre">westpa.work_managers.zeromq.core.ZMQWMEnvironmentError</span></code></a></p>
+<p>A timeout of a sort that indicatess that a master or worker has failed or never started.</p>
+</dd></dl>
+
+<dl class="py exception">
+<dt id="westpa.work_managers.zeromq.ZMQWMEnvironmentError">
+<em class="property">exception </em><code class="sig-prename descclassname">westpa.work_managers.zeromq.</code><code class="sig-name descname">ZMQWMEnvironmentError</code><a class="headerlink" href="#westpa.work_managers.zeromq.ZMQWMEnvironmentError" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#westpa.work_managers.zeromq.core.ZMQWMError" title="westpa.work_managers.zeromq.core.ZMQWMError"><code class="xref py py-class docutils literal notranslate"><span class="pre">westpa.work_managers.zeromq.core.ZMQWMError</span></code></a></p>
+<p>Class representing an error in the environment in which the ZeroMQ work manager is running.
+This includes such things as master/worker ID mismatches.</p>
+</dd></dl>
+
+<dl class="py exception">
+<dt id="westpa.work_managers.zeromq.ZMQWorkerMissing">
+<em class="property">exception </em><code class="sig-prename descclassname">westpa.work_managers.zeromq.</code><code class="sig-name descname">ZMQWorkerMissing</code><a class="headerlink" href="#westpa.work_managers.zeromq.ZMQWorkerMissing" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#westpa.work_managers.zeromq.core.ZMQWMError" title="westpa.work_managers.zeromq.core.ZMQWMError"><code class="xref py py-class docutils literal notranslate"><span class="pre">westpa.work_managers.zeromq.core.ZMQWMError</span></code></a></p>
+<p>Exception representing that a worker processing a task died or disappeared</p>
+</dd></dl>
+
+<dl class="py class">
+<dt id="westpa.work_managers.zeromq.ZMQCore">
+<em class="property">class </em><code class="sig-prename descclassname">westpa.work_managers.zeromq.</code><code class="sig-name descname">ZMQCore</code><a class="headerlink" href="#westpa.work_managers.zeromq.ZMQCore" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py attribute">
+<dt id="westpa.work_managers.zeromq.ZMQCore.PROTOCOL_MAJOR">
+<code class="sig-name descname">PROTOCOL_MAJOR</code><em class="property"> = 3</em><a class="headerlink" href="#westpa.work_managers.zeromq.ZMQCore.PROTOCOL_MAJOR" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="westpa.work_managers.zeromq.ZMQCore.PROTOCOL_MINOR">
+<code class="sig-name descname">PROTOCOL_MINOR</code><em class="property"> = 0</em><a class="headerlink" href="#westpa.work_managers.zeromq.ZMQCore.PROTOCOL_MINOR" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="westpa.work_managers.zeromq.ZMQCore.PROTOCOL_UPDATE">
+<code class="sig-name descname">PROTOCOL_UPDATE</code><em class="property"> = 0</em><a class="headerlink" href="#westpa.work_managers.zeromq.ZMQCore.PROTOCOL_UPDATE" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="westpa.work_managers.zeromq.ZMQCore.PROTOCOL_VERSION">
+<code class="sig-name descname">PROTOCOL_VERSION</code><em class="property"> = (3, 0, 0)</em><a class="headerlink" href="#westpa.work_managers.zeromq.ZMQCore.PROTOCOL_VERSION" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="westpa.work_managers.zeromq.ZMQCore.internal_transport">
+<code class="sig-name descname">internal_transport</code><em class="property"> = 'ipc'</em><a class="headerlink" href="#westpa.work_managers.zeromq.ZMQCore.internal_transport" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="westpa.work_managers.zeromq.ZMQCore.default_comm_mode">
+<code class="sig-name descname">default_comm_mode</code><em class="property"> = 'ipc'</em><a class="headerlink" href="#westpa.work_managers.zeromq.ZMQCore.default_comm_mode" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="westpa.work_managers.zeromq.ZMQCore.default_master_heartbeat">
+<code class="sig-name descname">default_master_heartbeat</code><em class="property"> = 20.0</em><a class="headerlink" href="#westpa.work_managers.zeromq.ZMQCore.default_master_heartbeat" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="westpa.work_managers.zeromq.ZMQCore.default_worker_heartbeat">
+<code class="sig-name descname">default_worker_heartbeat</code><em class="property"> = 20.0</em><a class="headerlink" href="#westpa.work_managers.zeromq.ZMQCore.default_worker_heartbeat" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="westpa.work_managers.zeromq.ZMQCore.default_timeout_factor">
+<code class="sig-name descname">default_timeout_factor</code><em class="property"> = 5.0</em><a class="headerlink" href="#westpa.work_managers.zeromq.ZMQCore.default_timeout_factor" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="westpa.work_managers.zeromq.ZMQCore.default_startup_timeout">
+<code class="sig-name descname">default_startup_timeout</code><em class="property"> = 120.0</em><a class="headerlink" href="#westpa.work_managers.zeromq.ZMQCore.default_startup_timeout" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="westpa.work_managers.zeromq.ZMQCore.default_shutdown_timeout">
+<code class="sig-name descname">default_shutdown_timeout</code><em class="property"> = 5.0</em><a class="headerlink" href="#westpa.work_managers.zeromq.ZMQCore.default_shutdown_timeout" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="westpa.work_managers.zeromq.ZMQCore.make_ipc_endpoint">
+<em class="property">classmethod </em><code class="sig-name descname">make_ipc_endpoint</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#westpa.work_managers.zeromq.ZMQCore.make_ipc_endpoint" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="westpa.work_managers.zeromq.ZMQCore.remove_ipc_endpoints">
+<em class="property">classmethod </em><code class="sig-name descname">remove_ipc_endpoints</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#westpa.work_managers.zeromq.ZMQCore.remove_ipc_endpoints" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="westpa.work_managers.zeromq.ZMQCore.make_tcp_endpoint">
+<em class="property">classmethod </em><code class="sig-name descname">make_tcp_endpoint</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">address</span><span class="o">=</span><span class="default_value">'127.0.0.1'</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.work_managers.zeromq.ZMQCore.make_tcp_endpoint" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="westpa.work_managers.zeromq.ZMQCore.make_internal_endpoint">
+<em class="property">classmethod </em><code class="sig-name descname">make_internal_endpoint</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#westpa.work_managers.zeromq.ZMQCore.make_internal_endpoint" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="westpa.work_managers.zeromq.ZMQCore.get_identification">
+<code class="sig-name descname">get_identification</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#westpa.work_managers.zeromq.ZMQCore.get_identification" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="westpa.work_managers.zeromq.ZMQCore.validate_message">
+<code class="sig-name descname">validate_message</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">message</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.work_managers.zeromq.ZMQCore.validate_message" title="Permalink to this definition">¶</a></dt>
+<dd><p>Validate incoming message. Raises an exception if the message is improperly formatted (TypeError)
+or does not correspond to the appropriate master (ZMQWMEnvironmentError).</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="westpa.work_managers.zeromq.ZMQCore.message_validation">
+<code class="sig-name descname">message_validation</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">msg</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.work_managers.zeromq.ZMQCore.message_validation" title="Permalink to this definition">¶</a></dt>
+<dd><p>A context manager for message validation. The instance variable <code class="docutils literal notranslate"><span class="pre">validation_fail_action</span></code>
+controls the behavior of this context manager:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>‘raise’: re-raise the exception that indicated failed validation. Useful for development.</p></li>
+<li><p>‘exit’ (default): report the error and exit the program.</p></li>
+<li><p>‘warn’: report the error and continue.</p></li>
+</ul>
+</div></blockquote>
+</dd></dl>
+
+<dl class="py method">
+<dt id="westpa.work_managers.zeromq.ZMQCore.recv_message">
+<code class="sig-name descname">recv_message</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">socket</span></em>, <em class="sig-param"><span class="n">flags</span><span class="o">=</span><span class="default_value">0</span></em>, <em class="sig-param"><span class="n">validate</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">timeout</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.work_managers.zeromq.ZMQCore.recv_message" title="Permalink to this definition">¶</a></dt>
+<dd><p>Receive a message object from the given socket, using the given flags.
+Message validation is performed if <code class="docutils literal notranslate"><span class="pre">validate</span></code> is true.
+If <code class="docutils literal notranslate"><span class="pre">timeout</span></code> is given, then it is the number of milliseconds to wait
+prior to raising a ZMQWMTimeout exception. <code class="docutils literal notranslate"><span class="pre">timeout</span></code> is ignored if
+<code class="docutils literal notranslate"><span class="pre">flags</span></code> includes <code class="docutils literal notranslate"><span class="pre">zmq.NOBLOCK</span></code>.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="westpa.work_managers.zeromq.ZMQCore.recv_all">
+<code class="sig-name descname">recv_all</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">socket</span></em>, <em class="sig-param"><span class="n">flags</span><span class="o">=</span><span class="default_value">0</span></em>, <em class="sig-param"><span class="n">validate</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.work_managers.zeromq.ZMQCore.recv_all" title="Permalink to this definition">¶</a></dt>
+<dd><p>Receive all messages currently available from the given socket.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="westpa.work_managers.zeromq.ZMQCore.recv_ack">
+<code class="sig-name descname">recv_ack</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">socket</span></em>, <em class="sig-param"><span class="n">flags</span><span class="o">=</span><span class="default_value">0</span></em>, <em class="sig-param"><span class="n">validate</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">timeout</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.work_managers.zeromq.ZMQCore.recv_ack" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="westpa.work_managers.zeromq.ZMQCore.send_message">
+<code class="sig-name descname">send_message</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">socket</span></em>, <em class="sig-param"><span class="n">message</span></em>, <em class="sig-param"><span class="n">payload</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">flags</span><span class="o">=</span><span class="default_value">0</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.work_managers.zeromq.ZMQCore.send_message" title="Permalink to this definition">¶</a></dt>
+<dd><p>Send a message object. Subclasses may override this to
+decorate the message with appropriate IDs, then delegate upward to actually send
+the message. <code class="docutils literal notranslate"><span class="pre">message</span></code> may either be a pre-constructed <code class="docutils literal notranslate"><span class="pre">Message</span></code> object or
+a message identifier, in which (latter) case <code class="docutils literal notranslate"><span class="pre">payload</span></code> will become the message payload.
+<code class="docutils literal notranslate"><span class="pre">payload</span></code> is ignored if <code class="docutils literal notranslate"><span class="pre">message</span></code> is a <code class="docutils literal notranslate"><span class="pre">Message</span></code> object.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="westpa.work_managers.zeromq.ZMQCore.send_reply">
+<code class="sig-name descname">send_reply</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">socket</span></em>, <em class="sig-param"><span class="n">original_message</span></em>, <em class="sig-param"><span class="n">reply</span><span class="o">=</span><span class="default_value">'ok'</span></em>, <em class="sig-param"><span class="n">payload</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">flags</span><span class="o">=</span><span class="default_value">0</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.work_managers.zeromq.ZMQCore.send_reply" title="Permalink to this definition">¶</a></dt>
+<dd><p>Send a reply to <code class="docutils literal notranslate"><span class="pre">original_message</span></code> on <code class="docutils literal notranslate"><span class="pre">socket</span></code>. The reply message
+is a Message object or a message identifier. The reply master_id and worker_id are
+set from <code class="docutils literal notranslate"><span class="pre">original_message</span></code>, unless master_id is not set, in which case it is
+set from self.master_id.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="westpa.work_managers.zeromq.ZMQCore.send_ack">
+<code class="sig-name descname">send_ack</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">socket</span></em>, <em class="sig-param"><span class="n">original_message</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.work_managers.zeromq.ZMQCore.send_ack" title="Permalink to this definition">¶</a></dt>
+<dd><p>Send an acknowledgement message, which is mostly just to respect REQ/REP
+recv/send patterns.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="westpa.work_managers.zeromq.ZMQCore.send_nak">
+<code class="sig-name descname">send_nak</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">socket</span></em>, <em class="sig-param"><span class="n">original_message</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.work_managers.zeromq.ZMQCore.send_nak" title="Permalink to this definition">¶</a></dt>
+<dd><p>Send a negative acknowledgement message.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="westpa.work_managers.zeromq.ZMQCore.send_inproc_message">
+<code class="sig-name descname">send_inproc_message</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">message</span></em>, <em class="sig-param"><span class="n">payload</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">flags</span><span class="o">=</span><span class="default_value">0</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.work_managers.zeromq.ZMQCore.send_inproc_message" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="westpa.work_managers.zeromq.ZMQCore.signal_shutdown">
+<code class="sig-name descname">signal_shutdown</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#westpa.work_managers.zeromq.ZMQCore.signal_shutdown" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="westpa.work_managers.zeromq.ZMQCore.shutdown_handler">
+<code class="sig-name descname">shutdown_handler</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">signal</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">frame</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.work_managers.zeromq.ZMQCore.shutdown_handler" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="westpa.work_managers.zeromq.ZMQCore.install_signal_handlers">
+<code class="sig-name descname">install_signal_handlers</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">signals</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.work_managers.zeromq.ZMQCore.install_signal_handlers" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="westpa.work_managers.zeromq.ZMQCore.install_sigint_handler">
+<code class="sig-name descname">install_sigint_handler</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#westpa.work_managers.zeromq.ZMQCore.install_sigint_handler" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="westpa.work_managers.zeromq.ZMQCore.startup">
+<code class="sig-name descname">startup</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#westpa.work_managers.zeromq.ZMQCore.startup" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="westpa.work_managers.zeromq.ZMQCore.shutdown">
+<code class="sig-name descname">shutdown</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#westpa.work_managers.zeromq.ZMQCore.shutdown" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="westpa.work_managers.zeromq.ZMQCore.join">
+<code class="sig-name descname">join</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#westpa.work_managers.zeromq.ZMQCore.join" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="westpa.work_managers.zeromq.ZMQNode">
+<em class="property">class </em><code class="sig-prename descclassname">westpa.work_managers.zeromq.</code><code class="sig-name descname">ZMQNode</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">upstream_rr_endpoint</span></em>, <em class="sig-param"><span class="n">upstream_ann_endpoint</span></em>, <em class="sig-param"><span class="n">n_local_workers</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.work_managers.zeromq.ZMQNode" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#westpa.work_managers.zeromq.core.ZMQCore" title="westpa.work_managers.zeromq.core.ZMQCore"><code class="xref py py-class docutils literal notranslate"><span class="pre">westpa.work_managers.zeromq.core.ZMQCore</span></code></a>, <a class="reference internal" href="#westpa.work_managers.zeromq.core.IsNode" title="westpa.work_managers.zeromq.core.IsNode"><code class="xref py py-class docutils literal notranslate"><span class="pre">westpa.work_managers.zeromq.core.IsNode</span></code></a></p>
+<dl class="py method">
+<dt id="westpa.work_managers.zeromq.ZMQNode.run">
+<code class="sig-name descname">run</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#westpa.work_managers.zeromq.ZMQNode.run" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="westpa.work_managers.zeromq.ZMQNode.is_master">
+<em class="property">property </em><code class="sig-name descname">is_master</code><a class="headerlink" href="#westpa.work_managers.zeromq.ZMQNode.is_master" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="westpa.work_managers.zeromq.ZMQNode.comm_loop">
+<code class="sig-name descname">comm_loop</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#westpa.work_managers.zeromq.ZMQNode.comm_loop" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="westpa.work_managers.zeromq.ZMQNode.startup">
+<code class="sig-name descname">startup</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#westpa.work_managers.zeromq.ZMQNode.startup" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="westpa.work_managers.zeromq.ZMQWorker">
+<em class="property">class </em><code class="sig-prename descclassname">westpa.work_managers.zeromq.</code><code class="sig-name descname">ZMQWorker</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">rr_endpoint</span></em>, <em class="sig-param"><span class="n">ann_endpoint</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.work_managers.zeromq.ZMQWorker" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#westpa.work_managers.zeromq.core.ZMQCore" title="westpa.work_managers.zeromq.core.ZMQCore"><code class="xref py py-class docutils literal notranslate"><span class="pre">westpa.work_managers.zeromq.core.ZMQCore</span></code></a></p>
+<p>This is the outward facing worker component of the ZMQ work manager. This
+forms the interface to the master. This process cannot hang or crash due to an
+error in tasks it executes, so tasks are isolated in ZMQExecutor, which
+communicates with ZMQWorker via (what else?) ZeroMQ.</p>
+<dl class="py method">
+<dt id="westpa.work_managers.zeromq.ZMQWorker.is_master">
+<em class="property">property </em><code class="sig-name descname">is_master</code><a class="headerlink" href="#westpa.work_managers.zeromq.ZMQWorker.is_master" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="westpa.work_managers.zeromq.ZMQWorker.update_master_info">
+<code class="sig-name descname">update_master_info</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">msg</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.work_managers.zeromq.ZMQWorker.update_master_info" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="westpa.work_managers.zeromq.ZMQWorker.identify">
+<code class="sig-name descname">identify</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">rr_socket</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.work_managers.zeromq.ZMQWorker.identify" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="westpa.work_managers.zeromq.ZMQWorker.request_task">
+<code class="sig-name descname">request_task</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">rr_socket</span></em>, <em class="sig-param"><span class="n">task_socket</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.work_managers.zeromq.ZMQWorker.request_task" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="westpa.work_managers.zeromq.ZMQWorker.handle_reconfigure_timeout">
+<code class="sig-name descname">handle_reconfigure_timeout</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">msg</span></em>, <em class="sig-param"><span class="n">timers</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.work_managers.zeromq.ZMQWorker.handle_reconfigure_timeout" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="westpa.work_managers.zeromq.ZMQWorker.handle_result">
+<code class="sig-name descname">handle_result</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">result_socket</span></em>, <em class="sig-param"><span class="n">rr_socket</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.work_managers.zeromq.ZMQWorker.handle_result" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="westpa.work_managers.zeromq.ZMQWorker.comm_loop">
+<code class="sig-name descname">comm_loop</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#westpa.work_managers.zeromq.ZMQWorker.comm_loop" title="Permalink to this definition">¶</a></dt>
+<dd><p>Master communication loop for the worker process.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="westpa.work_managers.zeromq.ZMQWorker.shutdown_executor">
+<code class="sig-name descname">shutdown_executor</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#westpa.work_managers.zeromq.ZMQWorker.shutdown_executor" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="westpa.work_managers.zeromq.ZMQWorker.install_signal_handlers">
+<code class="sig-name descname">install_signal_handlers</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">signals</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.work_managers.zeromq.ZMQWorker.install_signal_handlers" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="westpa.work_managers.zeromq.ZMQWorker.startup">
+<code class="sig-name descname">startup</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">process_index</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.work_managers.zeromq.ZMQWorker.startup" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="westpa.work_managers.zeromq.ZMQWorkManager">
+<em class="property">class </em><code class="sig-prename descclassname">westpa.work_managers.zeromq.</code><code class="sig-name descname">ZMQWorkManager</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">n_local_workers</span><span class="o">=</span><span class="default_value">1</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.work_managers.zeromq.ZMQWorkManager" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#westpa.work_managers.zeromq.core.ZMQCore" title="westpa.work_managers.zeromq.core.ZMQCore"><code class="xref py py-class docutils literal notranslate"><span class="pre">westpa.work_managers.zeromq.core.ZMQCore</span></code></a>, <a class="reference internal" href="westpa.work_managers.html#westpa.work_managers.core.WorkManager" title="westpa.work_managers.core.WorkManager"><code class="xref py py-class docutils literal notranslate"><span class="pre">westpa.work_managers.core.WorkManager</span></code></a>, <a class="reference internal" href="#westpa.work_managers.zeromq.core.IsNode" title="westpa.work_managers.zeromq.core.IsNode"><code class="xref py py-class docutils literal notranslate"><span class="pre">westpa.work_managers.zeromq.core.IsNode</span></code></a></p>
+<dl class="py method">
+<dt id="westpa.work_managers.zeromq.ZMQWorkManager.add_wm_args">
+<em class="property">classmethod </em><code class="sig-name descname">add_wm_args</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">parser</span></em>, <em class="sig-param"><span class="n">wmenv</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.work_managers.zeromq.ZMQWorkManager.add_wm_args" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="westpa.work_managers.zeromq.ZMQWorkManager.from_environ">
+<em class="property">classmethod </em><code class="sig-name descname">from_environ</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">wmenv</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.work_managers.zeromq.ZMQWorkManager.from_environ" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="westpa.work_managers.zeromq.ZMQWorkManager.read_host_info">
+<em class="property">classmethod </em><code class="sig-name descname">read_host_info</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">filename</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.work_managers.zeromq.ZMQWorkManager.read_host_info" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="westpa.work_managers.zeromq.ZMQWorkManager.canonicalize_endpoint">
+<em class="property">classmethod </em><code class="sig-name descname">canonicalize_endpoint</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">endpoint</span></em>, <em class="sig-param"><span class="n">allow_wildcard_host</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.work_managers.zeromq.ZMQWorkManager.canonicalize_endpoint" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="westpa.work_managers.zeromq.ZMQWorkManager.n_workers">
+<em class="property">property </em><code class="sig-name descname">n_workers</code><a class="headerlink" href="#westpa.work_managers.zeromq.ZMQWorkManager.n_workers" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="westpa.work_managers.zeromq.ZMQWorkManager.submit">
+<code class="sig-name descname">submit</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">fn</span></em>, <em class="sig-param"><span class="n">args</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">kwargs</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.work_managers.zeromq.ZMQWorkManager.submit" title="Permalink to this definition">¶</a></dt>
+<dd><p>Submit a task to the work manager, returning a <cite>WMFuture</cite> object representing the pending
+result. <code class="docutils literal notranslate"><span class="pre">fn(*args,**kwargs)</span></code> will be executed by a worker, and the return value assigned as the
+result of the returned future.  The function <code class="docutils literal notranslate"><span class="pre">fn</span></code> and all arguments must be picklable; note
+particularly that off-path modules (like the system module and any active plugins) are not
+picklable unless pre-loaded in the worker process (i.e. prior to forking the master).</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="westpa.work_managers.zeromq.ZMQWorkManager.submit_many">
+<code class="sig-name descname">submit_many</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">tasks</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.work_managers.zeromq.ZMQWorkManager.submit_many" title="Permalink to this definition">¶</a></dt>
+<dd><p>Submit a set of tasks to the work manager, returning a list of <cite>WMFuture</cite> objects representing
+pending results. Each entry in <code class="docutils literal notranslate"><span class="pre">tasks</span></code> should be a triple (fn, args, kwargs), which will result in
+fn(<a href="#id5"><span class="problematic" id="id6">*</span></a>args, <a href="#id7"><span class="problematic" id="id8">**</span></a>kwargs) being executed by a worker. The function <code class="docutils literal notranslate"><span class="pre">fn</span></code> and all arguments must be
+picklable; note particularly that off-path modules are not picklable unless pre-loaded in the worker
+process.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="westpa.work_managers.zeromq.ZMQWorkManager.send_message">
+<code class="sig-name descname">send_message</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">socket</span></em>, <em class="sig-param"><span class="n">message</span></em>, <em class="sig-param"><span class="n">payload</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">flags</span><span class="o">=</span><span class="default_value">0</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.work_managers.zeromq.ZMQWorkManager.send_message" title="Permalink to this definition">¶</a></dt>
+<dd><p>Send a message object. Subclasses may override this to
+decorate the message with appropriate IDs, then delegate upward to actually send
+the message. <code class="docutils literal notranslate"><span class="pre">message</span></code> may either be a pre-constructed <code class="docutils literal notranslate"><span class="pre">Message</span></code> object or
+a message identifier, in which (latter) case <code class="docutils literal notranslate"><span class="pre">payload</span></code> will become the message payload.
+<code class="docutils literal notranslate"><span class="pre">payload</span></code> is ignored if <code class="docutils literal notranslate"><span class="pre">message</span></code> is a <code class="docutils literal notranslate"><span class="pre">Message</span></code> object.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="westpa.work_managers.zeromq.ZMQWorkManager.handle_result">
+<code class="sig-name descname">handle_result</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">socket</span></em>, <em class="sig-param"><span class="n">msg</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.work_managers.zeromq.ZMQWorkManager.handle_result" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="westpa.work_managers.zeromq.ZMQWorkManager.handle_task_request">
+<code class="sig-name descname">handle_task_request</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">socket</span></em>, <em class="sig-param"><span class="n">msg</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.work_managers.zeromq.ZMQWorkManager.handle_task_request" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="westpa.work_managers.zeromq.ZMQWorkManager.update_worker_information">
+<code class="sig-name descname">update_worker_information</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">msg</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.work_managers.zeromq.ZMQWorkManager.update_worker_information" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="westpa.work_managers.zeromq.ZMQWorkManager.check_workers">
+<code class="sig-name descname">check_workers</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#westpa.work_managers.zeromq.ZMQWorkManager.check_workers" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="westpa.work_managers.zeromq.ZMQWorkManager.remove_worker">
+<code class="sig-name descname">remove_worker</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">worker_id</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.work_managers.zeromq.ZMQWorkManager.remove_worker" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="westpa.work_managers.zeromq.ZMQWorkManager.shutdown_clear_tasks">
+<code class="sig-name descname">shutdown_clear_tasks</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#westpa.work_managers.zeromq.ZMQWorkManager.shutdown_clear_tasks" title="Permalink to this definition">¶</a></dt>
+<dd><p>Abort pending tasks with error on shutdown.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="westpa.work_managers.zeromq.ZMQWorkManager.comm_loop">
+<code class="sig-name descname">comm_loop</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#westpa.work_managers.zeromq.ZMQWorkManager.comm_loop" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="westpa.work_managers.zeromq.ZMQWorkManager.startup">
+<code class="sig-name descname">startup</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#westpa.work_managers.zeromq.ZMQWorkManager.startup" title="Permalink to this definition">¶</a></dt>
+<dd><p>Perform any necessary startup work, such as spawning clients.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="westpa.work_managers.zeromq.ZMQWorkManager.shutdown">
+<code class="sig-name descname">shutdown</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#westpa.work_managers.zeromq.ZMQWorkManager.shutdown" title="Permalink to this definition">¶</a></dt>
+<dd><p>Cleanly shut down any active workers.</p>
+</dd></dl>
+
+</dd></dl>
+
 </div>
 </div>
 
