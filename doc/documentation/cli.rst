@@ -47,12 +47,3 @@ westpa.cli package
     w_kinavg     <cli/w_kinavg>
     w_kinetics   <cli/w_kinetics>
     w_stateprobs <cli/w_stateprobs>
-
-
-Module contents
----------------
-
-.. automodule:: westpa.cli
-   :members:
-   :undoc-members:
-   :show-inheritance:
