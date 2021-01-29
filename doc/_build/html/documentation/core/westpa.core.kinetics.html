@@ -1,0 +1,373 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>westpa.core.kinetics package &mdash; WESTPA 2.0 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../sphinx_index3.html" class="icon icon-home"> WESTPA
+          
+
+          
+            
+            <img src="../../_static/WESTPA2b.svg" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                2.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">For Advanced Users (2.0):</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../cli.html"> WESTPA Command Line Interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../core.html"> WESTPA Core</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../modules.html"> WESTPA Tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../users_guide/hdf5.html"> HDF5 file structure</a></li>
+</ul>
+<p class="caption"><span class="caption-text">For Developers:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../development/overview.html"> Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../development/style_guide.html"> Code and documentation style guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../development/source_code.html"> Source code management</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../development/documentation.html"> Building the documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../development/api.html">WESTPA Modules API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../development/api.html#westpa-tools">WESTPA Tools</a></li>
+</ul>
+<p class="caption"><span class="caption-text">For Legacy Users (1.0):</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../users_guide/west.html"> WEST</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../users_guide/west_tools.html"> WEST tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../users_guide/wwmgr.html"> WEST work manager</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../users_guide/westext.html"> WEST extensions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../users_guide/command_line_tools.html"> Command line tool index</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../users_guide/hdf5.html"> HDF5 file schema</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../users_guide/checklist.html"> Checklist</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../users_guide/faq.html"> FAQs</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../sphinx_index3.html">WESTPA</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../sphinx_index3.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>westpa.core.kinetics package</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../../_sources/documentation/core/westpa.core.kinetics.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="westpa-core-kinetics-package">
+<h1>westpa.core.kinetics package<a class="headerlink" href="#westpa-core-kinetics-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="module-westpa.core.kinetics">
+<span id="westpa-core-kinetics-module"></span><h2>westpa.core.kinetics module<a class="headerlink" href="#module-westpa.core.kinetics" title="Permalink to this headline">¶</a></h2>
+<p>Kinetics analysis library</p>
+</div>
+<div class="section" id="module-westpa.core.kinetics.events">
+<span id="westpa-core-kinetics-events-module"></span><h2>westpa.core.kinetics.events module<a class="headerlink" href="#module-westpa.core.kinetics.events" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt id="westpa.core.kinetics.events.WKinetics">
+<em class="property">class </em><code class="sig-prename descclassname">westpa.core.kinetics.events.</code><code class="sig-name descname">WKinetics</code><a class="headerlink" href="#westpa.core.kinetics.events.WKinetics" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py method">
+<dt id="westpa.core.kinetics.events.WKinetics.w_kinetics">
+<code class="sig-name descname">w_kinetics</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#westpa.core.kinetics.events.WKinetics.w_kinetics" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-westpa.core.kinetics.matrates">
+<span id="westpa-core-kinetics-matrates-module"></span><h2>westpa.core.kinetics.matrates module<a class="headerlink" href="#module-westpa.core.kinetics.matrates" title="Permalink to this headline">¶</a></h2>
+<p>Routines for implementing Letteri et al.’s macrostate-to-macrostate rate calculations
+using extrapolation to steady-state populations from average rate matrices</p>
+<p>Internally, “labeled” objects (bin populations labeled by history, rate matrix elements labeled
+by history) are stored as nested arrays – e.g. rates[initial_label, final_label, initial_bin, final_bin].
+These are converted to the flat forms required for, say, eigenvalue calculations internally, and the
+results converted back. This is because these conversions are not expensive, and saves users of
+this code from having to know how the flattened indexing works (something I screwed up all too
+easily during development) – mcz</p>
+<dl class="py exception">
+<dt id="westpa.core.kinetics.matrates.ConsistencyWarning">
+<em class="property">exception </em><code class="sig-prename descclassname">westpa.core.kinetics.matrates.</code><code class="sig-name descname">ConsistencyWarning</code><a class="headerlink" href="#westpa.core.kinetics.matrates.ConsistencyWarning" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">UserWarning</span></code></p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="westpa.core.kinetics.matrates.get_steady_state">
+<code class="sig-prename descclassname">westpa.core.kinetics.matrates.</code><code class="sig-name descname">get_steady_state</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">rates</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.core.kinetics.matrates.get_steady_state" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get steady state solution for a rate matrix. As an optimization, returns the
+flattened labeled population vector (of length nstates*nbins); to convert to the
+nested vector used for storage, use nested_to_flat_vector().</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="westpa.core.kinetics.matrates.get_macrostate_rates">
+<code class="sig-prename descclassname">westpa.core.kinetics.matrates.</code><code class="sig-name descname">get_macrostate_rates</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">labeled_rates</span></em>, <em class="sig-param"><span class="n">labeled_pops</span></em>, <em class="sig-param"><span class="n">extrapolate</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.core.kinetics.matrates.get_macrostate_rates" title="Permalink to this definition">¶</a></dt>
+<dd><p>Using a labeled rate matrix and labeled bin populations, calculate the steady state
+probability distribution and consequent state-to-state rates.</p>
+<p>Returns <code class="docutils literal notranslate"><span class="pre">(ss,</span> <span class="pre">macro_rates)</span></code>, where <code class="docutils literal notranslate"><span class="pre">ss</span></code> is the steady-state probability distribution
+and <code class="docutils literal notranslate"><span class="pre">macro_rates</span></code> is the state-to-state rate matrix.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="westpa.core.kinetics.matrates.estimate_rates">
+<code class="sig-prename descclassname">westpa.core.kinetics.matrates.</code><code class="sig-name descname">estimate_rates</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">nbins</span></em>, <em class="sig-param"><span class="n">state_labels</span></em>, <em class="sig-param"><span class="n">weights</span></em>, <em class="sig-param"><span class="n">parent_ids</span></em>, <em class="sig-param"><span class="n">bin_assignments</span></em>, <em class="sig-param"><span class="n">label_assignments</span></em>, <em class="sig-param"><span class="n">state_map</span></em>, <em class="sig-param"><span class="n">labeled_pops</span></em>, <em class="sig-param"><span class="n">all_lags</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">labeled_fluxes</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">labeled_rates</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">unlabeled_rates</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.core.kinetics.matrates.estimate_rates" title="Permalink to this definition">¶</a></dt>
+<dd><p>Estimate fluxes and rates over multiple iterations. The number of iterations is determined by how many
+vectors of weights, parent IDs, bin assignments, and label assignments are passed.</p>
+<p>If <code class="docutils literal notranslate"><span class="pre">all_lags</span></code> is true, then the average is over all possible lags within the length-N window given, otherwise
+simply the length N lag.</p>
+<p>Returns labeled flux matrix, labeled rate matrix, and unlabeled rate matrix.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-westpa.core.kinetics.rate_averaging">
+<span id="westpa-core-kinetics-rate-averaging-module"></span><h2>westpa.core.kinetics.rate_averaging module<a class="headerlink" href="#module-westpa.core.kinetics.rate_averaging" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt id="westpa.core.kinetics.rate_averaging.StreamingStatsTuple">
+<em class="property">class </em><code class="sig-prename descclassname">westpa.core.kinetics.rate_averaging.</code><code class="sig-name descname">StreamingStatsTuple</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">M1</span></em>, <em class="sig-param"><span class="n">M2</span></em>, <em class="sig-param"><span class="n">n</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.core.kinetics.rate_averaging.StreamingStatsTuple" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">tuple</span></code></p>
+<p>Create new instance of StreamingStatsTuple(M1, M2, n)</p>
+<dl class="py method">
+<dt id="westpa.core.kinetics.rate_averaging.StreamingStatsTuple.M1">
+<em class="property">property </em><code class="sig-name descname">M1</code><a class="headerlink" href="#westpa.core.kinetics.rate_averaging.StreamingStatsTuple.M1" title="Permalink to this definition">¶</a></dt>
+<dd><p>Alias for field number 0</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="westpa.core.kinetics.rate_averaging.StreamingStatsTuple.M2">
+<em class="property">property </em><code class="sig-name descname">M2</code><a class="headerlink" href="#westpa.core.kinetics.rate_averaging.StreamingStatsTuple.M2" title="Permalink to this definition">¶</a></dt>
+<dd><p>Alias for field number 1</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="westpa.core.kinetics.rate_averaging.StreamingStatsTuple.n">
+<em class="property">property </em><code class="sig-name descname">n</code><a class="headerlink" href="#westpa.core.kinetics.rate_averaging.StreamingStatsTuple.n" title="Permalink to this definition">¶</a></dt>
+<dd><p>Alias for field number 2</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt id="westpa.core.kinetics.rate_averaging.grouper">
+<code class="sig-prename descclassname">westpa.core.kinetics.rate_averaging.</code><code class="sig-name descname">grouper</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">n</span></em>, <em class="sig-param"><span class="n">iterable</span></em>, <em class="sig-param"><span class="n">fillvalue</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.core.kinetics.rate_averaging.grouper" title="Permalink to this definition">¶</a></dt>
+<dd><p>Collect data into fixed-length chunks or blocks</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="westpa.core.kinetics.rate_averaging.tuple2stats">
+<code class="sig-prename descclassname">westpa.core.kinetics.rate_averaging.</code><code class="sig-name descname">tuple2stats</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">stat_tuple</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.core.kinetics.rate_averaging.tuple2stats" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt id="westpa.core.kinetics.rate_averaging.process_iter_chunk">
+<code class="sig-prename descclassname">westpa.core.kinetics.rate_averaging.</code><code class="sig-name descname">process_iter_chunk</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">bin_mapper</span></em>, <em class="sig-param"><span class="n">iter_indices</span></em>, <em class="sig-param"><span class="n">iter_data</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.core.kinetics.rate_averaging.process_iter_chunk" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculate the flux matrices and populations of a set of iterations specified
+by iter_indices. Optionally provide the necessary arrays to perform the calculation
+in iter_data. Otherwise get data from the data_manager directly.</p>
+</dd></dl>
+
+<dl class="py class">
+<dt id="westpa.core.kinetics.rate_averaging.RateAverager">
+<em class="property">class </em><code class="sig-prename descclassname">westpa.core.kinetics.rate_averaging.</code><code class="sig-name descname">RateAverager</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">bin_mapper</span></em>, <em class="sig-param"><span class="n">system</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">data_manager</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">work_manager</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.core.kinetics.rate_averaging.RateAverager" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Calculate bin-to-bin kinetic properties (fluxes, rates, populations) at
+1-tau resolution</p>
+<dl class="py method">
+<dt id="westpa.core.kinetics.rate_averaging.RateAverager.extract_data">
+<code class="sig-name descname">extract_data</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">iter_indices</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.core.kinetics.rate_averaging.RateAverager.extract_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Extract data from the data_manger and place in dict mirroring the same
+underlying layout.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="westpa.core.kinetics.rate_averaging.RateAverager.task_generator">
+<code class="sig-name descname">task_generator</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">iter_start</span></em>, <em class="sig-param"><span class="n">iter_stop</span></em>, <em class="sig-param"><span class="n">block_size</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.core.kinetics.rate_averaging.RateAverager.task_generator" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="westpa.core.kinetics.rate_averaging.RateAverager.calculate">
+<code class="sig-name descname">calculate</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">iter_start</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">iter_stop</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">n_blocks</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">queue_size</span><span class="o">=</span><span class="default_value">1</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.core.kinetics.rate_averaging.RateAverager.calculate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Read the HDF5 file and collect flux matrices and population vectors
+for each bin for each iteration in the range [iter_start, iter_stop). Break
+the calculation into n_blocks blocks. If the calculation is broken up into
+more than one block, queue_size specifies the maxmimum number of tasks in
+the work queue.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2021, Matthew C. Zwier and Lillian T. Chong.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

@@ -6,14 +6,14 @@ Advanced References
 
 .. toctree::
    :maxdepth: 5
-   :caption: For Developers:
+   :caption: For Advanced Users (2.0):
 
     WESTPA Command Line Interface     <documentation/cli>
-    WESTPA Core                       <documentation/modules>
-    WESTPA Work Manager               <documentation/wwmgr>
-    WESTPA Tools                      <documentation/modules>
-    WESTPA Other Components           <documentation/westpaext>
-    WESTPA Extentions                 <documentation/westpaext>
+    WESTPA Core                       <documentation/core>
+    WESTPA Work Manager               <documentation/work_managers>
+    WESTPA Tools                      <documentation/tools>
+    WESTPA Other Components           <documentation/others>
+    WESTPA Extentions                 <documentation/ext>
     HDF5 file structure               <users_guide/hdf5>
 
 --------------
@@ -35,7 +35,7 @@ For Developers
 --------------
 .. toctree::
    :maxdepth: 1
-   :caption: For Users:
+   :caption: For Legacy Users (1.0):
 
     WEST                      <users_guide/west>
     WEST tools                <users_guide/west_tools>

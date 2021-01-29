@@ -1,8 +1,13 @@
 westpa.tools package
 ====================
 
-Submodules
-----------
+westpa.tools module
+-------------------
+
+.. automodule:: westpa.tools
+   :members:
+   :undoc-members:
+   :show-inheritance:
 
 westpa.tools.binning module
 ---------------------------
@@ -84,10 +89,4 @@ westpa.tools.wipi module
    :undoc-members:
    :show-inheritance:
 
-Module contents
----------------
 
-.. automodule:: westpa.tools
-   :members:
-   :undoc-members:
-   :show-inheritance:

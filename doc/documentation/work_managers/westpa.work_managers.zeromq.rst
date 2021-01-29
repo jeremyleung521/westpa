@@ -1,8 +1,13 @@
 westpa.work\_managers.zeromq package
 ====================================
 
-Submodules
-----------
+westpa.work\_managers.zeromq module
+-----------------------------------
+
+.. automodule:: westpa.work_managers.zeromq
+   :members:
+   :undoc-members:
+   :show-inheritance:
 
 westpa.work\_managers.zeromq.core module
 ----------------------------------------
@@ -36,10 +41,4 @@ westpa.work\_managers.zeromq.worker module
    :undoc-members:
    :show-inheritance:
 
-Module contents
----------------
 
-.. automodule:: westpa.work_managers.zeromq
-   :members:
-   :undoc-members:
-   :show-inheritance:

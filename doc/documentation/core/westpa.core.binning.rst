@@ -1,8 +1,13 @@
 westpa.core.binning package
 ===========================
 
-Submodules
-----------
+westpa.core.binning module
+--------------------------
+
+.. automodule:: westpa.core.binning
+   :members:
+   :undoc-members:
+   :show-inheritance:
 
 westpa.core.binning.assign module
 ---------------------------------
@@ -20,10 +25,4 @@ westpa.core.binning.bins module
    :undoc-members:
    :show-inheritance:
 
-Module contents
----------------
 
-.. automodule:: westpa.core.binning
-   :members:
-   :undoc-members:
-   :show-inheritance:

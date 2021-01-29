@@ -1,19 +1,13 @@
-westpa.core package
+westpa.core modules
 ===================
 
-Subpackages
------------
+westpa.core module
+------------------
 
-.. toctree::
-   :maxdepth: 4
-
-   westpa.core.binning
-   westpa.core.kinetics
-   westpa.core.propagators
-   westpa.core.reweight
-
-Submodules
-----------
+.. automodule:: westpa.core
+   :members:
+   :undoc-members:
+   :show-inheritance:
 
 westpa.core.data\_manager module
 --------------------------------
@@ -107,14 +101,6 @@ westpa.core.yamlcfg module
 --------------------------
 
 .. automodule:: westpa.core.yamlcfg
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-Module contents
----------------
-
-.. automodule:: westpa.core
    :members:
    :undoc-members:
    :show-inheritance:

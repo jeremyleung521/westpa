@@ -1,8 +1,13 @@
 westpa.core.propagators package
 ===============================
 
-Submodules
-----------
+westpa.core.propagators module
+------------------------------
+
+.. automodule:: westpa.core.propagators
+   :members:
+   :undoc-members:
+   :show-inheritance:
 
 westpa.core.propagators.executable module
 -----------------------------------------
@@ -12,10 +17,4 @@ westpa.core.propagators.executable module
    :undoc-members:
    :show-inheritance:
 
-Module contents
----------------
 
-.. automodule:: westpa.core.propagators
-   :members:
-   :undoc-members:
-   :show-inheritance:

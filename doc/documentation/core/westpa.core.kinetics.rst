@@ -1,8 +1,13 @@
 westpa.core.kinetics package
 ============================
 
-Submodules
-----------
+westpa.core.kinetics module
+---------------------------
+
+.. automodule:: westpa.core.kinetics
+   :members:
+   :undoc-members:
+   :show-inheritance:
 
 westpa.core.kinetics.events module
 ----------------------------------
@@ -28,10 +33,4 @@ westpa.core.kinetics.rate\_averaging module
    :undoc-members:
    :show-inheritance:
 
-Module contents
----------------
 
-.. automodule:: westpa.core.kinetics
-   :members:
-   :undoc-members:
-   :show-inheritance:
