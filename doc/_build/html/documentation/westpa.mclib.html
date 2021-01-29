@@ -1,0 +1,256 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>westpa.mclib package &mdash; WESTPA 2.0 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../sphinx_index3.html" class="icon icon-home"> WESTPA
+          
+
+          
+            
+            <img src="../_static/WESTPA2b.svg" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                2.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <!-- Local TOC -->
+              <div class="local-toc"><ul>
+<li><a class="reference internal" href="#">westpa.mclib package</a><ul>
+<li><a class="reference internal" href="#module-westpa.mclib">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</div>
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../sphinx_index3.html">WESTPA</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../sphinx_index3.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>westpa.mclib package</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../_sources/documentation/westpa.mclib.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="westpa-mclib-package">
+<h1>westpa.mclib package<a class="headerlink" href="#westpa-mclib-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="module-westpa.mclib">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-westpa.mclib" title="Permalink to this headline">¶</a></h2>
+<p>A package for performing Monte Carlo bootstrap estimates of
+statistics.</p>
+<dl class="py function">
+<dt id="westpa.mclib.mcbs_ci_correl">
+<code class="sig-prename descclassname">westpa.mclib.</code><code class="sig-name descname">mcbs_ci_correl</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">estimator_datasets</span></em>, <em class="sig-param"><span class="n">estimator</span></em>, <em class="sig-param"><span class="n">alpha</span></em>, <em class="sig-param"><span class="n">n_sets</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">args</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">autocorrel_alpha</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">autocorrel_n_sets</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">subsample</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">do_correl</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">mcbs_enable</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">estimator_kwargs</span><span class="o">=</span><span class="default_value">{}</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.mclib.mcbs_ci_correl" title="Permalink to this definition">¶</a></dt>
+<dd><p>Perform a Monte Carlo bootstrap estimate for the (1-<code class="docutils literal notranslate"><span class="pre">alpha</span></code>) confidence interval
+on the given <code class="docutils literal notranslate"><span class="pre">dataset</span></code> with the given <code class="docutils literal notranslate"><span class="pre">estimator</span></code>.  This routine is appropriate
+for time-correlated data, using the method described in Huber &amp; Kim, “Weighted-ensemble
+Brownian dynamics simulations for protein association reactions” (1996),
+doi:10.1016/S0006-3495(96)79552-8 to determine a statistically-significant correlation time
+and then reducing the dataset by a factor of that correlation time before running a “classic”
+Monte Carlo bootstrap.</p>
+<p>Returns <code class="docutils literal notranslate"><span class="pre">(estimate,</span> <span class="pre">ci_lb,</span> <span class="pre">ci_ub,</span> <span class="pre">correl_time)</span></code> where <code class="docutils literal notranslate"><span class="pre">estimate</span></code> is the application of the
+given <code class="docutils literal notranslate"><span class="pre">estimator</span></code> to the input <code class="docutils literal notranslate"><span class="pre">dataset</span></code>, <code class="docutils literal notranslate"><span class="pre">ci_lb</span></code> and <code class="docutils literal notranslate"><span class="pre">ci_ub</span></code> are the
+lower and upper limits, respectively, of the (1-<code class="docutils literal notranslate"><span class="pre">alpha</span></code>) confidence interval on
+<code class="docutils literal notranslate"><span class="pre">estimate</span></code>, and <code class="docutils literal notranslate"><span class="pre">correl_time</span></code> is the correlation time of the dataset, significant to
+(1-<code class="docutils literal notranslate"><span class="pre">autocorrel_alpha</span></code>).</p>
+<dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">estimator</span></code> is called as <code class="docutils literal notranslate"><span class="pre">estimator(dataset,</span> <span class="pre">*args,</span> <span class="pre">**kwargs)</span></code>. Common estimators include:</dt><dd><ul class="simple">
+<li><p>np.mean – calculate the confidence interval on the mean of <code class="docutils literal notranslate"><span class="pre">dataset</span></code></p></li>
+<li><p>np.median – calculate a confidence interval on the median of <code class="docutils literal notranslate"><span class="pre">dataset</span></code></p></li>
+<li><p>np.std – calculate a confidence interval on the standard deviation of <code class="docutils literal notranslate"><span class="pre">datset</span></code>.</p></li>
+</ul>
+</dd>
+</dl>
+<p><code class="docutils literal notranslate"><span class="pre">n_sets</span></code> is the number of synthetic data sets to generate using the given <code class="docutils literal notranslate"><span class="pre">estimator</span></code>,
+which will be chosen using <a href="#id1"><span class="problematic" id="id2">`get_bssize()`_</span></a> if <code class="docutils literal notranslate"><span class="pre">n_sets</span></code> is not given.</p>
+<p><code class="docutils literal notranslate"><span class="pre">autocorrel_alpha</span></code> (which defaults to <code class="docutils literal notranslate"><span class="pre">alpha</span></code>) can be used to adjust the significance
+level of the autocorrelation calculation. Note that too high a significance level (too low an
+alpha) for evaluating the significance of autocorrelation values can result in a failure to
+detect correlation if the autocorrelation function is noisy.</p>
+<p>The given <code class="docutils literal notranslate"><span class="pre">subsample</span></code> function is used, if provided, to subsample the dataset prior to running
+the full Monte Carlo bootstrap. If none is provided, then a random entry from each correlated
+block is used as the value for that block.  Other reasonable choices include <code class="docutils literal notranslate"><span class="pre">np.mean</span></code>,
+<code class="docutils literal notranslate"><span class="pre">np.median</span></code>, <code class="docutils literal notranslate"><span class="pre">(lambda</span> <span class="pre">x:</span> <span class="pre">x[0])</span></code> or <code class="docutils literal notranslate"><span class="pre">(lambda</span> <span class="pre">x:</span> <span class="pre">x[-1])</span></code>.  In particular, using
+<code class="docutils literal notranslate"><span class="pre">subsample=np.mean</span></code> will converge to the block averaged mean and standard error,
+while accounting for any non-normality in the distribution of the mean.</p>
+</dd></dl>
+
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2021, Matthew C. Zwier and Lillian T. Chong.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
