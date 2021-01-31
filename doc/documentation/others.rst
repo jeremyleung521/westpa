@@ -6,5 +6,5 @@ Other Packages
    
    Fasthist        <others/westpa.fasthist>
    Mclib           <others/westpa.mclib>
-   Trajtree        <others/trajtree>
-   Old Tools       <others/westpa.oldtools>
+   Trajtree        <others/westpa.trajtree>
+   Old Tools       <others/oldtools>

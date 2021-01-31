@@ -10,10 +10,10 @@ Advanced References
 
     WESTPA Command Line Interface     <documentation/cli>
     WESTPA Core                       <documentation/core>
-    WESTPA Work Manager               <documentation/work_managers>
-    WESTPA Tools                      <documentation/tools>
+    WESTPA Work Manager               <documentation/work_managers/westpa.work_managers>
+    WESTPA Tools                      <documentation/tools/westpa.tools>
     WESTPA Other Components           <documentation/others>
-    WESTPA Extentions                 <documentation/ext>
+    WESTPA Extentions                 <documentation/ext/westpa.westext>
     HDF5 file structure               <documentation/hdf5>
 
 --------------
