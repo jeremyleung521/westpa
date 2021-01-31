@@ -20,7 +20,6 @@
 * Weighted Ensemble Algorithm section
 * WEST>Setup>Running transfer pages to sphinx
 * WEST Extension > Plugins MAB scheme? What for?
-* Overview is Empty? Delete? Or fill out intro to WESTPA dev
 * Update Style Guide - flak8 and black + precommit
 * Source Code Management - delete
 * WESTPA Modules API? -> python API? (wait to change) 
@@ -37,8 +36,9 @@
 
 
 ## Completed on 30Jan2021
-* Reorganize CLI tools into subgroups when they expand?
-* Reorganize autodoc structure because all information are 5 levels in
+* Reorganized CLI tools into subgroups when they expand?
+* Reorganized autodoc structure because all information are 5 levels in
+* Overview is Empty? Delete? Or fill out intro to WESTPA dev
 
 
 ## Completed on 26Jan2021
