@@ -14,7 +14,7 @@ Advanced References
     WESTPA Tools                      <documentation/tools>
     WESTPA Other Components           <documentation/others>
     WESTPA Extentions                 <documentation/ext>
-    HDF5 file structure               <users_guide/hdf5>
+    HDF5 file structure               <documentation/hdf5>
 
 --------------
 For Developers

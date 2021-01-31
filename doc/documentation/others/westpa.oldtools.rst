@@ -11,8 +11,13 @@ Subpackages
    westpa.oldtools.cmds
    westpa.oldtools.stats
 
-Submodules
-----------
+westpa.oldtools.files module
+----------------------------
+
+.. automodule:: westpa.oldtools
+   :members:
+   :undoc-members:
+   :show-inheritance:
 
 westpa.oldtools.files module
 ----------------------------
@@ -30,10 +35,4 @@ westpa.oldtools.miscfn module
    :undoc-members:
    :show-inheritance:
 
-Module contents
----------------
 
-.. automodule:: westpa.oldtools
-   :members:
-   :undoc-members:
-   :show-inheritance:
