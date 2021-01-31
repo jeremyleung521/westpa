@@ -3,9 +3,9 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" />
+  <meta charset="utf-8">
   
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
   <title>w_crawl &mdash; WESTPA 2.0 documentation</title>
   
@@ -17,10 +17,7 @@
 
   
   
-
   
-  
-
   
 
   
@@ -54,7 +51,7 @@
           
 
           
-            <a href="../../sphinx_index3.html" class="icon icon-home"> WESTPA
+            <a href="../../sphinx_index.html" class="icon icon-home" alt="Documentation Home"> WESTPA
           
 
           
@@ -92,7 +89,7 @@
               
             
             
-              <p class="caption"><span class="caption-text">For Developers:</span></p>
+              <p class="caption"><span class="caption-text">For Advanced Users (2.0):</span></p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="../cli.html"> WESTPA Command Line Interface</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="w_init.html"> w_init</a></li>
@@ -108,7 +105,7 @@
 <li class="toctree-l2"><a class="reference internal" href="w_succ.html"> w_succ</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#"> w_crawl</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#command-line-options">Command-line options</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#module-westpa.cli.tools.w_crawl">westpa.cli.tools.w_crawl module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#westpa-cli-tools-w-crawl-module">westpa.cli.tools.w_crawl module</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="w_direct.html"> w_direct</a></li>
@@ -116,17 +113,22 @@
 <li class="toctree-l2"><a class="reference internal" href="w_states.html"> w_states</a></li>
 <li class="toctree-l2"><a class="reference internal" href="w_eddist.html"> w_eddist</a></li>
 <li class="toctree-l2"><a class="reference internal" href="w_ntop.html"> w_ntop</a></li>
+<li class="toctree-l2"><a class="reference internal" href="w_dumpsegs.html"> w_dumpsegs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="w_postanalysis_matrix.html"> w_postanalysis_matrix</a></li>
+<li class="toctree-l2"><a class="reference internal" href="w_postanalysis_reweight.html"> w_postanalysis_reweight</a></li>
+<li class="toctree-l2"><a class="reference internal" href="w_reweight.html"> w_reweight</a></li>
 <li class="toctree-l2"><a class="reference internal" href="plothist.html"> plothist</a></li>
 <li class="toctree-l2"><a class="reference internal" href="ploterr.html"> ploterr</a></li>
 <li class="toctree-l2"><a class="reference internal" href="w_kinavg.html"> w_kinavg</a></li>
 <li class="toctree-l2"><a class="reference internal" href="w_kinetics.html"> w_kinetics</a></li>
 <li class="toctree-l2"><a class="reference internal" href="w_stateprobs.html"> w_stateprobs</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../cli.html#module-westpa.cli">Module contents</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../modules.html"> WESTPA Core</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../modules.html"> WESTPA Tools</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../users_guide/hdf5.html"> HDF5 file structure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../core.html"> WESTPA Core</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../work_managers.html"> WESTPA Work Manager</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../others.html"> WESTPA Other Components</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ext.html"> WESTPA Extentions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../hdf5.html"> HDF5 file structure</a></li>
 </ul>
 <p class="caption"><span class="caption-text">For Developers:</span></p>
 <ul>
@@ -137,7 +139,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../development/api.html">WESTPA Modules API</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../development/api.html#westpa-tools">WESTPA Tools</a></li>
 </ul>
-<p class="caption"><span class="caption-text">For Users:</span></p>
+<p class="caption"><span class="caption-text">For Legacy Users (1.0):</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../users_guide/west.html"> WEST</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../users_guide/west_tools.html"> WEST tools</a></li>
@@ -162,7 +164,7 @@
       <nav class="wy-nav-top" aria-label="top navigation">
         
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../../sphinx_index3.html">WESTPA</a>
+          <a href="../../sphinx_index.html">WESTPA</a>
         
       </nav>
 
@@ -187,13 +189,11 @@
 
 
 
-
-
 <div role="navigation" aria-label="breadcrumbs navigation">
 
   <ul class="wy-breadcrumbs">
     
-      <li><a href="../../sphinx_index3.html" class="icon icon-home"></a> &raquo;</li>
+      <li><a href="../../sphinx_index.html" class="icon icon-home"></a> &raquo;</li>
         
           <li><a href="../cli.html">westpa.cli package</a> &raquo;</li>
         
@@ -202,7 +202,7 @@
     
       <li class="wy-breadcrumbs-aside">
         
-          
+            
             <a href="../../_sources/documentation/cli/w_crawl.rst.txt" rel="nofollow"> View page source</a>
           
         
@@ -338,74 +338,8 @@ no guarantees are made about evaluation order.</p>
 </pre></div>
 </div>
 </div>
-<div class="section" id="module-westpa.cli.tools.w_crawl">
-<span id="westpa-cli-tools-w-crawl-module"></span><h2>westpa.cli.tools.w_crawl module<a class="headerlink" href="#module-westpa.cli.tools.w_crawl" title="Permalink to this headline">¶</a></h2>
-<dl class="py class">
-<dt id="westpa.cli.tools.w_crawl.WESTPACrawler">
-<em class="property">class </em><code class="sig-prename descclassname">westpa.cli.tools.w_crawl.</code><code class="sig-name descname">WESTPACrawler</code><a class="headerlink" href="#westpa.cli.tools.w_crawl.WESTPACrawler" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-<p>Base class for general crawling execution. This class
-only exists on the master.</p>
-<dl class="py method">
-<dt id="westpa.cli.tools.w_crawl.WESTPACrawler.initialize">
-<code class="sig-name descname">initialize</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">iter_start</span></em>, <em class="sig-param"><span class="n">iter_stop</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.cli.tools.w_crawl.WESTPACrawler.initialize" title="Permalink to this definition">¶</a></dt>
-<dd><p>Initialize this crawling process.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt id="westpa.cli.tools.w_crawl.WESTPACrawler.finalize">
-<code class="sig-name descname">finalize</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#westpa.cli.tools.w_crawl.WESTPACrawler.finalize" title="Permalink to this definition">¶</a></dt>
-<dd><p>Finalize this crawling process.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt id="westpa.cli.tools.w_crawl.WESTPACrawler.process_iter_result">
-<code class="sig-name descname">process_iter_result</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">n_iter</span></em>, <em class="sig-param"><span class="n">result</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.cli.tools.w_crawl.WESTPACrawler.process_iter_result" title="Permalink to this definition">¶</a></dt>
-<dd><p>Process the result of a per-iteration task.</p>
-</dd></dl>
-
-</dd></dl>
-
-<dl class="py class">
-<dt id="westpa.cli.tools.w_crawl.WCrawl">
-<em class="property">class </em><code class="sig-prename descclassname">westpa.cli.tools.w_crawl.</code><code class="sig-name descname">WCrawl</code><a class="headerlink" href="#westpa.cli.tools.w_crawl.WCrawl" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="../../test/westpa.tools.html#westpa.tools.core.WESTParallelTool" title="westpa.tools.core.WESTParallelTool"><code class="xref py py-class docutils literal notranslate"><span class="pre">westpa.tools.core.WESTParallelTool</span></code></a></p>
-<dl class="py attribute">
-<dt id="westpa.cli.tools.w_crawl.WCrawl.prog">
-<code class="sig-name descname">prog</code><em class="property"> = 'w_crawl'</em><a class="headerlink" href="#westpa.cli.tools.w_crawl.WCrawl.prog" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt id="westpa.cli.tools.w_crawl.WCrawl.description">
-<code class="sig-name descname">description</code><em class="property"> = 'Crawl a weighted ensemble dataset, executing a function for each iteration.\nThis can be used for postprocessing of trajectories, cleanup of datasets,\nor anything else that can be expressed as &quot;do X for iteration N, then do\nsomething with the result&quot;. Tasks are parallelized by iteration, and\nno guarantees are made about evaluation order.\n\n\n-----------------------------------------------------------------------------\nCommand-line options\n-----------------------------------------------------------------------------\n\n'</em><a class="headerlink" href="#westpa.cli.tools.w_crawl.WCrawl.description" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt id="westpa.cli.tools.w_crawl.WCrawl.add_args">
-<code class="sig-name descname">add_args</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">parser</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.cli.tools.w_crawl.WCrawl.add_args" title="Permalink to this definition">¶</a></dt>
-<dd><p>Add arguments specific to this tool to the given argparse parser.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt id="westpa.cli.tools.w_crawl.WCrawl.process_args">
-<code class="sig-name descname">process_args</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">args</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.cli.tools.w_crawl.WCrawl.process_args" title="Permalink to this definition">¶</a></dt>
-<dd><p>Take argparse-processed arguments associated with this tool and deal
-with them appropriately (setting instance variables, etc)</p>
-</dd></dl>
-
-<dl class="py method">
-<dt id="westpa.cli.tools.w_crawl.WCrawl.go">
-<code class="sig-name descname">go</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#westpa.cli.tools.w_crawl.WCrawl.go" title="Permalink to this definition">¶</a></dt>
-<dd><p>Perform the analysis associated with this tool.</p>
-</dd></dl>
-
-</dd></dl>
-
-<dl class="py function">
-<dt id="westpa.cli.tools.w_crawl.entry_point">
-<code class="sig-prename descclassname">westpa.cli.tools.w_crawl.</code><code class="sig-name descname">entry_point</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#westpa.cli.tools.w_crawl.entry_point" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
+<div class="section" id="westpa-cli-tools-w-crawl-module">
+<h2>westpa.cli.tools.w_crawl module<a class="headerlink" href="#westpa-cli-tools-w-crawl-module" title="Permalink to this headline">¶</a></h2>
 </div>
 </div>
 
@@ -414,29 +348,37 @@ with them appropriately (setting instance variables, etc)</p>
            
           </div>
           <footer>
+  
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-        <a href="w_direct.html" class="btn btn-neutral float-right" title="w_direct" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
-        <a href="w_succ.html" class="btn btn-neutral float-left" title="w_succ" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+      
+        <a href="w_direct.html" class="btn btn-neutral float-right" title="w_direct" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="w_succ.html" class="btn btn-neutral float-left" title="w_succ" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
     </div>
+  
 
   <hr/>
 
   <div role="contentinfo">
     <p>
-        &#169; Copyright 2021, Matthew C. Zwier and Lillian T. Chong.
+        
+        &copy; Copyright 2021, Matthew C. Zwier and Lillian T. Chong
 
     </p>
   </div>
     
     
     
-    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
     
-    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
     
     provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
+
         </div>
       </div>
 

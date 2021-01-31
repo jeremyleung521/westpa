@@ -3,9 +3,9 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" />
+  <meta charset="utf-8">
   
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
   <title>ploterr &mdash; WESTPA 2.0 documentation</title>
   
@@ -17,10 +17,7 @@
 
   
   
-
   
-  
-
   
 
   
@@ -54,7 +51,7 @@
           
 
           
-            <a href="../../sphinx_index3.html" class="icon icon-home"> WESTPA
+            <a href="../../sphinx_index.html" class="icon icon-home" alt="Documentation Home"> WESTPA
           
 
           
@@ -92,7 +89,7 @@
               
             
             
-              <p class="caption"><span class="caption-text">For Developers:</span></p>
+              <p class="caption"><span class="caption-text">For Advanced Users (2.0):</span></p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="../cli.html"> WESTPA Command Line Interface</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="w_init.html"> w_init</a></li>
@@ -112,21 +109,26 @@
 <li class="toctree-l2"><a class="reference internal" href="w_states.html"> w_states</a></li>
 <li class="toctree-l2"><a class="reference internal" href="w_eddist.html"> w_eddist</a></li>
 <li class="toctree-l2"><a class="reference internal" href="w_ntop.html"> w_ntop</a></li>
+<li class="toctree-l2"><a class="reference internal" href="w_dumpsegs.html"> w_dumpsegs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="w_postanalysis_matrix.html"> w_postanalysis_matrix</a></li>
+<li class="toctree-l2"><a class="reference internal" href="w_postanalysis_reweight.html"> w_postanalysis_reweight</a></li>
+<li class="toctree-l2"><a class="reference internal" href="w_reweight.html"> w_reweight</a></li>
 <li class="toctree-l2"><a class="reference internal" href="plothist.html"> plothist</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#"> ploterr</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#command-line-options">Command-line options</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#module-westpa.cli.tools.ploterr">westpa.cli.tools.ploterr module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#westpa-cli-tools-ploterr-module">westpa.cli.tools.ploterr module</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="w_kinavg.html"> w_kinavg</a></li>
 <li class="toctree-l2"><a class="reference internal" href="w_kinetics.html"> w_kinetics</a></li>
 <li class="toctree-l2"><a class="reference internal" href="w_stateprobs.html"> w_stateprobs</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../cli.html#module-westpa.cli">Module contents</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../modules.html"> WESTPA Core</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../modules.html"> WESTPA Tools</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../users_guide/hdf5.html"> HDF5 file structure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../core.html"> WESTPA Core</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../work_managers.html"> WESTPA Work Manager</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../others.html"> WESTPA Other Components</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ext.html"> WESTPA Extentions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../hdf5.html"> HDF5 file structure</a></li>
 </ul>
 <p class="caption"><span class="caption-text">For Developers:</span></p>
 <ul>
@@ -137,7 +139,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../development/api.html">WESTPA Modules API</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../development/api.html#westpa-tools">WESTPA Tools</a></li>
 </ul>
-<p class="caption"><span class="caption-text">For Users:</span></p>
+<p class="caption"><span class="caption-text">For Legacy Users (1.0):</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../users_guide/west.html"> WEST</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../users_guide/west_tools.html"> WEST tools</a></li>
@@ -162,7 +164,7 @@
       <nav class="wy-nav-top" aria-label="top navigation">
         
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../../sphinx_index3.html">WESTPA</a>
+          <a href="../../sphinx_index.html">WESTPA</a>
         
       </nav>
 
@@ -187,13 +189,11 @@
 
 
 
-
-
 <div role="navigation" aria-label="breadcrumbs navigation">
 
   <ul class="wy-breadcrumbs">
     
-      <li><a href="../../sphinx_index3.html" class="icon icon-home"></a> &raquo;</li>
+      <li><a href="../../sphinx_index.html" class="icon icon-home"></a> &raquo;</li>
         
           <li><a href="../cli.html">westpa.cli package</a> &raquo;</li>
         
@@ -202,7 +202,7 @@
     
       <li class="wy-breadcrumbs-aside">
         
-          
+            
             <a href="../../_sources/documentation/cli/ploterr.rst.txt" rel="nofollow"> View page source</a>
           
         
@@ -250,302 +250,8 @@
 </pre></div>
 </div>
 </div>
-<div class="section" id="module-westpa.cli.tools.ploterr">
-<span id="westpa-cli-tools-ploterr-module"></span><h2>westpa.cli.tools.ploterr module<a class="headerlink" href="#module-westpa.cli.tools.ploterr" title="Permalink to this headline">¶</a></h2>
-<dl class="py class">
-<dt id="westpa.cli.tools.ploterr.CommonPloterrs">
-<em class="property">class </em><code class="sig-prename descclassname">westpa.cli.tools.ploterr.</code><code class="sig-name descname">CommonPloterrs</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">parent</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.cli.tools.ploterr.CommonPloterrs" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="../../test/westpa.tools.html#westpa.tools.core.WESTSubcommand" title="westpa.tools.core.WESTSubcommand"><code class="xref py py-class docutils literal notranslate"><span class="pre">westpa.tools.core.WESTSubcommand</span></code></a></p>
-<dl class="py method">
-<dt id="westpa.cli.tools.ploterr.CommonPloterrs.add_args">
-<code class="sig-name descname">add_args</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">parser</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.cli.tools.ploterr.CommonPloterrs.add_args" title="Permalink to this definition">¶</a></dt>
-<dd><p>Add arguments specific to this component to the given argparse parser.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt id="westpa.cli.tools.ploterr.CommonPloterrs.process_args">
-<code class="sig-name descname">process_args</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">args</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.cli.tools.ploterr.CommonPloterrs.process_args" title="Permalink to this definition">¶</a></dt>
-<dd><p>Take argparse-processed arguments associated with this component and deal
-with them appropriately (setting instance variables, etc)</p>
-</dd></dl>
-
-<dl class="py method">
-<dt id="westpa.cli.tools.ploterr.CommonPloterrs.parse_range">
-<code class="sig-name descname">parse_range</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">rangespec</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.cli.tools.ploterr.CommonPloterrs.parse_range" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt id="westpa.cli.tools.ploterr.CommonPloterrs.do_plot">
-<code class="sig-name descname">do_plot</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data</span></em>, <em class="sig-param"><span class="n">output_filename</span></em>, <em class="sig-param"><span class="n">title</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">x_range</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">y_range</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">x_label</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">y_label</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.cli.tools.ploterr.CommonPloterrs.do_plot" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
-<dl class="py class">
-<dt id="westpa.cli.tools.ploterr.GenericIntervalSubcommand">
-<em class="property">class </em><code class="sig-prename descclassname">westpa.cli.tools.ploterr.</code><code class="sig-name descname">GenericIntervalSubcommand</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">parent</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.cli.tools.ploterr.GenericIntervalSubcommand" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="../westpa.cli.tools.html#westpa.cli.tools.ploterr.CommonPloterrs" title="westpa.cli.tools.ploterr.CommonPloterrs"><code class="xref py py-class docutils literal notranslate"><span class="pre">westpa.cli.tools.ploterr.CommonPloterrs</span></code></a></p>
-<dl class="py attribute">
-<dt id="westpa.cli.tools.ploterr.GenericIntervalSubcommand.description">
-<code class="sig-name descname">description</code><em class="property"> = 'Plots generic expectation/CI data. A path to the HDF5 file and the dataset\nwithin it must be provided. This path takes the form **FILENAME/PATH[SLICE]**.\nIf the dataset is not a vector (one dimensional) then a slice must be provided.\nFor example, to access the state 0 to state 1 rate evolution calculated by\n``w_kinavg``, one would use ``kinavg.h5/rate_evolution[:,0,1]``.\n\n\n-----------------------------------------------------------------------------\nCommand-line arguments\n-----------------------------------------------------------------------------\n'</em><a class="headerlink" href="#westpa.cli.tools.ploterr.GenericIntervalSubcommand.description" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt id="westpa.cli.tools.ploterr.GenericIntervalSubcommand.subcommand">
-<code class="sig-name descname">subcommand</code><em class="property"> = 'generic'</em><a class="headerlink" href="#westpa.cli.tools.ploterr.GenericIntervalSubcommand.subcommand" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt id="westpa.cli.tools.ploterr.GenericIntervalSubcommand.help_text">
-<code class="sig-name descname">help_text</code><em class="property"> = 'arbitrary HDF5 file and dataset'</em><a class="headerlink" href="#westpa.cli.tools.ploterr.GenericIntervalSubcommand.help_text" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt id="westpa.cli.tools.ploterr.GenericIntervalSubcommand.add_args">
-<code class="sig-name descname">add_args</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">parser</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.cli.tools.ploterr.GenericIntervalSubcommand.add_args" title="Permalink to this definition">¶</a></dt>
-<dd><p>Add arguments specific to this component to the given argparse parser.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt id="westpa.cli.tools.ploterr.GenericIntervalSubcommand.process_args">
-<code class="sig-name descname">process_args</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">args</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.cli.tools.ploterr.GenericIntervalSubcommand.process_args" title="Permalink to this definition">¶</a></dt>
-<dd><p>Take argparse-processed arguments associated with this component and deal
-with them appropriately (setting instance variables, etc)</p>
-</dd></dl>
-
-<dl class="py method">
-<dt id="westpa.cli.tools.ploterr.GenericIntervalSubcommand.load_and_validate_data">
-<code class="sig-name descname">load_and_validate_data</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#westpa.cli.tools.ploterr.GenericIntervalSubcommand.load_and_validate_data" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt id="westpa.cli.tools.ploterr.GenericIntervalSubcommand.go">
-<code class="sig-name descname">go</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#westpa.cli.tools.ploterr.GenericIntervalSubcommand.go" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
-<dl class="py class">
-<dt id="westpa.cli.tools.ploterr.DirectKinetics">
-<em class="property">class </em><code class="sig-prename descclassname">westpa.cli.tools.ploterr.</code><code class="sig-name descname">DirectKinetics</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">parent</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.cli.tools.ploterr.DirectKinetics" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="../westpa.cli.tools.html#westpa.cli.tools.ploterr.CommonPloterrs" title="westpa.cli.tools.ploterr.CommonPloterrs"><code class="xref py py-class docutils literal notranslate"><span class="pre">westpa.cli.tools.ploterr.CommonPloterrs</span></code></a></p>
-<dl class="py attribute">
-<dt id="westpa.cli.tools.ploterr.DirectKinetics.subcommand">
-<code class="sig-name descname">subcommand</code><em class="property"> = 'd.kinetics'</em><a class="headerlink" href="#westpa.cli.tools.ploterr.DirectKinetics.subcommand" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt id="westpa.cli.tools.ploterr.DirectKinetics.help_text">
-<code class="sig-name descname">help_text</code><em class="property"> = 'output of w_direct kinetics'</em><a class="headerlink" href="#westpa.cli.tools.ploterr.DirectKinetics.help_text" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt id="westpa.cli.tools.ploterr.DirectKinetics.input_filename">
-<code class="sig-name descname">input_filename</code><em class="property"> = 'direct.h5'</em><a class="headerlink" href="#westpa.cli.tools.ploterr.DirectKinetics.input_filename" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt id="westpa.cli.tools.ploterr.DirectKinetics.flux_output_filename">
-<code class="sig-name descname">flux_output_filename</code><em class="property"> = 'flux_evolution_d_{state_label}.pdf'</em><a class="headerlink" href="#westpa.cli.tools.ploterr.DirectKinetics.flux_output_filename" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt id="westpa.cli.tools.ploterr.DirectKinetics.rate_output_filename">
-<code class="sig-name descname">rate_output_filename</code><em class="property"> = 'rate_evolution_d_{istate_label}_{fstate_label}.pdf'</em><a class="headerlink" href="#westpa.cli.tools.ploterr.DirectKinetics.rate_output_filename" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt id="westpa.cli.tools.ploterr.DirectKinetics.description">
-<code class="sig-name descname">description</code><em class="property"> = 'Plot evolution of state-to-state rates and total flux into states as generated\nby ``w_{direct/reweight} kinetics`` (when used with the ``--evolution-mode``\noption). Plots are generated for all rates/fluxes calculated. Output filenames\nrequire (and plot titles and axis labels support) substitution based on which\nflux/rate is being plotted:\n\n  istate_label, fstate_label\n    *(String, for rates)* Names of the initial and final states, as originally\n    given to ``w_assign``.\n\n  istate_index, fstate_index\n    *(Integer, for rates)* Indices of initial and final states.\n\n  state_label\n    *(String, for fluxes)* Name of state\n\n  state_index\n    *(Integer, for fluxes)* Index of state\n'</em><a class="headerlink" href="#westpa.cli.tools.ploterr.DirectKinetics.description" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt id="westpa.cli.tools.ploterr.DirectKinetics.add_args">
-<code class="sig-name descname">add_args</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">parser</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.cli.tools.ploterr.DirectKinetics.add_args" title="Permalink to this definition">¶</a></dt>
-<dd><p>Add arguments specific to this component to the given argparse parser.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt id="westpa.cli.tools.ploterr.DirectKinetics.process_args">
-<code class="sig-name descname">process_args</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">args</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.cli.tools.ploterr.DirectKinetics.process_args" title="Permalink to this definition">¶</a></dt>
-<dd><p>Take argparse-processed arguments associated with this component and deal
-with them appropriately (setting instance variables, etc)</p>
-</dd></dl>
-
-<dl class="py method">
-<dt id="westpa.cli.tools.ploterr.DirectKinetics.plot_flux">
-<code class="sig-name descname">plot_flux</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">istate</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.cli.tools.ploterr.DirectKinetics.plot_flux" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt id="westpa.cli.tools.ploterr.DirectKinetics.plot_rate">
-<code class="sig-name descname">plot_rate</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">istate</span></em>, <em class="sig-param"><span class="n">jstate</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.cli.tools.ploterr.DirectKinetics.plot_rate" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt id="westpa.cli.tools.ploterr.DirectKinetics.go">
-<code class="sig-name descname">go</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#westpa.cli.tools.ploterr.DirectKinetics.go" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
-<dl class="py class">
-<dt id="westpa.cli.tools.ploterr.DirectStateprobs">
-<em class="property">class </em><code class="sig-prename descclassname">westpa.cli.tools.ploterr.</code><code class="sig-name descname">DirectStateprobs</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">parent</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.cli.tools.ploterr.DirectStateprobs" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="../westpa.cli.tools.html#westpa.cli.tools.ploterr.CommonPloterrs" title="westpa.cli.tools.ploterr.CommonPloterrs"><code class="xref py py-class docutils literal notranslate"><span class="pre">westpa.cli.tools.ploterr.CommonPloterrs</span></code></a></p>
-<dl class="py attribute">
-<dt id="westpa.cli.tools.ploterr.DirectStateprobs.subcommand">
-<code class="sig-name descname">subcommand</code><em class="property"> = 'd.probs'</em><a class="headerlink" href="#westpa.cli.tools.ploterr.DirectStateprobs.subcommand" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt id="westpa.cli.tools.ploterr.DirectStateprobs.help_text">
-<code class="sig-name descname">help_text</code><em class="property"> = 'output of w_direct probs'</em><a class="headerlink" href="#westpa.cli.tools.ploterr.DirectStateprobs.help_text" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt id="westpa.cli.tools.ploterr.DirectStateprobs.input_filename">
-<code class="sig-name descname">input_filename</code><em class="property"> = 'direct.h5'</em><a class="headerlink" href="#westpa.cli.tools.ploterr.DirectStateprobs.input_filename" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt id="westpa.cli.tools.ploterr.DirectStateprobs.pop_output_filename">
-<code class="sig-name descname">pop_output_filename</code><em class="property"> = 'pop_evolution_d_{state_label}.pdf'</em><a class="headerlink" href="#westpa.cli.tools.ploterr.DirectStateprobs.pop_output_filename" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt id="westpa.cli.tools.ploterr.DirectStateprobs.color_output_filename">
-<code class="sig-name descname">color_output_filename</code><em class="property"> = 'color_evolution_d_{state_label}.pdf'</em><a class="headerlink" href="#westpa.cli.tools.ploterr.DirectStateprobs.color_output_filename" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt id="westpa.cli.tools.ploterr.DirectStateprobs.description">
-<code class="sig-name descname">description</code><em class="property"> = 'Plot evolution of macrostate populations and associated uncertainties. Plots\nare generated for all states calculated. Output filenames require (and plot\ntitles and axis labels support) substitution based on which state is being\nplotted:\n\n  state_label\n    *(String, for fluxes)* Name of state\n\n  state_index\n    *(Integer, for fluxes)* Index of state\n'</em><a class="headerlink" href="#westpa.cli.tools.ploterr.DirectStateprobs.description" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt id="westpa.cli.tools.ploterr.DirectStateprobs.add_args">
-<code class="sig-name descname">add_args</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">parser</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.cli.tools.ploterr.DirectStateprobs.add_args" title="Permalink to this definition">¶</a></dt>
-<dd><p>Add arguments specific to this component to the given argparse parser.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt id="westpa.cli.tools.ploterr.DirectStateprobs.process_args">
-<code class="sig-name descname">process_args</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">args</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.cli.tools.ploterr.DirectStateprobs.process_args" title="Permalink to this definition">¶</a></dt>
-<dd><p>Take argparse-processed arguments associated with this component and deal
-with them appropriately (setting instance variables, etc)</p>
-</dd></dl>
-
-<dl class="py method">
-<dt id="westpa.cli.tools.ploterr.DirectStateprobs.plot_pop">
-<code class="sig-name descname">plot_pop</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">istate</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.cli.tools.ploterr.DirectStateprobs.plot_pop" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt id="westpa.cli.tools.ploterr.DirectStateprobs.plot_color">
-<code class="sig-name descname">plot_color</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">istate</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.cli.tools.ploterr.DirectStateprobs.plot_color" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt id="westpa.cli.tools.ploterr.DirectStateprobs.go">
-<code class="sig-name descname">go</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#westpa.cli.tools.ploterr.DirectStateprobs.go" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
-<dl class="py class">
-<dt id="westpa.cli.tools.ploterr.ReweightStateprobs">
-<em class="property">class </em><code class="sig-prename descclassname">westpa.cli.tools.ploterr.</code><code class="sig-name descname">ReweightStateprobs</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">parent</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.cli.tools.ploterr.ReweightStateprobs" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="../westpa.cli.tools.html#westpa.cli.tools.ploterr.DirectStateprobs" title="westpa.cli.tools.ploterr.DirectStateprobs"><code class="xref py py-class docutils literal notranslate"><span class="pre">westpa.cli.tools.ploterr.DirectStateprobs</span></code></a></p>
-<dl class="py attribute">
-<dt id="westpa.cli.tools.ploterr.ReweightStateprobs.subcommand">
-<code class="sig-name descname">subcommand</code><em class="property"> = 'rw.probs'</em><a class="headerlink" href="#westpa.cli.tools.ploterr.ReweightStateprobs.subcommand" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt id="westpa.cli.tools.ploterr.ReweightStateprobs.help_text">
-<code class="sig-name descname">help_text</code><em class="property"> = 'output of w_reweight probs'</em><a class="headerlink" href="#westpa.cli.tools.ploterr.ReweightStateprobs.help_text" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt id="westpa.cli.tools.ploterr.ReweightStateprobs.input_filename">
-<code class="sig-name descname">input_filename</code><em class="property"> = 'reweight.h5'</em><a class="headerlink" href="#westpa.cli.tools.ploterr.ReweightStateprobs.input_filename" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt id="westpa.cli.tools.ploterr.ReweightStateprobs.pop_output_filename">
-<code class="sig-name descname">pop_output_filename</code><em class="property"> = 'pop_evolution_rw_{state_label}.pdf'</em><a class="headerlink" href="#westpa.cli.tools.ploterr.ReweightStateprobs.pop_output_filename" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt id="westpa.cli.tools.ploterr.ReweightStateprobs.color_output_filename">
-<code class="sig-name descname">color_output_filename</code><em class="property"> = 'color_evolution_rw_{state_label}.pdf'</em><a class="headerlink" href="#westpa.cli.tools.ploterr.ReweightStateprobs.color_output_filename" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
-<dl class="py class">
-<dt id="westpa.cli.tools.ploterr.ReweightKinetics">
-<em class="property">class </em><code class="sig-prename descclassname">westpa.cli.tools.ploterr.</code><code class="sig-name descname">ReweightKinetics</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">parent</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.cli.tools.ploterr.ReweightKinetics" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="../westpa.cli.tools.html#westpa.cli.tools.ploterr.DirectKinetics" title="westpa.cli.tools.ploterr.DirectKinetics"><code class="xref py py-class docutils literal notranslate"><span class="pre">westpa.cli.tools.ploterr.DirectKinetics</span></code></a></p>
-<dl class="py attribute">
-<dt id="westpa.cli.tools.ploterr.ReweightKinetics.subcommand">
-<code class="sig-name descname">subcommand</code><em class="property"> = 'rw.kinetics'</em><a class="headerlink" href="#westpa.cli.tools.ploterr.ReweightKinetics.subcommand" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt id="westpa.cli.tools.ploterr.ReweightKinetics.help_text">
-<code class="sig-name descname">help_text</code><em class="property"> = 'output of w_reweight kinetics'</em><a class="headerlink" href="#westpa.cli.tools.ploterr.ReweightKinetics.help_text" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt id="westpa.cli.tools.ploterr.ReweightKinetics.input_filename">
-<code class="sig-name descname">input_filename</code><em class="property"> = 'reweight.h5'</em><a class="headerlink" href="#westpa.cli.tools.ploterr.ReweightKinetics.input_filename" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt id="westpa.cli.tools.ploterr.ReweightKinetics.flux_output_filename">
-<code class="sig-name descname">flux_output_filename</code><em class="property"> = 'flux_evolution_rw_{state_label}.pdf'</em><a class="headerlink" href="#westpa.cli.tools.ploterr.ReweightKinetics.flux_output_filename" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt id="westpa.cli.tools.ploterr.ReweightKinetics.rate_output_filename">
-<code class="sig-name descname">rate_output_filename</code><em class="property"> = 'rate_evolution_rw_{istate_label}_{fstate_label}.pdf'</em><a class="headerlink" href="#westpa.cli.tools.ploterr.ReweightKinetics.rate_output_filename" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
-<dl class="py class">
-<dt id="westpa.cli.tools.ploterr.PloterrsTool">
-<em class="property">class </em><code class="sig-prename descclassname">westpa.cli.tools.ploterr.</code><code class="sig-name descname">PloterrsTool</code><a class="headerlink" href="#westpa.cli.tools.ploterr.PloterrsTool" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="../../test/westpa.tools.html#westpa.tools.core.WESTMasterCommand" title="westpa.tools.core.WESTMasterCommand"><code class="xref py py-class docutils literal notranslate"><span class="pre">westpa.tools.core.WESTMasterCommand</span></code></a></p>
-<dl class="py attribute">
-<dt id="westpa.cli.tools.ploterr.PloterrsTool.prog">
-<code class="sig-name descname">prog</code><em class="property"> = 'ploterrs'</em><a class="headerlink" href="#westpa.cli.tools.ploterr.PloterrsTool.prog" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt id="westpa.cli.tools.ploterr.PloterrsTool.subcommands">
-<code class="sig-name descname">subcommands</code><em class="property"> = [&lt;class 'westpa.cli.tools.ploterr.DirectKinetics'&gt;, &lt;class 'westpa.cli.tools.ploterr.DirectStateprobs'&gt;, &lt;class 'westpa.cli.tools.ploterr.ReweightStateprobs'&gt;, &lt;class 'westpa.cli.tools.ploterr.ReweightKinetics'&gt;, &lt;class 'westpa.cli.tools.ploterr.GenericIntervalSubcommand'&gt;]</em><a class="headerlink" href="#westpa.cli.tools.ploterr.PloterrsTool.subcommands" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt id="westpa.cli.tools.ploterr.PloterrsTool.subparsers_title">
-<code class="sig-name descname">subparsers_title</code><em class="property"> = 'supported input formats'</em><a class="headerlink" href="#westpa.cli.tools.ploterr.PloterrsTool.subparsers_title" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt id="westpa.cli.tools.ploterr.PloterrsTool.description">
-<code class="sig-name descname">description</code><em class="property"> = 'Plots error ranges for weighted ensemble datasets.\n\n\n-----------------------------------------------------------------------------\nCommand-line options\n-----------------------------------------------------------------------------\n'</em><a class="headerlink" href="#westpa.cli.tools.ploterr.PloterrsTool.description" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
-<dl class="py function">
-<dt id="westpa.cli.tools.ploterr.entry_point">
-<code class="sig-prename descclassname">westpa.cli.tools.ploterr.</code><code class="sig-name descname">entry_point</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#westpa.cli.tools.ploterr.entry_point" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
+<div class="section" id="westpa-cli-tools-ploterr-module">
+<h2>westpa.cli.tools.ploterr module<a class="headerlink" href="#westpa-cli-tools-ploterr-module" title="Permalink to this headline">¶</a></h2>
 </div>
 </div>
 
@@ -554,29 +260,37 @@ with them appropriately (setting instance variables, etc)</p>
            
           </div>
           <footer>
+  
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-        <a href="w_kinavg.html" class="btn btn-neutral float-right" title="w_kinavg" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
-        <a href="plothist.html" class="btn btn-neutral float-left" title="plothist" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+      
+        <a href="w_kinavg.html" class="btn btn-neutral float-right" title="w_kinavg" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="plothist.html" class="btn btn-neutral float-left" title="plothist" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
     </div>
+  
 
   <hr/>
 
   <div role="contentinfo">
     <p>
-        &#169; Copyright 2021, Matthew C. Zwier and Lillian T. Chong.
+        
+        &copy; Copyright 2021, Matthew C. Zwier and Lillian T. Chong
 
     </p>
   </div>
     
     
     
-    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
     
-    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
     
     provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
+
         </div>
       </div>
 

@@ -3,9 +3,9 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" />
+  <meta charset="utf-8">
   
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
   <title>w_bins &mdash; WESTPA 2.0 documentation</title>
   
@@ -17,10 +17,7 @@
 
   
   
-
   
-  
-
   
 
   
@@ -54,7 +51,7 @@
           
 
           
-            <a href="../../sphinx_index3.html" class="icon icon-home"> WESTPA
+            <a href="../../sphinx_index.html" class="icon icon-home" alt="Documentation Home"> WESTPA
           
 
           
@@ -92,7 +89,7 @@
               
             
             
-              <p class="caption"><span class="caption-text">For Developers:</span></p>
+              <p class="caption"><span class="caption-text">For Advanced Users (2.0):</span></p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="../cli.html"> WESTPA Command Line Interface</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="w_init.html"> w_init</a></li>
@@ -105,7 +102,7 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="#input-options">Input Options</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#examples">Examples</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#module-westpa.cli.tools.w_bins">westpa.cli.tools.w_bins module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#westpa-cli-tools-w-bins-module">westpa.cli.tools.w_bins module</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="w_run.html"> w_run</a></li>
@@ -123,17 +120,22 @@
 <li class="toctree-l2"><a class="reference internal" href="w_states.html"> w_states</a></li>
 <li class="toctree-l2"><a class="reference internal" href="w_eddist.html"> w_eddist</a></li>
 <li class="toctree-l2"><a class="reference internal" href="w_ntop.html"> w_ntop</a></li>
+<li class="toctree-l2"><a class="reference internal" href="w_dumpsegs.html"> w_dumpsegs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="w_postanalysis_matrix.html"> w_postanalysis_matrix</a></li>
+<li class="toctree-l2"><a class="reference internal" href="w_postanalysis_reweight.html"> w_postanalysis_reweight</a></li>
+<li class="toctree-l2"><a class="reference internal" href="w_reweight.html"> w_reweight</a></li>
 <li class="toctree-l2"><a class="reference internal" href="plothist.html"> plothist</a></li>
 <li class="toctree-l2"><a class="reference internal" href="ploterr.html"> ploterr</a></li>
 <li class="toctree-l2"><a class="reference internal" href="w_kinavg.html"> w_kinavg</a></li>
 <li class="toctree-l2"><a class="reference internal" href="w_kinetics.html"> w_kinetics</a></li>
 <li class="toctree-l2"><a class="reference internal" href="w_stateprobs.html"> w_stateprobs</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../cli.html#module-westpa.cli">Module contents</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../modules.html"> WESTPA Core</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../modules.html"> WESTPA Tools</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../users_guide/hdf5.html"> HDF5 file structure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../core.html"> WESTPA Core</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../work_managers.html"> WESTPA Work Manager</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../others.html"> WESTPA Other Components</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ext.html"> WESTPA Extentions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../hdf5.html"> HDF5 file structure</a></li>
 </ul>
 <p class="caption"><span class="caption-text">For Developers:</span></p>
 <ul>
@@ -144,7 +146,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../development/api.html">WESTPA Modules API</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../development/api.html#westpa-tools">WESTPA Tools</a></li>
 </ul>
-<p class="caption"><span class="caption-text">For Users:</span></p>
+<p class="caption"><span class="caption-text">For Legacy Users (1.0):</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../users_guide/west.html"> WEST</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../users_guide/west_tools.html"> WEST tools</a></li>
@@ -169,7 +171,7 @@
       <nav class="wy-nav-top" aria-label="top navigation">
         
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../../sphinx_index3.html">WESTPA</a>
+          <a href="../../sphinx_index.html">WESTPA</a>
         
       </nav>
 
@@ -194,13 +196,11 @@
 
 
 
-
-
 <div role="navigation" aria-label="breadcrumbs navigation">
 
   <ul class="wy-breadcrumbs">
     
-      <li><a href="../../sphinx_index3.html" class="icon icon-home"></a> &raquo;</li>
+      <li><a href="../../sphinx_index.html" class="icon icon-home"></a> &raquo;</li>
         
           <li><a href="../cli.html">westpa.cli package</a> &raquo;</li>
         
@@ -209,7 +209,7 @@
     
       <li class="wy-breadcrumbs-aside">
         
-          
+            
             <a href="../../_sources/documentation/cli/w_bins.rst.txt" rel="nofollow"> View page source</a>
           
         
@@ -342,58 +342,8 @@ more information on the general options.</p>
 <h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h2>
 <p>(TODO: Write up an example)</p>
 </div>
-<div class="section" id="module-westpa.cli.tools.w_bins">
-<span id="westpa-cli-tools-w-bins-module"></span><h2>westpa.cli.tools.w_bins module<a class="headerlink" href="#module-westpa.cli.tools.w_bins" title="Permalink to this headline">¶</a></h2>
-<dl class="py class">
-<dt id="westpa.cli.tools.w_bins.WBinTool">
-<em class="property">class </em><code class="sig-prename descclassname">westpa.cli.tools.w_bins.</code><code class="sig-name descname">WBinTool</code><a class="headerlink" href="#westpa.cli.tools.w_bins.WBinTool" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="../../test/westpa.tools.html#westpa.tools.core.WESTTool" title="westpa.tools.core.WESTTool"><code class="xref py py-class docutils literal notranslate"><span class="pre">westpa.tools.core.WESTTool</span></code></a></p>
-<dl class="py attribute">
-<dt id="westpa.cli.tools.w_bins.WBinTool.prog">
-<code class="sig-name descname">prog</code><em class="property"> = 'w_bins'</em><a class="headerlink" href="#westpa.cli.tools.w_bins.WBinTool.prog" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt id="westpa.cli.tools.w_bins.WBinTool.description">
-<code class="sig-name descname">description</code><em class="property"> = 'Display information and statistics about binning in a WEST simulation, or\nmodify the binning for the current iteration of a WEST simulation.\n-------------------------------------------------------------------------------\n'</em><a class="headerlink" href="#westpa.cli.tools.w_bins.WBinTool.description" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt id="westpa.cli.tools.w_bins.WBinTool.add_args">
-<code class="sig-name descname">add_args</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">parser</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.cli.tools.w_bins.WBinTool.add_args" title="Permalink to this definition">¶</a></dt>
-<dd><p>Add arguments specific to this tool to the given argparse parser.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt id="westpa.cli.tools.w_bins.WBinTool.process_args">
-<code class="sig-name descname">process_args</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">args</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.cli.tools.w_bins.WBinTool.process_args" title="Permalink to this definition">¶</a></dt>
-<dd><p>Take argparse-processed arguments associated with this tool and deal
-with them appropriately (setting instance variables, etc)</p>
-</dd></dl>
-
-<dl class="py method">
-<dt id="westpa.cli.tools.w_bins.WBinTool.go">
-<code class="sig-name descname">go</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#westpa.cli.tools.w_bins.WBinTool.go" title="Permalink to this definition">¶</a></dt>
-<dd><p>Perform the analysis associated with this tool.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt id="westpa.cli.tools.w_bins.WBinTool.cmd_info">
-<code class="sig-name descname">cmd_info</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#westpa.cli.tools.w_bins.WBinTool.cmd_info" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt id="westpa.cli.tools.w_bins.WBinTool.cmd_rebin">
-<code class="sig-name descname">cmd_rebin</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#westpa.cli.tools.w_bins.WBinTool.cmd_rebin" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
-<dl class="py function">
-<dt id="westpa.cli.tools.w_bins.entry_point">
-<code class="sig-prename descclassname">westpa.cli.tools.w_bins.</code><code class="sig-name descname">entry_point</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#westpa.cli.tools.w_bins.entry_point" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
+<div class="section" id="westpa-cli-tools-w-bins-module">
+<h2>westpa.cli.tools.w_bins module<a class="headerlink" href="#westpa-cli-tools-w-bins-module" title="Permalink to this headline">¶</a></h2>
 </div>
 </div>
 
@@ -402,29 +352,37 @@ with them appropriately (setting instance variables, etc)</p>
            
           </div>
           <footer>
+  
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-        <a href="w_run.html" class="btn btn-neutral float-right" title="w_run" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
-        <a href="w_init.html" class="btn btn-neutral float-left" title="w_init" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+      
+        <a href="w_run.html" class="btn btn-neutral float-right" title="w_run" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="w_init.html" class="btn btn-neutral float-left" title="w_init" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
     </div>
+  
 
   <hr/>
 
   <div role="contentinfo">
     <p>
-        &#169; Copyright 2021, Matthew C. Zwier and Lillian T. Chong.
+        
+        &copy; Copyright 2021, Matthew C. Zwier and Lillian T. Chong
 
     </p>
   </div>
     
     
     
-    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
     
-    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
     
     provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
+
         </div>
       </div>
 

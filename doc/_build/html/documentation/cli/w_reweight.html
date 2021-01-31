@@ -3,9 +3,9 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" />
+  <meta charset="utf-8">
   
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
   <title>w_reweight &mdash; WESTPA 2.0 documentation</title>
   
@@ -17,10 +17,7 @@
 
   
   
-
   
-  
-
   
 
   
@@ -54,7 +51,7 @@
           
 
           
-            <a href="../../sphinx_index3.html" class="icon icon-home"> WESTPA
+            <a href="../../sphinx_index.html" class="icon icon-home" alt="Documentation Home"> WESTPA
           
 
           
@@ -92,7 +89,7 @@
               
             
             
-              <p class="caption"><span class="caption-text">For Developers:</span></p>
+              <p class="caption"><span class="caption-text">For Advanced Users (2.0):</span></p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="../cli.html"> WESTPA Command Line Interface</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="w_init.html"> w_init</a></li>
@@ -116,7 +113,7 @@
 <li class="toctree-l2"><a class="reference internal" href="w_postanalysis_matrix.html"> w_postanalysis_matrix</a></li>
 <li class="toctree-l2"><a class="reference internal" href="w_postanalysis_reweight.html"> w_postanalysis_reweight</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#"> w_reweight</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#module-westpa.cli.tools.w_reweight">westpa.cli.tools.w_reweight module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#westpa-cli-tools-w-reweight-module">westpa.cli.tools.w_reweight module</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="plothist.html"> plothist</a></li>
@@ -124,12 +121,13 @@
 <li class="toctree-l2"><a class="reference internal" href="w_kinavg.html"> w_kinavg</a></li>
 <li class="toctree-l2"><a class="reference internal" href="w_kinetics.html"> w_kinetics</a></li>
 <li class="toctree-l2"><a class="reference internal" href="w_stateprobs.html"> w_stateprobs</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../cli.html#module-westpa.cli">Module contents</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../modules.html"> WESTPA Core</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../modules.html"> WESTPA Tools</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../users_guide/hdf5.html"> HDF5 file structure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../core.html"> WESTPA Core</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../work_managers.html"> WESTPA Work Manager</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../others.html"> WESTPA Other Components</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ext.html"> WESTPA Extentions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../hdf5.html"> HDF5 file structure</a></li>
 </ul>
 <p class="caption"><span class="caption-text">For Developers:</span></p>
 <ul>
@@ -140,7 +138,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../development/api.html">WESTPA Modules API</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../development/api.html#westpa-tools">WESTPA Tools</a></li>
 </ul>
-<p class="caption"><span class="caption-text">For Users:</span></p>
+<p class="caption"><span class="caption-text">For Legacy Users (1.0):</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../users_guide/west.html"> WEST</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../users_guide/west_tools.html"> WEST tools</a></li>
@@ -165,7 +163,7 @@
       <nav class="wy-nav-top" aria-label="top navigation">
         
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../../sphinx_index3.html">WESTPA</a>
+          <a href="../../sphinx_index.html">WESTPA</a>
         
       </nav>
 
@@ -190,13 +188,11 @@
 
 
 
-
-
 <div role="navigation" aria-label="breadcrumbs navigation">
 
   <ul class="wy-breadcrumbs">
     
-      <li><a href="../../sphinx_index3.html" class="icon icon-home"></a> &raquo;</li>
+      <li><a href="../../sphinx_index.html" class="icon icon-home"></a> &raquo;</li>
         
           <li><a href="../cli.html">westpa.cli package</a> &raquo;</li>
         
@@ -205,7 +201,7 @@
     
       <li class="wy-breadcrumbs-aside">
         
-          
+            
             <a href="../../_sources/documentation/cli/w_reweight.rst.txt" rel="nofollow"> View page source</a>
           
         
@@ -221,290 +217,8 @@
             
   <div class="section" id="w-reweight">
 <h1>w_reweight<a class="headerlink" href="#w-reweight" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="module-westpa.cli.tools.w_reweight">
-<span id="westpa-cli-tools-w-reweight-module"></span><h2>westpa.cli.tools.w_reweight module<a class="headerlink" href="#module-westpa.cli.tools.w_reweight" title="Permalink to this headline">¶</a></h2>
-<dl class="py class">
-<dt id="westpa.cli.tools.w_reweight.RWMatrix">
-<em class="property">class </em><code class="sig-prename descclassname">westpa.cli.tools.w_reweight.</code><code class="sig-name descname">RWMatrix</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">parent</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.cli.tools.w_reweight.RWMatrix" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="../../test/westpa.tools.html#westpa.tools.kinetics_tool.WESTKineticsBase" title="westpa.tools.kinetics_tool.WESTKineticsBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">westpa.tools.kinetics_tool.WESTKineticsBase</span></code></a>, <a class="reference internal" href="../../test/westpa.core.reweight.html#westpa.core.reweight.matrix.FluxMatrix" title="westpa.core.reweight.matrix.FluxMatrix"><code class="xref py py-class docutils literal notranslate"><span class="pre">westpa.core.reweight.matrix.FluxMatrix</span></code></a></p>
-<dl class="py attribute">
-<dt id="westpa.cli.tools.w_reweight.RWMatrix.subcommand">
-<code class="sig-name descname">subcommand</code><em class="property"> = 'init'</em><a class="headerlink" href="#westpa.cli.tools.w_reweight.RWMatrix.subcommand" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt id="westpa.cli.tools.w_reweight.RWMatrix.default_kinetics_file">
-<code class="sig-name descname">default_kinetics_file</code><em class="property"> = 'reweight.h5'</em><a class="headerlink" href="#westpa.cli.tools.w_reweight.RWMatrix.default_kinetics_file" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt id="westpa.cli.tools.w_reweight.RWMatrix.default_output_file">
-<code class="sig-name descname">default_output_file</code><em class="property"> = 'reweight.h5'</em><a class="headerlink" href="#westpa.cli.tools.w_reweight.RWMatrix.default_output_file" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt id="westpa.cli.tools.w_reweight.RWMatrix.help_text">
-<code class="sig-name descname">help_text</code><em class="property"> = 'create a color-labeled transition matrix from a WESTPA simulation'</em><a class="headerlink" href="#westpa.cli.tools.w_reweight.RWMatrix.help_text" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt id="westpa.cli.tools.w_reweight.RWMatrix.description">
-<code class="sig-name descname">description</code><em class="property"> = 'Generate a colored transition matrix from a WE assignment file. The subsequent\nanalysis requires that the assignments are calculated using only the initial and\nfinal time points of each trajectory segment. This may require downsampling the\nh5file generated by a WE simulation. In the future w_assign may be enhanced to optionally\ngenerate the necessary assignment file from a h5file with intermediate time points.\nAdditionally, this analysis is currently only valid on simulations performed under\neither equilibrium or steady-state conditions without recycling target states.\n\n-----------------------------------------------------------------------------\nOutput format\n-----------------------------------------------------------------------------\n\nThe output file (-o/--output, by default &quot;reweight.h5&quot;) contains the\nfollowing datasets:\n\n  ``/bin_populations`` [window, bin]\n     The reweighted populations of each bin based on windows. Bins contain\n     one color each, so to recover the original un-colored spatial bins,\n     one must sum over all states.\n\n  ``/iterations`` [iteration]\n    *(Structured -- see below)*  Sparse matrix data from each\n    iteration.  They are reconstructed and averaged within the\n    w_reweight {kinetics/probs} routines so that observables may\n    be calculated.  Each group contains 4 vectors of data:\n\n      flux\n        *(Floating-point)* The weight of a series of flux events\n      cols\n        *(Integer)* The bin from which a flux event began.\n      cols\n        *(Integer)* The bin into which the walker fluxed.\n      obs\n        *(Integer)* How many flux events were observed during this\n        iteration.\n\n-----------------------------------------------------------------------------\nCommand-line options\n-----------------------------------------------------------------------------\n'</em><a class="headerlink" href="#westpa.cli.tools.w_reweight.RWMatrix.description" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt id="westpa.cli.tools.w_reweight.RWMatrix.add_args">
-<code class="sig-name descname">add_args</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">parser</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.cli.tools.w_reweight.RWMatrix.add_args" title="Permalink to this definition">¶</a></dt>
-<dd><p>Add arguments specific to this component to the given argparse parser.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt id="westpa.cli.tools.w_reweight.RWMatrix.process_args">
-<code class="sig-name descname">process_args</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">args</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.cli.tools.w_reweight.RWMatrix.process_args" title="Permalink to this definition">¶</a></dt>
-<dd><p>Take argparse-processed arguments associated with this component and deal
-with them appropriately (setting instance variables, etc)</p>
-</dd></dl>
-
-<dl class="py method">
-<dt id="westpa.cli.tools.w_reweight.RWMatrix.go">
-<code class="sig-name descname">go</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#westpa.cli.tools.w_reweight.RWMatrix.go" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
-<dl class="py class">
-<dt id="westpa.cli.tools.w_reweight.RWReweight">
-<em class="property">class </em><code class="sig-prename descclassname">westpa.cli.tools.w_reweight.</code><code class="sig-name descname">RWReweight</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">parent</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.cli.tools.w_reweight.RWReweight" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="../../test/westpa.tools.html#westpa.tools.kinetics_tool.AverageCommands" title="westpa.tools.kinetics_tool.AverageCommands"><code class="xref py py-class docutils literal notranslate"><span class="pre">westpa.tools.kinetics_tool.AverageCommands</span></code></a></p>
-<dl class="py attribute">
-<dt id="westpa.cli.tools.w_reweight.RWReweight.help_text">
-<code class="sig-name descname">help_text</code><em class="property"> = 'Parent class for all reweighting routines, as they all use the same estimator code.'</em><a class="headerlink" href="#westpa.cli.tools.w_reweight.RWReweight.help_text" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt id="westpa.cli.tools.w_reweight.RWReweight.add_args">
-<code class="sig-name descname">add_args</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">parser</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.cli.tools.w_reweight.RWReweight.add_args" title="Permalink to this definition">¶</a></dt>
-<dd><p>Add arguments specific to this component to the given argparse parser.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt id="westpa.cli.tools.w_reweight.RWReweight.process_args">
-<code class="sig-name descname">process_args</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">args</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.cli.tools.w_reweight.RWReweight.process_args" title="Permalink to this definition">¶</a></dt>
-<dd><p>Take argparse-processed arguments associated with this component and deal
-with them appropriately (setting instance variables, etc)</p>
-</dd></dl>
-
-<dl class="py method">
-<dt id="westpa.cli.tools.w_reweight.RWReweight.accumulate_statistics">
-<code class="sig-name descname">accumulate_statistics</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">start_iter</span></em>, <em class="sig-param"><span class="n">stop_iter</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.cli.tools.w_reweight.RWReweight.accumulate_statistics" title="Permalink to this definition">¶</a></dt>
-<dd><p>This function pulls previously generated flux matrix data into memory.
-The data is assumed to exist within an HDF5 file that is available
-as a property.
-The data is kept as a single dimensional numpy array to use with the
-cython estimator.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt id="westpa.cli.tools.w_reweight.RWReweight.generate_reweight_data">
-<code class="sig-name descname">generate_reweight_data</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#westpa.cli.tools.w_reweight.RWReweight.generate_reweight_data" title="Permalink to this definition">¶</a></dt>
-<dd><p>This function ensures all the appropriate files are loaded, sets
-appropriate attributes necessary for all calling functions/children,
-and then calls the function to load in the flux matrix data.</p>
-</dd></dl>
-
-</dd></dl>
-
-<dl class="py class">
-<dt id="westpa.cli.tools.w_reweight.RWRate">
-<em class="property">class </em><code class="sig-prename descclassname">westpa.cli.tools.w_reweight.</code><code class="sig-name descname">RWRate</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">parent</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.cli.tools.w_reweight.RWRate" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="../westpa.cli.tools.html#westpa.cli.tools.w_reweight.RWReweight" title="westpa.cli.tools.w_reweight.RWReweight"><code class="xref py py-class docutils literal notranslate"><span class="pre">westpa.cli.tools.w_reweight.RWReweight</span></code></a></p>
-<dl class="py attribute">
-<dt id="westpa.cli.tools.w_reweight.RWRate.subcommand">
-<code class="sig-name descname">subcommand</code><em class="property"> = 'kinetics'</em><a class="headerlink" href="#westpa.cli.tools.w_reweight.RWRate.subcommand" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt id="westpa.cli.tools.w_reweight.RWRate.help_text">
-<code class="sig-name descname">help_text</code><em class="property"> = 'Generates rate and flux values from a WESTPA simulation via reweighting.'</em><a class="headerlink" href="#westpa.cli.tools.w_reweight.RWRate.help_text" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt id="westpa.cli.tools.w_reweight.RWRate.default_kinetics_file">
-<code class="sig-name descname">default_kinetics_file</code><em class="property"> = 'reweight.h5'</em><a class="headerlink" href="#westpa.cli.tools.w_reweight.RWRate.default_kinetics_file" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt id="westpa.cli.tools.w_reweight.RWRate.default_output_file">
-<code class="sig-name descname">default_output_file</code><em class="property"> = 'reweight.h5'</em><a class="headerlink" href="#westpa.cli.tools.w_reweight.RWRate.default_output_file" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt id="westpa.cli.tools.w_reweight.RWRate.description">
-<code class="sig-name descname">description</code><em class="property"> = 'Calculate average rates from weighted ensemble data using the postanalysis\nreweighting scheme. Bin assignments (usually &quot;assign.h5&quot;) and pre-calculated\niteration flux matrices (usually &quot;reweight.h5&quot;) data files must have been\npreviously generated using w_reweight matrix (see &quot;w_assign --help&quot; and\n&quot;w_reweight init --help&quot; for information on generating these files).\n\n-----------------------------------------------------------------------------\nOutput format\n-----------------------------------------------------------------------------\nThe output file (-o/--output, usually &quot;kinrw.h5&quot;) contains the following\ndataset:\n\n  /avg_rates [state,state]\n    (Structured -- see below) State-to-state rates based on entire window of\n    iterations selected.\n\n  /avg_total_fluxes [state]\n    (Structured -- see below) Total fluxes into each state based on entire\n    window of iterations selected.\n\n  /avg_conditional_fluxes [state,state]\n    (Structured -- see below) State-to-state fluxes based on entire window of\n    iterations selected.\n\nIf --evolution-mode is specified, then the following additional datasets are\navailable:\n\n  /rate_evolution [window][state][state]\n    (Structured -- see below). State-to-state rates based on windows of\n    iterations of varying width.  If --evolution-mode=cumulative, then\n    these windows all begin at the iteration specified with\n    --start-iter and grow in length by --step-iter for each successive\n    element. If --evolution-mode=blocked, then these windows are all of\n    width --step-iter (excluding the last, which may be shorter), the first\n    of which begins at iteration --start-iter.\n\n  /target_flux_evolution [window,state]\n    (Structured -- see below). Total flux into a given macro state based on\n    windows of iterations of varying width, as in /rate_evolution.\n\n  /conditional_flux_evolution [window,state,state]\n    (Structured -- see below). State-to-state fluxes based on windows of\n    varying width, as in /rate_evolution.\n\nThe structure of these datasets is as follows:\n\n  iter_start\n    (Integer) Iteration at which the averaging window begins (inclusive).\n\n  iter_stop\n    (Integer) Iteration at which the averaging window ends (exclusive).\n\n  expected\n    (Floating-point) Expected (mean) value of the observable as evaluated within\n    this window, in units of inverse tau.\n\n  ci_lbound\n    (Floating-point) Lower bound of the confidence interval of the observable\n    within this window, in units of inverse tau.\n\n  ci_ubound\n    (Floating-point) Upper bound of the confidence interval of the observable\n    within this window, in units of inverse tau.\n\n  stderr\n    (Floating-point) The standard error of the mean of the observable\n    within this window, in units of inverse tau.\n\n  corr_len\n    (Integer) Correlation length of the observable within this window, in units\n    of tau.\n\nEach of these datasets is also stamped with a number of attributes:\n\n  mcbs_alpha\n    (Floating-point) Alpha value of confidence intervals. (For example,\n    *alpha=0.05* corresponds to a 95% confidence interval.)\n\n  mcbs_nsets\n    (Integer) Number of bootstrap data sets used in generating confidence\n    intervals.\n\n  mcbs_acalpha\n    (Floating-point) Alpha value for determining correlation lengths.\n\n\n-----------------------------------------------------------------------------\nCommand-line options\n-----------------------------------------------------------------------------\n    '</em><a class="headerlink" href="#westpa.cli.tools.w_reweight.RWRate.description" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt id="westpa.cli.tools.w_reweight.RWRate.w_postanalysis_reweight">
-<code class="sig-name descname">w_postanalysis_reweight</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#westpa.cli.tools.w_reweight.RWRate.w_postanalysis_reweight" title="Permalink to this definition">¶</a></dt>
-<dd><p>This function ensures the data is ready to send in to the estimator and
-the bootstrapping routine, then does so. Much of this is simply setting
-up appropriate args and kwargs, then passing them in to the
-‘run_calculation’ function, which sets up future objects to send to the
-work manager. The results are returned, and then written to the
-appropriate HDF5 dataset.
-This function is specific for the rates and fluxes from the reweighting
-method.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt id="westpa.cli.tools.w_reweight.RWRate.go">
-<code class="sig-name descname">go</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#westpa.cli.tools.w_reweight.RWRate.go" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
-<dl class="py class">
-<dt id="westpa.cli.tools.w_reweight.RWStateProbs">
-<em class="property">class </em><code class="sig-prename descclassname">westpa.cli.tools.w_reweight.</code><code class="sig-name descname">RWStateProbs</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">parent</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.cli.tools.w_reweight.RWStateProbs" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="../westpa.cli.tools.html#westpa.cli.tools.w_reweight.RWReweight" title="westpa.cli.tools.w_reweight.RWReweight"><code class="xref py py-class docutils literal notranslate"><span class="pre">westpa.cli.tools.w_reweight.RWReweight</span></code></a></p>
-<dl class="py attribute">
-<dt id="westpa.cli.tools.w_reweight.RWStateProbs.subcommand">
-<code class="sig-name descname">subcommand</code><em class="property"> = 'probs'</em><a class="headerlink" href="#westpa.cli.tools.w_reweight.RWStateProbs.subcommand" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt id="westpa.cli.tools.w_reweight.RWStateProbs.help_text">
-<code class="sig-name descname">help_text</code><em class="property"> = 'Calculates color and state probabilities via reweighting.'</em><a class="headerlink" href="#westpa.cli.tools.w_reweight.RWStateProbs.help_text" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt id="westpa.cli.tools.w_reweight.RWStateProbs.default_kinetics_file">
-<code class="sig-name descname">default_kinetics_file</code><em class="property"> = 'reweight.h5'</em><a class="headerlink" href="#westpa.cli.tools.w_reweight.RWStateProbs.default_kinetics_file" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt id="westpa.cli.tools.w_reweight.RWStateProbs.description">
-<code class="sig-name descname">description</code><em class="property"> = 'Calculate average populations from weighted ensemble data using the postanalysis\nreweighting scheme. Bin assignments (usually &quot;assign.h5&quot;) and pre-calculated\niteration flux matrices (usually &quot;reweight.h5&quot;) data files must have been\npreviously generated using w_reweight matrix (see &quot;w_assign --help&quot; and\n&quot;w_reweight init --help&quot; for information on generating these files).\n\n-----------------------------------------------------------------------------\nOutput format\n-----------------------------------------------------------------------------\n\nThe output file (-o/--output, usually &quot;direct.h5&quot;) contains the following\ndataset:\n\n  /avg_state_probs [state]\n    (Structured -- see below) Population of each state across entire\n    range specified.\n\n  /avg_color_probs [state]\n    (Structured -- see below) Population of each ensemble across entire\n    range specified.\n\nIf --evolution-mode is specified, then the following additional datasets are\navailable:\n\n  /state_pop_evolution [window][state]\n    (Structured -- see below). State populations based on windows of\n    iterations of varying width.  If --evolution-mode=cumulative, then\n    these windows all begin at the iteration specified with\n    --start-iter and grow in length by --step-iter for each successive\n    element. If --evolution-mode=blocked, then these windows are all of\n    width --step-iter (excluding the last, which may be shorter), the first\n    of which begins at iteration --start-iter.\n\n  /color_prob_evolution [window][state]\n    (Structured -- see below). Ensemble populations based on windows of\n    iterations of varying width.  If --evolution-mode=cumulative, then\n    these windows all begin at the iteration specified with\n    --start-iter and grow in length by --step-iter for each successive\n    element. If --evolution-mode=blocked, then these windows are all of\n    width --step-iter (excluding the last, which may be shorter), the first\n    of which begins at iteration --start-iter.\n\nThe structure of these datasets is as follows:\n\n  iter_start\n    (Integer) Iteration at which the averaging window begins (inclusive).\n\n  iter_stop\n    (Integer) Iteration at which the averaging window ends (exclusive).\n\n  expected\n    (Floating-point) Expected (mean) value of the observable as evaluated within\n    this window, in units of inverse tau.\n\n  ci_lbound\n    (Floating-point) Lower bound of the confidence interval of the observable\n    within this window, in units of inverse tau.\n\n  ci_ubound\n    (Floating-point) Upper bound of the confidence interval of the observable\n    within this window, in units of inverse tau.\n\n  stderr\n    (Floating-point) The standard error of the mean of the observable\n    within this window, in units of inverse tau.\n\n  corr_len\n    (Integer) Correlation length of the observable within this window, in units\n    of tau.\n\n\nEach of these datasets is also stamped with a number of attributes:\n\n  mcbs_alpha\n    (Floating-point) Alpha value of confidence intervals. (For example,\n    *alpha=0.05* corresponds to a 95% confidence interval.)\n\n  mcbs_nsets\n    (Integer) Number of bootstrap data sets used in generating confidence\n    intervals.\n\n  mcbs_acalpha\n    (Floating-point) Alpha value for determining correlation lengths.\n\n\n-----------------------------------------------------------------------------\nCommand-line options\n-----------------------------------------------------------------------------\n'</em><a class="headerlink" href="#westpa.cli.tools.w_reweight.RWStateProbs.description" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt id="westpa.cli.tools.w_reweight.RWStateProbs.w_postanalysis_stateprobs">
-<code class="sig-name descname">w_postanalysis_stateprobs</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#westpa.cli.tools.w_reweight.RWStateProbs.w_postanalysis_stateprobs" title="Permalink to this definition">¶</a></dt>
-<dd><p>This function ensures the data is ready to send in to the estimator and
-the bootstrapping routine, then does so. Much of this is simply setting
-up appropriate args and kwargs, then passing them in to the
-‘run_calculation’ function, which sets up future objects to send to the
-work manager. The results are returned, and then written to the
-appropriate HDF5 dataset.
-This function is specific for the color (steady-state) and macrostate
-probabilities from the reweighting method.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt id="westpa.cli.tools.w_reweight.RWStateProbs.go">
-<code class="sig-name descname">go</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#westpa.cli.tools.w_reweight.RWStateProbs.go" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
-<dl class="py class">
-<dt id="westpa.cli.tools.w_reweight.RWAll">
-<em class="property">class </em><code class="sig-prename descclassname">westpa.cli.tools.w_reweight.</code><code class="sig-name descname">RWAll</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">parent</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.cli.tools.w_reweight.RWAll" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="../westpa.cli.tools.html#westpa.cli.tools.w_reweight.RWMatrix" title="westpa.cli.tools.w_reweight.RWMatrix"><code class="xref py py-class docutils literal notranslate"><span class="pre">westpa.cli.tools.w_reweight.RWMatrix</span></code></a>, <a class="reference internal" href="../westpa.cli.tools.html#westpa.cli.tools.w_reweight.RWStateProbs" title="westpa.cli.tools.w_reweight.RWStateProbs"><code class="xref py py-class docutils literal notranslate"><span class="pre">westpa.cli.tools.w_reweight.RWStateProbs</span></code></a>, <a class="reference internal" href="../westpa.cli.tools.html#westpa.cli.tools.w_reweight.RWRate" title="westpa.cli.tools.w_reweight.RWRate"><code class="xref py py-class docutils literal notranslate"><span class="pre">westpa.cli.tools.w_reweight.RWRate</span></code></a></p>
-<dl class="py attribute">
-<dt id="westpa.cli.tools.w_reweight.RWAll.subcommand">
-<code class="sig-name descname">subcommand</code><em class="property"> = 'all'</em><a class="headerlink" href="#westpa.cli.tools.w_reweight.RWAll.subcommand" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt id="westpa.cli.tools.w_reweight.RWAll.help_text">
-<code class="sig-name descname">help_text</code><em class="property"> = 'Runs the full suite, including the generation of the flux matrices.'</em><a class="headerlink" href="#westpa.cli.tools.w_reweight.RWAll.help_text" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt id="westpa.cli.tools.w_reweight.RWAll.default_kinetics_file">
-<code class="sig-name descname">default_kinetics_file</code><em class="property"> = 'reweight.h5'</em><a class="headerlink" href="#westpa.cli.tools.w_reweight.RWAll.default_kinetics_file" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt id="westpa.cli.tools.w_reweight.RWAll.default_output_file">
-<code class="sig-name descname">default_output_file</code><em class="property"> = 'reweight.h5'</em><a class="headerlink" href="#westpa.cli.tools.w_reweight.RWAll.default_output_file" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt id="westpa.cli.tools.w_reweight.RWAll.description">
-<code class="sig-name descname">description</code><em class="property"> = 'A convenience function to run init/kinetics/probs. Bin assignments,\nincluding macrostate definitions, are required. (See\n&quot;w_assign --help&quot; for more information).\n\nFor more information on the individual subcommands this subs in for, run\nw_reweight {init/kinetics/probs} --help.\n\n-----------------------------------------------------------------------------\nCommand-line options\n-----------------------------------------------------------------------------\n'</em><a class="headerlink" href="#westpa.cli.tools.w_reweight.RWAll.description" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt id="westpa.cli.tools.w_reweight.RWAll.go">
-<code class="sig-name descname">go</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#westpa.cli.tools.w_reweight.RWAll.go" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
-<dl class="py class">
-<dt id="westpa.cli.tools.w_reweight.RWAverage">
-<em class="property">class </em><code class="sig-prename descclassname">westpa.cli.tools.w_reweight.</code><code class="sig-name descname">RWAverage</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">parent</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.cli.tools.w_reweight.RWAverage" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="../westpa.cli.tools.html#westpa.cli.tools.w_reweight.RWStateProbs" title="westpa.cli.tools.w_reweight.RWStateProbs"><code class="xref py py-class docutils literal notranslate"><span class="pre">westpa.cli.tools.w_reweight.RWStateProbs</span></code></a>, <a class="reference internal" href="../westpa.cli.tools.html#westpa.cli.tools.w_reweight.RWRate" title="westpa.cli.tools.w_reweight.RWRate"><code class="xref py py-class docutils literal notranslate"><span class="pre">westpa.cli.tools.w_reweight.RWRate</span></code></a></p>
-<dl class="py attribute">
-<dt id="westpa.cli.tools.w_reweight.RWAverage.subcommand">
-<code class="sig-name descname">subcommand</code><em class="property"> = 'average'</em><a class="headerlink" href="#westpa.cli.tools.w_reweight.RWAverage.subcommand" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt id="westpa.cli.tools.w_reweight.RWAverage.help_text">
-<code class="sig-name descname">help_text</code><em class="property"> = 'Averages and returns fluxes, rates, and color/state populations.'</em><a class="headerlink" href="#westpa.cli.tools.w_reweight.RWAverage.help_text" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt id="westpa.cli.tools.w_reweight.RWAverage.default_kinetics_file">
-<code class="sig-name descname">default_kinetics_file</code><em class="property"> = 'reweight.h5'</em><a class="headerlink" href="#westpa.cli.tools.w_reweight.RWAverage.default_kinetics_file" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt id="westpa.cli.tools.w_reweight.RWAverage.default_output_file">
-<code class="sig-name descname">default_output_file</code><em class="property"> = 'reweight.h5'</em><a class="headerlink" href="#westpa.cli.tools.w_reweight.RWAverage.default_output_file" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt id="westpa.cli.tools.w_reweight.RWAverage.description">
-<code class="sig-name descname">description</code><em class="property"> = 'A convenience function to run kinetics/probs. Bin assignments,\nincluding macrostate definitions, are required. (See\n&quot;w_assign --help&quot; for more information).\n\nFor more information on the individual subcommands this subs in for, run\nw_reweight {kinetics/probs} --help.\n\n-----------------------------------------------------------------------------\nCommand-line options\n-----------------------------------------------------------------------------\n'</em><a class="headerlink" href="#westpa.cli.tools.w_reweight.RWAverage.description" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt id="westpa.cli.tools.w_reweight.RWAverage.go">
-<code class="sig-name descname">go</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#westpa.cli.tools.w_reweight.RWAverage.go" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
-<dl class="py class">
-<dt id="westpa.cli.tools.w_reweight.WReweight">
-<em class="property">class </em><code class="sig-prename descclassname">westpa.cli.tools.w_reweight.</code><code class="sig-name descname">WReweight</code><a class="headerlink" href="#westpa.cli.tools.w_reweight.WReweight" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="../../test/westpa.tools.html#westpa.tools.core.WESTMasterCommand" title="westpa.tools.core.WESTMasterCommand"><code class="xref py py-class docutils literal notranslate"><span class="pre">westpa.tools.core.WESTMasterCommand</span></code></a>, <a class="reference internal" href="../../test/westpa.tools.html#westpa.tools.core.WESTParallelTool" title="westpa.tools.core.WESTParallelTool"><code class="xref py py-class docutils literal notranslate"><span class="pre">westpa.tools.core.WESTParallelTool</span></code></a></p>
-<dl class="py attribute">
-<dt id="westpa.cli.tools.w_reweight.WReweight.prog">
-<code class="sig-name descname">prog</code><em class="property"> = 'w_reweight'</em><a class="headerlink" href="#westpa.cli.tools.w_reweight.WReweight.prog" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt id="westpa.cli.tools.w_reweight.WReweight.subcommands">
-<code class="sig-name descname">subcommands</code><em class="property"> = [&lt;class 'westpa.cli.tools.w_reweight.RWMatrix'&gt;, &lt;class 'westpa.cli.tools.w_reweight.RWAverage'&gt;, &lt;class 'westpa.cli.tools.w_reweight.RWRate'&gt;, &lt;class 'westpa.cli.tools.w_reweight.RWStateProbs'&gt;, &lt;class 'westpa.cli.tools.w_reweight.RWAll'&gt;]</em><a class="headerlink" href="#westpa.cli.tools.w_reweight.WReweight.subcommands" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt id="westpa.cli.tools.w_reweight.WReweight.subparsers_title">
-<code class="sig-name descname">subparsers_title</code><em class="property"> = 'reweighting kinetics analysis scheme'</em><a class="headerlink" href="#westpa.cli.tools.w_reweight.WReweight.subparsers_title" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
-<dl class="py function">
-<dt id="westpa.cli.tools.w_reweight.entry_point">
-<code class="sig-prename descclassname">westpa.cli.tools.w_reweight.</code><code class="sig-name descname">entry_point</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#westpa.cli.tools.w_reweight.entry_point" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
+<div class="section" id="westpa-cli-tools-w-reweight-module">
+<h2>westpa.cli.tools.w_reweight module<a class="headerlink" href="#westpa-cli-tools-w-reweight-module" title="Permalink to this headline">¶</a></h2>
 </div>
 </div>
 
@@ -513,29 +227,37 @@ probabilities from the reweighting method.</p>
            
           </div>
           <footer>
+  
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-        <a href="plothist.html" class="btn btn-neutral float-right" title="plothist" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
-        <a href="w_postanalysis_reweight.html" class="btn btn-neutral float-left" title="w_postanalysis_reweight" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+      
+        <a href="plothist.html" class="btn btn-neutral float-right" title="plothist" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="w_postanalysis_reweight.html" class="btn btn-neutral float-left" title="w_postanalysis_reweight" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
     </div>
+  
 
   <hr/>
 
   <div role="contentinfo">
     <p>
-        &#169; Copyright 2021, Matthew C. Zwier and Lillian T. Chong.
+        
+        &copy; Copyright 2021, Matthew C. Zwier and Lillian T. Chong
 
     </p>
   </div>
     
     
     
-    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
     
-    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
     
     provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
+
         </div>
       </div>
 

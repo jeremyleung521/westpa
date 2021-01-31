@@ -4,7 +4,7 @@ westpa.work\_managers package
 .. toctree::
    :maxdepth: 4
       
-   zeromq        <work_managers/westpa.work_managers.zeromq>
+   westpa.work_managers.zeromq        <work_managers/westpa.work_managers.zeromq>
 
 westpa.work\_managers module
 ----------------------------

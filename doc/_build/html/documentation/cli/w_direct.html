@@ -3,9 +3,9 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" />
+  <meta charset="utf-8">
   
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
   <title>w_direct &mdash; WESTPA 2.0 documentation</title>
   
@@ -17,10 +17,7 @@
 
   
   
-
   
-  
-
   
 
   
@@ -54,7 +51,7 @@
           
 
           
-            <a href="../../sphinx_index3.html" class="icon icon-home"> WESTPA
+            <a href="../../sphinx_index.html" class="icon icon-home" alt="Documentation Home"> WESTPA
           
 
           
@@ -92,7 +89,7 @@
               
             
             
-              <p class="caption"><span class="caption-text">For Developers:</span></p>
+              <p class="caption"><span class="caption-text">For Advanced Users (2.0):</span></p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="../cli.html"> WESTPA Command Line Interface</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="w_init.html"> w_init</a></li>
@@ -108,7 +105,7 @@
 <li class="toctree-l2"><a class="reference internal" href="w_succ.html"> w_succ</a></li>
 <li class="toctree-l2"><a class="reference internal" href="w_crawl.html"> w_crawl</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#"> w_direct</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#module-westpa.cli.tools.w_direct">westpa.cli.tools.w_direct module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#westpa-cli-tools-w-direct-module">westpa.cli.tools.w_direct module</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="w_select.html"> w_select</a></li>
@@ -124,12 +121,13 @@
 <li class="toctree-l2"><a class="reference internal" href="w_kinavg.html"> w_kinavg</a></li>
 <li class="toctree-l2"><a class="reference internal" href="w_kinetics.html"> w_kinetics</a></li>
 <li class="toctree-l2"><a class="reference internal" href="w_stateprobs.html"> w_stateprobs</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../cli.html#module-westpa.cli">Module contents</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../modules.html"> WESTPA Core</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../modules.html"> WESTPA Tools</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../users_guide/hdf5.html"> HDF5 file structure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../core.html"> WESTPA Core</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../work_managers.html"> WESTPA Work Manager</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../others.html"> WESTPA Other Components</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ext.html"> WESTPA Extentions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../hdf5.html"> HDF5 file structure</a></li>
 </ul>
 <p class="caption"><span class="caption-text">For Developers:</span></p>
 <ul>
@@ -140,7 +138,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../development/api.html">WESTPA Modules API</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../development/api.html#westpa-tools">WESTPA Tools</a></li>
 </ul>
-<p class="caption"><span class="caption-text">For Users:</span></p>
+<p class="caption"><span class="caption-text">For Legacy Users (1.0):</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../users_guide/west.html"> WEST</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../users_guide/west_tools.html"> WEST tools</a></li>
@@ -165,7 +163,7 @@
       <nav class="wy-nav-top" aria-label="top navigation">
         
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../../sphinx_index3.html">WESTPA</a>
+          <a href="../../sphinx_index.html">WESTPA</a>
         
       </nav>
 
@@ -190,13 +188,11 @@
 
 
 
-
-
 <div role="navigation" aria-label="breadcrumbs navigation">
 
   <ul class="wy-breadcrumbs">
     
-      <li><a href="../../sphinx_index3.html" class="icon icon-home"></a> &raquo;</li>
+      <li><a href="../../sphinx_index.html" class="icon icon-home"></a> &raquo;</li>
         
           <li><a href="../cli.html">westpa.cli package</a> &raquo;</li>
         
@@ -205,7 +201,7 @@
     
       <li class="wy-breadcrumbs-aside">
         
-          
+            
             <a href="../../_sources/documentation/cli/w_direct.rst.txt" rel="nofollow"> View page source</a>
           
         
@@ -322,214 +318,8 @@
                       <span class="n">Amount</span> <span class="n">of</span> <span class="n">time</span> <span class="p">(</span><span class="ow">in</span> <span class="n">seconds</span><span class="p">)</span> <span class="n">to</span> <span class="n">wait</span> <span class="k">for</span> <span class="n">workers</span> <span class="n">to</span> <span class="n">shut</span> <span class="n">down</span><span class="o">.</span>
 </pre></div>
 </div>
-<div class="section" id="module-westpa.cli.tools.w_direct">
-<span id="westpa-cli-tools-w-direct-module"></span><h2>westpa.cli.tools.w_direct module<a class="headerlink" href="#module-westpa.cli.tools.w_direct" title="Permalink to this headline">¶</a></h2>
-<dl class="py class">
-<dt id="westpa.cli.tools.w_direct.DKinetics">
-<em class="property">class </em><code class="sig-prename descclassname">westpa.cli.tools.w_direct.</code><code class="sig-name descname">DKinetics</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">parent</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.cli.tools.w_direct.DKinetics" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="../../test/westpa.tools.html#westpa.tools.kinetics_tool.WESTKineticsBase" title="westpa.tools.kinetics_tool.WESTKineticsBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">westpa.tools.kinetics_tool.WESTKineticsBase</span></code></a>, <a class="reference internal" href="../../test/westpa.core.kinetics.html#westpa.core.kinetics.events.WKinetics" title="westpa.core.kinetics.events.WKinetics"><code class="xref py py-class docutils literal notranslate"><span class="pre">westpa.core.kinetics.events.WKinetics</span></code></a></p>
-<dl class="py attribute">
-<dt id="westpa.cli.tools.w_direct.DKinetics.subcommand">
-<code class="sig-name descname">subcommand</code><em class="property"> = 'init'</em><a class="headerlink" href="#westpa.cli.tools.w_direct.DKinetics.subcommand" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt id="westpa.cli.tools.w_direct.DKinetics.default_kinetics_file">
-<code class="sig-name descname">default_kinetics_file</code><em class="property"> = 'direct.h5'</em><a class="headerlink" href="#westpa.cli.tools.w_direct.DKinetics.default_kinetics_file" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt id="westpa.cli.tools.w_direct.DKinetics.default_output_file">
-<code class="sig-name descname">default_output_file</code><em class="property"> = 'direct.h5'</em><a class="headerlink" href="#westpa.cli.tools.w_direct.DKinetics.default_output_file" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt id="westpa.cli.tools.w_direct.DKinetics.help_text">
-<code class="sig-name descname">help_text</code><em class="property"> = 'calculate state-to-state kinetics by tracing trajectories'</em><a class="headerlink" href="#westpa.cli.tools.w_direct.DKinetics.help_text" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt id="westpa.cli.tools.w_direct.DKinetics.description">
-<code class="sig-name descname">description</code><em class="property"> = 'Calculate state-to-state rates and transition event durations by tracing\ntrajectories.\n\nA bin assignment file (usually &quot;assign.h5&quot;) including trajectory labeling\nis required (see &quot;w_assign --help&quot; for information on generating this file).\n\nThis subcommand for w_direct is used as input for all other w_direct\nsubcommands, which will convert the flux data in the output file into\naverage rates/fluxes/populations with confidence intervals.\n\n-----------------------------------------------------------------------------\nOutput format\n-----------------------------------------------------------------------------\n\nThe output file (-o/--output, by default &quot;direct.h5&quot;) contains the\nfollowing datasets:\n\n  ``/conditional_fluxes`` [iteration][state][state]\n    *(Floating-point)* Macrostate-to-macrostate fluxes. These are **not**\n    normalized by the population of the initial macrostate.\n\n  ``/conditional_arrivals`` [iteration][stateA][stateB]\n    *(Integer)* Number of trajectories arriving at state *stateB* in a given\n    iteration, given that they departed from *stateA*.\n\n  ``/total_fluxes`` [iteration][state]\n    *(Floating-point)* Total flux into a given macrostate.\n\n  ``/arrivals`` [iteration][state]\n    *(Integer)* Number of trajectories arriving at a given state in a given\n    iteration, regardless of where they originated.\n\n  ``/duration_count`` [iteration]\n    *(Integer)* The number of event durations recorded in each iteration.\n\n  ``/durations`` [iteration][event duration]\n    *(Structured -- see below)*  Event durations for transition events ending\n    during a given iteration. These are stored as follows:\n\n      istate\n        *(Integer)* Initial state of transition event.\n      fstate\n        *(Integer)* Final state of transition event.\n      duration\n        *(Floating-point)* Duration of transition, in units of tau.\n      weight\n        *(Floating-point)* Weight of trajectory at end of transition, **not**\n        normalized by initial state population.\n\nBecause state-to-state fluxes stored in this file are not normalized by\ninitial macrostate population, they cannot be used as rates without further\nprocessing. The ``w_direct kinetics`` command is used to perform this normalization\nwhile taking statistical fluctuation and correlation into account. See\n``w_direct kinetics --help`` for more information.  Target fluxes (total flux\ninto a given state) require no such normalization.\n\n-----------------------------------------------------------------------------\nCommand-line options\n-----------------------------------------------------------------------------\n'</em><a class="headerlink" href="#westpa.cli.tools.w_direct.DKinetics.description" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt id="westpa.cli.tools.w_direct.DKinetics.open_files">
-<code class="sig-name descname">open_files</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#westpa.cli.tools.w_direct.DKinetics.open_files" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt id="westpa.cli.tools.w_direct.DKinetics.go">
-<code class="sig-name descname">go</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#westpa.cli.tools.w_direct.DKinetics.go" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
-<dl class="py class">
-<dt id="westpa.cli.tools.w_direct.DKinAvg">
-<em class="property">class </em><code class="sig-prename descclassname">westpa.cli.tools.w_direct.</code><code class="sig-name descname">DKinAvg</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">parent</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.cli.tools.w_direct.DKinAvg" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="../../test/westpa.tools.html#westpa.tools.kinetics_tool.AverageCommands" title="westpa.tools.kinetics_tool.AverageCommands"><code class="xref py py-class docutils literal notranslate"><span class="pre">westpa.tools.kinetics_tool.AverageCommands</span></code></a></p>
-<dl class="py attribute">
-<dt id="westpa.cli.tools.w_direct.DKinAvg.subcommand">
-<code class="sig-name descname">subcommand</code><em class="property"> = 'kinetics'</em><a class="headerlink" href="#westpa.cli.tools.w_direct.DKinAvg.subcommand" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt id="westpa.cli.tools.w_direct.DKinAvg.help_text">
-<code class="sig-name descname">help_text</code><em class="property"> = 'Generates rate and flux values from a WESTPA simulation via tracing.'</em><a class="headerlink" href="#westpa.cli.tools.w_direct.DKinAvg.help_text" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt id="westpa.cli.tools.w_direct.DKinAvg.default_kinetics_file">
-<code class="sig-name descname">default_kinetics_file</code><em class="property"> = 'direct.h5'</em><a class="headerlink" href="#westpa.cli.tools.w_direct.DKinAvg.default_kinetics_file" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt id="westpa.cli.tools.w_direct.DKinAvg.description">
-<code class="sig-name descname">description</code><em class="property"> = 'Calculate average rates/fluxes and associated errors from weighted ensemble\ndata. Bin assignments (usually &quot;assign.h5&quot;) and kinetics data (usually\n&quot;direct.h5&quot;) data files must have been previously generated (see\n&quot;w_assign --help&quot; and &quot;w_direct init --help&quot; for information on\ngenerating these files).\n\nThe evolution of all datasets may be calculated, with or without confidence\nintervals.\n\n-----------------------------------------------------------------------------\nOutput format\n-----------------------------------------------------------------------------\n\nThe output file (-o/--output, usually &quot;direct.h5&quot;) contains the following\ndataset:\n\n  /avg_rates [state,state]\n    (Structured -- see below) State-to-state rates based on entire window of\n    iterations selected.\n\n  /avg_total_fluxes [state]\n    (Structured -- see below) Total fluxes into each state based on entire\n    window of iterations selected.\n\n  /avg_conditional_fluxes [state,state]\n    (Structured -- see below) State-to-state fluxes based on entire window of\n    iterations selected.\n\nIf --evolution-mode is specified, then the following additional datasets are\navailable:\n\n  /rate_evolution [window][state][state]\n    (Structured -- see below). State-to-state rates based on windows of\n    iterations of varying width.  If --evolution-mode=cumulative, then\n    these windows all begin at the iteration specified with\n    --start-iter and grow in length by --step-iter for each successive\n    element. If --evolution-mode=blocked, then these windows are all of\n    width --step-iter (excluding the last, which may be shorter), the first\n    of which begins at iteration --start-iter.\n\n  /target_flux_evolution [window,state]\n    (Structured -- see below). Total flux into a given macro state based on\n    windows of iterations of varying width, as in /rate_evolution.\n\n  /conditional_flux_evolution [window,state,state]\n    (Structured -- see below). State-to-state fluxes based on windows of\n    varying width, as in /rate_evolution.\n\nThe structure of these datasets is as follows:\n\n  iter_start\n    (Integer) Iteration at which the averaging window begins (inclusive).\n\n  iter_stop\n    (Integer) Iteration at which the averaging window ends (exclusive).\n\n  expected\n    (Floating-point) Expected (mean) value of the observable as evaluated within\n    this window, in units of inverse tau.\n\n  ci_lbound\n    (Floating-point) Lower bound of the confidence interval of the observable\n    within this window, in units of inverse tau.\n\n  ci_ubound\n    (Floating-point) Upper bound of the confidence interval of the observable\n    within this window, in units of inverse tau.\n\n  stderr\n    (Floating-point) The standard error of the mean of the observable\n    within this window, in units of inverse tau.\n\n  corr_len\n    (Integer) Correlation length of the observable within this window, in units\n    of tau.\n\nEach of these datasets is also stamped with a number of attributes:\n\n  mcbs_alpha\n    (Floating-point) Alpha value of confidence intervals. (For example,\n    *alpha=0.05* corresponds to a 95% confidence interval.)\n\n  mcbs_nsets\n    (Integer) Number of bootstrap data sets used in generating confidence\n    intervals.\n\n  mcbs_acalpha\n    (Floating-point) Alpha value for determining correlation lengths.\n\n\n-----------------------------------------------------------------------------\nCommand-line options\n-----------------------------------------------------------------------------\n'</em><a class="headerlink" href="#westpa.cli.tools.w_direct.DKinAvg.description" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt id="westpa.cli.tools.w_direct.DKinAvg.w_kinavg">
-<code class="sig-name descname">w_kinavg</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#westpa.cli.tools.w_direct.DKinAvg.w_kinavg" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt id="westpa.cli.tools.w_direct.DKinAvg.go">
-<code class="sig-name descname">go</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#westpa.cli.tools.w_direct.DKinAvg.go" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
-<dl class="py class">
-<dt id="westpa.cli.tools.w_direct.DStateProbs">
-<em class="property">class </em><code class="sig-prename descclassname">westpa.cli.tools.w_direct.</code><code class="sig-name descname">DStateProbs</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">parent</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.cli.tools.w_direct.DStateProbs" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="../../test/westpa.tools.html#westpa.tools.kinetics_tool.AverageCommands" title="westpa.tools.kinetics_tool.AverageCommands"><code class="xref py py-class docutils literal notranslate"><span class="pre">westpa.tools.kinetics_tool.AverageCommands</span></code></a></p>
-<dl class="py attribute">
-<dt id="westpa.cli.tools.w_direct.DStateProbs.subcommand">
-<code class="sig-name descname">subcommand</code><em class="property"> = 'probs'</em><a class="headerlink" href="#westpa.cli.tools.w_direct.DStateProbs.subcommand" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt id="westpa.cli.tools.w_direct.DStateProbs.help_text">
-<code class="sig-name descname">help_text</code><em class="property"> = 'Calculates color and state probabilities via tracing.'</em><a class="headerlink" href="#westpa.cli.tools.w_direct.DStateProbs.help_text" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt id="westpa.cli.tools.w_direct.DStateProbs.default_kinetics_file">
-<code class="sig-name descname">default_kinetics_file</code><em class="property"> = 'direct.h5'</em><a class="headerlink" href="#westpa.cli.tools.w_direct.DStateProbs.default_kinetics_file" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt id="westpa.cli.tools.w_direct.DStateProbs.description">
-<code class="sig-name descname">description</code><em class="property"> = 'Calculate average populations and associated errors in state populations from\nweighted ensemble data. Bin assignments, including macrostate definitions,\nare required. (See &quot;w_assign --help&quot; for more information).\n\n-----------------------------------------------------------------------------\nOutput format\n-----------------------------------------------------------------------------\n\nThe output file (-o/--output, usually &quot;direct.h5&quot;) contains the following\ndataset:\n\n  /avg_state_probs [state]\n    (Structured -- see below) Population of each state across entire\n    range specified.\n\n  /avg_color_probs [state]\n    (Structured -- see below) Population of each ensemble across entire\n    range specified.\n\nIf --evolution-mode is specified, then the following additional datasets are\navailable:\n\n  /state_pop_evolution [window][state]\n    (Structured -- see below). State populations based on windows of\n    iterations of varying width.  If --evolution-mode=cumulative, then\n    these windows all begin at the iteration specified with\n    --start-iter and grow in length by --step-iter for each successive\n    element. If --evolution-mode=blocked, then these windows are all of\n    width --step-iter (excluding the last, which may be shorter), the first\n    of which begins at iteration --start-iter.\n\n  /color_prob_evolution [window][state]\n    (Structured -- see below). Ensemble populations based on windows of\n    iterations of varying width.  If --evolution-mode=cumulative, then\n    these windows all begin at the iteration specified with\n    --start-iter and grow in length by --step-iter for each successive\n    element. If --evolution-mode=blocked, then these windows are all of\n    width --step-iter (excluding the last, which may be shorter), the first\n    of which begins at iteration --start-iter.\n\nThe structure of these datasets is as follows:\n\n  iter_start\n    (Integer) Iteration at which the averaging window begins (inclusive).\n\n  iter_stop\n    (Integer) Iteration at which the averaging window ends (exclusive).\n\n  expected\n    (Floating-point) Expected (mean) value of the observable as evaluated within\n    this window, in units of inverse tau.\n\n  ci_lbound\n    (Floating-point) Lower bound of the confidence interval of the observable\n    within this window, in units of inverse tau.\n\n  ci_ubound\n    (Floating-point) Upper bound of the confidence interval of the observable\n    within this window, in units of inverse tau.\n\n  stderr\n    (Floating-point) The standard error of the mean of the observable\n    within this window, in units of inverse tau.\n\n  corr_len\n    (Integer) Correlation length of the observable within this window, in units\n    of tau.\n\nEach of these datasets is also stamped with a number of attributes:\n\n  mcbs_alpha\n    (Floating-point) Alpha value of confidence intervals. (For example,\n    *alpha=0.05* corresponds to a 95% confidence interval.)\n\n  mcbs_nsets\n    (Integer) Number of bootstrap data sets used in generating confidence\n    intervals.\n\n  mcbs_acalpha\n    (Floating-point) Alpha value for determining correlation lengths.\n\n\n-----------------------------------------------------------------------------\nCommand-line options\n-----------------------------------------------------------------------------\n'</em><a class="headerlink" href="#westpa.cli.tools.w_direct.DStateProbs.description" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt id="westpa.cli.tools.w_direct.DStateProbs.calculate_state_populations">
-<code class="sig-name descname">calculate_state_populations</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">pops</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.cli.tools.w_direct.DStateProbs.calculate_state_populations" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt id="westpa.cli.tools.w_direct.DStateProbs.w_stateprobs">
-<code class="sig-name descname">w_stateprobs</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#westpa.cli.tools.w_direct.DStateProbs.w_stateprobs" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt id="westpa.cli.tools.w_direct.DStateProbs.go">
-<code class="sig-name descname">go</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#westpa.cli.tools.w_direct.DStateProbs.go" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
-<dl class="py class">
-<dt id="westpa.cli.tools.w_direct.DAll">
-<em class="property">class </em><code class="sig-prename descclassname">westpa.cli.tools.w_direct.</code><code class="sig-name descname">DAll</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">parent</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.cli.tools.w_direct.DAll" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="../westpa.cli.tools.html#westpa.cli.tools.w_direct.DStateProbs" title="westpa.cli.tools.w_direct.DStateProbs"><code class="xref py py-class docutils literal notranslate"><span class="pre">westpa.cli.tools.w_direct.DStateProbs</span></code></a>, <a class="reference internal" href="../westpa.cli.tools.html#westpa.cli.tools.w_direct.DKinAvg" title="westpa.cli.tools.w_direct.DKinAvg"><code class="xref py py-class docutils literal notranslate"><span class="pre">westpa.cli.tools.w_direct.DKinAvg</span></code></a>, <a class="reference internal" href="../westpa.cli.tools.html#westpa.cli.tools.w_direct.DKinetics" title="westpa.cli.tools.w_direct.DKinetics"><code class="xref py py-class docutils literal notranslate"><span class="pre">westpa.cli.tools.w_direct.DKinetics</span></code></a></p>
-<dl class="py attribute">
-<dt id="westpa.cli.tools.w_direct.DAll.subcommand">
-<code class="sig-name descname">subcommand</code><em class="property"> = 'all'</em><a class="headerlink" href="#westpa.cli.tools.w_direct.DAll.subcommand" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt id="westpa.cli.tools.w_direct.DAll.help_text">
-<code class="sig-name descname">help_text</code><em class="property"> = 'Runs the full suite, including the tracing of events.'</em><a class="headerlink" href="#westpa.cli.tools.w_direct.DAll.help_text" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt id="westpa.cli.tools.w_direct.DAll.default_kinetics_file">
-<code class="sig-name descname">default_kinetics_file</code><em class="property"> = 'direct.h5'</em><a class="headerlink" href="#westpa.cli.tools.w_direct.DAll.default_kinetics_file" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt id="westpa.cli.tools.w_direct.DAll.description">
-<code class="sig-name descname">description</code><em class="property"> = 'A convenience function to run init/kinetics/probs. Bin assignments,\nincluding macrostate definitions, are required. (See\n&quot;w_assign --help&quot; for more information).\n\nFor more information on the individual subcommands this subs in for, run\nw_direct {init/kinetics/probs} --help.\n\n-----------------------------------------------------------------------------\nCommand-line options\n-----------------------------------------------------------------------------\n'</em><a class="headerlink" href="#westpa.cli.tools.w_direct.DAll.description" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt id="westpa.cli.tools.w_direct.DAll.go">
-<code class="sig-name descname">go</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#westpa.cli.tools.w_direct.DAll.go" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
-<dl class="py class">
-<dt id="westpa.cli.tools.w_direct.DAverage">
-<em class="property">class </em><code class="sig-prename descclassname">westpa.cli.tools.w_direct.</code><code class="sig-name descname">DAverage</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">parent</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.cli.tools.w_direct.DAverage" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="../westpa.cli.tools.html#westpa.cli.tools.w_direct.DStateProbs" title="westpa.cli.tools.w_direct.DStateProbs"><code class="xref py py-class docutils literal notranslate"><span class="pre">westpa.cli.tools.w_direct.DStateProbs</span></code></a>, <a class="reference internal" href="../westpa.cli.tools.html#westpa.cli.tools.w_direct.DKinAvg" title="westpa.cli.tools.w_direct.DKinAvg"><code class="xref py py-class docutils literal notranslate"><span class="pre">westpa.cli.tools.w_direct.DKinAvg</span></code></a></p>
-<dl class="py attribute">
-<dt id="westpa.cli.tools.w_direct.DAverage.subcommand">
-<code class="sig-name descname">subcommand</code><em class="property"> = 'average'</em><a class="headerlink" href="#westpa.cli.tools.w_direct.DAverage.subcommand" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt id="westpa.cli.tools.w_direct.DAverage.help_text">
-<code class="sig-name descname">help_text</code><em class="property"> = 'Averages and returns fluxes, rates, and color/state populations.'</em><a class="headerlink" href="#westpa.cli.tools.w_direct.DAverage.help_text" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt id="westpa.cli.tools.w_direct.DAverage.default_kinetics_file">
-<code class="sig-name descname">default_kinetics_file</code><em class="property"> = 'direct.h5'</em><a class="headerlink" href="#westpa.cli.tools.w_direct.DAverage.default_kinetics_file" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt id="westpa.cli.tools.w_direct.DAverage.description">
-<code class="sig-name descname">description</code><em class="property"> = 'A convenience function to run kinetics/probs. Bin assignments,\nincluding macrostate definitions, are required. (See\n&quot;w_assign --help&quot; for more information).\n\nFor more information on the individual subcommands this subs in for, run\nw_direct {kinetics/probs} --help.\n\n-----------------------------------------------------------------------------\nCommand-line options\n-----------------------------------------------------------------------------\n'</em><a class="headerlink" href="#westpa.cli.tools.w_direct.DAverage.description" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt id="westpa.cli.tools.w_direct.DAverage.go">
-<code class="sig-name descname">go</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#westpa.cli.tools.w_direct.DAverage.go" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
-<dl class="py class">
-<dt id="westpa.cli.tools.w_direct.WDirect">
-<em class="property">class </em><code class="sig-prename descclassname">westpa.cli.tools.w_direct.</code><code class="sig-name descname">WDirect</code><a class="headerlink" href="#westpa.cli.tools.w_direct.WDirect" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="../../test/westpa.tools.html#westpa.tools.core.WESTMasterCommand" title="westpa.tools.core.WESTMasterCommand"><code class="xref py py-class docutils literal notranslate"><span class="pre">westpa.tools.core.WESTMasterCommand</span></code></a>, <a class="reference internal" href="../../test/westpa.tools.html#westpa.tools.core.WESTParallelTool" title="westpa.tools.core.WESTParallelTool"><code class="xref py py-class docutils literal notranslate"><span class="pre">westpa.tools.core.WESTParallelTool</span></code></a></p>
-<dl class="py attribute">
-<dt id="westpa.cli.tools.w_direct.WDirect.prog">
-<code class="sig-name descname">prog</code><em class="property"> = 'w_direct'</em><a class="headerlink" href="#westpa.cli.tools.w_direct.WDirect.prog" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt id="westpa.cli.tools.w_direct.WDirect.subcommands">
-<code class="sig-name descname">subcommands</code><em class="property"> = [&lt;class 'westpa.cli.tools.w_direct.DKinetics'&gt;, &lt;class 'westpa.cli.tools.w_direct.DAverage'&gt;, &lt;class 'westpa.cli.tools.w_direct.DKinAvg'&gt;, &lt;class 'westpa.cli.tools.w_direct.DStateProbs'&gt;, &lt;class 'westpa.cli.tools.w_direct.DAll'&gt;]</em><a class="headerlink" href="#westpa.cli.tools.w_direct.WDirect.subcommands" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt id="westpa.cli.tools.w_direct.WDirect.subparsers_title">
-<code class="sig-name descname">subparsers_title</code><em class="property"> = 'direct kinetics analysis schemes'</em><a class="headerlink" href="#westpa.cli.tools.w_direct.WDirect.subparsers_title" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
-<dl class="py function">
-<dt id="westpa.cli.tools.w_direct.entry_point">
-<code class="sig-prename descclassname">westpa.cli.tools.w_direct.</code><code class="sig-name descname">entry_point</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#westpa.cli.tools.w_direct.entry_point" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
+<div class="section" id="westpa-cli-tools-w-direct-module">
+<h2>westpa.cli.tools.w_direct module<a class="headerlink" href="#westpa-cli-tools-w-direct-module" title="Permalink to this headline">¶</a></h2>
 </div>
 </div>
 
@@ -538,29 +328,37 @@
            
           </div>
           <footer>
+  
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-        <a href="w_select.html" class="btn btn-neutral float-right" title="w_select" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
-        <a href="w_crawl.html" class="btn btn-neutral float-left" title="w_crawl" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+      
+        <a href="w_select.html" class="btn btn-neutral float-right" title="w_select" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="w_crawl.html" class="btn btn-neutral float-left" title="w_crawl" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
     </div>
+  
 
   <hr/>
 
   <div role="contentinfo">
     <p>
-        &#169; Copyright 2021, Matthew C. Zwier and Lillian T. Chong.
+        
+        &copy; Copyright 2021, Matthew C. Zwier and Lillian T. Chong
 
     </p>
   </div>
     
     
     
-    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
     
-    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
     
     provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
+
         </div>
       </div>
 

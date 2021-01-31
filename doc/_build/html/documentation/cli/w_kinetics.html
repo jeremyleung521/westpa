@@ -3,9 +3,9 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" />
+  <meta charset="utf-8">
   
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
   <title>w_kinetics &mdash; WESTPA 2.0 documentation</title>
   
@@ -17,10 +17,7 @@
 
   
   
-
   
-  
-
   
 
   
@@ -54,7 +51,7 @@
           
 
           
-            <a href="../../sphinx_index3.html" class="icon icon-home"> WESTPA
+            <a href="../../sphinx_index.html" class="icon icon-home" alt="Documentation Home"> WESTPA
           
 
           
@@ -92,7 +89,7 @@
               
             
             
-              <p class="caption"><span class="caption-text">For Developers:</span></p>
+              <p class="caption"><span class="caption-text">For Advanced Users (2.0):</span></p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="../cli.html"> WESTPA Command Line Interface</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="w_init.html"> w_init</a></li>
@@ -122,16 +119,17 @@
 <li class="toctree-l2 current"><a class="current reference internal" href="#"> w_kinetics</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#output-format">Output format</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#command-line-options">Command-line options</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#module-westpa.cli.tools.w_kinetics">westpa.cli.tools.w_kinetics module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#westpa-cli-tools-w-kinetics-module">westpa.cli.tools.w_kinetics module</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="w_stateprobs.html"> w_stateprobs</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../cli.html#module-westpa.cli">Module contents</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../modules.html"> WESTPA Core</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../modules.html"> WESTPA Tools</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../users_guide/hdf5.html"> HDF5 file structure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../core.html"> WESTPA Core</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../work_managers.html"> WESTPA Work Manager</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../others.html"> WESTPA Other Components</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ext.html"> WESTPA Extentions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../hdf5.html"> HDF5 file structure</a></li>
 </ul>
 <p class="caption"><span class="caption-text">For Developers:</span></p>
 <ul>
@@ -142,7 +140,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../development/api.html">WESTPA Modules API</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../development/api.html#westpa-tools">WESTPA Tools</a></li>
 </ul>
-<p class="caption"><span class="caption-text">For Users:</span></p>
+<p class="caption"><span class="caption-text">For Legacy Users (1.0):</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../users_guide/west.html"> WEST</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../users_guide/west_tools.html"> WEST tools</a></li>
@@ -167,7 +165,7 @@
       <nav class="wy-nav-top" aria-label="top navigation">
         
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../../sphinx_index3.html">WESTPA</a>
+          <a href="../../sphinx_index.html">WESTPA</a>
         
       </nav>
 
@@ -192,13 +190,11 @@
 
 
 
-
-
 <div role="navigation" aria-label="breadcrumbs navigation">
 
   <ul class="wy-breadcrumbs">
     
-      <li><a href="../../sphinx_index3.html" class="icon icon-home"></a> &raquo;</li>
+      <li><a href="../../sphinx_index.html" class="icon icon-home"></a> &raquo;</li>
         
           <li><a href="../cli.html">westpa.cli package</a> &raquo;</li>
         
@@ -207,7 +203,7 @@
     
       <li class="wy-breadcrumbs-aside">
         
-          
+            
             <a href="../../_sources/documentation/cli/w_kinetics.rst.txt" rel="nofollow"> View page source</a>
           
         
@@ -307,60 +303,8 @@ into a given state) require no such normalization.</p>
 </pre></div>
 </div>
 </div>
-<div class="section" id="module-westpa.cli.tools.w_kinetics">
-<span id="westpa-cli-tools-w-kinetics-module"></span><h2>westpa.cli.tools.w_kinetics module<a class="headerlink" href="#module-westpa.cli.tools.w_kinetics" title="Permalink to this headline">¶</a></h2>
-<dl class="py class">
-<dt id="westpa.cli.tools.w_kinetics.WKinetics">
-<em class="property">class </em><code class="sig-prename descclassname">westpa.cli.tools.w_kinetics.</code><code class="sig-name descname">WKinetics</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">parent</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.cli.tools.w_kinetics.WKinetics" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="../westpa.cli.tools.html#westpa.cli.tools.w_direct.DKinetics" title="westpa.cli.tools.w_direct.DKinetics"><code class="xref py py-class docutils literal notranslate"><span class="pre">westpa.cli.tools.w_direct.DKinetics</span></code></a></p>
-<dl class="py attribute">
-<dt id="westpa.cli.tools.w_kinetics.WKinetics.subcommand">
-<code class="sig-name descname">subcommand</code><em class="property"> = 'trace'</em><a class="headerlink" href="#westpa.cli.tools.w_kinetics.WKinetics.subcommand" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt id="westpa.cli.tools.w_kinetics.WKinetics.help_text">
-<code class="sig-name descname">help_text</code><em class="property"> = 'averages and CIs for path-tracing kinetics analysis'</em><a class="headerlink" href="#westpa.cli.tools.w_kinetics.WKinetics.help_text" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt id="westpa.cli.tools.w_kinetics.WKinetics.default_output_file">
-<code class="sig-name descname">default_output_file</code><em class="property"> = 'kintrace.h5'</em><a class="headerlink" href="#westpa.cli.tools.w_kinetics.WKinetics.default_output_file" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
-<dl class="py class">
-<dt id="westpa.cli.tools.w_kinetics.WDirect">
-<em class="property">class </em><code class="sig-prename descclassname">westpa.cli.tools.w_kinetics.</code><code class="sig-name descname">WDirect</code><a class="headerlink" href="#westpa.cli.tools.w_kinetics.WDirect" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="../../test/westpa.tools.html#westpa.tools.core.WESTMasterCommand" title="westpa.tools.core.WESTMasterCommand"><code class="xref py py-class docutils literal notranslate"><span class="pre">westpa.tools.core.WESTMasterCommand</span></code></a>, <a class="reference internal" href="../../test/westpa.tools.html#westpa.tools.core.WESTParallelTool" title="westpa.tools.core.WESTParallelTool"><code class="xref py py-class docutils literal notranslate"><span class="pre">westpa.tools.core.WESTParallelTool</span></code></a></p>
-<dl class="py attribute">
-<dt id="westpa.cli.tools.w_kinetics.WDirect.prog">
-<code class="sig-name descname">prog</code><em class="property"> = 'w_kinetics'</em><a class="headerlink" href="#westpa.cli.tools.w_kinetics.WDirect.prog" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt id="westpa.cli.tools.w_kinetics.WDirect.subcommands">
-<code class="sig-name descname">subcommands</code><em class="property"> = [&lt;class 'westpa.cli.tools.w_kinetics.WKinetics'&gt;]</em><a class="headerlink" href="#westpa.cli.tools.w_kinetics.WDirect.subcommands" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt id="westpa.cli.tools.w_kinetics.WDirect.subparsers_title">
-<code class="sig-name descname">subparsers_title</code><em class="property"> = 'calculate state-to-state kinetics by tracing trajectories'</em><a class="headerlink" href="#westpa.cli.tools.w_kinetics.WDirect.subparsers_title" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt id="westpa.cli.tools.w_kinetics.WDirect.description">
-<code class="sig-name descname">description</code><em class="property"> = 'Calculate state-to-state rates and transition event durations by tracing\ntrajectories.\n\nA bin assignment file (usually &quot;assign.h5&quot;) including trajectory labeling\nis required (see &quot;w_assign --help&quot; for information on generating this file).\n\nThe output generated by this program is used as input for the ``w_kinavg``\ntool, which converts the flux data in the output file into average rates\nwith confidence intervals. See ``w_kinavg trace --help`` for more\ninformation.\n\n-----------------------------------------------------------------------------\nOutput format\n-----------------------------------------------------------------------------\n\nThe output file (-o/--output, by default &quot;kintrace.h5&quot;) contains the\nfollowing datasets:\n\n  ``/conditional_fluxes`` [iteration][state][state]\n    *(Floating-point)* Macrostate-to-macrostate fluxes. These are **not**\n    normalized by the population of the initial macrostate.\n\n  ``/conditional_arrivals`` [iteration][stateA][stateB]\n    *(Integer)* Number of trajectories arriving at state *stateB* in a given\n    iteration, given that they departed from *stateA*.\n\n  ``/total_fluxes`` [iteration][state]\n    *(Floating-point)* Total flux into a given macrostate.\n\n  ``/arrivals`` [iteration][state]\n    *(Integer)* Number of trajectories arriving at a given state in a given\n    iteration, regardless of where they originated.\n\n  ``/duration_count`` [iteration]\n    *(Integer)* The number of event durations recorded in each iteration.\n\n  ``/durations`` [iteration][event duration]\n    *(Structured -- see below)*  Event durations for transition events ending\n    during a given iteration. These are stored as follows:\n\n      istate\n        *(Integer)* Initial state of transition event.\n      fstate\n        *(Integer)* Final state of transition event.\n      duration\n        *(Floating-point)* Duration of transition, in units of tau.\n      weight\n        *(Floating-point)* Weight of trajectory at end of transition, **not**\n        normalized by initial state population.\n\nBecause state-to-state fluxes stored in this file are not normalized by\ninitial macrostate population, they cannot be used as rates without further\nprocessing. The ``w_kinavg`` command is used to perform this normalization\nwhile taking statistical fluctuation and correlation into account. See\n``w_kinavg trace --help`` for more information.  Target fluxes (total flux\ninto a given state) require no such normalization.\n\n-----------------------------------------------------------------------------\nCommand-line options\n-----------------------------------------------------------------------------\n'</em><a class="headerlink" href="#westpa.cli.tools.w_kinetics.WDirect.description" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
-<dl class="py function">
-<dt id="westpa.cli.tools.w_kinetics.entry_point">
-<code class="sig-prename descclassname">westpa.cli.tools.w_kinetics.</code><code class="sig-name descname">entry_point</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#westpa.cli.tools.w_kinetics.entry_point" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
+<div class="section" id="westpa-cli-tools-w-kinetics-module">
+<h2>westpa.cli.tools.w_kinetics module<a class="headerlink" href="#westpa-cli-tools-w-kinetics-module" title="Permalink to this headline">¶</a></h2>
 </div>
 </div>
 
@@ -369,29 +313,37 @@ into a given state) require no such normalization.</p>
            
           </div>
           <footer>
+  
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-        <a href="w_stateprobs.html" class="btn btn-neutral float-right" title="w_stateprobs" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
-        <a href="w_kinavg.html" class="btn btn-neutral float-left" title="w_kinavg" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+      
+        <a href="w_stateprobs.html" class="btn btn-neutral float-right" title="w_stateprobs" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="w_kinavg.html" class="btn btn-neutral float-left" title="w_kinavg" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
     </div>
+  
 
   <hr/>
 
   <div role="contentinfo">
     <p>
-        &#169; Copyright 2021, Matthew C. Zwier and Lillian T. Chong.
+        
+        &copy; Copyright 2021, Matthew C. Zwier and Lillian T. Chong
 
     </p>
   </div>
     
     
     
-    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
     
-    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
     
     provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
+
         </div>
       </div>
 
