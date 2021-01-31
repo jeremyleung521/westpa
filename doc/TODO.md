@@ -29,14 +29,16 @@
 * copyright names and years
 * fix faq link on readme landing page, check other links
 * side bar command_line_tool_index button should link to page instead of expanding, this might be more navigable
-* Reorganize CLI tools into subgroups when they expand?
 
 
 ## Regarding autodoc
 * westext is not being surveyed by correctly, due to import errors (wess,weed are depreciated, will see about the other 2)
 * westpatools (westpa.cli.tools package) have odd description formatting. Might have to go back to fix docstrings in files.
-* Reorganize autodoc structure because all information are 5 levels in
 
+
+## Completed on 30Jan2021
+* Reorganize CLI tools into subgroups when they expand?
+* Reorganize autodoc structure because all information are 5 levels in
 
 
 ## Completed on 26Jan2021
