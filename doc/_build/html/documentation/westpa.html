@@ -3,9 +3,9 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8">
+  <meta charset="utf-8" />
   
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
   <title>westpa package &mdash; WESTPA 2.0 documentation</title>
   
@@ -17,7 +17,10 @@
 
   
   
+
   
+  
+
   
 
   
@@ -49,7 +52,7 @@
           
 
           
-            <a href="../sphinx_index.html" class="icon icon-home" alt="Documentation Home"> WESTPA
+            <a href="../sphinx_index.html" class="icon icon-home"> WESTPA
           
 
           
@@ -91,10 +94,10 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="cli.html"> WESTPA Command Line Interface</a></li>
 <li class="toctree-l1"><a class="reference internal" href="core.html"> WESTPA Core</a></li>
-<li class="toctree-l1"><a class="reference internal" href="work_managers/westpa.work_managers.html"> WESTPA Work Manager</a></li>
+<li class="toctree-l1"><a class="reference internal" href="work_managers.html"> WESTPA Work Manager</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tools/westpa.tools.html"> WESTPA Tools</a></li>
 <li class="toctree-l1"><a class="reference internal" href="others.html"> WESTPA Other Components</a></li>
-<li class="toctree-l1"><a class="reference internal" href="ext/westpa.westext.html"> WESTPA Extentions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ext.html"> WESTPA Extentions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="hdf5.html"> HDF5 file structure</a></li>
 </ul>
 <p class="caption"><span class="caption-text">For Developers:</span></p>
@@ -156,6 +159,8 @@
 
 
 
+
+
 <div role="navigation" aria-label="breadcrumbs navigation">
 
   <ul class="wy-breadcrumbs">
@@ -167,7 +172,7 @@
     
       <li class="wy-breadcrumbs-aside">
         
-            
+          
             <a href="../_sources/documentation/westpa.rst.txt" rel="nofollow"> View page source</a>
           
         
@@ -188,8 +193,298 @@
 <div class="toctree-wrapper compound">
 </div>
 </div>
-<div class="section" id="module-contents">
-<h2>Module contents<a class="headerlink" href="#module-contents" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="module-westpa">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-westpa" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt id="westpa.Segment">
+<em class="property">class </em><code class="sig-prename descclassname">westpa.</code><code class="sig-name descname">Segment</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">n_iter</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">seg_id</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">weight</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">endpoint_type</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">parent_id</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">wtg_parent_ids</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">pcoord</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">status</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">walltime</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">cputime</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">data</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.Segment" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>A class wrapping segment data that must be passed through the work manager or data manager.
+Most fields are self-explanatory.  One item worth noting is that a negative parent ID means that
+the segment starts from the initial state with ID -(segment.parent_id+1)</p>
+<dl class="py attribute">
+<dt id="westpa.Segment.SEG_STATUS_UNSET">
+<code class="sig-name descname">SEG_STATUS_UNSET</code><em class="property"> = 0</em><a class="headerlink" href="#westpa.Segment.SEG_STATUS_UNSET" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="westpa.Segment.SEG_STATUS_PREPARED">
+<code class="sig-name descname">SEG_STATUS_PREPARED</code><em class="property"> = 1</em><a class="headerlink" href="#westpa.Segment.SEG_STATUS_PREPARED" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="westpa.Segment.SEG_STATUS_COMPLETE">
+<code class="sig-name descname">SEG_STATUS_COMPLETE</code><em class="property"> = 2</em><a class="headerlink" href="#westpa.Segment.SEG_STATUS_COMPLETE" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="westpa.Segment.SEG_STATUS_FAILED">
+<code class="sig-name descname">SEG_STATUS_FAILED</code><em class="property"> = 3</em><a class="headerlink" href="#westpa.Segment.SEG_STATUS_FAILED" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="westpa.Segment.SEG_INITPOINT_UNSET">
+<code class="sig-name descname">SEG_INITPOINT_UNSET</code><em class="property"> = 0</em><a class="headerlink" href="#westpa.Segment.SEG_INITPOINT_UNSET" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="westpa.Segment.SEG_INITPOINT_CONTINUES">
+<code class="sig-name descname">SEG_INITPOINT_CONTINUES</code><em class="property"> = 1</em><a class="headerlink" href="#westpa.Segment.SEG_INITPOINT_CONTINUES" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="westpa.Segment.SEG_INITPOINT_NEWTRAJ">
+<code class="sig-name descname">SEG_INITPOINT_NEWTRAJ</code><em class="property"> = 2</em><a class="headerlink" href="#westpa.Segment.SEG_INITPOINT_NEWTRAJ" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="westpa.Segment.SEG_ENDPOINT_UNSET">
+<code class="sig-name descname">SEG_ENDPOINT_UNSET</code><em class="property"> = 0</em><a class="headerlink" href="#westpa.Segment.SEG_ENDPOINT_UNSET" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="westpa.Segment.SEG_ENDPOINT_CONTINUES">
+<code class="sig-name descname">SEG_ENDPOINT_CONTINUES</code><em class="property"> = 1</em><a class="headerlink" href="#westpa.Segment.SEG_ENDPOINT_CONTINUES" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="westpa.Segment.SEG_ENDPOINT_MERGED">
+<code class="sig-name descname">SEG_ENDPOINT_MERGED</code><em class="property"> = 2</em><a class="headerlink" href="#westpa.Segment.SEG_ENDPOINT_MERGED" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="westpa.Segment.SEG_ENDPOINT_RECYCLED">
+<code class="sig-name descname">SEG_ENDPOINT_RECYCLED</code><em class="property"> = 3</em><a class="headerlink" href="#westpa.Segment.SEG_ENDPOINT_RECYCLED" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="westpa.Segment.statuses">
+<code class="sig-name descname">statuses</code><em class="property"> = {'SEG_STATUS_COMPLETE': 2, 'SEG_STATUS_FAILED': 3, 'SEG_STATUS_PREPARED': 1, 'SEG_STATUS_UNSET': 0}</em><a class="headerlink" href="#westpa.Segment.statuses" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="westpa.Segment.initpoint_types">
+<code class="sig-name descname">initpoint_types</code><em class="property"> = {'SEG_INITPOINT_CONTINUES': 1, 'SEG_INITPOINT_NEWTRAJ': 2, 'SEG_INITPOINT_UNSET': 0}</em><a class="headerlink" href="#westpa.Segment.initpoint_types" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="westpa.Segment.endpoint_types">
+<code class="sig-name descname">endpoint_types</code><em class="property"> = {'SEG_ENDPOINT_CONTINUES': 1, 'SEG_ENDPOINT_MERGED': 2, 'SEG_ENDPOINT_RECYCLED': 3, 'SEG_ENDPOINT_UNSET': 0}</em><a class="headerlink" href="#westpa.Segment.endpoint_types" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="westpa.Segment.status_names">
+<code class="sig-name descname">status_names</code><em class="property"> = {0: 'SEG_STATUS_UNSET', 1: 'SEG_STATUS_PREPARED', 2: 'SEG_STATUS_COMPLETE', 3: 'SEG_STATUS_FAILED'}</em><a class="headerlink" href="#westpa.Segment.status_names" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="westpa.Segment.initpoint_type_names">
+<code class="sig-name descname">initpoint_type_names</code><em class="property"> = {0: 'SEG_INITPOINT_UNSET', 1: 'SEG_INITPOINT_CONTINUES', 2: 'SEG_INITPOINT_NEWTRAJ'}</em><a class="headerlink" href="#westpa.Segment.initpoint_type_names" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="westpa.Segment.endpoint_type_names">
+<code class="sig-name descname">endpoint_type_names</code><em class="property"> = {0: 'SEG_ENDPOINT_UNSET', 1: 'SEG_ENDPOINT_CONTINUES', 2: 'SEG_ENDPOINT_MERGED', 3: 'SEG_ENDPOINT_RECYCLED'}</em><a class="headerlink" href="#westpa.Segment.endpoint_type_names" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="westpa.Segment.initial_pcoord">
+<em class="property">static </em><code class="sig-name descname">initial_pcoord</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">segment</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.Segment.initial_pcoord" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the initial progress coordinate point of this segment.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="westpa.Segment.final_pcoord">
+<em class="property">static </em><code class="sig-name descname">final_pcoord</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">segment</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.Segment.final_pcoord" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the final progress coordinate point of this segment.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="westpa.Segment.initpoint_type">
+<em class="property">property </em><code class="sig-name descname">initpoint_type</code><a class="headerlink" href="#westpa.Segment.initpoint_type" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="westpa.Segment.initial_state_id">
+<em class="property">property </em><code class="sig-name descname">initial_state_id</code><a class="headerlink" href="#westpa.Segment.initial_state_id" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="westpa.Segment.status_text">
+<em class="property">property </em><code class="sig-name descname">status_text</code><a class="headerlink" href="#westpa.Segment.status_text" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="westpa.Segment.endpoint_type_text">
+<em class="property">property </em><code class="sig-name descname">endpoint_type_text</code><a class="headerlink" href="#westpa.Segment.endpoint_type_text" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="westpa.WESTSystem">
+<em class="property">class </em><code class="sig-prename descclassname">westpa.</code><code class="sig-name descname">WESTSystem</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">rc</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.WESTSystem" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>A description of the system being simulated, including the dimensionality and
+data type of the progress coordinate, the number of progress coordinate entries
+expected from each segment, and binning. To construct a simulation, the user must
+subclass WESTSystem and set several instance variables.</p>
+<p>At a minimum, the user must subclass <code class="docutils literal notranslate"><span class="pre">WESTSystem</span></code> and override
+<a href="#id1"><span class="problematic" id="id2">:method:`initialize`</span></a> to set the data type and dimensionality of progress
+coordinate data and define a bin mapper.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Variables</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>pcoord_ndim</strong> – The number of dimensions in the progress coordinate.
+Defaults to 1 (i.e. a one-dimensional progress
+coordinate).</p></li>
+<li><p><strong>pcoord_dtype</strong> – The data type of the progress coordinate, which must be
+callable (e.g. <code class="docutils literal notranslate"><span class="pre">np.float32</span></code> and <code class="docutils literal notranslate"><span class="pre">long</span></code> will work,
+but <code class="docutils literal notranslate"><span class="pre">'&lt;f4'</span></code> and <code class="docutils literal notranslate"><span class="pre">'&lt;i8'</span></code> will not).  Defaults to
+<code class="docutils literal notranslate"><span class="pre">np.float64</span></code>.</p></li>
+<li><p><strong>pcoord_len</strong> – The length of the progress coordinate time series
+generated by each segment, including <em>both</em> the initial
+and final values.  Defaults to 2 (i.e. only the initial
+and final progress coordinate values for a segment are
+returned from propagation).</p></li>
+<li><p><strong>bin_mapper</strong> – A bin mapper describing the progress coordinate space.</p></li>
+<li><p><a class="reference internal" href="#westpa.WESTSystem.bin_target_counts" title="westpa.WESTSystem.bin_target_counts"><strong>bin_target_counts</strong></a> – A vector of target counts, one per bin.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt id="westpa.WESTSystem.bin_target_counts">
+<em class="property">property </em><code class="sig-name descname">bin_target_counts</code><a class="headerlink" href="#westpa.WESTSystem.bin_target_counts" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="westpa.WESTSystem.initialize">
+<code class="sig-name descname">initialize</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#westpa.WESTSystem.initialize" title="Permalink to this definition">¶</a></dt>
+<dd><p>Prepare this system object for use in simulation or analysis,
+creating a bin space, setting replicas per bin, and so on. This
+function is called whenever a WEST tool creates an instance of the
+system driver.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="westpa.WESTSystem.prepare_run">
+<code class="sig-name descname">prepare_run</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#westpa.WESTSystem.prepare_run" title="Permalink to this definition">¶</a></dt>
+<dd><p>Prepare this system for use in a simulation run. Called by w_run in
+all worker processes.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="westpa.WESTSystem.finalize_run">
+<code class="sig-name descname">finalize_run</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#westpa.WESTSystem.finalize_run" title="Permalink to this definition">¶</a></dt>
+<dd><p>A hook for system-specific processing for the end of a simulation run
+(as defined by such things as maximum wallclock time, rather than perhaps
+more scientifically-significant definitions of “the end of a simulation run”)</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="westpa.WESTSystem.new_pcoord_array">
+<code class="sig-name descname">new_pcoord_array</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">pcoord_len</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.WESTSystem.new_pcoord_array" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return an appropriately-sized and -typed pcoord array for a timepoint, segment,
+or number of segments. If <code class="docutils literal notranslate"><span class="pre">pcoord_len</span></code> is not specified (or None), then
+a length appropriate for a segment is returned.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="westpa.WESTSystem.new_region_set">
+<code class="sig-name descname">new_region_set</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#westpa.WESTSystem.new_region_set" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="westpa.BasisState">
+<em class="property">class </em><code class="sig-prename descclassname">westpa.</code><code class="sig-name descname">BasisState</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">label</span></em>, <em class="sig-param"><span class="n">probability</span></em>, <em class="sig-param"><span class="n">pcoord</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">auxref</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">state_id</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.BasisState" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Describes an basis (micro)state. These basis states are used to generate
+initial states for new trajectories, either at the beginning of the simulation
+(i.e. at w_init) or due to recycling.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Variables</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>state_id</strong> – Integer identifier of this state, usually set by the
+data manager.</p></li>
+<li><p><strong>label</strong> – A descriptive label for this microstate (may be empty)</p></li>
+<li><p><strong>probability</strong> – Probability of this state to be selected when creating a
+new trajectory.</p></li>
+<li><p><strong>pcoord</strong> – The representative progress coordinate of this state.</p></li>
+<li><p><strong>auxref</strong> – A user-provided (string) reference for locating data associated
+with this state (usually a filesystem path).</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt id="westpa.BasisState.states_to_file">
+<em class="property">classmethod </em><code class="sig-name descname">states_to_file</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">states</span></em>, <em class="sig-param"><span class="n">fileobj</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.BasisState.states_to_file" title="Permalink to this definition">¶</a></dt>
+<dd><p>Write a file defining basis states, which may then be read by <cite>states_from_file()</cite>.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="westpa.BasisState.states_from_file">
+<em class="property">classmethod </em><code class="sig-name descname">states_from_file</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">filename</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.BasisState.states_from_file" title="Permalink to this definition">¶</a></dt>
+<dd><p>Read a file defining basis states.  Each line defines a state, and contains a label, the probability,
+and optionally a data reference, separated by whitespace, as in:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">unbound</span>    <span class="mf">1.0</span>
+</pre></div>
+</div>
+<p>or:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">unbound_0</span>    <span class="mf">0.6</span>        <span class="n">state0</span><span class="o">.</span><span class="n">pdb</span>
+<span class="n">unbound_1</span>    <span class="mf">0.4</span>        <span class="n">state1</span><span class="o">.</span><span class="n">pdb</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="westpa.BasisState.as_numpy_record">
+<code class="sig-name descname">as_numpy_record</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#westpa.BasisState.as_numpy_record" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the data for this state as a numpy record array.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="westpa.TargetState">
+<em class="property">class </em><code class="sig-prename descclassname">westpa.</code><code class="sig-name descname">TargetState</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">label</span></em>, <em class="sig-param"><span class="n">pcoord</span></em>, <em class="sig-param"><span class="n">state_id</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.TargetState" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Describes a target state.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Variables</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>state_id</strong> – Integer identifier of this state, usually set by the
+data manager.</p></li>
+<li><p><strong>label</strong> – A descriptive label for this microstate (may be empty)</p></li>
+<li><p><strong>pcoord</strong> – The representative progress coordinate of this state.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt id="westpa.TargetState.states_to_file">
+<em class="property">classmethod </em><code class="sig-name descname">states_to_file</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">states</span></em>, <em class="sig-param"><span class="n">fileobj</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.TargetState.states_to_file" title="Permalink to this definition">¶</a></dt>
+<dd><p>Write a file defining basis states, which may then be read by <cite>states_from_file()</cite>.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="westpa.TargetState.states_from_file">
+<em class="property">classmethod </em><code class="sig-name descname">states_from_file</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">statefile</span></em>, <em class="sig-param"><span class="n">dtype</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.TargetState.states_from_file" title="Permalink to this definition">¶</a></dt>
+<dd><p>Read a file defining target states.  Each line defines a state, and contains a label followed
+by a representative progress coordinate value, separated by whitespace, as in:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">bound</span>     <span class="mf">0.02</span>
+</pre></div>
+</div>
+<p>for a single target and one-dimensional progress coordinates or:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">bound</span>    <span class="mf">2.7</span>    <span class="mf">0.0</span>
+<span class="n">drift</span>    <span class="mi">100</span>    <span class="mf">50.0</span>
+</pre></div>
+</div>
+<p>for two targets and a two-dimensional progress coordinate.</p>
+</dd></dl>
+
+</dd></dl>
+
 </div>
 </div>
 
@@ -198,28 +493,25 @@
            
           </div>
           <footer>
-  
 
   <hr/>
 
   <div role="contentinfo">
     <p>
-        
-        &copy; Copyright 2021, Matthew C. Zwier and Lillian T. Chong
+        &#169; Copyright 2021, Matthew C. Zwier and Lillian T. Chong.
 
     </p>
   </div>
     
     
     
-    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
     
-    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
     
     provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
-
         </div>
       </div>
 

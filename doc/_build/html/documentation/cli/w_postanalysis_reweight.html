@@ -3,9 +3,9 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8">
+  <meta charset="utf-8" />
   
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
   <title>w_postanalysis_reweight &mdash; WESTPA 2.0 documentation</title>
   
@@ -17,7 +17,10 @@
 
   
   
+
   
+  
+
   
 
   
@@ -51,7 +54,7 @@
           
 
           
-            <a href="../../sphinx_index.html" class="icon icon-home" alt="Documentation Home"> WESTPA
+            <a href="../../sphinx_index.html" class="icon icon-home"> WESTPA
           
 
           
@@ -112,7 +115,7 @@
 <li class="toctree-l2"><a class="reference internal" href="w_dumpsegs.html"> w_dumpsegs</a></li>
 <li class="toctree-l2"><a class="reference internal" href="w_postanalysis_matrix.html"> w_postanalysis_matrix</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#"> w_postanalysis_reweight</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#westpa-cli-tools-w-postanalysis-reweight-module">westpa.cli.tools.w_postanalysis_reweight module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-westpa.cli.tools.w_postanalysis_reweight">westpa.cli.tools.w_postanalysis_reweight module</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="w_reweight.html"> w_reweight</a></li>
@@ -124,10 +127,10 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../core.html"> WESTPA Core</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../work_managers/westpa.work_managers.html"> WESTPA Work Manager</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../work_managers.html"> WESTPA Work Manager</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../tools/westpa.tools.html"> WESTPA Tools</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../others.html"> WESTPA Other Components</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../ext/westpa.westext.html"> WESTPA Extentions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ext.html"> WESTPA Extentions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../hdf5.html"> HDF5 file structure</a></li>
 </ul>
 <p class="caption"><span class="caption-text">For Developers:</span></p>
@@ -189,6 +192,8 @@
 
 
 
+
+
 <div role="navigation" aria-label="breadcrumbs navigation">
 
   <ul class="wy-breadcrumbs">
@@ -202,7 +207,7 @@
     
       <li class="wy-breadcrumbs-aside">
         
-            
+          
             <a href="../../_sources/documentation/cli/w_postanalysis_reweight.rst.txt" rel="nofollow"> View page source</a>
           
         
@@ -218,8 +223,65 @@
             
   <div class="section" id="w-postanalysis-reweight">
 <h1>w_postanalysis_reweight<a class="headerlink" href="#w-postanalysis-reweight" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="westpa-cli-tools-w-postanalysis-reweight-module">
-<h2>westpa.cli.tools.w_postanalysis_reweight module<a class="headerlink" href="#westpa-cli-tools-w-postanalysis-reweight-module" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="module-westpa.cli.tools.w_postanalysis_reweight">
+<span id="westpa-cli-tools-w-postanalysis-reweight-module"></span><h2>westpa.cli.tools.w_postanalysis_reweight module<a class="headerlink" href="#module-westpa.cli.tools.w_postanalysis_reweight" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt id="westpa.cli.tools.w_postanalysis_reweight.PAAverage">
+<em class="property">class </em><code class="sig-prename descclassname">westpa.cli.tools.w_postanalysis_reweight.</code><code class="sig-name descname">PAAverage</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">parent</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.cli.tools.w_postanalysis_reweight.PAAverage" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="w_reweight.html#westpa.cli.tools.w_reweight.RWAverage" title="westpa.cli.tools.w_reweight.RWAverage"><code class="xref py py-class docutils literal notranslate"><span class="pre">westpa.cli.tools.w_reweight.RWAverage</span></code></a></p>
+<dl class="py attribute">
+<dt id="westpa.cli.tools.w_postanalysis_reweight.PAAverage.subcommand">
+<code class="sig-name descname">subcommand</code><em class="property"> = 'average'</em><a class="headerlink" href="#westpa.cli.tools.w_postanalysis_reweight.PAAverage.subcommand" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="westpa.cli.tools.w_postanalysis_reweight.PAAverage.help_text">
+<code class="sig-name descname">help_text</code><em class="property"> = ''</em><a class="headerlink" href="#westpa.cli.tools.w_postanalysis_reweight.PAAverage.help_text" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="westpa.cli.tools.w_postanalysis_reweight.PAAverage.default_output_file">
+<code class="sig-name descname">default_output_file</code><em class="property"> = 'kinrw.h5'</em><a class="headerlink" href="#westpa.cli.tools.w_postanalysis_reweight.PAAverage.default_output_file" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="westpa.cli.tools.w_postanalysis_reweight.PAAverage.default_kinetics_file">
+<code class="sig-name descname">default_kinetics_file</code><em class="property"> = 'flux_matrices.h5'</em><a class="headerlink" href="#westpa.cli.tools.w_postanalysis_reweight.PAAverage.default_kinetics_file" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="westpa.cli.tools.w_postanalysis_reweight.WReweight">
+<em class="property">class </em><code class="sig-prename descclassname">westpa.cli.tools.w_postanalysis_reweight.</code><code class="sig-name descname">WReweight</code><a class="headerlink" href="#westpa.cli.tools.w_postanalysis_reweight.WReweight" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="../tools/westpa.tools.html#westpa.tools.core.WESTMasterCommand" title="westpa.tools.core.WESTMasterCommand"><code class="xref py py-class docutils literal notranslate"><span class="pre">westpa.tools.core.WESTMasterCommand</span></code></a>, <a class="reference internal" href="../tools/westpa.tools.html#westpa.tools.core.WESTParallelTool" title="westpa.tools.core.WESTParallelTool"><code class="xref py py-class docutils literal notranslate"><span class="pre">westpa.tools.core.WESTParallelTool</span></code></a></p>
+<dl class="py attribute">
+<dt id="westpa.cli.tools.w_postanalysis_reweight.WReweight.prog">
+<code class="sig-name descname">prog</code><em class="property"> = 'w_postanalysis_reweight'</em><a class="headerlink" href="#westpa.cli.tools.w_postanalysis_reweight.WReweight.prog" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="westpa.cli.tools.w_postanalysis_reweight.WReweight.subcommands">
+<code class="sig-name descname">subcommands</code><em class="property"> = [&lt;class 'westpa.cli.tools.w_postanalysis_reweight.PAAverage'&gt;]</em><a class="headerlink" href="#westpa.cli.tools.w_postanalysis_reweight.WReweight.subcommands" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="westpa.cli.tools.w_postanalysis_reweight.WReweight.subparsers_title">
+<code class="sig-name descname">subparsers_title</code><em class="property"> = 'calculate state-to-state kinetics by tracing trajectories'</em><a class="headerlink" href="#westpa.cli.tools.w_postanalysis_reweight.WReweight.subparsers_title" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="westpa.cli.tools.w_postanalysis_reweight.WReweight.description">
+<code class="sig-name descname">description</code><em class="property"> = 'A convenience function to run kinetics/probs. Bin assignments,\nincluding macrostate definitions, are required. (See\n&quot;w_assign --help&quot; for more information).\n\nFor more information on the individual subcommands this subs in for, run\nw_reweight {kinetics/probs} --help.\n\n-----------------------------------------------------------------------------\nCommand-line options\n-----------------------------------------------------------------------------\n'</em><a class="headerlink" href="#westpa.cli.tools.w_postanalysis_reweight.WReweight.description" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt id="westpa.cli.tools.w_postanalysis_reweight.entry_point">
+<code class="sig-prename descclassname">westpa.cli.tools.w_postanalysis_reweight.</code><code class="sig-name descname">entry_point</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#westpa.cli.tools.w_postanalysis_reweight.entry_point" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 </div>
 </div>
 
@@ -228,37 +290,29 @@
            
           </div>
           <footer>
-  
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-      
-        <a href="w_reweight.html" class="btn btn-neutral float-right" title="w_reweight" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
-      
-      
-        <a href="w_postanalysis_matrix.html" class="btn btn-neutral float-left" title="w_postanalysis_matrix" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
-      
+        <a href="w_reweight.html" class="btn btn-neutral float-right" title="w_reweight" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="w_postanalysis_matrix.html" class="btn btn-neutral float-left" title="w_postanalysis_matrix" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
     </div>
-  
 
   <hr/>
 
   <div role="contentinfo">
     <p>
-        
-        &copy; Copyright 2021, Matthew C. Zwier and Lillian T. Chong
+        &#169; Copyright 2021, Matthew C. Zwier and Lillian T. Chong.
 
     </p>
   </div>
     
     
     
-    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
     
-    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
     
     provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
-
         </div>
       </div>
 

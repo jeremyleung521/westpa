@@ -1,18 +1,8 @@
 westpa.oldtools package
 =======================
 
-Subpackages
------------
-
-.. toctree::
-   :maxdepth: 4
-
-   westpa.oldtools.aframe
-   westpa.oldtools.cmds
-   westpa.oldtools.stats
-
-westpa.oldtools.files module
-----------------------------
+westpa.oldtools module
+----------------------
 
 .. automodule:: westpa.oldtools
    :members:

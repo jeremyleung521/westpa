@@ -3,9 +3,9 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8">
+  <meta charset="utf-8" />
   
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
   <title>westpa.core.binning package &mdash; WESTPA 2.0 documentation</title>
   
@@ -17,7 +17,10 @@
 
   
   
+
   
+  
+
   
 
   
@@ -51,7 +54,7 @@
           
 
           
-            <a href="../../sphinx_index.html" class="icon icon-home" alt="Documentation Home"> WESTPA
+            <a href="../../sphinx_index.html" class="icon icon-home"> WESTPA
           
 
           
@@ -94,21 +97,21 @@
 <li class="toctree-l1"><a class="reference internal" href="../cli.html"> WESTPA Command Line Interface</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../core.html"> WESTPA Core</a><ul class="current">
 <li class="toctree-l2 current"><a class="current reference internal" href="#">westpa.core.binning</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#westpa-core-binning-module">westpa.core.binning module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#westpa-core-binning-assign-module">westpa.core.binning.assign module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#westpa-core-binning-bins-module">westpa.core.binning.bins module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-westpa.core.binning">westpa.core.binning module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-westpa.core.binning.assign">westpa.core.binning.assign module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-westpa.core.binning.bins">westpa.core.binning.bins module</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="westpa.core.kinetics.html">westpa.core.kinetics</a></li>
 <li class="toctree-l2"><a class="reference internal" href="westpa.core.propagators.html">westpa.core.propagators</a></li>
 <li class="toctree-l2"><a class="reference internal" href="westpa.core.reweight.html">westpa.core.reweight</a></li>
-<li class="toctree-l2"><a class="reference internal" href="westpa.core.html">submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="westpa.core.html">westpa.core</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../work_managers/westpa.work_managers.html"> WESTPA Work Manager</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../work_managers.html"> WESTPA Work Manager</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../tools/westpa.tools.html"> WESTPA Tools</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../others.html"> WESTPA Other Components</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../ext/westpa.westext.html"> WESTPA Extentions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ext.html"> WESTPA Extentions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../hdf5.html"> HDF5 file structure</a></li>
 </ul>
 <p class="caption"><span class="caption-text">For Developers:</span></p>
@@ -170,6 +173,8 @@
 
 
 
+
+
 <div role="navigation" aria-label="breadcrumbs navigation">
 
   <ul class="wy-breadcrumbs">
@@ -183,7 +188,7 @@
     
       <li class="wy-breadcrumbs-aside">
         
-            
+          
             <a href="../../_sources/documentation/core/westpa.core.binning.rst.txt" rel="nofollow"> View page source</a>
           
         
@@ -199,14 +204,377 @@
             
   <div class="section" id="westpa-core-binning-package">
 <h1>westpa.core.binning package<a class="headerlink" href="#westpa-core-binning-package" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="westpa-core-binning-module">
-<h2>westpa.core.binning module<a class="headerlink" href="#westpa-core-binning-module" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="module-westpa.core.binning">
+<span id="westpa-core-binning-module"></span><h2>westpa.core.binning module<a class="headerlink" href="#module-westpa.core.binning" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt id="westpa.core.binning.NopMapper">
+<em class="property">class </em><code class="sig-prename descclassname">westpa.core.binning.</code><code class="sig-name descname">NopMapper</code><a class="headerlink" href="#westpa.core.binning.NopMapper" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#westpa.core.binning.assign.BinMapper" title="westpa.core.binning.assign.BinMapper"><code class="xref py py-class docutils literal notranslate"><span class="pre">westpa.core.binning.assign.BinMapper</span></code></a></p>
+<p>Put everything into one bin.</p>
+<dl class="py method">
+<dt id="westpa.core.binning.NopMapper.assign">
+<code class="sig-name descname">assign</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">coords</span></em>, <em class="sig-param"><span class="n">mask</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">output</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.core.binning.NopMapper.assign" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="westpa.core.binning.FuncBinMapper">
+<em class="property">class </em><code class="sig-prename descclassname">westpa.core.binning.</code><code class="sig-name descname">FuncBinMapper</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">func</span></em>, <em class="sig-param"><span class="n">nbins</span></em>, <em class="sig-param"><span class="n">args</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">kwargs</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.core.binning.FuncBinMapper" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#westpa.core.binning.assign.BinMapper" title="westpa.core.binning.assign.BinMapper"><code class="xref py py-class docutils literal notranslate"><span class="pre">westpa.core.binning.assign.BinMapper</span></code></a></p>
+<p>Binning using a custom function which must iterate over input coordinate
+sets itself.</p>
+<dl class="py method">
+<dt id="westpa.core.binning.FuncBinMapper.assign">
+<code class="sig-name descname">assign</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">coords</span></em>, <em class="sig-param"><span class="n">mask</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">output</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.core.binning.FuncBinMapper.assign" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="westpa.core.binning.PiecewiseBinMapper">
+<em class="property">class </em><code class="sig-prename descclassname">westpa.core.binning.</code><code class="sig-name descname">PiecewiseBinMapper</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">functions</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.core.binning.PiecewiseBinMapper" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#westpa.core.binning.assign.BinMapper" title="westpa.core.binning.assign.BinMapper"><code class="xref py py-class docutils literal notranslate"><span class="pre">westpa.core.binning.assign.BinMapper</span></code></a></p>
+<p>Binning using a set of functions returing boolean values; if the Nth function
+returns True for a coordinate tuple, then that coordinate is in the Nth bin.</p>
+<dl class="py method">
+<dt id="westpa.core.binning.PiecewiseBinMapper.assign">
+<code class="sig-name descname">assign</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">coords</span></em>, <em class="sig-param"><span class="n">mask</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">output</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.core.binning.PiecewiseBinMapper.assign" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="westpa.core.binning.RectilinearBinMapper">
+<em class="property">class </em><code class="sig-prename descclassname">westpa.core.binning.</code><code class="sig-name descname">RectilinearBinMapper</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">boundaries</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.core.binning.RectilinearBinMapper" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#westpa.core.binning.assign.BinMapper" title="westpa.core.binning.assign.BinMapper"><code class="xref py py-class docutils literal notranslate"><span class="pre">westpa.core.binning.assign.BinMapper</span></code></a></p>
+<p>Bin into a rectangular grid based on tuples of float values</p>
+<dl class="py method">
+<dt id="westpa.core.binning.RectilinearBinMapper.boundaries">
+<em class="property">property </em><code class="sig-name descname">boundaries</code><a class="headerlink" href="#westpa.core.binning.RectilinearBinMapper.boundaries" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="westpa.core.binning.RectilinearBinMapper.assign">
+<code class="sig-name descname">assign</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">coords</span></em>, <em class="sig-param"><span class="n">mask</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">output</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.core.binning.RectilinearBinMapper.assign" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="westpa.core.binning.RecursiveBinMapper">
+<em class="property">class </em><code class="sig-prename descclassname">westpa.core.binning.</code><code class="sig-name descname">RecursiveBinMapper</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">base_mapper</span></em>, <em class="sig-param"><span class="n">start_index</span><span class="o">=</span><span class="default_value">0</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.core.binning.RecursiveBinMapper" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#westpa.core.binning.assign.BinMapper" title="westpa.core.binning.assign.BinMapper"><code class="xref py py-class docutils literal notranslate"><span class="pre">westpa.core.binning.assign.BinMapper</span></code></a></p>
+<p>Nest mappers one within another.</p>
+<dl class="py method">
+<dt id="westpa.core.binning.RecursiveBinMapper.labels">
+<em class="property">property </em><code class="sig-name descname">labels</code><a class="headerlink" href="#westpa.core.binning.RecursiveBinMapper.labels" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="westpa.core.binning.RecursiveBinMapper.start_index">
+<em class="property">property </em><code class="sig-name descname">start_index</code><a class="headerlink" href="#westpa.core.binning.RecursiveBinMapper.start_index" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="westpa.core.binning.RecursiveBinMapper.add_mapper">
+<code class="sig-name descname">add_mapper</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">mapper</span></em>, <em class="sig-param"><span class="n">replaces_bin_at</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.core.binning.RecursiveBinMapper.add_mapper" title="Permalink to this definition">¶</a></dt>
+<dd><p>Replace the bin containing the coordinate tuple <code class="docutils literal notranslate"><span class="pre">replaces_bin_at</span></code> with the
+specified <code class="docutils literal notranslate"><span class="pre">mapper</span></code>.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="westpa.core.binning.RecursiveBinMapper.assign">
+<code class="sig-name descname">assign</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">coords</span></em>, <em class="sig-param"><span class="n">mask</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">output</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.core.binning.RecursiveBinMapper.assign" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="westpa.core.binning.VectorizingFuncBinMapper">
+<em class="property">class </em><code class="sig-prename descclassname">westpa.core.binning.</code><code class="sig-name descname">VectorizingFuncBinMapper</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">func</span></em>, <em class="sig-param"><span class="n">nbins</span></em>, <em class="sig-param"><span class="n">args</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">kwargs</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.core.binning.VectorizingFuncBinMapper" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#westpa.core.binning.assign.BinMapper" title="westpa.core.binning.assign.BinMapper"><code class="xref py py-class docutils literal notranslate"><span class="pre">westpa.core.binning.assign.BinMapper</span></code></a></p>
+<p>Binning using a custom function which is evaluated once for each (unmasked)
+coordinate tuple provided.</p>
+<dl class="py method">
+<dt id="westpa.core.binning.VectorizingFuncBinMapper.assign">
+<code class="sig-name descname">assign</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">coords</span></em>, <em class="sig-param"><span class="n">mask</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">output</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.core.binning.VectorizingFuncBinMapper.assign" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="westpa.core.binning.VoronoiBinMapper">
+<em class="property">class </em><code class="sig-prename descclassname">westpa.core.binning.</code><code class="sig-name descname">VoronoiBinMapper</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">dfunc</span></em>, <em class="sig-param"><span class="n">centers</span></em>, <em class="sig-param"><span class="n">dfargs</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">dfkwargs</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.core.binning.VoronoiBinMapper" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#westpa.core.binning.assign.BinMapper" title="westpa.core.binning.assign.BinMapper"><code class="xref py py-class docutils literal notranslate"><span class="pre">westpa.core.binning.assign.BinMapper</span></code></a></p>
+<p>A one-dimensional mapper which assigns a multidimensional pcoord to the
+closest center based on a distance metric. Both the list of centers and the
+distance function must be supplied.</p>
+<dl class="py method">
+<dt id="westpa.core.binning.VoronoiBinMapper.assign">
+<code class="sig-name descname">assign</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">coords</span></em>, <em class="sig-param"><span class="n">mask</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">output</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.core.binning.VoronoiBinMapper.assign" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt id="westpa.core.binning.accumulate_labeled_populations">
+<code class="sig-prename descclassname">westpa.core.binning.</code><code class="sig-name descname">accumulate_labeled_populations</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#westpa.core.binning.accumulate_labeled_populations" title="Permalink to this definition">¶</a></dt>
+<dd><p>For a set of segments in one iteration, calculate the average population in each bin, with
+separation by last-visited macrostate.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="westpa.core.binning.assign_and_label">
+<code class="sig-prename descclassname">westpa.core.binning.</code><code class="sig-name descname">assign_and_label</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#westpa.core.binning.assign_and_label" title="Permalink to this definition">¶</a></dt>
+<dd><p>Assign trajectories to bins and last-visted macrostates for each timepoint.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="westpa.core.binning.accumulate_state_populations_from_labeled">
+<code class="sig-prename descclassname">westpa.core.binning.</code><code class="sig-name descname">accumulate_state_populations_from_labeled</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#westpa.core.binning.accumulate_state_populations_from_labeled" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt id="westpa.core.binning.assignments_list_to_table">
+<code class="sig-prename descclassname">westpa.core.binning.</code><code class="sig-name descname">assignments_list_to_table</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#westpa.core.binning.assignments_list_to_table" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert a list of bin assignments (integers) to a boolean table indicating indicating
+if a given segment is in a given bin</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="westpa.core.binning.coord_dtype">
+<code class="sig-prename descclassname">westpa.core.binning.</code><code class="sig-name descname">coord_dtype</code><a class="headerlink" href="#westpa.core.binning.coord_dtype" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <code class="xref py py-class docutils literal notranslate"><span class="pre">numpy.float32</span></code></p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="westpa.core.binning.index_dtype">
+<code class="sig-prename descclassname">westpa.core.binning.</code><code class="sig-name descname">index_dtype</code><a class="headerlink" href="#westpa.core.binning.index_dtype" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <code class="xref py py-class docutils literal notranslate"><span class="pre">numpy.uint16</span></code></p>
+</dd></dl>
+
+<dl class="py class">
+<dt id="westpa.core.binning.Bin">
+<em class="property">class </em><code class="sig-prename descclassname">westpa.core.binning.</code><code class="sig-name descname">Bin</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">iterable</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">label</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.core.binning.Bin" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">set</span></code></p>
+<dl class="py method">
+<dt id="westpa.core.binning.Bin.weight">
+<em class="property">property </em><code class="sig-name descname">weight</code><a class="headerlink" href="#westpa.core.binning.Bin.weight" title="Permalink to this definition">¶</a></dt>
+<dd><p>Total weight of all walkers in this bin</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="westpa.core.binning.Bin.reweight">
+<code class="sig-name descname">reweight</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">new_weight</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.core.binning.Bin.reweight" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reweight all walkers in this bin so that the total weight is new_weight</p>
+</dd></dl>
+
+</dd></dl>
+
 </div>
-<div class="section" id="westpa-core-binning-assign-module">
-<h2>westpa.core.binning.assign module<a class="headerlink" href="#westpa-core-binning-assign-module" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="module-westpa.core.binning.assign">
+<span id="westpa-core-binning-assign-module"></span><h2>westpa.core.binning.assign module<a class="headerlink" href="#module-westpa.core.binning.assign" title="Permalink to this headline">¶</a></h2>
+<p>Bin assignment for WEST simulations. This module defines “bin mappers” which take
+vectors of coordinates (or rather, coordinate tuples), and assign each a definite
+integer value identifying a bin. Critical portions are implemented in a Cython
+extension module.</p>
+<p>A number of pre-defined bin mappers are available here:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><a class="reference internal" href="#westpa.core.binning.assign.RectilinearBinMapper" title="westpa.core.binning.assign.RectilinearBinMapper"><code class="xref py py-class docutils literal notranslate"><span class="pre">RectilinearBinMapper</span></code></a>, for bins divided by N-dimensional grids</p></li>
+<li><p><a class="reference internal" href="#westpa.core.binning.assign.FuncBinMapper" title="westpa.core.binning.assign.FuncBinMapper"><code class="xref py py-class docutils literal notranslate"><span class="pre">FuncBinMapper</span></code></a>, for functions which directly calculate bin assignments
+for a number of coordinate values. This is best used with C/Cython/Numba
+functions, or intellegently-tuned numpy-based Python functions.</p></li>
+<li><p><a class="reference internal" href="#westpa.core.binning.assign.VectorizingFuncBinMapper" title="westpa.core.binning.assign.VectorizingFuncBinMapper"><code class="xref py py-class docutils literal notranslate"><span class="pre">VectorizingFuncBinMapper</span></code></a>, for functions which calculate a bin
+assignment for a single coordinate value. This is best used for arbitrary
+Python functions.</p></li>
+<li><p><a class="reference internal" href="#westpa.core.binning.assign.PiecewiseBinMapper" title="westpa.core.binning.assign.PiecewiseBinMapper"><code class="xref py py-class docutils literal notranslate"><span class="pre">PiecewiseBinMapper</span></code></a>, for using a set of boolean-valued functions, one
+per bin, to determine assignments. This is likely to be much slower than a
+<cite>FuncBinMapper</cite> or <cite>VectorizingFuncBinMapper</cite> equipped with an appropriate
+function, and its use is discouraged.</p></li>
+</ul>
+</div></blockquote>
+<p>One “super-mapper” is available, for assembling more complex bin spaces from
+simpler components:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><a class="reference internal" href="#westpa.core.binning.assign.RecursiveBinMapper" title="westpa.core.binning.assign.RecursiveBinMapper"><code class="xref py py-class docutils literal notranslate"><span class="pre">RecursiveBinMapper</span></code></a>, for nesting one set of bins within another.</p></li>
+</ul>
+</div></blockquote>
+<p>Users are also free to implement their own mappers. A bin mapper must implement, at
+least, an <code class="docutils literal notranslate"><span class="pre">assign(coords,</span> <span class="pre">mask=None,</span> <span class="pre">output=None)</span></code> method, which is responsible
+for mapping each of the vector of coordinate tuples <code class="docutils literal notranslate"><span class="pre">coords</span></code> to an integer
+(np.uint16) indicating a what bin that coordinate tuple falls into. The optional
+<code class="docutils literal notranslate"><span class="pre">mask</span></code> (a numpy bool array) specifies that some coordinates are to be skipped; this is used,
+for instance, by the recursive (nested) bin mapper to minimize the number of calculations
+required to definitively assign a coordinate tuple to a bin. Similarly, the optional
+<code class="docutils literal notranslate"><span class="pre">output</span></code> must be an integer (uint16) array of the same length as <code class="docutils literal notranslate"><span class="pre">coords</span></code>, into which
+assignments are written. The <code class="docutils literal notranslate"><span class="pre">assign()</span></code> function must return a reference to <code class="docutils literal notranslate"><span class="pre">output</span></code>.
+(This is used to avoid allocating many temporary output arrays in complex binning
+scenarios.)</p>
+<p>A user-defined bin mapper must also make an <code class="docutils literal notranslate"><span class="pre">nbins</span></code> property available, containing
+the total number of bins within the mapper.</p>
+<dl class="py class">
+<dt id="westpa.core.binning.assign.BinMapper">
+<em class="property">class </em><code class="sig-prename descclassname">westpa.core.binning.assign.</code><code class="sig-name descname">BinMapper</code><a class="headerlink" href="#westpa.core.binning.assign.BinMapper" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py method">
+<dt id="westpa.core.binning.assign.BinMapper.hashfunc">
+<code class="sig-name descname">hashfunc</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#westpa.core.binning.assign.BinMapper.hashfunc" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a sha256 hash object; optionally initialized with a string</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="westpa.core.binning.assign.BinMapper.construct_bins">
+<code class="sig-name descname">construct_bins</code><span class="sig-paren">(</span><em class="sig-param">type_=&lt;class 'westpa.core.binning.bins.Bin'&gt;</em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.core.binning.assign.BinMapper.construct_bins" title="Permalink to this definition">¶</a></dt>
+<dd><p>Construct and return an array of bins of type <code class="docutils literal notranslate"><span class="pre">type</span></code></p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="westpa.core.binning.assign.BinMapper.pickle_and_hash">
+<code class="sig-name descname">pickle_and_hash</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#westpa.core.binning.assign.BinMapper.pickle_and_hash" title="Permalink to this definition">¶</a></dt>
+<dd><p>Pickle this mapper and calculate a hash of the result (thus identifying the
+contents of the pickled data), returning a tuple <code class="docutils literal notranslate"><span class="pre">(pickled_data,</span> <span class="pre">hash)</span></code>.
+This will raise PickleError if this mapper cannot be pickled, in which case
+code that would otherwise rely on detecting a topology change must assume
+a topology change happened, even if one did not.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="westpa.core.binning.assign.NopMapper">
+<em class="property">class </em><code class="sig-prename descclassname">westpa.core.binning.assign.</code><code class="sig-name descname">NopMapper</code><a class="headerlink" href="#westpa.core.binning.assign.NopMapper" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#westpa.core.binning.assign.BinMapper" title="westpa.core.binning.assign.BinMapper"><code class="xref py py-class docutils literal notranslate"><span class="pre">westpa.core.binning.assign.BinMapper</span></code></a></p>
+<p>Put everything into one bin.</p>
+<dl class="py method">
+<dt id="westpa.core.binning.assign.NopMapper.assign">
+<code class="sig-name descname">assign</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">coords</span></em>, <em class="sig-param"><span class="n">mask</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">output</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.core.binning.assign.NopMapper.assign" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="westpa.core.binning.assign.RectilinearBinMapper">
+<em class="property">class </em><code class="sig-prename descclassname">westpa.core.binning.assign.</code><code class="sig-name descname">RectilinearBinMapper</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">boundaries</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.core.binning.assign.RectilinearBinMapper" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#westpa.core.binning.assign.BinMapper" title="westpa.core.binning.assign.BinMapper"><code class="xref py py-class docutils literal notranslate"><span class="pre">westpa.core.binning.assign.BinMapper</span></code></a></p>
+<p>Bin into a rectangular grid based on tuples of float values</p>
+<dl class="py method">
+<dt id="westpa.core.binning.assign.RectilinearBinMapper.boundaries">
+<em class="property">property </em><code class="sig-name descname">boundaries</code><a class="headerlink" href="#westpa.core.binning.assign.RectilinearBinMapper.boundaries" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="westpa.core.binning.assign.RectilinearBinMapper.assign">
+<code class="sig-name descname">assign</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">coords</span></em>, <em class="sig-param"><span class="n">mask</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">output</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.core.binning.assign.RectilinearBinMapper.assign" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="westpa.core.binning.assign.PiecewiseBinMapper">
+<em class="property">class </em><code class="sig-prename descclassname">westpa.core.binning.assign.</code><code class="sig-name descname">PiecewiseBinMapper</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">functions</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.core.binning.assign.PiecewiseBinMapper" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#westpa.core.binning.assign.BinMapper" title="westpa.core.binning.assign.BinMapper"><code class="xref py py-class docutils literal notranslate"><span class="pre">westpa.core.binning.assign.BinMapper</span></code></a></p>
+<p>Binning using a set of functions returing boolean values; if the Nth function
+returns True for a coordinate tuple, then that coordinate is in the Nth bin.</p>
+<dl class="py method">
+<dt id="westpa.core.binning.assign.PiecewiseBinMapper.assign">
+<code class="sig-name descname">assign</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">coords</span></em>, <em class="sig-param"><span class="n">mask</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">output</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.core.binning.assign.PiecewiseBinMapper.assign" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="westpa.core.binning.assign.FuncBinMapper">
+<em class="property">class </em><code class="sig-prename descclassname">westpa.core.binning.assign.</code><code class="sig-name descname">FuncBinMapper</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">func</span></em>, <em class="sig-param"><span class="n">nbins</span></em>, <em class="sig-param"><span class="n">args</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">kwargs</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.core.binning.assign.FuncBinMapper" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#westpa.core.binning.assign.BinMapper" title="westpa.core.binning.assign.BinMapper"><code class="xref py py-class docutils literal notranslate"><span class="pre">westpa.core.binning.assign.BinMapper</span></code></a></p>
+<p>Binning using a custom function which must iterate over input coordinate
+sets itself.</p>
+<dl class="py method">
+<dt id="westpa.core.binning.assign.FuncBinMapper.assign">
+<code class="sig-name descname">assign</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">coords</span></em>, <em class="sig-param"><span class="n">mask</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">output</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.core.binning.assign.FuncBinMapper.assign" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="westpa.core.binning.assign.VectorizingFuncBinMapper">
+<em class="property">class </em><code class="sig-prename descclassname">westpa.core.binning.assign.</code><code class="sig-name descname">VectorizingFuncBinMapper</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">func</span></em>, <em class="sig-param"><span class="n">nbins</span></em>, <em class="sig-param"><span class="n">args</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">kwargs</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.core.binning.assign.VectorizingFuncBinMapper" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#westpa.core.binning.assign.BinMapper" title="westpa.core.binning.assign.BinMapper"><code class="xref py py-class docutils literal notranslate"><span class="pre">westpa.core.binning.assign.BinMapper</span></code></a></p>
+<p>Binning using a custom function which is evaluated once for each (unmasked)
+coordinate tuple provided.</p>
+<dl class="py method">
+<dt id="westpa.core.binning.assign.VectorizingFuncBinMapper.assign">
+<code class="sig-name descname">assign</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">coords</span></em>, <em class="sig-param"><span class="n">mask</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">output</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.core.binning.assign.VectorizingFuncBinMapper.assign" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="westpa.core.binning.assign.VoronoiBinMapper">
+<em class="property">class </em><code class="sig-prename descclassname">westpa.core.binning.assign.</code><code class="sig-name descname">VoronoiBinMapper</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">dfunc</span></em>, <em class="sig-param"><span class="n">centers</span></em>, <em class="sig-param"><span class="n">dfargs</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">dfkwargs</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.core.binning.assign.VoronoiBinMapper" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#westpa.core.binning.assign.BinMapper" title="westpa.core.binning.assign.BinMapper"><code class="xref py py-class docutils literal notranslate"><span class="pre">westpa.core.binning.assign.BinMapper</span></code></a></p>
+<p>A one-dimensional mapper which assigns a multidimensional pcoord to the
+closest center based on a distance metric. Both the list of centers and the
+distance function must be supplied.</p>
+<dl class="py method">
+<dt id="westpa.core.binning.assign.VoronoiBinMapper.assign">
+<code class="sig-name descname">assign</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">coords</span></em>, <em class="sig-param"><span class="n">mask</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">output</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.core.binning.assign.VoronoiBinMapper.assign" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="westpa.core.binning.assign.RecursiveBinMapper">
+<em class="property">class </em><code class="sig-prename descclassname">westpa.core.binning.assign.</code><code class="sig-name descname">RecursiveBinMapper</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">base_mapper</span></em>, <em class="sig-param"><span class="n">start_index</span><span class="o">=</span><span class="default_value">0</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.core.binning.assign.RecursiveBinMapper" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#westpa.core.binning.assign.BinMapper" title="westpa.core.binning.assign.BinMapper"><code class="xref py py-class docutils literal notranslate"><span class="pre">westpa.core.binning.assign.BinMapper</span></code></a></p>
+<p>Nest mappers one within another.</p>
+<dl class="py method">
+<dt id="westpa.core.binning.assign.RecursiveBinMapper.labels">
+<em class="property">property </em><code class="sig-name descname">labels</code><a class="headerlink" href="#westpa.core.binning.assign.RecursiveBinMapper.labels" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="westpa.core.binning.assign.RecursiveBinMapper.start_index">
+<em class="property">property </em><code class="sig-name descname">start_index</code><a class="headerlink" href="#westpa.core.binning.assign.RecursiveBinMapper.start_index" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="westpa.core.binning.assign.RecursiveBinMapper.add_mapper">
+<code class="sig-name descname">add_mapper</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">mapper</span></em>, <em class="sig-param"><span class="n">replaces_bin_at</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.core.binning.assign.RecursiveBinMapper.add_mapper" title="Permalink to this definition">¶</a></dt>
+<dd><p>Replace the bin containing the coordinate tuple <code class="docutils literal notranslate"><span class="pre">replaces_bin_at</span></code> with the
+specified <code class="docutils literal notranslate"><span class="pre">mapper</span></code>.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="westpa.core.binning.assign.RecursiveBinMapper.assign">
+<code class="sig-name descname">assign</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">coords</span></em>, <em class="sig-param"><span class="n">mask</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">output</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.core.binning.assign.RecursiveBinMapper.assign" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
 </div>
-<div class="section" id="westpa-core-binning-bins-module">
-<h2>westpa.core.binning.bins module<a class="headerlink" href="#westpa-core-binning-bins-module" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="module-westpa.core.binning.bins">
+<span id="westpa-core-binning-bins-module"></span><h2>westpa.core.binning.bins module<a class="headerlink" href="#module-westpa.core.binning.bins" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt id="westpa.core.binning.bins.Bin">
+<em class="property">class </em><code class="sig-prename descclassname">westpa.core.binning.bins.</code><code class="sig-name descname">Bin</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">iterable</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">label</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.core.binning.bins.Bin" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">set</span></code></p>
+<dl class="py method">
+<dt id="westpa.core.binning.bins.Bin.weight">
+<em class="property">property </em><code class="sig-name descname">weight</code><a class="headerlink" href="#westpa.core.binning.bins.Bin.weight" title="Permalink to this definition">¶</a></dt>
+<dd><p>Total weight of all walkers in this bin</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="westpa.core.binning.bins.Bin.reweight">
+<code class="sig-name descname">reweight</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">new_weight</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.core.binning.bins.Bin.reweight" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reweight all walkers in this bin so that the total weight is new_weight</p>
+</dd></dl>
+
+</dd></dl>
+
 </div>
 </div>
 
@@ -215,37 +583,29 @@
            
           </div>
           <footer>
-  
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-      
-        <a href="westpa.core.kinetics.html" class="btn btn-neutral float-right" title="westpa.core.kinetics package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
-      
-      
-        <a href="../core.html" class="btn btn-neutral float-left" title="westpa.core package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
-      
+        <a href="westpa.core.kinetics.html" class="btn btn-neutral float-right" title="westpa.core.kinetics package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="../core.html" class="btn btn-neutral float-left" title="westpa.core package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
     </div>
-  
 
   <hr/>
 
   <div role="contentinfo">
     <p>
-        
-        &copy; Copyright 2021, Matthew C. Zwier and Lillian T. Chong
+        &#169; Copyright 2021, Matthew C. Zwier and Lillian T. Chong.
 
     </p>
   </div>
     
     
     
-    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
     
-    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
     
     provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
-
         </div>
       </div>
 

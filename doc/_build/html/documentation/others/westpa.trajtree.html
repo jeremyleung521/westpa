@@ -3,9 +3,9 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8">
+  <meta charset="utf-8" />
   
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
   <title>westpa.trajtree package &mdash; WESTPA 2.0 documentation</title>
   
@@ -17,7 +17,10 @@
 
   
   
+
   
+  
+
   
 
   
@@ -51,7 +54,7 @@
           
 
           
-            <a href="../../sphinx_index.html" class="icon icon-home" alt="Documentation Home"> WESTPA
+            <a href="../../sphinx_index.html" class="icon icon-home"> WESTPA
           
 
           
@@ -93,21 +96,20 @@
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../cli.html"> WESTPA Command Line Interface</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../core.html"> WESTPA Core</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../work_managers/westpa.work_managers.html"> WESTPA Work Manager</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../work_managers.html"> WESTPA Work Manager</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../tools/westpa.tools.html"> WESTPA Tools</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../others.html"> WESTPA Other Components</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="westpa.fasthist.html">Fasthist</a></li>
 <li class="toctree-l2"><a class="reference internal" href="westpa.mclib.html">Mclib</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Trajtree</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#submodules">Submodules</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#westpa-trajtree-trajtree-module">westpa.trajtree.trajtree module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#module-contents">Module contents</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-westpa.trajtree">westpa.trajtree module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-westpa.trajtree.trajtree">westpa.trajtree.trajtree module</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="oldtools.html">Old Tools</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../ext/westpa.westext.html"> WESTPA Extentions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ext.html"> WESTPA Extentions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../hdf5.html"> HDF5 file structure</a></li>
 </ul>
 <p class="caption"><span class="caption-text">For Developers:</span></p>
@@ -169,6 +171,8 @@
 
 
 
+
+
 <div role="navigation" aria-label="breadcrumbs navigation">
 
   <ul class="wy-breadcrumbs">
@@ -182,7 +186,7 @@
     
       <li class="wy-breadcrumbs-aside">
         
-            
+          
             <a href="../../_sources/documentation/others/westpa.trajtree.rst.txt" rel="nofollow"> View page source</a>
           
         
@@ -198,14 +202,78 @@
             
   <div class="section" id="westpa-trajtree-package">
 <h1>westpa.trajtree package<a class="headerlink" href="#westpa-trajtree-package" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="submodules">
-<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="module-westpa.trajtree">
+<span id="westpa-trajtree-module"></span><h2>westpa.trajtree module<a class="headerlink" href="#module-westpa.trajtree" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt id="westpa.trajtree.TrajTreeSet">
+<em class="property">class </em><code class="sig-prename descclassname">westpa.trajtree.</code><code class="sig-name descname">TrajTreeSet</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">segsel</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">data_manager</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.trajtree.TrajTreeSet" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">westpa.trajtree._trajtree._trajtree_base</span></code></p>
+<dl class="py method">
+<dt id="westpa.trajtree.TrajTreeSet.get_roots">
+<code class="sig-name descname">get_roots</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#westpa.trajtree.TrajTreeSet.get_roots" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="westpa.trajtree.TrajTreeSet.get_root_indices">
+<code class="sig-name descname">get_root_indices</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#westpa.trajtree.TrajTreeSet.get_root_indices" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="westpa.trajtree.TrajTreeSet.trace_trajectories">
+<code class="sig-name descname">trace_trajectories</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">visit</span></em>, <em class="sig-param"><span class="n">get_visitor_state</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">set_visitor_state</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">vargs</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">vkwargs</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.trajtree.TrajTreeSet.trace_trajectories" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
 </div>
-<div class="section" id="westpa-trajtree-trajtree-module">
-<h2>westpa.trajtree.trajtree module<a class="headerlink" href="#westpa-trajtree-trajtree-module" title="Permalink to this headline">¶</a></h2>
-</div>
-<div class="section" id="module-contents">
-<h2>Module contents<a class="headerlink" href="#module-contents" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="module-westpa.trajtree.trajtree">
+<span id="westpa-trajtree-trajtree-module"></span><h2>westpa.trajtree.trajtree module<a class="headerlink" href="#module-westpa.trajtree.trajtree" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt id="westpa.trajtree.trajtree.trajnode">
+<em class="property">class </em><code class="sig-prename descclassname">westpa.trajtree.trajtree.</code><code class="sig-name descname">trajnode</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">n_iter</span></em>, <em class="sig-param"><span class="n">seg_id</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.trajtree.trajtree.trajnode" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">tuple</span></code></p>
+<p>Create new instance of trajnode(n_iter, seg_id)</p>
+<dl class="py method">
+<dt id="westpa.trajtree.trajtree.trajnode.n_iter">
+<em class="property">property </em><code class="sig-name descname">n_iter</code><a class="headerlink" href="#westpa.trajtree.trajtree.trajnode.n_iter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Alias for field number 0</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="westpa.trajtree.trajtree.trajnode.seg_id">
+<em class="property">property </em><code class="sig-name descname">seg_id</code><a class="headerlink" href="#westpa.trajtree.trajtree.trajnode.seg_id" title="Permalink to this definition">¶</a></dt>
+<dd><p>Alias for field number 1</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="westpa.trajtree.trajtree.TrajTreeSet">
+<em class="property">class </em><code class="sig-prename descclassname">westpa.trajtree.trajtree.</code><code class="sig-name descname">TrajTreeSet</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">segsel</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">data_manager</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.trajtree.trajtree.TrajTreeSet" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">westpa.trajtree._trajtree._trajtree_base</span></code></p>
+<dl class="py method">
+<dt id="westpa.trajtree.trajtree.TrajTreeSet.get_roots">
+<code class="sig-name descname">get_roots</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#westpa.trajtree.trajtree.TrajTreeSet.get_roots" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="westpa.trajtree.trajtree.TrajTreeSet.get_root_indices">
+<code class="sig-name descname">get_root_indices</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#westpa.trajtree.trajtree.TrajTreeSet.get_root_indices" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="westpa.trajtree.trajtree.TrajTreeSet.trace_trajectories">
+<code class="sig-name descname">trace_trajectories</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">visit</span></em>, <em class="sig-param"><span class="n">get_visitor_state</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">set_visitor_state</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">vargs</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">vkwargs</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.trajtree.trajtree.TrajTreeSet.trace_trajectories" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="westpa.trajtree.trajtree.FakeTrajTreeSet">
+<em class="property">class </em><code class="sig-prename descclassname">westpa.trajtree.trajtree.</code><code class="sig-name descname">FakeTrajTreeSet</code><a class="headerlink" href="#westpa.trajtree.trajtree.FakeTrajTreeSet" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#westpa.trajtree.trajtree.TrajTreeSet" title="westpa.trajtree.trajtree.TrajTreeSet"><code class="xref py py-class docutils literal notranslate"><span class="pre">westpa.trajtree.trajtree.TrajTreeSet</span></code></a></p>
+</dd></dl>
+
 </div>
 </div>
 
@@ -214,37 +282,29 @@
            
           </div>
           <footer>
-  
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-      
-        <a href="oldtools.html" class="btn btn-neutral float-right" title="WESTPA Old Tools" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
-      
-      
-        <a href="westpa.mclib.html" class="btn btn-neutral float-left" title="westpa.mclib package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
-      
+        <a href="oldtools.html" class="btn btn-neutral float-right" title="WESTPA Old Tools" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="westpa.mclib.html" class="btn btn-neutral float-left" title="westpa.mclib package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
     </div>
-  
 
   <hr/>
 
   <div role="contentinfo">
     <p>
-        
-        &copy; Copyright 2021, Matthew C. Zwier and Lillian T. Chong
+        &#169; Copyright 2021, Matthew C. Zwier and Lillian T. Chong.
 
     </p>
   </div>
     
     
     
-    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
     
-    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
     
     provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
-
         </div>
       </div>
 

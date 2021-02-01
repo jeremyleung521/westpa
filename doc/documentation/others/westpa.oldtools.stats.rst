@@ -1,8 +1,13 @@
 westpa.oldtools.stats package
 =============================
 
-Submodules
-----------
+westpa.oldtools.stats module
+----------------------------
+
+.. automodule:: westpa.oldtools.stats
+   :members:
+   :undoc-members:
+   :show-inheritance:
 
 westpa.oldtools.stats.accumulator module
 ----------------------------------------
@@ -28,10 +33,4 @@ westpa.oldtools.stats.mcbs module
    :undoc-members:
    :show-inheritance:
 
-Module contents
----------------
 
-.. automodule:: westpa.oldtools.stats
-   :members:
-   :undoc-members:
-   :show-inheritance:

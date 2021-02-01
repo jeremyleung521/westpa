@@ -8,9 +8,4 @@ westpa.core package
    westpa.core.kinetics     <core/westpa.core.kinetics>
    westpa.core.propagators  <core/westpa.core.propagators>
    westpa.core.reweight     <core/westpa.core.reweight>
-   submodules               <core/westpa.core>
-
-.. automodule:: westpa.core
-   :members:
-   :undoc-members:
-   :show-inheritance:
+   westpa.core              <core/westpa.core>

@@ -3,9 +3,9 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8">
+  <meta charset="utf-8" />
   
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
   <title>westpa.oldtools package &mdash; WESTPA 2.0 documentation</title>
   
@@ -17,7 +17,10 @@
 
   
   
+
   
+  
+
   
 
   
@@ -51,7 +54,7 @@
           
 
           
-            <a href="../../sphinx_index.html" class="icon icon-home" alt="Documentation Home"> WESTPA
+            <a href="../../sphinx_index.html" class="icon icon-home"> WESTPA
           
 
           
@@ -93,7 +96,7 @@
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../cli.html"> WESTPA Command Line Interface</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../core.html"> WESTPA Core</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../work_managers/westpa.work_managers.html"> WESTPA Work Manager</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../work_managers.html"> WESTPA Work Manager</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../tools/westpa.tools.html"> WESTPA Tools</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../others.html"> WESTPA Other Components</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="westpa.fasthist.html">Fasthist</a></li>
@@ -101,10 +104,9 @@
 <li class="toctree-l2"><a class="reference internal" href="westpa.trajtree.html">Trajtree</a></li>
 <li class="toctree-l2 current"><a class="reference internal" href="oldtools.html">Old Tools</a><ul class="current">
 <li class="toctree-l3 current"><a class="current reference internal" href="#">westpa.oldtools package</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#subpackages">Subpackages</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#westpa-oldtools-files-module">westpa.oldtools.files module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#id1">westpa.oldtools.files module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#westpa-oldtools-miscfn-module">westpa.oldtools.miscfn module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-westpa.oldtools">westpa.oldtools module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-westpa.oldtools.files">westpa.oldtools.files module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-westpa.oldtools.miscfn">westpa.oldtools.miscfn module</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="westpa.oldtools.aframe.html">westpa.oldtools.aframe package</a></li>
@@ -114,7 +116,7 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../ext/westpa.westext.html"> WESTPA Extentions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ext.html"> WESTPA Extentions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../hdf5.html"> HDF5 file structure</a></li>
 </ul>
 <p class="caption"><span class="caption-text">For Developers:</span></p>
@@ -176,6 +178,8 @@
 
 
 
+
+
 <div role="navigation" aria-label="breadcrumbs navigation">
 
   <ul class="wy-breadcrumbs">
@@ -191,7 +195,7 @@
     
       <li class="wy-breadcrumbs-aside">
         
-            
+          
             <a href="../../_sources/documentation/others/westpa.oldtools.rst.txt" rel="nofollow"> View page source</a>
           
         
@@ -207,51 +211,33 @@
             
   <div class="section" id="westpa-oldtools-package">
 <h1>westpa.oldtools package<a class="headerlink" href="#westpa-oldtools-package" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="subpackages">
-<h2>Subpackages<a class="headerlink" href="#subpackages" title="Permalink to this headline">¶</a></h2>
-<div class="toctree-wrapper compound">
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="westpa.oldtools.aframe.html">westpa.oldtools.aframe package</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="westpa.oldtools.aframe.html#submodules">Submodules</a></li>
-<li class="toctree-l2"><a class="reference internal" href="westpa.oldtools.aframe.html#westpa-oldtools-aframe-atool-module">westpa.oldtools.aframe.atool module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="westpa.oldtools.aframe.html#westpa-oldtools-aframe-base-mixin-module">westpa.oldtools.aframe.base_mixin module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="westpa.oldtools.aframe.html#westpa-oldtools-aframe-binning-module">westpa.oldtools.aframe.binning module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="westpa.oldtools.aframe.html#westpa-oldtools-aframe-data-reader-module">westpa.oldtools.aframe.data_reader module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="westpa.oldtools.aframe.html#westpa-oldtools-aframe-iter-range-module">westpa.oldtools.aframe.iter_range module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="westpa.oldtools.aframe.html#westpa-oldtools-aframe-kinetics-module">westpa.oldtools.aframe.kinetics module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="westpa.oldtools.aframe.html#westpa-oldtools-aframe-mcbs-module">westpa.oldtools.aframe.mcbs module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="westpa.oldtools.aframe.html#westpa-oldtools-aframe-output-module">westpa.oldtools.aframe.output module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="westpa.oldtools.aframe.html#westpa-oldtools-aframe-plotting-module">westpa.oldtools.aframe.plotting module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="westpa.oldtools.aframe.html#westpa-oldtools-aframe-trajwalker-module">westpa.oldtools.aframe.trajwalker module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="westpa.oldtools.aframe.html#westpa-oldtools-aframe-transitions-module">westpa.oldtools.aframe.transitions module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="westpa.oldtools.aframe.html#module-contents">Module contents</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="westpa.oldtools.cmds.html">westpa.oldtools.cmds package</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="westpa.oldtools.cmds.html#submodules">Submodules</a></li>
-<li class="toctree-l2"><a class="reference internal" href="westpa.oldtools.cmds.html#westpa-oldtools-cmds-w-ttimes-module">westpa.oldtools.cmds.w_ttimes module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="westpa.oldtools.cmds.html#module-contents">Module contents</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="westpa.oldtools.stats.html">westpa.oldtools.stats package</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="westpa.oldtools.stats.html#submodules">Submodules</a></li>
-<li class="toctree-l2"><a class="reference internal" href="westpa.oldtools.stats.html#westpa-oldtools-stats-accumulator-module">westpa.oldtools.stats.accumulator module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="westpa.oldtools.stats.html#westpa-oldtools-stats-edfs-module">westpa.oldtools.stats.edfs module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="westpa.oldtools.stats.html#westpa-oldtools-stats-mcbs-module">westpa.oldtools.stats.mcbs module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="westpa.oldtools.stats.html#module-contents">Module contents</a></li>
-</ul>
-</li>
-</ul>
+<div class="section" id="module-westpa.oldtools">
+<span id="westpa-oldtools-module"></span><h2>westpa.oldtools module<a class="headerlink" href="#module-westpa.oldtools" title="Permalink to this headline">¶</a></h2>
 </div>
+<div class="section" id="module-westpa.oldtools.files">
+<span id="westpa-oldtools-files-module"></span><h2>westpa.oldtools.files module<a class="headerlink" href="#module-westpa.oldtools.files" title="Permalink to this headline">¶</a></h2>
+<dl class="py function">
+<dt id="westpa.oldtools.files.load_npy_or_text">
+<code class="sig-prename descclassname">westpa.oldtools.files.</code><code class="sig-name descname">load_npy_or_text</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">filename</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.oldtools.files.load_npy_or_text" title="Permalink to this definition">¶</a></dt>
+<dd><p>Load an array from an existing .npy file, or read a text file and
+convert to a NumPy array.  In either case, return a NumPy array.  If a
+pickled NumPy dataset is found, memory-map it read-only.  If the specified
+file does not contain a pickled NumPy array, attempt to read the file using
+numpy.loadtxt(filename, <a href="#id1"><span class="problematic" id="id2">**</span></a>kwargs).</p>
+</dd></dl>
+
 </div>
-<div class="section" id="westpa-oldtools-files-module">
-<h2>westpa.oldtools.files module<a class="headerlink" href="#westpa-oldtools-files-module" title="Permalink to this headline">¶</a></h2>
-</div>
-<div class="section" id="id1">
-<h2>westpa.oldtools.files module<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
-</div>
-<div class="section" id="westpa-oldtools-miscfn-module">
-<h2>westpa.oldtools.miscfn module<a class="headerlink" href="#westpa-oldtools-miscfn-module" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="module-westpa.oldtools.miscfn">
+<span id="westpa-oldtools-miscfn-module"></span><h2>westpa.oldtools.miscfn module<a class="headerlink" href="#module-westpa.oldtools.miscfn" title="Permalink to this headline">¶</a></h2>
+<p>Miscellaneous support functions for WEST and WEST tools</p>
+<dl class="py function">
+<dt id="westpa.oldtools.miscfn.parse_int_list">
+<code class="sig-prename descclassname">westpa.oldtools.miscfn.</code><code class="sig-name descname">parse_int_list</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">list_string</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.oldtools.miscfn.parse_int_list" title="Permalink to this definition">¶</a></dt>
+<dd><p>Parse a simple list consisting of integers or ranges of integers separated by commas. Ranges are specified
+as min:max, and include the maximum value (unlike Python’s <code class="docutils literal notranslate"><span class="pre">range</span></code>).  Duplicate values are ignored.
+Returns the result as a sorted list.  Raises ValueError if the list cannot be parsed.</p>
+</dd></dl>
+
 </div>
 </div>
 
@@ -260,37 +246,29 @@
            
           </div>
           <footer>
-  
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-      
-        <a href="westpa.oldtools.aframe.html" class="btn btn-neutral float-right" title="westpa.oldtools.aframe package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
-      
-      
-        <a href="oldtools.html" class="btn btn-neutral float-left" title="WESTPA Old Tools" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
-      
+        <a href="westpa.oldtools.aframe.html" class="btn btn-neutral float-right" title="westpa.oldtools.aframe package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="oldtools.html" class="btn btn-neutral float-left" title="WESTPA Old Tools" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
     </div>
-  
 
   <hr/>
 
   <div role="contentinfo">
     <p>
-        
-        &copy; Copyright 2021, Matthew C. Zwier and Lillian T. Chong
+        &#169; Copyright 2021, Matthew C. Zwier and Lillian T. Chong.
 
     </p>
   </div>
     
     
     
-    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
     
-    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
     
     provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
-
         </div>
       </div>
 

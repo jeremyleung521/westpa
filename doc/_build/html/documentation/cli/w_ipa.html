@@ -3,9 +3,9 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8">
+  <meta charset="utf-8" />
   
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
   <title>w_ipa &mdash; WESTPA 2.0 documentation</title>
   
@@ -17,7 +17,10 @@
 
   
   
+
   
+  
+
   
 
   
@@ -51,7 +54,7 @@
           
 
           
-            <a href="../../sphinx_index.html" class="icon icon-home" alt="Documentation Home"> WESTPA
+            <a href="../../sphinx_index.html" class="icon icon-home"> WESTPA
           
 
           
@@ -101,7 +104,7 @@
 <li class="toctree-l2"><a class="reference internal" href="w_trace.html"> w_trace</a></li>
 <li class="toctree-l2"><a class="reference internal" href="w_fluxanl.html"> w_fluxanl</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#"> w_ipa</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#westpa-cli-tools-w-ipa-module">westpa.cli.tools.w_ipa module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-westpa.cli.tools.w_ipa">westpa.cli.tools.w_ipa module</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="w_pdist.html"> w_pdist</a></li>
@@ -124,10 +127,10 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../core.html"> WESTPA Core</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../work_managers/westpa.work_managers.html"> WESTPA Work Manager</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../work_managers.html"> WESTPA Work Manager</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../tools/westpa.tools.html"> WESTPA Tools</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../others.html"> WESTPA Other Components</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../ext/westpa.westext.html"> WESTPA Extentions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ext.html"> WESTPA Extentions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../hdf5.html"> HDF5 file structure</a></li>
 </ul>
 <p class="caption"><span class="caption-text">For Developers:</span></p>
@@ -189,6 +192,8 @@
 
 
 
+
+
 <div role="navigation" aria-label="breadcrumbs navigation">
 
   <ul class="wy-breadcrumbs">
@@ -202,7 +207,7 @@
     
       <li class="wy-breadcrumbs-aside">
         
-            
+          
             <a href="../../_sources/documentation/cli/w_ipa.rst.txt" rel="nofollow"> View page source</a>
           
         
@@ -333,8 +338,251 @@ west.cfg).</p>
                       <span class="n">Amount</span> <span class="n">of</span> <span class="n">time</span> <span class="p">(</span><span class="ow">in</span> <span class="n">seconds</span><span class="p">)</span> <span class="n">to</span> <span class="n">wait</span> <span class="k">for</span> <span class="n">workers</span> <span class="n">to</span> <span class="n">shut</span> <span class="n">down</span><span class="o">.</span>
 </pre></div>
 </div>
-<div class="section" id="westpa-cli-tools-w-ipa-module">
-<h2>westpa.cli.tools.w_ipa module<a class="headerlink" href="#westpa-cli-tools-w-ipa-module" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="module-westpa.cli.tools.w_ipa">
+<span id="westpa-cli-tools-w-ipa-module"></span><h2>westpa.cli.tools.w_ipa module<a class="headerlink" href="#module-westpa.cli.tools.w_ipa" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt id="westpa.cli.tools.w_ipa.WIPI">
+<em class="property">class </em><code class="sig-prename descclassname">westpa.cli.tools.w_ipa.</code><code class="sig-name descname">WIPI</code><a class="headerlink" href="#westpa.cli.tools.w_ipa.WIPI" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="../tools/westpa.tools.html#westpa.tools.core.WESTParallelTool" title="westpa.tools.core.WESTParallelTool"><code class="xref py py-class docutils literal notranslate"><span class="pre">westpa.tools.core.WESTParallelTool</span></code></a></p>
+<p>Welcome to w_ipa (WESTPA Interactive Python Analysis)!
+From here, you can run traces, look at weights, progress coordinates, etc.
+This is considered a ‘stateful’ tool; that is, the data you are pulling is always pulled
+from the current analysis scheme and iteration.
+By default, the first analysis scheme in west.cfg is used, and you are set at iteration 1.</p>
+<p>ALL PROPERTIES ARE ACCESSED VIA w or west
+To see the current iteration, try:</p>
+<blockquote>
+<div><p>w.iteration
+OR
+west.iteration</p>
+</div></blockquote>
+<p>to set it, simply plug in a new value.</p>
+<blockquote>
+<div><p>w.iteration = 100</p>
+</div></blockquote>
+<p>To change/list the current analysis schemes:</p>
+<blockquote>
+<div><p>w.list_schemes
+w.scheme = OUTPUT FROM w.list_schemes</p>
+</div></blockquote>
+<p>To see the states and bins defined in the current analysis scheme:</p>
+<blockquote>
+<div><p>w.states
+w.bin_labels</p>
+</div></blockquote>
+<p>All information about the current iteration is available in an object called ‘current’:</p>
+<blockquote>
+<div><p>w.current
+walkers, summary, states, seg_id, weights, parents, kinavg, pcoord, bins, populations, and auxdata, if it exists.</p>
+</div></blockquote>
+<p>In addition, the function w.trace(seg_id) will run a trace over a seg_id in the current iteration and return a dictionary
+containing all pertinent information about that seg_id’s history.  It’s best to store this, as the trace can be expensive.</p>
+<p>Run help on any function or property for more information!</p>
+<p>Happy analyzing!</p>
+<dl class="py method">
+<dt id="westpa.cli.tools.w_ipa.WIPI.add_args">
+<code class="sig-name descname">add_args</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">parser</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.cli.tools.w_ipa.WIPI.add_args" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add arguments specific to this tool to the given argparse parser.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="westpa.cli.tools.w_ipa.WIPI.process_args">
+<code class="sig-name descname">process_args</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">args</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.cli.tools.w_ipa.WIPI.process_args" title="Permalink to this definition">¶</a></dt>
+<dd><p>Take argparse-processed arguments associated with this tool and deal
+with them appropriately (setting instance variables, etc)</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="westpa.cli.tools.w_ipa.WIPI.hash_args">
+<code class="sig-name descname">hash_args</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">args</span></em>, <em class="sig-param"><span class="n">extra</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">path</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.cli.tools.w_ipa.WIPI.hash_args" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create unique hash stamp to determine if arguments/file is different from before.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="westpa.cli.tools.w_ipa.WIPI.stamp_hash">
+<code class="sig-name descname">stamp_hash</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">h5file_name</span></em>, <em class="sig-param"><span class="n">new_hash</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.cli.tools.w_ipa.WIPI.stamp_hash" title="Permalink to this definition">¶</a></dt>
+<dd><p>Loads a file, stamps it, and returns the opened file in read only</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="westpa.cli.tools.w_ipa.WIPI.analysis_structure">
+<code class="sig-name descname">analysis_structure</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#westpa.cli.tools.w_ipa.WIPI.analysis_structure" title="Permalink to this definition">¶</a></dt>
+<dd><p>Run automatically on startup.  Parses through the configuration file, and loads up all the data files from the different
+analysis schematics.  If they don’t exist, it creates them automatically by hooking in to existing analysis routines
+and going from there.</p>
+<p>It does this by calling in the make_parser_and_process function for w_{assign,reweight,direct} using a custom built list
+of args.  The user can specify everything in the configuration file that would have been specified on the command line.</p>
+<p>For instance, were one to call w_direct as follows:</p>
+<blockquote>
+<div><p>w_direct –evolution cumulative –step-iter 1 –disable-correl</p>
+</div></blockquote>
+<p>the west.cfg would look as follows:</p>
+<dl class="simple">
+<dt>west:</dt><dd><dl class="simple">
+<dt>analysis:</dt><dd><dl class="simple">
+<dt>w_direct:</dt><dd><p>evolution: cumulative
+step_iter: 1
+extra: [‘disable-correl’]</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd>
+</dl>
+<p>Alternatively, if one wishes to use the same options for both w_direct and w_reweight, the key ‘w_direct’ can be replaced
+with ‘kinetics’.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="westpa.cli.tools.w_ipa.WIPI.assign">
+<em class="property">property </em><code class="sig-name descname">assign</code><a class="headerlink" href="#westpa.cli.tools.w_ipa.WIPI.assign" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="westpa.cli.tools.w_ipa.WIPI.direct">
+<em class="property">property </em><code class="sig-name descname">direct</code><a class="headerlink" href="#westpa.cli.tools.w_ipa.WIPI.direct" title="Permalink to this definition">¶</a></dt>
+<dd><p>The output from w_kinavg.py from the current scheme.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="westpa.cli.tools.w_ipa.WIPI.state_labels">
+<em class="property">property </em><code class="sig-name descname">state_labels</code><a class="headerlink" href="#westpa.cli.tools.w_ipa.WIPI.state_labels" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="westpa.cli.tools.w_ipa.WIPI.bin_labels">
+<em class="property">property </em><code class="sig-name descname">bin_labels</code><a class="headerlink" href="#westpa.cli.tools.w_ipa.WIPI.bin_labels" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="westpa.cli.tools.w_ipa.WIPI.west">
+<em class="property">property </em><code class="sig-name descname">west</code><a class="headerlink" href="#westpa.cli.tools.w_ipa.WIPI.west" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="westpa.cli.tools.w_ipa.WIPI.reweight">
+<em class="property">property </em><code class="sig-name descname">reweight</code><a class="headerlink" href="#westpa.cli.tools.w_ipa.WIPI.reweight" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="westpa.cli.tools.w_ipa.WIPI.scheme">
+<em class="property">property </em><code class="sig-name descname">scheme</code><a class="headerlink" href="#westpa.cli.tools.w_ipa.WIPI.scheme" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns and sets what scheme is currently in use.
+To see what schemes are available, run:</p>
+<blockquote>
+<div><p>w.list_schemes</p>
+</div></blockquote>
+</dd></dl>
+
+<dl class="py method">
+<dt id="westpa.cli.tools.w_ipa.WIPI.list_schemes">
+<em class="property">property </em><code class="sig-name descname">list_schemes</code><a class="headerlink" href="#westpa.cli.tools.w_ipa.WIPI.list_schemes" title="Permalink to this definition">¶</a></dt>
+<dd><p>Lists what schemes are configured in west.cfg file.
+Schemes should be structured as follows, in west.cfg:</p>
+<dl>
+<dt>west:</dt><dd><dl>
+<dt>system:</dt><dd><dl>
+<dt>analysis:</dt><dd><p>directory: analysis
+analysis_schemes:</p>
+<blockquote>
+<div><dl>
+<dt>scheme.1:</dt><dd><p>enabled: True
+states:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>label: unbound
+coords: [[7.0]]</p></li>
+<li><p>label: bound
+coords: [[2.7]]</p></li>
+</ul>
+</div></blockquote>
+<dl class="simple">
+<dt>bins:</dt><dd><ul class="simple">
+<li><p>type: RectilinearBinMapper
+boundaries: [[0.0, 2.80, 7, 10000]]</p></li>
+</ul>
+</dd>
+</dl>
+</dd>
+</dl>
+</div></blockquote>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="westpa.cli.tools.w_ipa.WIPI.iteration">
+<em class="property">property </em><code class="sig-name descname">iteration</code><a class="headerlink" href="#westpa.cli.tools.w_ipa.WIPI.iteration" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns/sets the current iteration.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="westpa.cli.tools.w_ipa.WIPI.current">
+<em class="property">property </em><code class="sig-name descname">current</code><a class="headerlink" href="#westpa.cli.tools.w_ipa.WIPI.current" title="Permalink to this definition">¶</a></dt>
+<dd><p>The current iteration.  See help for __get_data_for_iteration__</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="westpa.cli.tools.w_ipa.WIPI.past">
+<em class="property">property </em><code class="sig-name descname">past</code><a class="headerlink" href="#westpa.cli.tools.w_ipa.WIPI.past" title="Permalink to this definition">¶</a></dt>
+<dd><p>The previous iteration.  See help for __get_data_for_iteration__</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="westpa.cli.tools.w_ipa.WIPI.trace">
+<code class="sig-name descname">trace</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">seg_id</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.cli.tools.w_ipa.WIPI.trace" title="Permalink to this definition">¶</a></dt>
+<dd><p>Runs a trace on a seg_id within the current iteration, all the way back to the beginning,
+returning a dictionary containing all interesting information:</p>
+<blockquote>
+<div><p>seg_id, pcoord, states, bins, weights, iteration, auxdata (optional)</p>
+</div></blockquote>
+<p>sorted in chronological order.</p>
+<p>Call with a seg_id.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="westpa.cli.tools.w_ipa.WIPI.future">
+<em class="property">property </em><code class="sig-name descname">future</code><a class="headerlink" href="#westpa.cli.tools.w_ipa.WIPI.future" title="Permalink to this definition">¶</a></dt>
+<dd><p>Similar to current/past, but keyed differently and returns different datasets.
+See help for Future.</p>
+</dd></dl>
+
+<dl class="py class">
+<dt id="westpa.cli.tools.w_ipa.WIPI.Future">
+<em class="property">class </em><code class="sig-name descname">Future</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">raw</span></em>, <em class="sig-param"><span class="n">key</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.cli.tools.w_ipa.WIPI.Future" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="../tools/westpa.tools.html#westpa.tools.wipi.WIPIDataset" title="westpa.tools.wipi.WIPIDataset"><code class="xref py py-class docutils literal notranslate"><span class="pre">westpa.tools.wipi.WIPIDataset</span></code></a></p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="westpa.cli.tools.w_ipa.WIPI.go">
+<code class="sig-name descname">go</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#westpa.cli.tools.w_ipa.WIPI.go" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function automatically called by main() when launched via the command line interface.
+Generally, call main, not this function.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="westpa.cli.tools.w_ipa.WIPI.introduction">
+<em class="property">property </em><code class="sig-name descname">introduction</code><a class="headerlink" href="#westpa.cli.tools.w_ipa.WIPI.introduction" title="Permalink to this definition">¶</a></dt>
+<dd><p>Just spits out an introduction, in case someone doesn’t call help.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="westpa.cli.tools.w_ipa.WIPI.help">
+<em class="property">property </em><code class="sig-name descname">help</code><a class="headerlink" href="#westpa.cli.tools.w_ipa.WIPI.help" title="Permalink to this definition">¶</a></dt>
+<dd><p>Just a minor function to call help on itself.  Only in here to really help someone get help.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt id="westpa.cli.tools.w_ipa.entry_point">
+<code class="sig-prename descclassname">westpa.cli.tools.w_ipa.</code><code class="sig-name descname">entry_point</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#westpa.cli.tools.w_ipa.entry_point" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 </div>
 </div>
 
@@ -343,37 +591,29 @@ west.cfg).</p>
            
           </div>
           <footer>
-  
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-      
-        <a href="w_pdist.html" class="btn btn-neutral float-right" title="w_pdist" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
-      
-      
-        <a href="w_fluxanl.html" class="btn btn-neutral float-left" title="w_fluxanl" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
-      
+        <a href="w_pdist.html" class="btn btn-neutral float-right" title="w_pdist" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="w_fluxanl.html" class="btn btn-neutral float-left" title="w_fluxanl" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
     </div>
-  
 
   <hr/>
 
   <div role="contentinfo">
     <p>
-        
-        &copy; Copyright 2021, Matthew C. Zwier and Lillian T. Chong
+        &#169; Copyright 2021, Matthew C. Zwier and Lillian T. Chong.
 
     </p>
   </div>
     
     
     
-    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
     
-    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
     
     provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
-
         </div>
       </div>
 

@@ -1,8 +1,13 @@
 westpa.oldtools.cmds package
 ============================
 
-Submodules
-----------
+westpa.oldtools.cmds module
+---------------------------
+
+.. automodule:: westpa.oldtools.cmds
+   :members:
+   :undoc-members:
+   :show-inheritance:
 
 westpa.oldtools.cmds.w\_ttimes module
 -------------------------------------
@@ -12,10 +17,4 @@ westpa.oldtools.cmds.w\_ttimes module
    :undoc-members:
    :show-inheritance:
 
-Module contents
----------------
 
-.. automodule:: westpa.oldtools.cmds
-   :members:
-   :undoc-members:
-   :show-inheritance:

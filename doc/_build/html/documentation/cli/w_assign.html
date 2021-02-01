@@ -3,9 +3,9 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8">
+  <meta charset="utf-8" />
   
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
   <title>w_assign &mdash; WESTPA 2.0 documentation</title>
   
@@ -17,7 +17,10 @@
 
   
   
+
   
+  
+
   
 
   
@@ -51,7 +54,7 @@
           
 
           
-            <a href="../../sphinx_index.html" class="icon icon-home" alt="Documentation Home"> WESTPA
+            <a href="../../sphinx_index.html" class="icon icon-home"> WESTPA
           
 
           
@@ -105,7 +108,7 @@
 <li class="toctree-l3"><a class="reference internal" href="#macrostate-options">Macrostate Options</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#specifying-progress-coordinate">Specifying Progress Coordinate</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#examples">Examples</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#westpa-cli-tools-w-assign-module">westpa.cli.tools.w_assign module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-westpa.cli.tools.w_assign">westpa.cli.tools.w_assign module</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="w_trace.html"> w_trace</a></li>
@@ -131,10 +134,10 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../core.html"> WESTPA Core</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../work_managers/westpa.work_managers.html"> WESTPA Work Manager</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../work_managers.html"> WESTPA Work Manager</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../tools/westpa.tools.html"> WESTPA Tools</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../others.html"> WESTPA Other Components</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../ext/westpa.westext.html"> WESTPA Extentions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ext.html"> WESTPA Extentions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../hdf5.html"> HDF5 file structure</a></li>
 </ul>
 <p class="caption"><span class="caption-text">For Developers:</span></p>
@@ -196,6 +199,8 @@
 
 
 
+
+
 <div role="navigation" aria-label="breadcrumbs navigation">
 
   <ul class="wy-breadcrumbs">
@@ -209,7 +214,7 @@
     
       <li class="wy-breadcrumbs-aside">
         
-            
+          
             <a href="../../_sources/documentation/cli/w_assign.rst.txt" rel="nofollow"> View page source</a>
           
         
@@ -349,8 +354,86 @@ otherwise preprocess the progress coordinate data.:</p>
 <div class="section" id="examples">
 <h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h2>
 </div>
-<div class="section" id="westpa-cli-tools-w-assign-module">
-<h2>westpa.cli.tools.w_assign module<a class="headerlink" href="#westpa-cli-tools-w-assign-module" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="module-westpa.cli.tools.w_assign">
+<span id="westpa-cli-tools-w-assign-module"></span><h2>westpa.cli.tools.w_assign module<a class="headerlink" href="#module-westpa.cli.tools.w_assign" title="Permalink to this headline">¶</a></h2>
+<dl class="py function">
+<dt id="westpa.cli.tools.w_assign.parse_pcoord_value">
+<code class="sig-prename descclassname">westpa.cli.tools.w_assign.</code><code class="sig-name descname">parse_pcoord_value</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">pc_str</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.cli.tools.w_assign.parse_pcoord_value" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py class">
+<dt id="westpa.cli.tools.w_assign.WAssign">
+<em class="property">class </em><code class="sig-prename descclassname">westpa.cli.tools.w_assign.</code><code class="sig-name descname">WAssign</code><a class="headerlink" href="#westpa.cli.tools.w_assign.WAssign" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="../tools/westpa.tools.html#westpa.tools.core.WESTParallelTool" title="westpa.tools.core.WESTParallelTool"><code class="xref py py-class docutils literal notranslate"><span class="pre">westpa.tools.core.WESTParallelTool</span></code></a></p>
+<dl class="py attribute">
+<dt id="westpa.cli.tools.w_assign.WAssign.prog">
+<code class="sig-name descname">prog</code><em class="property"> = 'w_assign'</em><a class="headerlink" href="#westpa.cli.tools.w_assign.WAssign.prog" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="westpa.cli.tools.w_assign.WAssign.description">
+<code class="sig-name descname">description</code><em class="property"> = 'Assign walkers to bins, producing a file (by default named &quot;assign.h5&quot;)\nwhich can be used in subsequent analysis.\n\nFor consistency in subsequent analysis operations, the entire dataset\nmust be assigned, even if only a subset of the data will be used. This\nensures that analyses that rely on tracing trajectories always know the\noriginating bin of each trajectory.\n\n\n-----------------------------------------------------------------------------\nSource data\n-----------------------------------------------------------------------------\n\nSource data is provided either by a user-specified function\n(--construct-dataset) or a list of &quot;data set specifications&quot; (--dsspecs).\nIf neither is provided, the progress coordinate dataset \'\'pcoord\'\' is used.\n\nTo use a custom function to extract or calculate data whose probability\ndistribution will be calculated, specify the function in standard Python\nMODULE.FUNCTION syntax as the argument to --construct-dataset. This function\nwill be called as function(n_iter,iter_group), where n_iter is the iteration\nwhose data are being considered and iter_group is the corresponding group\nin the main WEST HDF5 file (west.h5). The function must return data which can\nbe indexed as [segment][timepoint][dimension].\n\nTo use a list of data set specifications, specify --dsspecs and then list the\ndesired datasets one-by-one (space-separated in most shells). These data set\nspecifications are formatted as NAME[,file=FILENAME,slice=SLICE], which will\nuse the dataset called NAME in the HDF5 file FILENAME (defaulting to the main\nWEST HDF5 file west.h5), and slice it with the Python slice expression SLICE\n(as in [0:2] to select the first two elements of the first axis of the\ndataset). The ``slice`` option is most useful for selecting one column (or\nmore) from a multi-column dataset, such as arises when using a progress\ncoordinate of multiple dimensions.\n\n\n-----------------------------------------------------------------------------\nSpecifying macrostates\n-----------------------------------------------------------------------------\n\nOptionally, kinetic macrostates may be defined in terms of sets of bins.\nEach trajectory will be labeled with the kinetic macrostate it was most\nrecently in at each timepoint, for use in subsequent kinetic analysis.\nThis is required for all kinetics analysis (w_kintrace and w_kinmat).\n\nThere are three ways to specify macrostates:\n\n  1. States corresponding to single bins may be identified on the command\n     line using the --states option, which takes multiple arguments, one for\n     each state (separated by spaces in most shells). Each state is specified\n     as a coordinate tuple, with an optional label prepended, as in\n     ``bound:1.0`` or ``unbound:(2.5,2.5)``. Unlabeled states are named\n     ``stateN``, where N is the (zero-based) position in the list of states\n     supplied to --states.\n\n  2. States corresponding to multiple bins may use a YAML input file specified\n     with --states-from-file. This file defines a list of states, each with a\n     name and a list of coordinate tuples; bins containing these coordinates\n     will be mapped to the containing state. For instance, the following\n     file::\n\n        ---\n        states:\n          - label: unbound\n            coords:\n              - [9.0, 1.0]\n              - [9.0, 2.0]\n          - label: bound\n            coords:\n              - [0.1, 0.0]\n\n     produces two macrostates: the first state is called &quot;unbound&quot; and\n     consists of bins containing the (2-dimensional) progress coordinate\n     values (9.0, 1.0) and (9.0, 2.0); the second state is called &quot;bound&quot;\n     and consists of the single bin containing the point (0.1, 0.0).\n\n  3. Arbitrary state definitions may be supplied by a user-defined function,\n     specified as --states-from-function=MODULE.FUNCTION. This function is\n     called with the bin mapper as an argument (``function(mapper)``) and must\n     return a list of dictionaries, one per state. Each dictionary must contain\n     a vector of coordinate tuples with key &quot;coords&quot;; the bins into which each\n     of these tuples falls define the state. An optional name for the state\n     (with key &quot;label&quot;) may also be provided.\n\n\n-----------------------------------------------------------------------------\nOutput format\n-----------------------------------------------------------------------------\n\nThe output file (-o/--output, by default &quot;assign.h5&quot;) contains the following\nattributes datasets:\n\n  ``nbins`` attribute\n    *(Integer)* Number of valid bins. Bin assignments range from 0 to\n    *nbins*-1, inclusive.\n\n  ``nstates`` attribute\n    *(Integer)* Number of valid macrostates (may be zero if no such states are\n    specified). Trajectory ensemble assignments range from 0 to *nstates*-1,\n    inclusive, when states are defined.\n\n  ``/assignments`` [iteration][segment][timepoint]\n    *(Integer)* Per-segment and -timepoint assignments (bin indices).\n\n  ``/npts`` [iteration]\n    *(Integer)* Number of timepoints in each iteration.\n\n  ``/nsegs`` [iteration]\n    *(Integer)* Number of segments in each iteration.\n\n  ``/labeled_populations`` [iterations][state][bin]\n    *(Floating-point)* Per-iteration and -timepoint bin populations, labeled\n    by most recently visited macrostate. The last state entry (*nstates-1*)\n    corresponds to trajectories initiated outside of a defined macrostate.\n\n  ``/bin_labels`` [bin]\n    *(String)* Text labels of bins.\n\nWhen macrostate assignments are given, the following additional datasets are\npresent:\n\n  ``/trajlabels`` [iteration][segment][timepoint]\n    *(Integer)* Per-segment and -timepoint trajectory labels, indicating the\n    macrostate which each trajectory last visited.\n\n  ``/state_labels`` [state]\n    *(String)* Labels of states.\n\n  ``/state_map`` [bin]\n    *(Integer)* Mapping of bin index to the macrostate containing that bin.\n    An entry will contain *nbins+1* if that bin does not fall into a\n    macrostate.\n\nDatasets indexed by state and bin contain one more entry than the number of\nvalid states or bins. For *N* bins, axes indexed by bin are of size *N+1*, and\nentry *N* (0-based indexing) corresponds to a walker outside of the defined bin\nspace (which will cause most mappers to raise an error). More importantly, for\n*M* states (including the case *M=0* where no states are specified), axes\nindexed by state are of size *M+1* and entry *M* refers to trajectories\ninitiated in a region not corresponding to a defined macrostate.\n\nThus, ``labeled_populations[:,:,:].sum(axis=1)[:,:-1]`` gives overall per-bin\npopulations, for all defined bins and\n``labeled_populations[:,:,:].sum(axis=2)[:,:-1]`` gives overall\nper-trajectory-ensemble populations for all defined states.\n\n\n-----------------------------------------------------------------------------\nParallelization\n-----------------------------------------------------------------------------\n\nThis tool supports parallelized binning, including reading/calculating input\ndata.\n\n\n-----------------------------------------------------------------------------\nCommand-line options\n-----------------------------------------------------------------------------\n'</em><a class="headerlink" href="#westpa.cli.tools.w_assign.WAssign.description" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="westpa.cli.tools.w_assign.WAssign.add_args">
+<code class="sig-name descname">add_args</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">parser</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.cli.tools.w_assign.WAssign.add_args" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add arguments specific to this tool to the given argparse parser.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="westpa.cli.tools.w_assign.WAssign.process_args">
+<code class="sig-name descname">process_args</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">args</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.cli.tools.w_assign.WAssign.process_args" title="Permalink to this definition">¶</a></dt>
+<dd><p>Take argparse-processed arguments associated with this tool and deal
+with them appropriately (setting instance variables, etc)</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="westpa.cli.tools.w_assign.WAssign.parse_cmdline_states">
+<code class="sig-name descname">parse_cmdline_states</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">state_strings</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.cli.tools.w_assign.WAssign.parse_cmdline_states" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="westpa.cli.tools.w_assign.WAssign.load_config_from_west">
+<code class="sig-name descname">load_config_from_west</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">scheme</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.cli.tools.w_assign.WAssign.load_config_from_west" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="westpa.cli.tools.w_assign.WAssign.load_state_file">
+<code class="sig-name descname">load_state_file</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">state_filename</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.cli.tools.w_assign.WAssign.load_state_file" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="westpa.cli.tools.w_assign.WAssign.states_from_dict">
+<code class="sig-name descname">states_from_dict</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">ystates</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.cli.tools.w_assign.WAssign.states_from_dict" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="westpa.cli.tools.w_assign.WAssign.load_states_from_function">
+<code class="sig-name descname">load_states_from_function</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">statefunc</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.cli.tools.w_assign.WAssign.load_states_from_function" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="westpa.cli.tools.w_assign.WAssign.assign_iteration">
+<code class="sig-name descname">assign_iteration</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">n_iter</span></em>, <em class="sig-param"><span class="n">nstates</span></em>, <em class="sig-param"><span class="n">nbins</span></em>, <em class="sig-param"><span class="n">state_map</span></em>, <em class="sig-param"><span class="n">last_labels</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.cli.tools.w_assign.WAssign.assign_iteration" title="Permalink to this definition">¶</a></dt>
+<dd><p>Method to encapsulate the segment slicing (into n_worker slices) and parallel job submission
+Submits job(s), waits on completion, splices them back together
+Returns: assignments, trajlabels, pops for this iteration</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="westpa.cli.tools.w_assign.WAssign.go">
+<code class="sig-name descname">go</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#westpa.cli.tools.w_assign.WAssign.go" title="Permalink to this definition">¶</a></dt>
+<dd><p>Perform the analysis associated with this tool.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt id="westpa.cli.tools.w_assign.entry_point">
+<code class="sig-prename descclassname">westpa.cli.tools.w_assign.</code><code class="sig-name descname">entry_point</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#westpa.cli.tools.w_assign.entry_point" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 </div>
 </div>
 
@@ -359,37 +442,29 @@ otherwise preprocess the progress coordinate data.:</p>
            
           </div>
           <footer>
-  
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-      
-        <a href="w_trace.html" class="btn btn-neutral float-right" title="w_trace" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
-      
-      
-        <a href="w_fork.html" class="btn btn-neutral float-left" title="w_fork" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
-      
+        <a href="w_trace.html" class="btn btn-neutral float-right" title="w_trace" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="w_fork.html" class="btn btn-neutral float-left" title="w_fork" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
     </div>
-  
 
   <hr/>
 
   <div role="contentinfo">
     <p>
-        
-        &copy; Copyright 2021, Matthew C. Zwier and Lillian T. Chong
+        &#169; Copyright 2021, Matthew C. Zwier and Lillian T. Chong.
 
     </p>
   </div>
     
     
     
-    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
     
-    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
     
     provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
-
         </div>
       </div>
 

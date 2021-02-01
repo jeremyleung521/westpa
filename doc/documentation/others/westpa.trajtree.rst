@@ -1,8 +1,13 @@
 westpa.trajtree package
 =======================
 
-Submodules
-----------
+westpa.trajtree module
+----------------------
+
+.. automodule:: westpa.trajtree
+   :members:
+   :undoc-members:
+   :show-inheritance:
 
 westpa.trajtree.trajtree module
 -------------------------------
@@ -12,10 +17,4 @@ westpa.trajtree.trajtree module
    :undoc-members:
    :show-inheritance:
 
-Module contents
----------------
 
-.. automodule:: westpa.trajtree
-   :members:
-   :undoc-members:
-   :show-inheritance:

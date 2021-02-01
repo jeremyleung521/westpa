@@ -3,9 +3,9 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8">
+  <meta charset="utf-8" />
   
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
   <title>westpa.mclib package &mdash; WESTPA 2.0 documentation</title>
   
@@ -17,7 +17,10 @@
 
   
   
+
   
+  
+
   
 
   
@@ -51,7 +54,7 @@
           
 
           
-            <a href="../../sphinx_index.html" class="icon icon-home" alt="Documentation Home"> WESTPA
+            <a href="../../sphinx_index.html" class="icon icon-home"> WESTPA
           
 
           
@@ -93,19 +96,19 @@
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../cli.html"> WESTPA Command Line Interface</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../core.html"> WESTPA Core</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../work_managers/westpa.work_managers.html"> WESTPA Work Manager</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../work_managers.html"> WESTPA Work Manager</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../tools/westpa.tools.html"> WESTPA Tools</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../others.html"> WESTPA Other Components</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="westpa.fasthist.html">Fasthist</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Mclib</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#module-contents">Module contents</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-westpa.mclib">Module contents</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="westpa.trajtree.html">Trajtree</a></li>
 <li class="toctree-l2"><a class="reference internal" href="oldtools.html">Old Tools</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../ext/westpa.westext.html"> WESTPA Extentions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ext.html"> WESTPA Extentions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../hdf5.html"> HDF5 file structure</a></li>
 </ul>
 <p class="caption"><span class="caption-text">For Developers:</span></p>
@@ -167,6 +170,8 @@
 
 
 
+
+
 <div role="navigation" aria-label="breadcrumbs navigation">
 
   <ul class="wy-breadcrumbs">
@@ -180,7 +185,7 @@
     
       <li class="wy-breadcrumbs-aside">
         
-            
+          
             <a href="../../_sources/documentation/others/westpa.mclib.rst.txt" rel="nofollow"> View page source</a>
           
         
@@ -196,8 +201,47 @@
             
   <div class="section" id="westpa-mclib-package">
 <h1>westpa.mclib package<a class="headerlink" href="#westpa-mclib-package" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="module-contents">
-<h2>Module contents<a class="headerlink" href="#module-contents" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="module-westpa.mclib">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-westpa.mclib" title="Permalink to this headline">¶</a></h2>
+<p>A package for performing Monte Carlo bootstrap estimates of
+statistics.</p>
+<dl class="py function">
+<dt id="westpa.mclib.mcbs_ci_correl">
+<code class="sig-prename descclassname">westpa.mclib.</code><code class="sig-name descname">mcbs_ci_correl</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">estimator_datasets</span></em>, <em class="sig-param"><span class="n">estimator</span></em>, <em class="sig-param"><span class="n">alpha</span></em>, <em class="sig-param"><span class="n">n_sets</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">args</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">autocorrel_alpha</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">autocorrel_n_sets</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">subsample</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">do_correl</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">mcbs_enable</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">estimator_kwargs</span><span class="o">=</span><span class="default_value">{}</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.mclib.mcbs_ci_correl" title="Permalink to this definition">¶</a></dt>
+<dd><p>Perform a Monte Carlo bootstrap estimate for the (1-<code class="docutils literal notranslate"><span class="pre">alpha</span></code>) confidence interval
+on the given <code class="docutils literal notranslate"><span class="pre">dataset</span></code> with the given <code class="docutils literal notranslate"><span class="pre">estimator</span></code>.  This routine is appropriate
+for time-correlated data, using the method described in Huber &amp; Kim, “Weighted-ensemble
+Brownian dynamics simulations for protein association reactions” (1996),
+doi:10.1016/S0006-3495(96)79552-8 to determine a statistically-significant correlation time
+and then reducing the dataset by a factor of that correlation time before running a “classic”
+Monte Carlo bootstrap.</p>
+<p>Returns <code class="docutils literal notranslate"><span class="pre">(estimate,</span> <span class="pre">ci_lb,</span> <span class="pre">ci_ub,</span> <span class="pre">correl_time)</span></code> where <code class="docutils literal notranslate"><span class="pre">estimate</span></code> is the application of the
+given <code class="docutils literal notranslate"><span class="pre">estimator</span></code> to the input <code class="docutils literal notranslate"><span class="pre">dataset</span></code>, <code class="docutils literal notranslate"><span class="pre">ci_lb</span></code> and <code class="docutils literal notranslate"><span class="pre">ci_ub</span></code> are the
+lower and upper limits, respectively, of the (1-<code class="docutils literal notranslate"><span class="pre">alpha</span></code>) confidence interval on
+<code class="docutils literal notranslate"><span class="pre">estimate</span></code>, and <code class="docutils literal notranslate"><span class="pre">correl_time</span></code> is the correlation time of the dataset, significant to
+(1-<code class="docutils literal notranslate"><span class="pre">autocorrel_alpha</span></code>).</p>
+<dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">estimator</span></code> is called as <code class="docutils literal notranslate"><span class="pre">estimator(dataset,</span> <span class="pre">*args,</span> <span class="pre">**kwargs)</span></code>. Common estimators include:</dt><dd><ul class="simple">
+<li><p>np.mean – calculate the confidence interval on the mean of <code class="docutils literal notranslate"><span class="pre">dataset</span></code></p></li>
+<li><p>np.median – calculate a confidence interval on the median of <code class="docutils literal notranslate"><span class="pre">dataset</span></code></p></li>
+<li><p>np.std – calculate a confidence interval on the standard deviation of <code class="docutils literal notranslate"><span class="pre">datset</span></code>.</p></li>
+</ul>
+</dd>
+</dl>
+<p><code class="docutils literal notranslate"><span class="pre">n_sets</span></code> is the number of synthetic data sets to generate using the given <code class="docutils literal notranslate"><span class="pre">estimator</span></code>,
+which will be chosen using <a href="#id1"><span class="problematic" id="id2">`get_bssize()`_</span></a> if <code class="docutils literal notranslate"><span class="pre">n_sets</span></code> is not given.</p>
+<p><code class="docutils literal notranslate"><span class="pre">autocorrel_alpha</span></code> (which defaults to <code class="docutils literal notranslate"><span class="pre">alpha</span></code>) can be used to adjust the significance
+level of the autocorrelation calculation. Note that too high a significance level (too low an
+alpha) for evaluating the significance of autocorrelation values can result in a failure to
+detect correlation if the autocorrelation function is noisy.</p>
+<p>The given <code class="docutils literal notranslate"><span class="pre">subsample</span></code> function is used, if provided, to subsample the dataset prior to running
+the full Monte Carlo bootstrap. If none is provided, then a random entry from each correlated
+block is used as the value for that block.  Other reasonable choices include <code class="docutils literal notranslate"><span class="pre">np.mean</span></code>,
+<code class="docutils literal notranslate"><span class="pre">np.median</span></code>, <code class="docutils literal notranslate"><span class="pre">(lambda</span> <span class="pre">x:</span> <span class="pre">x[0])</span></code> or <code class="docutils literal notranslate"><span class="pre">(lambda</span> <span class="pre">x:</span> <span class="pre">x[-1])</span></code>.  In particular, using
+<code class="docutils literal notranslate"><span class="pre">subsample=np.mean</span></code> will converge to the block averaged mean and standard error,
+while accounting for any non-normality in the distribution of the mean.</p>
+</dd></dl>
+
 </div>
 </div>
 
@@ -206,37 +250,29 @@
            
           </div>
           <footer>
-  
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-      
-        <a href="westpa.trajtree.html" class="btn btn-neutral float-right" title="westpa.trajtree package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
-      
-      
-        <a href="westpa.fasthist.html" class="btn btn-neutral float-left" title="westpa.fasthist package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
-      
+        <a href="westpa.trajtree.html" class="btn btn-neutral float-right" title="westpa.trajtree package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="westpa.fasthist.html" class="btn btn-neutral float-left" title="westpa.fasthist package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
     </div>
-  
 
   <hr/>
 
   <div role="contentinfo">
     <p>
-        
-        &copy; Copyright 2021, Matthew C. Zwier and Lillian T. Chong
+        &#169; Copyright 2021, Matthew C. Zwier and Lillian T. Chong.
 
     </p>
   </div>
     
     
     
-    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
     
-    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
     
     provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
-
         </div>
       </div>
 

@@ -3,9 +3,9 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8">
+  <meta charset="utf-8" />
   
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
   <title>w_postanalysis_matrix &mdash; WESTPA 2.0 documentation</title>
   
@@ -17,7 +17,10 @@
 
   
   
+
   
+  
+
   
 
   
@@ -51,7 +54,7 @@
           
 
           
-            <a href="../../sphinx_index.html" class="icon icon-home" alt="Documentation Home"> WESTPA
+            <a href="../../sphinx_index.html" class="icon icon-home"> WESTPA
           
 
           
@@ -111,7 +114,7 @@
 <li class="toctree-l2"><a class="reference internal" href="w_ntop.html"> w_ntop</a></li>
 <li class="toctree-l2"><a class="reference internal" href="w_dumpsegs.html"> w_dumpsegs</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#"> w_postanalysis_matrix</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#westpa-cli-tools-w-postanalysis-matrix-module">westpa.cli.tools.w_postanalysis_matrix module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-westpa.cli.tools.w_postanalysis_matrix">westpa.cli.tools.w_postanalysis_matrix module</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="w_postanalysis_reweight.html"> w_postanalysis_reweight</a></li>
@@ -124,10 +127,10 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../core.html"> WESTPA Core</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../work_managers/westpa.work_managers.html"> WESTPA Work Manager</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../work_managers.html"> WESTPA Work Manager</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../tools/westpa.tools.html"> WESTPA Tools</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../others.html"> WESTPA Other Components</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../ext/westpa.westext.html"> WESTPA Extentions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ext.html"> WESTPA Extentions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../hdf5.html"> HDF5 file structure</a></li>
 </ul>
 <p class="caption"><span class="caption-text">For Developers:</span></p>
@@ -189,6 +192,8 @@
 
 
 
+
+
 <div role="navigation" aria-label="breadcrumbs navigation">
 
   <ul class="wy-breadcrumbs">
@@ -202,7 +207,7 @@
     
       <li class="wy-breadcrumbs-aside">
         
-            
+          
             <a href="../../_sources/documentation/cli/w_postanalysis_matrix.rst.txt" rel="nofollow"> View page source</a>
           
         
@@ -218,8 +223,60 @@
             
   <div class="section" id="w-postanalysis-matrix">
 <h1>w_postanalysis_matrix<a class="headerlink" href="#w-postanalysis-matrix" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="westpa-cli-tools-w-postanalysis-matrix-module">
-<h2>westpa.cli.tools.w_postanalysis_matrix module<a class="headerlink" href="#westpa-cli-tools-w-postanalysis-matrix-module" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="module-westpa.cli.tools.w_postanalysis_matrix">
+<span id="westpa-cli-tools-w-postanalysis-matrix-module"></span><h2>westpa.cli.tools.w_postanalysis_matrix module<a class="headerlink" href="#module-westpa.cli.tools.w_postanalysis_matrix" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt id="westpa.cli.tools.w_postanalysis_matrix.PAMatrix">
+<em class="property">class </em><code class="sig-prename descclassname">westpa.cli.tools.w_postanalysis_matrix.</code><code class="sig-name descname">PAMatrix</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">parent</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.cli.tools.w_postanalysis_matrix.PAMatrix" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="w_reweight.html#westpa.cli.tools.w_reweight.RWMatrix" title="westpa.cli.tools.w_reweight.RWMatrix"><code class="xref py py-class docutils literal notranslate"><span class="pre">westpa.cli.tools.w_reweight.RWMatrix</span></code></a></p>
+<dl class="py attribute">
+<dt id="westpa.cli.tools.w_postanalysis_matrix.PAMatrix.subcommand">
+<code class="sig-name descname">subcommand</code><em class="property"> = 'init'</em><a class="headerlink" href="#westpa.cli.tools.w_postanalysis_matrix.PAMatrix.subcommand" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="westpa.cli.tools.w_postanalysis_matrix.PAMatrix.help_text">
+<code class="sig-name descname">help_text</code><em class="property"> = 'averages and CIs for path-tracing kinetics analysis'</em><a class="headerlink" href="#westpa.cli.tools.w_postanalysis_matrix.PAMatrix.help_text" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="westpa.cli.tools.w_postanalysis_matrix.PAMatrix.default_output_file">
+<code class="sig-name descname">default_output_file</code><em class="property"> = 'flux_matrices.h5'</em><a class="headerlink" href="#westpa.cli.tools.w_postanalysis_matrix.PAMatrix.default_output_file" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="westpa.cli.tools.w_postanalysis_matrix.WReweight">
+<em class="property">class </em><code class="sig-prename descclassname">westpa.cli.tools.w_postanalysis_matrix.</code><code class="sig-name descname">WReweight</code><a class="headerlink" href="#westpa.cli.tools.w_postanalysis_matrix.WReweight" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="../tools/westpa.tools.html#westpa.tools.core.WESTMasterCommand" title="westpa.tools.core.WESTMasterCommand"><code class="xref py py-class docutils literal notranslate"><span class="pre">westpa.tools.core.WESTMasterCommand</span></code></a>, <a class="reference internal" href="../tools/westpa.tools.html#westpa.tools.core.WESTParallelTool" title="westpa.tools.core.WESTParallelTool"><code class="xref py py-class docutils literal notranslate"><span class="pre">westpa.tools.core.WESTParallelTool</span></code></a></p>
+<dl class="py attribute">
+<dt id="westpa.cli.tools.w_postanalysis_matrix.WReweight.prog">
+<code class="sig-name descname">prog</code><em class="property"> = 'w_postanalysis_matrix'</em><a class="headerlink" href="#westpa.cli.tools.w_postanalysis_matrix.WReweight.prog" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="westpa.cli.tools.w_postanalysis_matrix.WReweight.subcommands">
+<code class="sig-name descname">subcommands</code><em class="property"> = [&lt;class 'westpa.cli.tools.w_postanalysis_matrix.PAMatrix'&gt;]</em><a class="headerlink" href="#westpa.cli.tools.w_postanalysis_matrix.WReweight.subcommands" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="westpa.cli.tools.w_postanalysis_matrix.WReweight.subparsers_title">
+<code class="sig-name descname">subparsers_title</code><em class="property"> = 'calculate state-to-state kinetics by tracing trajectories'</em><a class="headerlink" href="#westpa.cli.tools.w_postanalysis_matrix.WReweight.subparsers_title" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="westpa.cli.tools.w_postanalysis_matrix.WReweight.description">
+<code class="sig-name descname">description</code><em class="property"> = 'Generate a colored transition matrix from a WE assignment file. The subsequent\nanalysis requires that the assignments are calculated using only the initial and\nfinal time points of each trajectory segment. This may require downsampling the\nh5file generated by a WE simulation. In the future w_assign may be enhanced to optionally\ngenerate the necessary assignment file from a h5file with intermediate time points.\nAdditionally, this analysis is currently only valid on simulations performed under\neither equilibrium or steady-state conditions without recycling target states.\n\n-----------------------------------------------------------------------------\nOutput format\n-----------------------------------------------------------------------------\n\nThe output file (-o/--output, by default &quot;reweight.h5&quot;) contains the\nfollowing datasets:\n\n  ``/bin_populations`` [window, bin]\n     The reweighted populations of each bin based on windows. Bins contain\n     one color each, so to recover the original un-colored spatial bins,\n     one must sum over all states.\n\n  ``/iterations`` [iteration]\n    *(Structured -- see below)*  Sparse matrix data from each\n    iteration.  They are reconstructed and averaged within the\n    w_reweight {kinetics/probs} routines so that observables may\n    be calculated.  Each group contains 4 vectors of data:\n\n      flux\n        *(Floating-point)* The weight of a series of flux events\n      cols\n        *(Integer)* The bin from which a flux event began.\n      cols\n        *(Integer)* The bin into which the walker fluxed.\n      obs\n        *(Integer)* How many flux events were observed during this\n        iteration.\n\n-----------------------------------------------------------------------------\nCommand-line options\n-----------------------------------------------------------------------------\n'</em><a class="headerlink" href="#westpa.cli.tools.w_postanalysis_matrix.WReweight.description" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt id="westpa.cli.tools.w_postanalysis_matrix.entry_point">
+<code class="sig-prename descclassname">westpa.cli.tools.w_postanalysis_matrix.</code><code class="sig-name descname">entry_point</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#westpa.cli.tools.w_postanalysis_matrix.entry_point" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 </div>
 </div>
 
@@ -228,37 +285,29 @@
            
           </div>
           <footer>
-  
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-      
-        <a href="w_postanalysis_reweight.html" class="btn btn-neutral float-right" title="w_postanalysis_reweight" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
-      
-      
-        <a href="w_dumpsegs.html" class="btn btn-neutral float-left" title="w_dumpsegs" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
-      
+        <a href="w_postanalysis_reweight.html" class="btn btn-neutral float-right" title="w_postanalysis_reweight" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="w_dumpsegs.html" class="btn btn-neutral float-left" title="w_dumpsegs" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
     </div>
-  
 
   <hr/>
 
   <div role="contentinfo">
     <p>
-        
-        &copy; Copyright 2021, Matthew C. Zwier and Lillian T. Chong
+        &#169; Copyright 2021, Matthew C. Zwier and Lillian T. Chong.
 
     </p>
   </div>
     
     
     
-    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
     
-    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
     
     provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
-
         </div>
       </div>
 

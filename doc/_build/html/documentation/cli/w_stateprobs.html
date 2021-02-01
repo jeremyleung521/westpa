@@ -3,9 +3,9 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8">
+  <meta charset="utf-8" />
   
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
   <title>w_stateprobs &mdash; WESTPA 2.0 documentation</title>
   
@@ -17,7 +17,10 @@
 
   
   
+
   
+  
+
   
 
   
@@ -51,7 +54,7 @@
           
 
           
-            <a href="../../sphinx_index.html" class="icon icon-home" alt="Documentation Home"> WESTPA
+            <a href="../../sphinx_index.html" class="icon icon-home"> WESTPA
           
 
           
@@ -120,16 +123,16 @@
 <li class="toctree-l2 current"><a class="current reference internal" href="#"> w_stateprobs</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#output-format">Output format</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#command-line-options">Command-line options</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#westpa-cli-tools-w-stateprobs-module">westpa.cli.tools.w_stateprobs module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-westpa.cli.tools.w_stateprobs">westpa.cli.tools.w_stateprobs module</a></li>
 </ul>
 </li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../core.html"> WESTPA Core</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../work_managers/westpa.work_managers.html"> WESTPA Work Manager</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../work_managers.html"> WESTPA Work Manager</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../tools/westpa.tools.html"> WESTPA Tools</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../others.html"> WESTPA Other Components</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../ext/westpa.westext.html"> WESTPA Extentions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ext.html"> WESTPA Extentions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../hdf5.html"> HDF5 file structure</a></li>
 </ul>
 <p class="caption"><span class="caption-text">For Developers:</span></p>
@@ -191,6 +194,8 @@
 
 
 
+
+
 <div role="navigation" aria-label="breadcrumbs navigation">
 
   <ul class="wy-breadcrumbs">
@@ -204,7 +209,7 @@
     
       <li class="wy-breadcrumbs-aside">
         
-            
+          
             <a href="../../_sources/documentation/cli/w_stateprobs.rst.txt" rel="nofollow"> View page source</a>
           
         
@@ -372,8 +377,65 @@ available:</p>
 </pre></div>
 </div>
 </div>
-<div class="section" id="westpa-cli-tools-w-stateprobs-module">
-<h2>westpa.cli.tools.w_stateprobs module<a class="headerlink" href="#westpa-cli-tools-w-stateprobs-module" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="module-westpa.cli.tools.w_stateprobs">
+<span id="westpa-cli-tools-w-stateprobs-module"></span><h2>westpa.cli.tools.w_stateprobs module<a class="headerlink" href="#module-westpa.cli.tools.w_stateprobs" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt id="westpa.cli.tools.w_stateprobs.WStateProbs">
+<em class="property">class </em><code class="sig-prename descclassname">westpa.cli.tools.w_stateprobs.</code><code class="sig-name descname">WStateProbs</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">parent</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.cli.tools.w_stateprobs.WStateProbs" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="w_direct.html#westpa.cli.tools.w_direct.DStateProbs" title="westpa.cli.tools.w_direct.DStateProbs"><code class="xref py py-class docutils literal notranslate"><span class="pre">westpa.cli.tools.w_direct.DStateProbs</span></code></a></p>
+<dl class="py attribute">
+<dt id="westpa.cli.tools.w_stateprobs.WStateProbs.subcommand">
+<code class="sig-name descname">subcommand</code><em class="property"> = 'trace'</em><a class="headerlink" href="#westpa.cli.tools.w_stateprobs.WStateProbs.subcommand" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="westpa.cli.tools.w_stateprobs.WStateProbs.help_text">
+<code class="sig-name descname">help_text</code><em class="property"> = 'averages and CIs for path-tracing kinetics analysis'</em><a class="headerlink" href="#westpa.cli.tools.w_stateprobs.WStateProbs.help_text" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="westpa.cli.tools.w_stateprobs.WStateProbs.default_output_file">
+<code class="sig-name descname">default_output_file</code><em class="property"> = 'stateprobs.h5'</em><a class="headerlink" href="#westpa.cli.tools.w_stateprobs.WStateProbs.default_output_file" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="westpa.cli.tools.w_stateprobs.WStateProbs.default_kinetics_file">
+<code class="sig-name descname">default_kinetics_file</code><em class="property"> = 'assign.h5'</em><a class="headerlink" href="#westpa.cli.tools.w_stateprobs.WStateProbs.default_kinetics_file" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="westpa.cli.tools.w_stateprobs.WDirect">
+<em class="property">class </em><code class="sig-prename descclassname">westpa.cli.tools.w_stateprobs.</code><code class="sig-name descname">WDirect</code><a class="headerlink" href="#westpa.cli.tools.w_stateprobs.WDirect" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="../tools/westpa.tools.html#westpa.tools.core.WESTMasterCommand" title="westpa.tools.core.WESTMasterCommand"><code class="xref py py-class docutils literal notranslate"><span class="pre">westpa.tools.core.WESTMasterCommand</span></code></a>, <a class="reference internal" href="../tools/westpa.tools.html#westpa.tools.core.WESTParallelTool" title="westpa.tools.core.WESTParallelTool"><code class="xref py py-class docutils literal notranslate"><span class="pre">westpa.tools.core.WESTParallelTool</span></code></a></p>
+<dl class="py attribute">
+<dt id="westpa.cli.tools.w_stateprobs.WDirect.prog">
+<code class="sig-name descname">prog</code><em class="property"> = 'w_stateprobs'</em><a class="headerlink" href="#westpa.cli.tools.w_stateprobs.WDirect.prog" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="westpa.cli.tools.w_stateprobs.WDirect.subcommands">
+<code class="sig-name descname">subcommands</code><em class="property"> = [&lt;class 'westpa.cli.tools.w_stateprobs.WStateProbs'&gt;]</em><a class="headerlink" href="#westpa.cli.tools.w_stateprobs.WDirect.subcommands" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="westpa.cli.tools.w_stateprobs.WDirect.subparsers_title">
+<code class="sig-name descname">subparsers_title</code><em class="property"> = 'calculate state-to-state kinetics by tracing trajectories'</em><a class="headerlink" href="#westpa.cli.tools.w_stateprobs.WDirect.subparsers_title" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="westpa.cli.tools.w_stateprobs.WDirect.description">
+<code class="sig-name descname">description</code><em class="property"> = 'Calculate average populations and associated errors in state populations from\nweighted ensemble data. Bin assignments, including macrostate definitions,\nare required. (See &quot;w_assign --help&quot; for more information).\n\n-----------------------------------------------------------------------------\nOutput format\n-----------------------------------------------------------------------------\n\nThe output file (-o/--output, usually &quot;stateprobs.h5&quot;) contains the following\ndataset:\n\n  /avg_state_pops [state]\n    (Structured -- see below) Population of each state across entire\n    range specified.\n\nIf --evolution-mode is specified, then the following additional dataset is\navailable:\n\n  /state_pop_evolution [window][state]\n    (Structured -- see below). State populations based on windows of\n    iterations of varying width.  If --evolution-mode=cumulative, then\n    these windows all begin at the iteration specified with\n    --start-iter and grow in length by --step-iter for each successive\n    element. If --evolution-mode=blocked, then these windows are all of\n    width --step-iter (excluding the last, which may be shorter), the first\n    of which begins at iteration --start-iter.\n\nThe structure of these datasets is as follows:\n\n  iter_start\n    (Integer) Iteration at which the averaging window begins (inclusive).\n\n  iter_stop\n    (Integer) Iteration at which the averaging window ends (exclusive).\n\n  expected\n    (Floating-point) Expected (mean) value of the rate as evaluated within\n    this window, in units of inverse tau.\n\n  ci_lbound\n    (Floating-point) Lower bound of the confidence interval on the rate\n    within this window, in units of inverse tau.\n\n  ci_ubound\n    (Floating-point) Upper bound of the confidence interval on the rate\n    within this window, in units of inverse tau.\n\n  corr_len\n    (Integer) Correlation length of the rate within this window, in units\n    of tau.\n\nEach of these datasets is also stamped with a number of attributes:\n\n  mcbs_alpha\n    (Floating-point) Alpha value of confidence intervals. (For example,\n    *alpha=0.05* corresponds to a 95% confidence interval.)\n\n  mcbs_nsets\n    (Integer) Number of bootstrap data sets used in generating confidence\n    intervals.\n\n  mcbs_acalpha\n    (Floating-point) Alpha value for determining correlation lengths.\n\n\n-----------------------------------------------------------------------------\nCommand-line options\n-----------------------------------------------------------------------------\n'</em><a class="headerlink" href="#westpa.cli.tools.w_stateprobs.WDirect.description" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt id="westpa.cli.tools.w_stateprobs.entry_point">
+<code class="sig-prename descclassname">westpa.cli.tools.w_stateprobs.</code><code class="sig-name descname">entry_point</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#westpa.cli.tools.w_stateprobs.entry_point" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 </div>
 </div>
 
@@ -382,37 +444,29 @@ available:</p>
            
           </div>
           <footer>
-  
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-      
-        <a href="../core.html" class="btn btn-neutral float-right" title="westpa.core package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
-      
-      
-        <a href="w_kinetics.html" class="btn btn-neutral float-left" title="w_kinetics" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
-      
+        <a href="../core.html" class="btn btn-neutral float-right" title="westpa.core package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="w_kinetics.html" class="btn btn-neutral float-left" title="w_kinetics" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
     </div>
-  
 
   <hr/>
 
   <div role="contentinfo">
     <p>
-        
-        &copy; Copyright 2021, Matthew C. Zwier and Lillian T. Chong
+        &#169; Copyright 2021, Matthew C. Zwier and Lillian T. Chong.
 
     </p>
   </div>
     
     
     
-    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
     
-    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
     
     provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
-
         </div>
       </div>
 

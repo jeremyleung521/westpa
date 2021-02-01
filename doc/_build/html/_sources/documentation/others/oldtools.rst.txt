@@ -8,5 +8,3 @@ WESTPA Old Tools
    westpa.oldtools.aframe
    westpa.oldtools.cmds
    westpa.oldtools.stats
-
-

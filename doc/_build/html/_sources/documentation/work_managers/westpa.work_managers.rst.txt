@@ -1,16 +1,13 @@
 westpa.work\_managers package
 =============================
 
-Subpackages
------------
+westpa.work\_managers module
+----------------------------
 
-.. toctree::
-   :maxdepth: 1
-
-   westpa.work_managers.zeromq
-
-Submodules
-----------
+.. automodule:: westpa.work_managers
+   :members:
+   :undoc-members:
+   :show-inheritance:
 
 westpa.work\_managers.core module
 ---------------------------------
@@ -60,10 +57,4 @@ westpa.work\_managers.threads module
    :undoc-members:
    :show-inheritance:
 
-Module contents
----------------
 
-.. automodule:: westpa.work_managers
-   :members:
-   :undoc-members:
-   :show-inheritance:

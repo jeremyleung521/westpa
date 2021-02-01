@@ -3,9 +3,9 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8">
+  <meta charset="utf-8" />
   
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
   <title>w_trace &mdash; WESTPA 2.0 documentation</title>
   
@@ -17,7 +17,10 @@
 
   
   
+
   
+  
+
   
 
   
@@ -51,7 +54,7 @@
           
 
           
-            <a href="../../sphinx_index.html" class="icon icon-home" alt="Documentation Home"> WESTPA
+            <a href="../../sphinx_index.html" class="icon icon-home"> WESTPA
           
 
           
@@ -104,7 +107,7 @@
 <li class="toctree-l3"><a class="reference internal" href="#general-options">general options</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#west-input-data-options">WEST input data options</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#output-options">output options</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#westpa-cli-tools-w-trace-module">westpa.cli.tools.w_trace module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-westpa.cli.tools.w_trace">westpa.cli.tools.w_trace module</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="w_fluxanl.html"> w_fluxanl</a></li>
@@ -129,10 +132,10 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../core.html"> WESTPA Core</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../work_managers/westpa.work_managers.html"> WESTPA Work Manager</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../work_managers.html"> WESTPA Work Manager</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../tools/westpa.tools.html"> WESTPA Tools</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../others.html"> WESTPA Other Components</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../ext/westpa.westext.html"> WESTPA Extentions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ext.html"> WESTPA Extentions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../hdf5.html"> HDF5 file structure</a></li>
 </ul>
 <p class="caption"><span class="caption-text">For Developers:</span></p>
@@ -194,6 +197,8 @@
 
 
 
+
+
 <div role="navigation" aria-label="breadcrumbs navigation">
 
   <ul class="wy-breadcrumbs">
@@ -207,7 +212,7 @@
     
       <li class="wy-breadcrumbs-aside">
         
-            
+          
             <a href="../../_sources/documentation/cli/w_trace.rst.txt" rel="nofollow"> View page source</a>
           
         
@@ -322,8 +327,117 @@ slice=[100,...]
 </pre></div>
 </div>
 </div>
-<div class="section" id="westpa-cli-tools-w-trace-module">
-<h2>westpa.cli.tools.w_trace module<a class="headerlink" href="#westpa-cli-tools-w-trace-module" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="module-westpa.cli.tools.w_trace">
+<span id="westpa-cli-tools-w-trace-module"></span><h2>westpa.cli.tools.w_trace module<a class="headerlink" href="#module-westpa.cli.tools.w_trace" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt id="westpa.cli.tools.w_trace.Trace">
+<em class="property">class </em><code class="sig-prename descclassname">westpa.cli.tools.w_trace.</code><code class="sig-name descname">Trace</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">summary</span></em>, <em class="sig-param"><span class="n">endpoint_type</span></em>, <em class="sig-param"><span class="n">basis_state</span></em>, <em class="sig-param"><span class="n">initial_state</span></em>, <em class="sig-param"><span class="n">data_manager</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.cli.tools.w_trace.Trace" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>A class representing a trace of a certain trajectory segment back to its origin.</p>
+<dl class="py method">
+<dt id="westpa.cli.tools.w_trace.Trace.from_data_manager">
+<em class="property">classmethod </em><code class="sig-name descname">from_data_manager</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">n_iter</span></em>, <em class="sig-param"><span class="n">seg_id</span></em>, <em class="sig-param"><span class="n">data_manager</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.cli.tools.w_trace.Trace.from_data_manager" title="Permalink to this definition">¶</a></dt>
+<dd><p>Construct and return a trajectory trace whose last segment is identified
+by <code class="docutils literal notranslate"><span class="pre">seg_id</span></code> in the iteration number <code class="docutils literal notranslate"><span class="pre">n_iter</span></code>.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="westpa.cli.tools.w_trace.Trace.get_segment_data_slice">
+<code class="sig-name descname">get_segment_data_slice</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">datafile</span></em>, <em class="sig-param"><span class="n">dsname</span></em>, <em class="sig-param"><span class="n">n_iter</span></em>, <em class="sig-param"><span class="n">seg_id</span></em>, <em class="sig-param"><span class="n">slice_</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">index_data</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">iter_prec</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.cli.tools.w_trace.Trace.get_segment_data_slice" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the data from the dataset named <code class="docutils literal notranslate"><span class="pre">dsname</span></code> within the given <code class="docutils literal notranslate"><span class="pre">datafile</span></code> (an open
+h5py.File object) for the given iteration and segment. By default, it is assumed that the
+dataset is stored in the iteration group for iteration <code class="docutils literal notranslate"><span class="pre">n_iter</span></code>, but if <code class="docutils literal notranslate"><span class="pre">index_data</span></code>
+is provided, it must be an iterable (preferably a simple array) of (n_iter,seg_id) pairs,
+and the index in the <code class="docutils literal notranslate"><span class="pre">index_data</span></code> iterable of the matching n_iter/seg_id pair is used as
+the index of the data to retrieve.</p>
+<p>If an optional <code class="docutils literal notranslate"><span class="pre">slice_</span></code> is provided, then the given slicing tuple is appended to that
+used to retrieve the segment-specific data (i.e. it can be used to pluck a subset of the
+data that would otherwise be returned).</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="westpa.cli.tools.w_trace.Trace.trace_timepoint_dataset">
+<code class="sig-name descname">trace_timepoint_dataset</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">dsname</span></em>, <em class="sig-param"><span class="n">slice_</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">auxfile</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">index_ds</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.cli.tools.w_trace.Trace.trace_timepoint_dataset" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a trace along this trajectory over a dataset which is layed out as [seg_id][timepoint][…].
+Overlapping values at segment boundaries are accounted for.  Returns (data_trace, weight), where
+data_trace is a time series of the dataset along this trajectory, and weight is the corresponding
+trajectory weight at each time point.</p>
+<p>If <code class="docutils literal notranslate"><span class="pre">auxfile</span></code> is given, then load the dataset from the given HDF5 file, which must be
+layed out the same way as the main HDF5 file (e.g. iterations arranged as
+iterations/iter_*).</p>
+<p>If index_ds is given, instead of reading data per-iteration from iter_* groups, then the
+given index_ds is used as an index of n_iter,seg_id pairs into <code class="docutils literal notranslate"><span class="pre">dsname</span></code>. In this case,
+the target data set need not exist on a per-iteration basis inside iter_* groups.</p>
+<p>If <code class="docutils literal notranslate"><span class="pre">slice_</span></code> is given, then <em>further</em> slice the data returned from the HDF5 dataset. This can
+minimize I/O if it is known (and specified) that only a subset of the data along the
+trajectory is needed.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="westpa.cli.tools.w_trace.WTraceTool">
+<em class="property">class </em><code class="sig-prename descclassname">westpa.cli.tools.w_trace.</code><code class="sig-name descname">WTraceTool</code><a class="headerlink" href="#westpa.cli.tools.w_trace.WTraceTool" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="../tools/westpa.tools.html#westpa.tools.core.WESTTool" title="westpa.tools.core.WESTTool"><code class="xref py py-class docutils literal notranslate"><span class="pre">westpa.tools.core.WESTTool</span></code></a></p>
+<dl class="py attribute">
+<dt id="westpa.cli.tools.w_trace.WTraceTool.prog">
+<code class="sig-name descname">prog</code><em class="property"> = 'w_trace'</em><a class="headerlink" href="#westpa.cli.tools.w_trace.WTraceTool.prog" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="westpa.cli.tools.w_trace.WTraceTool.description">
+<code class="sig-name descname">description</code><em class="property"> = 'Trace individual WEST trajectories and emit (or calculate) quantities along the\ntrajectory.\n\nTrajectories are specified as N_ITER:SEG_ID pairs. Each segment is traced back\nto its initial point, and then various quantities (notably n_iter and seg_id)\nare printed in order from initial point up until the given segment in the given\niteration.\n\nOutput is stored in several files, all named according to the pattern given by\nthe -o/--output-pattern parameter. The default output pattern is &quot;traj_%d_%d&quot;,\nwhere the printf-style format codes are replaced by the iteration number and\nsegment ID of the terminal segment of the trajectory being traced.\n\nIndividual datasets can be selected for writing using the -d/--dataset option\n(which may be specified more than once). The simplest form is ``-d dsname``,\nwhich causes data from dataset ``dsname`` along the trace to be stored to\nHDF5.  The dataset is assumed to be stored on a per-iteration basis, with\nthe first dimension corresponding to seg_id and the second dimension\ncorresponding to time within the segment.  Further options are specified\nas comma-separated key=value pairs after the data set name, as in\n\n    -d dsname,alias=newname,index=idsname,file=otherfile.h5,slice=[100,...]\n\nThe following options for datasets are supported:\n\n    alias=newname\n        When writing this data to HDF5 or text files, use ``newname``\n        instead of ``dsname`` to identify the dataset. This is mostly of\n        use in conjunction with the ``slice`` option in order, e.g., to\n        retrieve two different slices of a dataset and store then with\n        different names for future use.\n\n    index=idsname\n        The dataset is not stored on a per-iteration basis for all\n        segments, but instead is stored as a single dataset whose\n        first dimension indexes n_iter/seg_id pairs. The index to\n        these n_iter/seg_id pairs is ``idsname``.\n\n    file=otherfile.h5\n        Instead of reading data from the main WEST HDF5 file (usually\n        ``west.h5``), read data from ``otherfile.h5``.\n\n    slice=[100,...]\n        Retrieve only the given slice from the dataset. This can be\n        used to pick a subset of interest to minimize I/O.\n\n-------------------------------------------------------------------------------\n'</em><a class="headerlink" href="#westpa.cli.tools.w_trace.WTraceTool.description" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="westpa.cli.tools.w_trace.WTraceTool.pcoord_formats">
+<code class="sig-name descname">pcoord_formats</code><em class="property"> = {'f4': '%14.7g', 'f8': '%023.15g', 'i2': '%6d', 'i4': '%11d', 'i8': '%20d', 'u2': '%5d', 'u4': '%10d', 'u8': '%20d'}</em><a class="headerlink" href="#westpa.cli.tools.w_trace.WTraceTool.pcoord_formats" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="westpa.cli.tools.w_trace.WTraceTool.add_args">
+<code class="sig-name descname">add_args</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">parser</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.cli.tools.w_trace.WTraceTool.add_args" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add arguments specific to this tool to the given argparse parser.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="westpa.cli.tools.w_trace.WTraceTool.process_args">
+<code class="sig-name descname">process_args</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">args</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.cli.tools.w_trace.WTraceTool.process_args" title="Permalink to this definition">¶</a></dt>
+<dd><p>Take argparse-processed arguments associated with this tool and deal
+with them appropriately (setting instance variables, etc)</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="westpa.cli.tools.w_trace.WTraceTool.parse_dataset_string">
+<code class="sig-name descname">parse_dataset_string</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">dsstr</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.cli.tools.w_trace.WTraceTool.parse_dataset_string" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="westpa.cli.tools.w_trace.WTraceTool.go">
+<code class="sig-name descname">go</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#westpa.cli.tools.w_trace.WTraceTool.go" title="Permalink to this definition">¶</a></dt>
+<dd><p>Perform the analysis associated with this tool.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="westpa.cli.tools.w_trace.WTraceTool.emit_trace_h5">
+<code class="sig-name descname">emit_trace_h5</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">trace</span></em>, <em class="sig-param"><span class="n">output_group</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.cli.tools.w_trace.WTraceTool.emit_trace_h5" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="westpa.cli.tools.w_trace.WTraceTool.emit_trace_text">
+<code class="sig-name descname">emit_trace_text</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">trace</span></em>, <em class="sig-param"><span class="n">output_file</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.cli.tools.w_trace.WTraceTool.emit_trace_text" title="Permalink to this definition">¶</a></dt>
+<dd><p>Dump summary information about each segment in the given trace to the given output_file,
+which must be opened for writing in text mode.  Output columns are separated by at least
+one space.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt id="westpa.cli.tools.w_trace.entry_point">
+<code class="sig-prename descclassname">westpa.cli.tools.w_trace.</code><code class="sig-name descname">entry_point</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#westpa.cli.tools.w_trace.entry_point" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 </div>
 </div>
 
@@ -332,37 +446,29 @@ slice=[100,...]
            
           </div>
           <footer>
-  
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-      
-        <a href="w_fluxanl.html" class="btn btn-neutral float-right" title="w_fluxanl" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
-      
-      
-        <a href="w_assign.html" class="btn btn-neutral float-left" title="w_assign" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
-      
+        <a href="w_fluxanl.html" class="btn btn-neutral float-right" title="w_fluxanl" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="w_assign.html" class="btn btn-neutral float-left" title="w_assign" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
     </div>
-  
 
   <hr/>
 
   <div role="contentinfo">
     <p>
-        
-        &copy; Copyright 2021, Matthew C. Zwier and Lillian T. Chong
+        &#169; Copyright 2021, Matthew C. Zwier and Lillian T. Chong.
 
     </p>
   </div>
     
     
     
-    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
     
-    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
     
     provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
-
         </div>
       </div>
 

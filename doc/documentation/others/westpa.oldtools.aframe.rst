@@ -1,8 +1,13 @@
 westpa.oldtools.aframe package
 ==============================
 
-Submodules
-----------
+westpa.oldtools.aframe
+----------------------
+
+.. automodule:: westpa.oldtools.aframe
+   :members:
+   :undoc-members:
+   :show-inheritance:
 
 westpa.oldtools.aframe.atool module
 -----------------------------------
@@ -92,10 +97,4 @@ westpa.oldtools.aframe.transitions module
    :undoc-members:
    :show-inheritance:
 
-Module contents
----------------
 
-.. automodule:: westpa.oldtools.aframe
-   :members:
-   :undoc-members:
-   :show-inheritance:

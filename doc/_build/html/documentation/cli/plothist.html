@@ -3,9 +3,9 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8">
+  <meta charset="utf-8" />
   
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
   <title>plothist &mdash; WESTPA 2.0 documentation</title>
   
@@ -17,7 +17,10 @@
 
   
   
+
   
+  
+
   
 
   
@@ -51,7 +54,7 @@
           
 
           
-            <a href="../../sphinx_index.html" class="icon icon-home" alt="Documentation Home"> WESTPA
+            <a href="../../sphinx_index.html" class="icon icon-home"> WESTPA
           
 
           
@@ -132,7 +135,7 @@
 <li class="toctree-l4"><a class="reference internal" href="#specifying-progress-coordinate">Specifying progress coordinate</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#westpa-cli-tools-plothist-module">westpa.cli.tools.plothist module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-westpa.cli.tools.plothist">westpa.cli.tools.plothist module</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="ploterr.html"> ploterr</a></li>
@@ -142,10 +145,10 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../core.html"> WESTPA Core</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../work_managers/westpa.work_managers.html"> WESTPA Work Manager</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../work_managers.html"> WESTPA Work Manager</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../tools/westpa.tools.html"> WESTPA Tools</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../others.html"> WESTPA Other Components</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../ext/westpa.westext.html"> WESTPA Extentions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ext.html"> WESTPA Extentions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../hdf5.html"> HDF5 file structure</a></li>
 </ul>
 <p class="caption"><span class="caption-text">For Developers:</span></p>
@@ -207,6 +210,8 @@
 
 
 
+
+
 <div role="navigation" aria-label="breadcrumbs navigation">
 
   <ul class="wy-breadcrumbs">
@@ -220,7 +225,7 @@
     
       <li class="wy-breadcrumbs-aside">
         
-            
+          
             <a href="../../_sources/documentation/cli/plothist.rst.txt" rel="nofollow"> View page source</a>
           
         
@@ -453,8 +458,236 @@ two progress coordinates as a heatmap</p>
 <p><code class="docutils literal notranslate"><span class="pre">plothist instant pcpdist.h5 0 1 --iter 5 --linear</span></code></p>
 </div>
 </div>
-<div class="section" id="westpa-cli-tools-plothist-module">
-<h2>westpa.cli.tools.plothist module<a class="headerlink" href="#westpa-cli-tools-plothist-module" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="module-westpa.cli.tools.plothist">
+<span id="westpa-cli-tools-plothist-module"></span><h2>westpa.cli.tools.plothist module<a class="headerlink" href="#module-westpa.cli.tools.plothist" title="Permalink to this headline">¶</a></h2>
+<dl class="py function">
+<dt id="westpa.cli.tools.plothist.sum_except_along">
+<code class="sig-prename descclassname">westpa.cli.tools.plothist.</code><code class="sig-name descname">sum_except_along</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">array</span></em>, <em class="sig-param"><span class="n">axes</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.cli.tools.plothist.sum_except_along" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reduce the given array by addition over all axes except those listed in the scalar or
+iterable <code class="docutils literal notranslate"><span class="pre">axes</span></code></p>
+</dd></dl>
+
+<dl class="py class">
+<dt id="westpa.cli.tools.plothist.PlotHistBase">
+<em class="property">class </em><code class="sig-prename descclassname">westpa.cli.tools.plothist.</code><code class="sig-name descname">PlotHistBase</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">parent</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.cli.tools.plothist.PlotHistBase" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="../tools/westpa.tools.html#westpa.tools.core.WESTSubcommand" title="westpa.tools.core.WESTSubcommand"><code class="xref py py-class docutils literal notranslate"><span class="pre">westpa.tools.core.WESTSubcommand</span></code></a></p>
+<dl class="py method">
+<dt id="westpa.cli.tools.plothist.PlotHistBase.add_args">
+<code class="sig-name descname">add_args</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">parser</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.cli.tools.plothist.PlotHistBase.add_args" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add arguments specific to this component to the given argparse parser.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="westpa.cli.tools.plothist.PlotHistBase.process_args">
+<code class="sig-name descname">process_args</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">args</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.cli.tools.plothist.PlotHistBase.process_args" title="Permalink to this definition">¶</a></dt>
+<dd><p>Take argparse-processed arguments associated with this component and deal
+with them appropriately (setting instance variables, etc)</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="westpa.cli.tools.plothist.PlotHistBase.parse_dimspec">
+<code class="sig-name descname">parse_dimspec</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">dimspec</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.cli.tools.plothist.PlotHistBase.parse_dimspec" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="westpa.cli.tools.plothist.PlotHistBase.parse_range">
+<code class="sig-name descname">parse_range</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">rangespec</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.cli.tools.plothist.PlotHistBase.parse_range" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="westpa.cli.tools.plothist.PlotSupports2D">
+<em class="property">class </em><code class="sig-prename descclassname">westpa.cli.tools.plothist.</code><code class="sig-name descname">PlotSupports2D</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">parent</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.cli.tools.plothist.PlotSupports2D" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#westpa.cli.tools.plothist.PlotHistBase" title="westpa.cli.tools.plothist.PlotHistBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">westpa.cli.tools.plothist.PlotHistBase</span></code></a></p>
+<dl class="py method">
+<dt id="westpa.cli.tools.plothist.PlotSupports2D.add_args">
+<code class="sig-name descname">add_args</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">parser</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.cli.tools.plothist.PlotSupports2D.add_args" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add arguments specific to this component to the given argparse parser.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="westpa.cli.tools.plothist.PlotSupports2D.process_args">
+<code class="sig-name descname">process_args</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">args</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.cli.tools.plothist.PlotSupports2D.process_args" title="Permalink to this definition">¶</a></dt>
+<dd><p>Take argparse-processed arguments associated with this component and deal
+with them appropriately (setting instance variables, etc)</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="westpa.cli.tools.plothist.InstantPlotHist">
+<em class="property">class </em><code class="sig-prename descclassname">westpa.cli.tools.plothist.</code><code class="sig-name descname">InstantPlotHist</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">parent</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.cli.tools.plothist.InstantPlotHist" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#westpa.cli.tools.plothist.PlotSupports2D" title="westpa.cli.tools.plothist.PlotSupports2D"><code class="xref py py-class docutils literal notranslate"><span class="pre">westpa.cli.tools.plothist.PlotSupports2D</span></code></a></p>
+<dl class="py attribute">
+<dt id="westpa.cli.tools.plothist.InstantPlotHist.subcommand">
+<code class="sig-name descname">subcommand</code><em class="property"> = 'instant'</em><a class="headerlink" href="#westpa.cli.tools.plothist.InstantPlotHist.subcommand" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="westpa.cli.tools.plothist.InstantPlotHist.help_text">
+<code class="sig-name descname">help_text</code><em class="property"> = 'plot probability distribution for a single WE iteration'</em><a class="headerlink" href="#westpa.cli.tools.plothist.InstantPlotHist.help_text" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="westpa.cli.tools.plothist.InstantPlotHist.description">
+<code class="sig-name descname">description</code><em class="property"> = 'Plot a probability distribution for a single WE iteration. The probability\ndistribution must have been previously extracted with ``w_pdist`` (or, at\nleast, must be compatible with the output format of ``w_pdist``; see\n``w_pdist --help`` for more information).\n'</em><a class="headerlink" href="#westpa.cli.tools.plothist.InstantPlotHist.description" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="westpa.cli.tools.plothist.InstantPlotHist.add_args">
+<code class="sig-name descname">add_args</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">parser</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.cli.tools.plothist.InstantPlotHist.add_args" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add arguments specific to this component to the given argparse parser.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="westpa.cli.tools.plothist.InstantPlotHist.process_args">
+<code class="sig-name descname">process_args</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">args</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.cli.tools.plothist.InstantPlotHist.process_args" title="Permalink to this definition">¶</a></dt>
+<dd><p>Take argparse-processed arguments associated with this component and deal
+with them appropriately (setting instance variables, etc)</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="westpa.cli.tools.plothist.InstantPlotHist.do_instant_plot_1d">
+<code class="sig-name descname">do_instant_plot_1d</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#westpa.cli.tools.plothist.InstantPlotHist.do_instant_plot_1d" title="Permalink to this definition">¶</a></dt>
+<dd><p>Plot the histogram for iteration self.n_iter</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="westpa.cli.tools.plothist.InstantPlotHist.do_instant_plot_2d">
+<code class="sig-name descname">do_instant_plot_2d</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#westpa.cli.tools.plothist.InstantPlotHist.do_instant_plot_2d" title="Permalink to this definition">¶</a></dt>
+<dd><p>Plot the histogram for iteration self.n_iter</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="westpa.cli.tools.plothist.InstantPlotHist.go">
+<code class="sig-name descname">go</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#westpa.cli.tools.plothist.InstantPlotHist.go" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="westpa.cli.tools.plothist.AveragePlotHist">
+<em class="property">class </em><code class="sig-prename descclassname">westpa.cli.tools.plothist.</code><code class="sig-name descname">AveragePlotHist</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">parent</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.cli.tools.plothist.AveragePlotHist" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#westpa.cli.tools.plothist.PlotSupports2D" title="westpa.cli.tools.plothist.PlotSupports2D"><code class="xref py py-class docutils literal notranslate"><span class="pre">westpa.cli.tools.plothist.PlotSupports2D</span></code></a></p>
+<dl class="py attribute">
+<dt id="westpa.cli.tools.plothist.AveragePlotHist.subcommand">
+<code class="sig-name descname">subcommand</code><em class="property"> = 'average'</em><a class="headerlink" href="#westpa.cli.tools.plothist.AveragePlotHist.subcommand" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="westpa.cli.tools.plothist.AveragePlotHist.help_text">
+<code class="sig-name descname">help_text</code><em class="property"> = 'plot average of a probability distribution over a WE simulation'</em><a class="headerlink" href="#westpa.cli.tools.plothist.AveragePlotHist.help_text" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="westpa.cli.tools.plothist.AveragePlotHist.description">
+<code class="sig-name descname">description</code><em class="property"> = 'Plot a probability distribution averaged over multiple iterations. The\nprobability distribution must have been previously extracted with ``w_pdist``\n(or, at least, must be compatible with the output format of ``w_pdist``; see\n``w_pdist --help`` for more information).\n'</em><a class="headerlink" href="#westpa.cli.tools.plothist.AveragePlotHist.description" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="westpa.cli.tools.plothist.AveragePlotHist.add_args">
+<code class="sig-name descname">add_args</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">parser</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.cli.tools.plothist.AveragePlotHist.add_args" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add arguments specific to this component to the given argparse parser.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="westpa.cli.tools.plothist.AveragePlotHist.process_args">
+<code class="sig-name descname">process_args</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">args</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.cli.tools.plothist.AveragePlotHist.process_args" title="Permalink to this definition">¶</a></dt>
+<dd><p>Take argparse-processed arguments associated with this component and deal
+with them appropriately (setting instance variables, etc)</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="westpa.cli.tools.plothist.AveragePlotHist.do_average_plot_1d">
+<code class="sig-name descname">do_average_plot_1d</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#westpa.cli.tools.plothist.AveragePlotHist.do_average_plot_1d" title="Permalink to this definition">¶</a></dt>
+<dd><p>Plot the average histogram for iterations self.iter_start to self.iter_stop</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="westpa.cli.tools.plothist.AveragePlotHist.do_average_plot_2d">
+<code class="sig-name descname">do_average_plot_2d</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#westpa.cli.tools.plothist.AveragePlotHist.do_average_plot_2d" title="Permalink to this definition">¶</a></dt>
+<dd><p>Plot the histogram for iteration self.n_iter</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="westpa.cli.tools.plothist.AveragePlotHist.go">
+<code class="sig-name descname">go</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#westpa.cli.tools.plothist.AveragePlotHist.go" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="westpa.cli.tools.plothist.EvolutionPlotHist">
+<em class="property">class </em><code class="sig-prename descclassname">westpa.cli.tools.plothist.</code><code class="sig-name descname">EvolutionPlotHist</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">parent</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.cli.tools.plothist.EvolutionPlotHist" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#westpa.cli.tools.plothist.PlotHistBase" title="westpa.cli.tools.plothist.PlotHistBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">westpa.cli.tools.plothist.PlotHistBase</span></code></a></p>
+<dl class="py attribute">
+<dt id="westpa.cli.tools.plothist.EvolutionPlotHist.subcommand">
+<code class="sig-name descname">subcommand</code><em class="property"> = 'evolution'</em><a class="headerlink" href="#westpa.cli.tools.plothist.EvolutionPlotHist.subcommand" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="westpa.cli.tools.plothist.EvolutionPlotHist.help_text">
+<code class="sig-name descname">help_text</code><em class="property"> = 'plot evolution of a probability distribution over the course of a WE simulation'</em><a class="headerlink" href="#westpa.cli.tools.plothist.EvolutionPlotHist.help_text" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="westpa.cli.tools.plothist.EvolutionPlotHist.description">
+<code class="sig-name descname">description</code><em class="property"> = 'Plot a probability distribution as it evolves over iterations. The\nprobability distribution must have been previously extracted with ``w_pdist``\n(or, at least, must be compatible with the output format of ``w_pdist``; see\n``w_pdist --help`` for more information).\n'</em><a class="headerlink" href="#westpa.cli.tools.plothist.EvolutionPlotHist.description" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="westpa.cli.tools.plothist.EvolutionPlotHist.add_args">
+<code class="sig-name descname">add_args</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">parser</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.cli.tools.plothist.EvolutionPlotHist.add_args" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add arguments specific to this component to the given argparse parser.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="westpa.cli.tools.plothist.EvolutionPlotHist.process_args">
+<code class="sig-name descname">process_args</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">args</span></em><span class="sig-paren">)</span><a class="headerlink" href="#westpa.cli.tools.plothist.EvolutionPlotHist.process_args" title="Permalink to this definition">¶</a></dt>
+<dd><p>Take argparse-processed arguments associated with this component and deal
+with them appropriately (setting instance variables, etc)</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="westpa.cli.tools.plothist.EvolutionPlotHist.go">
+<code class="sig-name descname">go</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#westpa.cli.tools.plothist.EvolutionPlotHist.go" title="Permalink to this definition">¶</a></dt>
+<dd><p>Plot the evolution of the histogram for iterations self.iter_start to self.iter_stop</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="westpa.cli.tools.plothist.PlotHistTool">
+<em class="property">class </em><code class="sig-prename descclassname">westpa.cli.tools.plothist.</code><code class="sig-name descname">PlotHistTool</code><a class="headerlink" href="#westpa.cli.tools.plothist.PlotHistTool" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="../tools/westpa.tools.html#westpa.tools.core.WESTMasterCommand" title="westpa.tools.core.WESTMasterCommand"><code class="xref py py-class docutils literal notranslate"><span class="pre">westpa.tools.core.WESTMasterCommand</span></code></a></p>
+<dl class="py attribute">
+<dt id="westpa.cli.tools.plothist.PlotHistTool.prog">
+<code class="sig-name descname">prog</code><em class="property"> = 'plothist'</em><a class="headerlink" href="#westpa.cli.tools.plothist.PlotHistTool.prog" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="westpa.cli.tools.plothist.PlotHistTool.subparsers_title">
+<code class="sig-name descname">subparsers_title</code><em class="property"> = 'plotting modes'</em><a class="headerlink" href="#westpa.cli.tools.plothist.PlotHistTool.subparsers_title" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="westpa.cli.tools.plothist.PlotHistTool.subcommands">
+<code class="sig-name descname">subcommands</code><em class="property"> = [&lt;class 'westpa.cli.tools.plothist.InstantPlotHist'&gt;, &lt;class 'westpa.cli.tools.plothist.AveragePlotHist'&gt;, &lt;class 'westpa.cli.tools.plothist.EvolutionPlotHist'&gt;]</em><a class="headerlink" href="#westpa.cli.tools.plothist.PlotHistTool.subcommands" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="westpa.cli.tools.plothist.PlotHistTool.description">
+<code class="sig-name descname">description</code><em class="property"> = 'Plot probability density functions (histograms) generated by w_pdist or other\nprograms conforming to the same output format. This program operates in one of\nthree modes:\n\n  instant\n    Plot 1-D and 2-D histograms for an individual iteration. See\n    ``plothist instant --help`` for more information.\n\n  average\n    Plot 1-D and 2-D histograms, averaged over several iterations. See\n    ``plothist average --help`` for more information.\n\n  evolution\n    Plot the time evolution 1-D histograms as waterfall (heat map) plots.\n    See ``plothist evolution --help`` for more information.\n\nThis program takes the output of ``w_pdist`` as input (see ``w_pdist --help``\nfor more information), and can generate any kind of graphical output that\nmatplotlib supports.\n\n\n------------------------------------------------------------------------------\nCommand-line options\n------------------------------------------------------------------------------\n'</em><a class="headerlink" href="#westpa.cli.tools.plothist.PlotHistTool.description" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt id="westpa.cli.tools.plothist.entry_point">
+<code class="sig-prename descclassname">westpa.cli.tools.plothist.</code><code class="sig-name descname">entry_point</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#westpa.cli.tools.plothist.entry_point" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 </div>
 </div>
 
@@ -463,37 +696,29 @@ two progress coordinates as a heatmap</p>
            
           </div>
           <footer>
-  
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-      
-        <a href="ploterr.html" class="btn btn-neutral float-right" title="ploterr" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
-      
-      
-        <a href="w_reweight.html" class="btn btn-neutral float-left" title="w_reweight" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
-      
+        <a href="ploterr.html" class="btn btn-neutral float-right" title="ploterr" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="w_reweight.html" class="btn btn-neutral float-left" title="w_reweight" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
     </div>
-  
 
   <hr/>
 
   <div role="contentinfo">
     <p>
-        
-        &copy; Copyright 2021, Matthew C. Zwier and Lillian T. Chong
+        &#169; Copyright 2021, Matthew C. Zwier and Lillian T. Chong.
 
     </p>
   </div>
     
     
     
-    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
     
-    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
     
     provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
-
         </div>
       </div>
 
