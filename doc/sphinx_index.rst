@@ -1,12 +1,9 @@
 .. include:: readme_sphinx.rst
 
--------------------
-Advanced References
--------------------
-
 .. toctree::
    :maxdepth: 5
    :caption: For Advanced Users (2.0):
+   :hidden:
 
     WESTPA Command Line Interface     <documentation/cli>
     WESTPA Core                       <documentation/core>
@@ -16,13 +13,11 @@ Advanced References
     WESTPA Extentions                 <documentation/ext>
     HDF5 file structure               <documentation/hdf5>
 
---------------
-For Developers
---------------
 
 .. toctree::
    :maxdepth: 1
    :caption: For Developers:
+   :hidden:
 
     Overview                           <development/overview>
     Code and documentation style guide <development/style_guide>
@@ -30,12 +25,11 @@ For Developers
     Building the documentation         <development/documentation>
     API                                <development/api>
 
---------------
-1.0 References
---------------
+
 .. toctree::
    :maxdepth: 1
    :caption: For Legacy Users (1.0):
+   :hidden:
 
     WEST                      <users_guide/west>
     WEST tools                <users_guide/west_tools>

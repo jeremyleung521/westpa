@@ -7,9 +7,4 @@ westpa.work\_managers package
    Default Work Managers        <work_managers/westpa.work_managers>
    ZeroMQ                       <work_managers/westpa.work_managers.zeromq>
 
-westpa.work\_managers module
-----------------------------
 
-.. automodule:: westpa.work_managers
-   :members:
-   :undoc-members:

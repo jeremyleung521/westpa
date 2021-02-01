@@ -1,9 +1,0 @@
-WESTPA
-====
-
-.. toctree::
-   :maxdepth: 2
-
-    Setup    <westpa/setup>
-    Running  <westpa/running>
-    Analysis <westpa/analysis>
