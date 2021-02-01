@@ -20,7 +20,8 @@ optional arguments::
 
   -h, --help            show this help message and exit
 
-input options:
+input options::
+
   input                 HDF5 file containing histogram data
   DIMENSION             Plot for the given DIMENSION, specified as INT[:[LB,UB]:LABEL], where INT is a
                         zero-based integer identifying the dimension in the histogram, LB and UB are
