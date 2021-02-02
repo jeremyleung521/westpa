@@ -15,22 +15,18 @@ westpa.cli package
    :maxdepth: 1
    :caption: Analyzing a simulation:
 
-    w_assign                 <cli/w_assign>
-    w_trace                  <cli/w_trace>
-    w_fluxanl                <cli/w_fluxanl>
-    w_ipa                    <cli/w_ipa>
-    w_pdist                  <cli/w_pdist>
-    w_succ                   <cli/w_succ>
-    w_crawl                  <cli/w_crawl>
-    w_direct                 <cli/w_direct>
-    w_select                 <cli/w_select>
-    w_states                 <cli/w_states>
-    w_eddist                 <cli/w_eddist>
-    w_ntop                   <cli/w_ntop>
-    w_dumpsegs               <cli/w_dumpsegs>
-    w_postanalysis_matrix    <cli/w_postanalysis_matrix>
-    w_postanalysis_reweight  <cli/w_postanalysis_reweight>
-    w_reweight               <cli/w_reweight>
+    w_assign     <cli/w_assign>
+    w_trace      <cli/w_trace>
+    w_fluxanl    <cli/w_fluxanl>
+    w_ipa        <cli/w_ipa>
+    w_pdist      <cli/w_pdist>
+    w_succ       <cli/w_succ>
+    w_crawl      <cli/w_crawl>
+    w_direct     <cli/w_direct>
+    w_select     <cli/w_select>
+    w_states     <cli/w_states>
+    w_eddist     <cli/w_eddist>
+    w_ntop       <cli/w_ntop>
 
 .. toctree::
    :maxdepth: 1
@@ -39,11 +35,10 @@ westpa.cli package
     plothist     <cli/plothist>
     ploterr      <cli/ploterr>
 
-
 .. toctree::
-   :maxdepth: 1
+   :maxdepth: 2
    :caption: Deprecated tools:
 
-    w_kinavg     <cli/w_kinavg>
-    w_kinetics   <cli/w_kinetics>
-    w_stateprobs <cli/w_stateprobs>
+    Deprecated Tools     <cli/deprecated>
+
+

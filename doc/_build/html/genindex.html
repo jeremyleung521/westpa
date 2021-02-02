@@ -97,7 +97,7 @@
 <li class="toctree-l1"><a class="reference internal" href="documentation/work_managers.html"> WESTPA Work Manager</a></li>
 <li class="toctree-l1"><a class="reference internal" href="documentation/tools/westpa.tools.html"> WESTPA Tools</a></li>
 <li class="toctree-l1"><a class="reference internal" href="documentation/others.html"> WESTPA Other Components</a></li>
-<li class="toctree-l1"><a class="reference internal" href="documentation/ext.html"> WESTPA Extentions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="documentation/ext.html"> WESTPA Extensions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="documentation/hdf5.html"> HDF5 file structure</a></li>
 </ul>
 <p class="caption"><span class="caption-text">For Developers:</span></p>
@@ -222,7 +222,7 @@
 </li>
       <li><a href="documentation/core/westpa.core.binning.html#westpa.core.binning.accumulate_state_populations_from_labeled">accumulate_state_populations_from_labeled() (in module westpa.core.binning)</a>
 </li>
-      <li><a href="documentation/cli/w_reweight.html#westpa.cli.tools.w_reweight.RWReweight.accumulate_statistics">accumulate_statistics() (westpa.cli.tools.w_reweight.RWReweight method)</a>
+      <li><a href="documentation/cli/deprecated/w_reweight.html#westpa.cli.tools.w_reweight.RWReweight.accumulate_statistics">accumulate_statistics() (westpa.cli.tools.w_reweight.RWReweight method)</a>
 </li>
       <li><a href="documentation/core/westpa.core.html#westpa.core.we_driver.AccuracyError">AccuracyError</a>
 </li>
@@ -267,7 +267,7 @@
 </li>
         <li><a href="documentation/cli/w_crawl.html#westpa.cli.tools.w_crawl.WCrawl.add_args">(westpa.cli.tools.w_crawl.WCrawl method)</a>
 </li>
-        <li><a href="documentation/cli/w_dumpsegs.html#westpa.cli.tools.w_dumpsegs.WDumpSegs.add_args">(westpa.cli.tools.w_dumpsegs.WDumpSegs method)</a>
+        <li><a href="documentation/cli/deprecated/w_dumpsegs.html#westpa.cli.tools.w_dumpsegs.WDumpSegs.add_args">(westpa.cli.tools.w_dumpsegs.WDumpSegs method)</a>
 </li>
         <li><a href="documentation/cli/w_eddist.html#westpa.cli.tools.w_eddist.WEDDist.add_args">(westpa.cli.tools.w_eddist.WEDDist method)</a>
 </li>
@@ -279,9 +279,9 @@
 </li>
         <li><a href="documentation/cli/w_pdist.html#westpa.cli.tools.w_pdist.WPDist.add_args">(westpa.cli.tools.w_pdist.WPDist method)</a>
 </li>
-        <li><a href="documentation/cli/w_reweight.html#westpa.cli.tools.w_reweight.RWMatrix.add_args">(westpa.cli.tools.w_reweight.RWMatrix method)</a>
+        <li><a href="documentation/cli/deprecated/w_reweight.html#westpa.cli.tools.w_reweight.RWMatrix.add_args">(westpa.cli.tools.w_reweight.RWMatrix method)</a>
 </li>
-        <li><a href="documentation/cli/w_reweight.html#westpa.cli.tools.w_reweight.RWReweight.add_args">(westpa.cli.tools.w_reweight.RWReweight method)</a>
+        <li><a href="documentation/cli/deprecated/w_reweight.html#westpa.cli.tools.w_reweight.RWReweight.add_args">(westpa.cli.tools.w_reweight.RWReweight method)</a>
 </li>
         <li><a href="documentation/cli/w_select.html#westpa.cli.tools.w_select.WSelectTool.add_args">(westpa.cli.tools.w_select.WSelectTool method)</a>
 </li>
@@ -444,11 +444,9 @@
 </li>
       <li><a href="documentation/work_managers/westpa.work_managers.html#westpa.work_managers.core.WorkManager.as_completed">as_completed() (westpa.work_managers.core.WorkManager method)</a>
 </li>
-      <li><a href="documentation/westpa.html#westpa.BasisState.as_numpy_record">as_numpy_record() (westpa.BasisState method)</a>
+      <li><a href="documentation/core/westpa.core.html#westpa.core.states.BasisState.as_numpy_record">as_numpy_record() (westpa.core.states.BasisState method)</a>
 
       <ul>
-        <li><a href="documentation/core/westpa.core.html#westpa.core.states.BasisState.as_numpy_record">(westpa.core.states.BasisState method)</a>
-</li>
         <li><a href="documentation/core/westpa.core.html#westpa.core.states.InitialState.as_numpy_record">(westpa.core.states.InitialState method)</a>
 </li>
       </ul></li>
@@ -516,12 +514,8 @@
 <h2 id="B">B</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="documentation/westpa.html#westpa.BasisState">BasisState (class in westpa)</a>
-
-      <ul>
-        <li><a href="documentation/core/westpa.core.html#westpa.core.states.BasisState">(class in westpa.core.states)</a>
+      <li><a href="documentation/core/westpa.core.html#westpa.core.states.BasisState">BasisState (class in westpa.core.states)</a>
 </li>
-      </ul></li>
       <li><a href="documentation/others/westpa.oldtools.aframe.html#westpa.oldtools.aframe.BFDataManager">BFDataManager (class in westpa.oldtools.aframe)</a>
 
       <ul>
@@ -552,8 +546,6 @@
 
       <ul>
         <li><a href="documentation/core/westpa.core.html#westpa.core.yamlcfg.YAMLSystem.bin_target_counts">(westpa.core.yamlcfg.YAMLSystem property)</a>
-</li>
-        <li><a href="documentation/westpa.html#westpa.WESTSystem.bin_target_counts">(westpa.WESTSystem property)</a>
 </li>
       </ul></li>
   </ul></td>
@@ -927,21 +919,21 @@
 </li>
         <li><a href="documentation/cli/w_direct.html#westpa.cli.tools.w_direct.DStateProbs.default_kinetics_file">(westpa.cli.tools.w_direct.DStateProbs attribute)</a>
 </li>
-        <li><a href="documentation/cli/w_kinavg.html#westpa.cli.tools.w_kinavg.WKinAvg.default_kinetics_file">(westpa.cli.tools.w_kinavg.WKinAvg attribute)</a>
+        <li><a href="documentation/cli/deprecated/w_kinavg.html#westpa.cli.tools.w_kinavg.WKinAvg.default_kinetics_file">(westpa.cli.tools.w_kinavg.WKinAvg attribute)</a>
 </li>
-        <li><a href="documentation/cli/w_postanalysis_reweight.html#westpa.cli.tools.w_postanalysis_reweight.PAAverage.default_kinetics_file">(westpa.cli.tools.w_postanalysis_reweight.PAAverage attribute)</a>
+        <li><a href="documentation/cli/deprecated/w_postanalysis_reweight.html#westpa.cli.tools.w_postanalysis_reweight.PAAverage.default_kinetics_file">(westpa.cli.tools.w_postanalysis_reweight.PAAverage attribute)</a>
 </li>
-        <li><a href="documentation/cli/w_reweight.html#westpa.cli.tools.w_reweight.RWAll.default_kinetics_file">(westpa.cli.tools.w_reweight.RWAll attribute)</a>
+        <li><a href="documentation/cli/deprecated/w_reweight.html#westpa.cli.tools.w_reweight.RWAll.default_kinetics_file">(westpa.cli.tools.w_reweight.RWAll attribute)</a>
 </li>
-        <li><a href="documentation/cli/w_reweight.html#westpa.cli.tools.w_reweight.RWAverage.default_kinetics_file">(westpa.cli.tools.w_reweight.RWAverage attribute)</a>
+        <li><a href="documentation/cli/deprecated/w_reweight.html#westpa.cli.tools.w_reweight.RWAverage.default_kinetics_file">(westpa.cli.tools.w_reweight.RWAverage attribute)</a>
 </li>
-        <li><a href="documentation/cli/w_reweight.html#westpa.cli.tools.w_reweight.RWMatrix.default_kinetics_file">(westpa.cli.tools.w_reweight.RWMatrix attribute)</a>
+        <li><a href="documentation/cli/deprecated/w_reweight.html#westpa.cli.tools.w_reweight.RWMatrix.default_kinetics_file">(westpa.cli.tools.w_reweight.RWMatrix attribute)</a>
 </li>
-        <li><a href="documentation/cli/w_reweight.html#westpa.cli.tools.w_reweight.RWRate.default_kinetics_file">(westpa.cli.tools.w_reweight.RWRate attribute)</a>
+        <li><a href="documentation/cli/deprecated/w_reweight.html#westpa.cli.tools.w_reweight.RWRate.default_kinetics_file">(westpa.cli.tools.w_reweight.RWRate attribute)</a>
 </li>
-        <li><a href="documentation/cli/w_reweight.html#westpa.cli.tools.w_reweight.RWStateProbs.default_kinetics_file">(westpa.cli.tools.w_reweight.RWStateProbs attribute)</a>
+        <li><a href="documentation/cli/deprecated/w_reweight.html#westpa.cli.tools.w_reweight.RWStateProbs.default_kinetics_file">(westpa.cli.tools.w_reweight.RWStateProbs attribute)</a>
 </li>
-        <li><a href="documentation/cli/w_stateprobs.html#westpa.cli.tools.w_stateprobs.WStateProbs.default_kinetics_file">(westpa.cli.tools.w_stateprobs.WStateProbs attribute)</a>
+        <li><a href="documentation/cli/deprecated/w_stateprobs.html#westpa.cli.tools.w_stateprobs.WStateProbs.default_kinetics_file">(westpa.cli.tools.w_stateprobs.WStateProbs attribute)</a>
 </li>
       </ul></li>
       <li><a href="documentation/work_managers/westpa.work_managers.zeromq.html#westpa.work_managers.zeromq.core.ZMQCore.default_master_heartbeat">default_master_heartbeat (westpa.work_managers.zeromq.core.ZMQCore attribute)</a>
@@ -953,23 +945,23 @@
       <li><a href="documentation/cli/w_direct.html#westpa.cli.tools.w_direct.DKinetics.default_output_file">default_output_file (westpa.cli.tools.w_direct.DKinetics attribute)</a>
 
       <ul>
-        <li><a href="documentation/cli/w_kinavg.html#westpa.cli.tools.w_kinavg.WKinAvg.default_output_file">(westpa.cli.tools.w_kinavg.WKinAvg attribute)</a>
+        <li><a href="documentation/cli/deprecated/w_kinavg.html#westpa.cli.tools.w_kinavg.WKinAvg.default_output_file">(westpa.cli.tools.w_kinavg.WKinAvg attribute)</a>
 </li>
-        <li><a href="documentation/cli/w_kinetics.html#westpa.cli.tools.w_kinetics.WKinetics.default_output_file">(westpa.cli.tools.w_kinetics.WKinetics attribute)</a>
+        <li><a href="documentation/cli/deprecated/w_kinetics.html#westpa.cli.tools.w_kinetics.WKinetics.default_output_file">(westpa.cli.tools.w_kinetics.WKinetics attribute)</a>
 </li>
-        <li><a href="documentation/cli/w_postanalysis_matrix.html#westpa.cli.tools.w_postanalysis_matrix.PAMatrix.default_output_file">(westpa.cli.tools.w_postanalysis_matrix.PAMatrix attribute)</a>
+        <li><a href="documentation/cli/deprecated/w_postanalysis_matrix.html#westpa.cli.tools.w_postanalysis_matrix.PAMatrix.default_output_file">(westpa.cli.tools.w_postanalysis_matrix.PAMatrix attribute)</a>
 </li>
-        <li><a href="documentation/cli/w_postanalysis_reweight.html#westpa.cli.tools.w_postanalysis_reweight.PAAverage.default_output_file">(westpa.cli.tools.w_postanalysis_reweight.PAAverage attribute)</a>
+        <li><a href="documentation/cli/deprecated/w_postanalysis_reweight.html#westpa.cli.tools.w_postanalysis_reweight.PAAverage.default_output_file">(westpa.cli.tools.w_postanalysis_reweight.PAAverage attribute)</a>
 </li>
-        <li><a href="documentation/cli/w_reweight.html#westpa.cli.tools.w_reweight.RWAll.default_output_file">(westpa.cli.tools.w_reweight.RWAll attribute)</a>
+        <li><a href="documentation/cli/deprecated/w_reweight.html#westpa.cli.tools.w_reweight.RWAll.default_output_file">(westpa.cli.tools.w_reweight.RWAll attribute)</a>
 </li>
-        <li><a href="documentation/cli/w_reweight.html#westpa.cli.tools.w_reweight.RWAverage.default_output_file">(westpa.cli.tools.w_reweight.RWAverage attribute)</a>
+        <li><a href="documentation/cli/deprecated/w_reweight.html#westpa.cli.tools.w_reweight.RWAverage.default_output_file">(westpa.cli.tools.w_reweight.RWAverage attribute)</a>
 </li>
-        <li><a href="documentation/cli/w_reweight.html#westpa.cli.tools.w_reweight.RWMatrix.default_output_file">(westpa.cli.tools.w_reweight.RWMatrix attribute)</a>
+        <li><a href="documentation/cli/deprecated/w_reweight.html#westpa.cli.tools.w_reweight.RWMatrix.default_output_file">(westpa.cli.tools.w_reweight.RWMatrix attribute)</a>
 </li>
-        <li><a href="documentation/cli/w_reweight.html#westpa.cli.tools.w_reweight.RWRate.default_output_file">(westpa.cli.tools.w_reweight.RWRate attribute)</a>
+        <li><a href="documentation/cli/deprecated/w_reweight.html#westpa.cli.tools.w_reweight.RWRate.default_output_file">(westpa.cli.tools.w_reweight.RWRate attribute)</a>
 </li>
-        <li><a href="documentation/cli/w_stateprobs.html#westpa.cli.tools.w_stateprobs.WStateProbs.default_output_file">(westpa.cli.tools.w_stateprobs.WStateProbs attribute)</a>
+        <li><a href="documentation/cli/deprecated/w_stateprobs.html#westpa.cli.tools.w_stateprobs.WStateProbs.default_output_file">(westpa.cli.tools.w_stateprobs.WStateProbs attribute)</a>
 </li>
         <li><a href="documentation/tools/westpa.tools.html#westpa.tools.kinetics_tool.AverageCommands.default_output_file">(westpa.tools.kinetics_tool.AverageCommands attribute)</a>
 </li>
@@ -1055,37 +1047,37 @@
 </li>
         <li><a href="documentation/cli/w_direct.html#westpa.cli.tools.w_direct.DStateProbs.description">(westpa.cli.tools.w_direct.DStateProbs attribute)</a>
 </li>
-        <li><a href="documentation/cli/w_dumpsegs.html#westpa.cli.tools.w_dumpsegs.WDumpSegs.description">(westpa.cli.tools.w_dumpsegs.WDumpSegs attribute)</a>
+        <li><a href="documentation/cli/deprecated/w_dumpsegs.html#westpa.cli.tools.w_dumpsegs.WDumpSegs.description">(westpa.cli.tools.w_dumpsegs.WDumpSegs attribute)</a>
 </li>
         <li><a href="documentation/cli/w_eddist.html#westpa.cli.tools.w_eddist.WEDDist.description">(westpa.cli.tools.w_eddist.WEDDist attribute)</a>
 </li>
         <li><a href="documentation/cli/w_fluxanl.html#westpa.cli.tools.w_fluxanl.WFluxanlTool.description">(westpa.cli.tools.w_fluxanl.WFluxanlTool attribute)</a>
 </li>
-        <li><a href="documentation/cli/w_kinavg.html#westpa.cli.tools.w_kinavg.WDirect.description">(westpa.cli.tools.w_kinavg.WDirect attribute)</a>
+        <li><a href="documentation/cli/deprecated/w_kinavg.html#westpa.cli.tools.w_kinavg.WDirect.description">(westpa.cli.tools.w_kinavg.WDirect attribute)</a>
 </li>
-        <li><a href="documentation/cli/w_kinetics.html#westpa.cli.tools.w_kinetics.WDirect.description">(westpa.cli.tools.w_kinetics.WDirect attribute)</a>
+        <li><a href="documentation/cli/deprecated/w_kinetics.html#westpa.cli.tools.w_kinetics.WDirect.description">(westpa.cli.tools.w_kinetics.WDirect attribute)</a>
 </li>
         <li><a href="documentation/cli/w_ntop.html#westpa.cli.tools.w_ntop.WNTopTool.description">(westpa.cli.tools.w_ntop.WNTopTool attribute)</a>
 </li>
         <li><a href="documentation/cli/w_pdist.html#westpa.cli.tools.w_pdist.WPDist.description">(westpa.cli.tools.w_pdist.WPDist attribute)</a>
 </li>
-        <li><a href="documentation/cli/w_postanalysis_matrix.html#westpa.cli.tools.w_postanalysis_matrix.WReweight.description">(westpa.cli.tools.w_postanalysis_matrix.WReweight attribute)</a>
+        <li><a href="documentation/cli/deprecated/w_postanalysis_matrix.html#westpa.cli.tools.w_postanalysis_matrix.WReweight.description">(westpa.cli.tools.w_postanalysis_matrix.WReweight attribute)</a>
 </li>
-        <li><a href="documentation/cli/w_postanalysis_reweight.html#westpa.cli.tools.w_postanalysis_reweight.WReweight.description">(westpa.cli.tools.w_postanalysis_reweight.WReweight attribute)</a>
+        <li><a href="documentation/cli/deprecated/w_postanalysis_reweight.html#westpa.cli.tools.w_postanalysis_reweight.WReweight.description">(westpa.cli.tools.w_postanalysis_reweight.WReweight attribute)</a>
 </li>
-        <li><a href="documentation/cli/w_reweight.html#westpa.cli.tools.w_reweight.RWAll.description">(westpa.cli.tools.w_reweight.RWAll attribute)</a>
+        <li><a href="documentation/cli/deprecated/w_reweight.html#westpa.cli.tools.w_reweight.RWAll.description">(westpa.cli.tools.w_reweight.RWAll attribute)</a>
 </li>
-        <li><a href="documentation/cli/w_reweight.html#westpa.cli.tools.w_reweight.RWAverage.description">(westpa.cli.tools.w_reweight.RWAverage attribute)</a>
+        <li><a href="documentation/cli/deprecated/w_reweight.html#westpa.cli.tools.w_reweight.RWAverage.description">(westpa.cli.tools.w_reweight.RWAverage attribute)</a>
 </li>
-        <li><a href="documentation/cli/w_reweight.html#westpa.cli.tools.w_reweight.RWMatrix.description">(westpa.cli.tools.w_reweight.RWMatrix attribute)</a>
+        <li><a href="documentation/cli/deprecated/w_reweight.html#westpa.cli.tools.w_reweight.RWMatrix.description">(westpa.cli.tools.w_reweight.RWMatrix attribute)</a>
 </li>
-        <li><a href="documentation/cli/w_reweight.html#westpa.cli.tools.w_reweight.RWRate.description">(westpa.cli.tools.w_reweight.RWRate attribute)</a>
+        <li><a href="documentation/cli/deprecated/w_reweight.html#westpa.cli.tools.w_reweight.RWRate.description">(westpa.cli.tools.w_reweight.RWRate attribute)</a>
 </li>
-        <li><a href="documentation/cli/w_reweight.html#westpa.cli.tools.w_reweight.RWStateProbs.description">(westpa.cli.tools.w_reweight.RWStateProbs attribute)</a>
+        <li><a href="documentation/cli/deprecated/w_reweight.html#westpa.cli.tools.w_reweight.RWStateProbs.description">(westpa.cli.tools.w_reweight.RWStateProbs attribute)</a>
 </li>
         <li><a href="documentation/cli/w_select.html#westpa.cli.tools.w_select.WSelectTool.description">(westpa.cli.tools.w_select.WSelectTool attribute)</a>
 </li>
-        <li><a href="documentation/cli/w_stateprobs.html#westpa.cli.tools.w_stateprobs.WDirect.description">(westpa.cli.tools.w_stateprobs.WDirect attribute)</a>
+        <li><a href="documentation/cli/deprecated/w_stateprobs.html#westpa.cli.tools.w_stateprobs.WDirect.description">(westpa.cli.tools.w_stateprobs.WDirect attribute)</a>
 </li>
         <li><a href="documentation/cli/w_trace.html#westpa.cli.tools.w_trace.WTraceTool.description">(westpa.cli.tools.w_trace.WTraceTool attribute)</a>
 </li>
@@ -1165,23 +1157,11 @@
       <li><a href="documentation/core/westpa.core.html#westpa.core.h5io.IterBlockedDataset.empty_like">empty_like() (westpa.core.h5io.IterBlockedDataset class method)</a>
 </li>
       <li><a href="documentation/core/westpa.core.html#westpa.core.segment.Segment.endpoint_type_names">endpoint_type_names (westpa.core.segment.Segment attribute)</a>
-
-      <ul>
-        <li><a href="documentation/westpa.html#westpa.Segment.endpoint_type_names">(westpa.Segment attribute)</a>
 </li>
-      </ul></li>
       <li><a href="documentation/core/westpa.core.html#westpa.core.segment.Segment.endpoint_type_text">endpoint_type_text() (westpa.core.segment.Segment property)</a>
-
-      <ul>
-        <li><a href="documentation/westpa.html#westpa.Segment.endpoint_type_text">(westpa.Segment property)</a>
 </li>
-      </ul></li>
       <li><a href="documentation/core/westpa.core.html#westpa.core.segment.Segment.endpoint_types">endpoint_types (westpa.core.segment.Segment attribute)</a>
-
-      <ul>
-        <li><a href="documentation/westpa.html#westpa.Segment.endpoint_types">(westpa.Segment attribute)</a>
 </li>
-      </ul></li>
       <li><a href="documentation/cli/w_init.html#westpa.cli.core.w_init.entry_point">entry_point() (in module westpa.cli.core.w_init)</a>
 
       <ul>
@@ -1205,7 +1185,7 @@
 </li>
         <li><a href="documentation/cli/w_direct.html#westpa.cli.tools.w_direct.entry_point">(in module westpa.cli.tools.w_direct)</a>
 </li>
-        <li><a href="documentation/cli/w_dumpsegs.html#westpa.cli.tools.w_dumpsegs.entry_point">(in module westpa.cli.tools.w_dumpsegs)</a>
+        <li><a href="documentation/cli/deprecated/w_dumpsegs.html#westpa.cli.tools.w_dumpsegs.entry_point">(in module westpa.cli.tools.w_dumpsegs)</a>
 </li>
         <li><a href="documentation/cli/w_eddist.html#westpa.cli.tools.w_eddist.entry_point">(in module westpa.cli.tools.w_eddist)</a>
 </li>
@@ -1213,23 +1193,23 @@
 </li>
         <li><a href="documentation/cli/w_ipa.html#westpa.cli.tools.w_ipa.entry_point">(in module westpa.cli.tools.w_ipa)</a>
 </li>
-        <li><a href="documentation/cli/w_kinavg.html#westpa.cli.tools.w_kinavg.entry_point">(in module westpa.cli.tools.w_kinavg)</a>
+        <li><a href="documentation/cli/deprecated/w_kinavg.html#westpa.cli.tools.w_kinavg.entry_point">(in module westpa.cli.tools.w_kinavg)</a>
 </li>
-        <li><a href="documentation/cli/w_kinetics.html#westpa.cli.tools.w_kinetics.entry_point">(in module westpa.cli.tools.w_kinetics)</a>
+        <li><a href="documentation/cli/deprecated/w_kinetics.html#westpa.cli.tools.w_kinetics.entry_point">(in module westpa.cli.tools.w_kinetics)</a>
 </li>
         <li><a href="documentation/cli/w_ntop.html#westpa.cli.tools.w_ntop.entry_point">(in module westpa.cli.tools.w_ntop)</a>
 </li>
         <li><a href="documentation/cli/w_pdist.html#westpa.cli.tools.w_pdist.entry_point">(in module westpa.cli.tools.w_pdist)</a>
 </li>
-        <li><a href="documentation/cli/w_postanalysis_matrix.html#westpa.cli.tools.w_postanalysis_matrix.entry_point">(in module westpa.cli.tools.w_postanalysis_matrix)</a>
+        <li><a href="documentation/cli/deprecated/w_postanalysis_matrix.html#westpa.cli.tools.w_postanalysis_matrix.entry_point">(in module westpa.cli.tools.w_postanalysis_matrix)</a>
 </li>
-        <li><a href="documentation/cli/w_postanalysis_reweight.html#westpa.cli.tools.w_postanalysis_reweight.entry_point">(in module westpa.cli.tools.w_postanalysis_reweight)</a>
+        <li><a href="documentation/cli/deprecated/w_postanalysis_reweight.html#westpa.cli.tools.w_postanalysis_reweight.entry_point">(in module westpa.cli.tools.w_postanalysis_reweight)</a>
 </li>
-        <li><a href="documentation/cli/w_reweight.html#westpa.cli.tools.w_reweight.entry_point">(in module westpa.cli.tools.w_reweight)</a>
+        <li><a href="documentation/cli/deprecated/w_reweight.html#westpa.cli.tools.w_reweight.entry_point">(in module westpa.cli.tools.w_reweight)</a>
 </li>
         <li><a href="documentation/cli/w_select.html#westpa.cli.tools.w_select.entry_point">(in module westpa.cli.tools.w_select)</a>
 </li>
-        <li><a href="documentation/cli/w_stateprobs.html#westpa.cli.tools.w_stateprobs.entry_point">(in module westpa.cli.tools.w_stateprobs)</a>
+        <li><a href="documentation/cli/deprecated/w_stateprobs.html#westpa.cli.tools.w_stateprobs.entry_point">(in module westpa.cli.tools.w_stateprobs)</a>
 </li>
         <li><a href="documentation/cli/w_trace.html#westpa.cli.tools.w_trace.entry_point">(in module westpa.cli.tools.w_trace)</a>
 </li>
@@ -1242,10 +1222,10 @@
 </li>
       <li><a href="documentation/core/westpa.core.propagators.html#westpa.core.propagators.executable.ExecutablePropagator.ENV_CURRENT_SEG_DATA_REF">ENV_CURRENT_SEG_DATA_REF (westpa.core.propagators.executable.ExecutablePropagator attribute)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="documentation/core/westpa.core.propagators.html#westpa.core.propagators.executable.ExecutablePropagator.ENV_CURRENT_SEG_ID">ENV_CURRENT_SEG_ID (westpa.core.propagators.executable.ExecutablePropagator attribute)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="documentation/core/westpa.core.propagators.html#westpa.core.propagators.executable.ExecutablePropagator.ENV_CURRENT_SEG_INITPOINT">ENV_CURRENT_SEG_INITPOINT (westpa.core.propagators.executable.ExecutablePropagator attribute)</a>
 </li>
       <li><a href="documentation/core/westpa.core.propagators.html#westpa.core.propagators.executable.ExecutablePropagator.ENV_ISTATE_DATA_REF">ENV_ISTATE_DATA_REF (westpa.core.propagators.executable.ExecutablePropagator attribute)</a>
@@ -1343,11 +1323,7 @@
       <li><a href="documentation/core/westpa.core.html#westpa.core.h5io.FileLinkedDSSpec">FileLinkedDSSpec (class in westpa.core.h5io)</a>
 </li>
       <li><a href="documentation/core/westpa.core.html#westpa.core.segment.Segment.final_pcoord">final_pcoord() (westpa.core.segment.Segment static method)</a>
-
-      <ul>
-        <li><a href="documentation/westpa.html#westpa.Segment.final_pcoord">(westpa.Segment static method)</a>
 </li>
-      </ul></li>
       <li><a href="documentation/cli/w_crawl.html#westpa.cli.tools.w_crawl.WESTPACrawler.finalize">finalize() (westpa.cli.tools.w_crawl.WESTPACrawler method)</a>
 </li>
       <li><a href="documentation/core/westpa.core.propagators.html#westpa.core.propagators.executable.ExecutablePropagator.finalize_iteration">finalize_iteration() (westpa.core.propagators.executable.ExecutablePropagator method)</a>
@@ -1366,8 +1342,6 @@
         <li><a href="documentation/core/westpa.core.html#westpa.core.systems.WESTSystem.finalize_run">(westpa.core.systems.WESTSystem method)</a>
 </li>
         <li><a href="documentation/core/westpa.core.html#westpa.core.yamlcfg.YAMLSystem.finalize_run">(westpa.core.yamlcfg.YAMLSystem method)</a>
-</li>
-        <li><a href="documentation/westpa.html#westpa.WESTSystem.finalize_run">(westpa.WESTSystem method)</a>
 </li>
       </ul></li>
       <li><a href="documentation/core/westpa.core.html#westpa.core.data_manager.WESTDataManager.find_bin_mapper">find_bin_mapper() (westpa.core.data_manager.WESTDataManager method)</a>
@@ -1398,10 +1372,10 @@
       </ul></li>
       <li><a href="documentation/core/westpa.core.html#westpa.core.data_manager.flushing_lock">flushing_lock (class in westpa.core.data_manager)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="documentation/core/westpa.core.html#westpa.core.data_manager.WESTDataManager.flushing_lock">flushing_lock() (westpa.core.data_manager.WESTDataManager method)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="documentation/cli/ploterr.html#westpa.cli.tools.ploterr.DirectKinetics.flux_output_filename">flux_output_filename (westpa.cli.tools.ploterr.DirectKinetics attribute)</a>
 
       <ul>
@@ -1480,7 +1454,7 @@
 </li>
       <li><a href="documentation/tools/westpa.tools.html#westpa.tools.kinetics_tool.generate_future">generate_future() (in module westpa.tools.kinetics_tool)</a>
 </li>
-      <li><a href="documentation/cli/w_reweight.html#westpa.cli.tools.w_reweight.RWReweight.generate_reweight_data">generate_reweight_data() (westpa.cli.tools.w_reweight.RWReweight method)</a>
+      <li><a href="documentation/cli/deprecated/w_reweight.html#westpa.cli.tools.w_reweight.RWReweight.generate_reweight_data">generate_reweight_data() (westpa.cli.tools.w_reweight.RWReweight method)</a>
 </li>
       <li><a href="documentation/cli/ploterr.html#westpa.cli.tools.ploterr.GenericIntervalSubcommand">GenericIntervalSubcommand (class in westpa.cli.tools.ploterr)</a>
 </li>
@@ -1799,7 +1773,7 @@
 </li>
         <li><a href="documentation/cli/w_direct.html#westpa.cli.tools.w_direct.DStateProbs.go">(westpa.cli.tools.w_direct.DStateProbs method)</a>
 </li>
-        <li><a href="documentation/cli/w_dumpsegs.html#westpa.cli.tools.w_dumpsegs.WDumpSegs.go">(westpa.cli.tools.w_dumpsegs.WDumpSegs method)</a>
+        <li><a href="documentation/cli/deprecated/w_dumpsegs.html#westpa.cli.tools.w_dumpsegs.WDumpSegs.go">(westpa.cli.tools.w_dumpsegs.WDumpSegs method)</a>
 </li>
         <li><a href="documentation/cli/w_eddist.html#westpa.cli.tools.w_eddist.WEDDist.go">(westpa.cli.tools.w_eddist.WEDDist method)</a>
 </li>
@@ -1811,15 +1785,15 @@
 </li>
         <li><a href="documentation/cli/w_pdist.html#westpa.cli.tools.w_pdist.WPDist.go">(westpa.cli.tools.w_pdist.WPDist method)</a>
 </li>
-        <li><a href="documentation/cli/w_reweight.html#westpa.cli.tools.w_reweight.RWAll.go">(westpa.cli.tools.w_reweight.RWAll method)</a>
+        <li><a href="documentation/cli/deprecated/w_reweight.html#westpa.cli.tools.w_reweight.RWAll.go">(westpa.cli.tools.w_reweight.RWAll method)</a>
 </li>
-        <li><a href="documentation/cli/w_reweight.html#westpa.cli.tools.w_reweight.RWAverage.go">(westpa.cli.tools.w_reweight.RWAverage method)</a>
+        <li><a href="documentation/cli/deprecated/w_reweight.html#westpa.cli.tools.w_reweight.RWAverage.go">(westpa.cli.tools.w_reweight.RWAverage method)</a>
 </li>
-        <li><a href="documentation/cli/w_reweight.html#westpa.cli.tools.w_reweight.RWMatrix.go">(westpa.cli.tools.w_reweight.RWMatrix method)</a>
+        <li><a href="documentation/cli/deprecated/w_reweight.html#westpa.cli.tools.w_reweight.RWMatrix.go">(westpa.cli.tools.w_reweight.RWMatrix method)</a>
 </li>
-        <li><a href="documentation/cli/w_reweight.html#westpa.cli.tools.w_reweight.RWRate.go">(westpa.cli.tools.w_reweight.RWRate method)</a>
+        <li><a href="documentation/cli/deprecated/w_reweight.html#westpa.cli.tools.w_reweight.RWRate.go">(westpa.cli.tools.w_reweight.RWRate method)</a>
 </li>
-        <li><a href="documentation/cli/w_reweight.html#westpa.cli.tools.w_reweight.RWStateProbs.go">(westpa.cli.tools.w_reweight.RWStateProbs method)</a>
+        <li><a href="documentation/cli/deprecated/w_reweight.html#westpa.cli.tools.w_reweight.RWStateProbs.go">(westpa.cli.tools.w_reweight.RWStateProbs method)</a>
 </li>
         <li><a href="documentation/cli/w_select.html#westpa.cli.tools.w_select.WSelectTool.go">(westpa.cli.tools.w_select.WSelectTool method)</a>
 </li>
@@ -1921,27 +1895,27 @@
 </li>
         <li><a href="documentation/cli/w_direct.html#westpa.cli.tools.w_direct.DStateProbs.help_text">(westpa.cli.tools.w_direct.DStateProbs attribute)</a>
 </li>
-        <li><a href="documentation/cli/w_kinavg.html#westpa.cli.tools.w_kinavg.WKinAvg.help_text">(westpa.cli.tools.w_kinavg.WKinAvg attribute)</a>
+        <li><a href="documentation/cli/deprecated/w_kinavg.html#westpa.cli.tools.w_kinavg.WKinAvg.help_text">(westpa.cli.tools.w_kinavg.WKinAvg attribute)</a>
 </li>
-        <li><a href="documentation/cli/w_kinetics.html#westpa.cli.tools.w_kinetics.WKinetics.help_text">(westpa.cli.tools.w_kinetics.WKinetics attribute)</a>
+        <li><a href="documentation/cli/deprecated/w_kinetics.html#westpa.cli.tools.w_kinetics.WKinetics.help_text">(westpa.cli.tools.w_kinetics.WKinetics attribute)</a>
 </li>
-        <li><a href="documentation/cli/w_postanalysis_matrix.html#westpa.cli.tools.w_postanalysis_matrix.PAMatrix.help_text">(westpa.cli.tools.w_postanalysis_matrix.PAMatrix attribute)</a>
+        <li><a href="documentation/cli/deprecated/w_postanalysis_matrix.html#westpa.cli.tools.w_postanalysis_matrix.PAMatrix.help_text">(westpa.cli.tools.w_postanalysis_matrix.PAMatrix attribute)</a>
 </li>
-        <li><a href="documentation/cli/w_postanalysis_reweight.html#westpa.cli.tools.w_postanalysis_reweight.PAAverage.help_text">(westpa.cli.tools.w_postanalysis_reweight.PAAverage attribute)</a>
+        <li><a href="documentation/cli/deprecated/w_postanalysis_reweight.html#westpa.cli.tools.w_postanalysis_reweight.PAAverage.help_text">(westpa.cli.tools.w_postanalysis_reweight.PAAverage attribute)</a>
 </li>
-        <li><a href="documentation/cli/w_reweight.html#westpa.cli.tools.w_reweight.RWAll.help_text">(westpa.cli.tools.w_reweight.RWAll attribute)</a>
+        <li><a href="documentation/cli/deprecated/w_reweight.html#westpa.cli.tools.w_reweight.RWAll.help_text">(westpa.cli.tools.w_reweight.RWAll attribute)</a>
 </li>
-        <li><a href="documentation/cli/w_reweight.html#westpa.cli.tools.w_reweight.RWAverage.help_text">(westpa.cli.tools.w_reweight.RWAverage attribute)</a>
+        <li><a href="documentation/cli/deprecated/w_reweight.html#westpa.cli.tools.w_reweight.RWAverage.help_text">(westpa.cli.tools.w_reweight.RWAverage attribute)</a>
 </li>
-        <li><a href="documentation/cli/w_reweight.html#westpa.cli.tools.w_reweight.RWMatrix.help_text">(westpa.cli.tools.w_reweight.RWMatrix attribute)</a>
+        <li><a href="documentation/cli/deprecated/w_reweight.html#westpa.cli.tools.w_reweight.RWMatrix.help_text">(westpa.cli.tools.w_reweight.RWMatrix attribute)</a>
 </li>
-        <li><a href="documentation/cli/w_reweight.html#westpa.cli.tools.w_reweight.RWRate.help_text">(westpa.cli.tools.w_reweight.RWRate attribute)</a>
+        <li><a href="documentation/cli/deprecated/w_reweight.html#westpa.cli.tools.w_reweight.RWRate.help_text">(westpa.cli.tools.w_reweight.RWRate attribute)</a>
 </li>
-        <li><a href="documentation/cli/w_reweight.html#westpa.cli.tools.w_reweight.RWReweight.help_text">(westpa.cli.tools.w_reweight.RWReweight attribute)</a>
+        <li><a href="documentation/cli/deprecated/w_reweight.html#westpa.cli.tools.w_reweight.RWReweight.help_text">(westpa.cli.tools.w_reweight.RWReweight attribute)</a>
 </li>
-        <li><a href="documentation/cli/w_reweight.html#westpa.cli.tools.w_reweight.RWStateProbs.help_text">(westpa.cli.tools.w_reweight.RWStateProbs attribute)</a>
+        <li><a href="documentation/cli/deprecated/w_reweight.html#westpa.cli.tools.w_reweight.RWStateProbs.help_text">(westpa.cli.tools.w_reweight.RWStateProbs attribute)</a>
 </li>
-        <li><a href="documentation/cli/w_stateprobs.html#westpa.cli.tools.w_stateprobs.WStateProbs.help_text">(westpa.cli.tools.w_stateprobs.WStateProbs attribute)</a>
+        <li><a href="documentation/cli/deprecated/w_stateprobs.html#westpa.cli.tools.w_stateprobs.WStateProbs.help_text">(westpa.cli.tools.w_stateprobs.WStateProbs attribute)</a>
 </li>
         <li><a href="documentation/tools/westpa.tools.html#westpa.tools.core.WESTSubcommand.help_text">(westpa.tools.core.WESTSubcommand attribute)</a>
 </li>
@@ -1987,17 +1961,9 @@
 </li>
       </ul></li>
       <li><a href="documentation/core/westpa.core.html#westpa.core.segment.Segment.initial_pcoord">initial_pcoord() (westpa.core.segment.Segment static method)</a>
-
-      <ul>
-        <li><a href="documentation/westpa.html#westpa.Segment.initial_pcoord">(westpa.Segment static method)</a>
 </li>
-      </ul></li>
       <li><a href="documentation/core/westpa.core.html#westpa.core.segment.Segment.initial_state_id">initial_state_id() (westpa.core.segment.Segment property)</a>
-
-      <ul>
-        <li><a href="documentation/westpa.html#westpa.Segment.initial_state_id">(westpa.Segment property)</a>
 </li>
-      </ul></li>
       <li><a href="documentation/cli/w_crawl.html#westpa.cli.tools.w_crawl.WESTPACrawler.initialize">initialize() (westpa.cli.tools.w_crawl.WESTPACrawler method)</a>
 
       <ul>
@@ -2005,31 +1971,17 @@
 </li>
         <li><a href="documentation/core/westpa.core.html#westpa.core.yamlcfg.YAMLSystem.initialize">(westpa.core.yamlcfg.YAMLSystem method)</a>
 </li>
-        <li><a href="documentation/westpa.html#westpa.WESTSystem.initialize">(westpa.WESTSystem method)</a>
-</li>
       </ul></li>
       <li><a href="documentation/core/westpa.core.html#westpa.core.sim_manager.WESimManager.initialize_simulation">initialize_simulation() (westpa.core.sim_manager.WESimManager method)</a>
 </li>
       <li><a href="documentation/core/westpa.core.html#westpa.core.states.InitialState">InitialState (class in westpa.core.states)</a>
 </li>
       <li><a href="documentation/core/westpa.core.html#westpa.core.segment.Segment.initpoint_type">initpoint_type() (westpa.core.segment.Segment property)</a>
-
-      <ul>
-        <li><a href="documentation/westpa.html#westpa.Segment.initpoint_type">(westpa.Segment property)</a>
 </li>
-      </ul></li>
       <li><a href="documentation/core/westpa.core.html#westpa.core.segment.Segment.initpoint_type_names">initpoint_type_names (westpa.core.segment.Segment attribute)</a>
-
-      <ul>
-        <li><a href="documentation/westpa.html#westpa.Segment.initpoint_type_names">(westpa.Segment attribute)</a>
 </li>
-      </ul></li>
       <li><a href="documentation/core/westpa.core.html#westpa.core.segment.Segment.initpoint_types">initpoint_types (westpa.core.segment.Segment attribute)</a>
-
-      <ul>
-        <li><a href="documentation/westpa.html#westpa.Segment.initpoint_types">(westpa.Segment attribute)</a>
 </li>
-      </ul></li>
       <li><a href="documentation/cli/ploterr.html#westpa.cli.tools.ploterr.DirectKinetics.input_filename">input_filename (westpa.cli.tools.ploterr.DirectKinetics attribute)</a>
 
       <ul>
@@ -2068,8 +2020,6 @@
       </ul></li>
       <li><a href="documentation/cli/w_ipa.html#westpa.cli.tools.w_ipa.WIPI.introduction">introduction() (westpa.cli.tools.w_ipa.WIPI property)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="documentation/core/westpa.core.html#westpa.core.sim_manager.WESimManager.invoke_callbacks">invoke_callbacks() (westpa.core.sim_manager.WESimManager method)</a>
 </li>
       <li><a href="documentation/work_managers/westpa.work_managers.html#westpa.work_managers.core.WMFuture.is_done">is_done() (westpa.work_managers.core.WMFuture method)</a>
@@ -2086,6 +2036,8 @@
         <li><a href="documentation/work_managers/westpa.work_managers.zeromq.html#westpa.work_managers.zeromq.ZMQWorker.is_master">(westpa.work_managers.zeromq.ZMQWorker property)</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="documentation/others/westpa.oldtools.aframe.html#westpa.oldtools.aframe.data_reader.ExtDataReaderMixin.is_npy">is_npy() (westpa.oldtools.aframe.data_reader.ExtDataReaderMixin method)</a>
 
       <ul>
@@ -2390,8 +2342,6 @@
     module
 
       <ul>
-        <li><a href="documentation/westpa.html#module-westpa">westpa</a>
-</li>
         <li><a href="documentation/cli/w_init.html#module-westpa.cli.core.w_init">westpa.cli.core.w_init</a>
 </li>
         <li><a href="documentation/cli/w_run.html#module-westpa.cli.core.w_run">westpa.cli.core.w_run</a>
@@ -2414,7 +2364,7 @@
 </li>
         <li><a href="documentation/cli/w_direct.html#module-westpa.cli.tools.w_direct">westpa.cli.tools.w_direct</a>
 </li>
-        <li><a href="documentation/cli/w_dumpsegs.html#module-westpa.cli.tools.w_dumpsegs">westpa.cli.tools.w_dumpsegs</a>
+        <li><a href="documentation/cli/deprecated/w_dumpsegs.html#module-westpa.cli.tools.w_dumpsegs">westpa.cli.tools.w_dumpsegs</a>
 </li>
         <li><a href="documentation/cli/w_eddist.html#module-westpa.cli.tools.w_eddist">westpa.cli.tools.w_eddist</a>
 </li>
@@ -2422,23 +2372,23 @@
 </li>
         <li><a href="documentation/cli/w_ipa.html#module-westpa.cli.tools.w_ipa">westpa.cli.tools.w_ipa</a>
 </li>
-        <li><a href="documentation/cli/w_kinavg.html#module-westpa.cli.tools.w_kinavg">westpa.cli.tools.w_kinavg</a>
+        <li><a href="documentation/cli/deprecated/w_kinavg.html#module-westpa.cli.tools.w_kinavg">westpa.cli.tools.w_kinavg</a>
 </li>
-        <li><a href="documentation/cli/w_kinetics.html#module-westpa.cli.tools.w_kinetics">westpa.cli.tools.w_kinetics</a>
+        <li><a href="documentation/cli/deprecated/w_kinetics.html#module-westpa.cli.tools.w_kinetics">westpa.cli.tools.w_kinetics</a>
 </li>
         <li><a href="documentation/cli/w_ntop.html#module-westpa.cli.tools.w_ntop">westpa.cli.tools.w_ntop</a>
 </li>
         <li><a href="documentation/cli/w_pdist.html#module-westpa.cli.tools.w_pdist">westpa.cli.tools.w_pdist</a>
 </li>
-        <li><a href="documentation/cli/w_postanalysis_matrix.html#module-westpa.cli.tools.w_postanalysis_matrix">westpa.cli.tools.w_postanalysis_matrix</a>
+        <li><a href="documentation/cli/deprecated/w_postanalysis_matrix.html#module-westpa.cli.tools.w_postanalysis_matrix">westpa.cli.tools.w_postanalysis_matrix</a>
 </li>
-        <li><a href="documentation/cli/w_postanalysis_reweight.html#module-westpa.cli.tools.w_postanalysis_reweight">westpa.cli.tools.w_postanalysis_reweight</a>
+        <li><a href="documentation/cli/deprecated/w_postanalysis_reweight.html#module-westpa.cli.tools.w_postanalysis_reweight">westpa.cli.tools.w_postanalysis_reweight</a>
 </li>
-        <li><a href="documentation/cli/w_reweight.html#module-westpa.cli.tools.w_reweight">westpa.cli.tools.w_reweight</a>
+        <li><a href="documentation/cli/deprecated/w_reweight.html#module-westpa.cli.tools.w_reweight">westpa.cli.tools.w_reweight</a>
 </li>
         <li><a href="documentation/cli/w_select.html#module-westpa.cli.tools.w_select">westpa.cli.tools.w_select</a>
 </li>
-        <li><a href="documentation/cli/w_stateprobs.html#module-westpa.cli.tools.w_stateprobs">westpa.cli.tools.w_stateprobs</a>
+        <li><a href="documentation/cli/deprecated/w_stateprobs.html#module-westpa.cli.tools.w_stateprobs">westpa.cli.tools.w_stateprobs</a>
 </li>
         <li><a href="documentation/cli/w_trace.html#module-westpa.cli.tools.w_trace">westpa.cli.tools.w_trace</a>
 </li>
@@ -2634,8 +2584,6 @@
       <ul>
         <li><a href="documentation/core/westpa.core.html#westpa.core.yamlcfg.YAMLSystem.new_pcoord_array">(westpa.core.yamlcfg.YAMLSystem method)</a>
 </li>
-        <li><a href="documentation/westpa.html#westpa.WESTSystem.new_pcoord_array">(westpa.WESTSystem method)</a>
-</li>
       </ul></li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
@@ -2643,8 +2591,6 @@
 
       <ul>
         <li><a href="documentation/core/westpa.core.html#westpa.core.yamlcfg.YAMLSystem.new_region_set">(westpa.core.yamlcfg.YAMLSystem method)</a>
-</li>
-        <li><a href="documentation/westpa.html#westpa.WESTSystem.new_region_set">(westpa.WESTSystem method)</a>
 </li>
       </ul></li>
       <li><a href="documentation/core/westpa.core.html#westpa.core.we_driver.NewWeightEntry">NewWeightEntry (class in westpa.core.we_driver)</a>
@@ -2725,9 +2671,9 @@
 <h2 id="P">P</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="documentation/cli/w_postanalysis_reweight.html#westpa.cli.tools.w_postanalysis_reweight.PAAverage">PAAverage (class in westpa.cli.tools.w_postanalysis_reweight)</a>
+      <li><a href="documentation/cli/deprecated/w_postanalysis_reweight.html#westpa.cli.tools.w_postanalysis_reweight.PAAverage">PAAverage (class in westpa.cli.tools.w_postanalysis_reweight)</a>
 </li>
-      <li><a href="documentation/cli/w_postanalysis_matrix.html#westpa.cli.tools.w_postanalysis_matrix.PAMatrix">PAMatrix (class in westpa.cli.tools.w_postanalysis_matrix)</a>
+      <li><a href="documentation/cli/deprecated/w_postanalysis_matrix.html#westpa.cli.tools.w_postanalysis_matrix.PAMatrix">PAMatrix (class in westpa.cli.tools.w_postanalysis_matrix)</a>
 </li>
       <li><a href="documentation/core/westpa.core.html#westpa.core.states.pare_basis_initial_states">pare_basis_initial_states() (in module westpa.core.states)</a>
 </li>
@@ -2874,8 +2820,6 @@
 </li>
         <li><a href="documentation/core/westpa.core.html#westpa.core.yamlcfg.YAMLSystem.prepare_run">(westpa.core.yamlcfg.YAMLSystem method)</a>
 </li>
-        <li><a href="documentation/westpa.html#westpa.WESTSystem.prepare_run">(westpa.WESTSystem method)</a>
-</li>
       </ul></li>
       <li><a href="documentation/tools/westpa.tools.html#westpa.tools.kinetics_tool.AverageCommands.print_averages">print_averages() (westpa.tools.kinetics_tool.AverageCommands method)</a>
 </li>
@@ -2912,7 +2856,7 @@
 </li>
         <li><a href="documentation/cli/w_crawl.html#westpa.cli.tools.w_crawl.WCrawl.process_args">(westpa.cli.tools.w_crawl.WCrawl method)</a>
 </li>
-        <li><a href="documentation/cli/w_dumpsegs.html#westpa.cli.tools.w_dumpsegs.WDumpSegs.process_args">(westpa.cli.tools.w_dumpsegs.WDumpSegs method)</a>
+        <li><a href="documentation/cli/deprecated/w_dumpsegs.html#westpa.cli.tools.w_dumpsegs.WDumpSegs.process_args">(westpa.cli.tools.w_dumpsegs.WDumpSegs method)</a>
 </li>
         <li><a href="documentation/cli/w_eddist.html#westpa.cli.tools.w_eddist.WEDDist.process_args">(westpa.cli.tools.w_eddist.WEDDist method)</a>
 </li>
@@ -2924,9 +2868,9 @@
 </li>
         <li><a href="documentation/cli/w_pdist.html#westpa.cli.tools.w_pdist.WPDist.process_args">(westpa.cli.tools.w_pdist.WPDist method)</a>
 </li>
-        <li><a href="documentation/cli/w_reweight.html#westpa.cli.tools.w_reweight.RWMatrix.process_args">(westpa.cli.tools.w_reweight.RWMatrix method)</a>
+        <li><a href="documentation/cli/deprecated/w_reweight.html#westpa.cli.tools.w_reweight.RWMatrix.process_args">(westpa.cli.tools.w_reweight.RWMatrix method)</a>
 </li>
-        <li><a href="documentation/cli/w_reweight.html#westpa.cli.tools.w_reweight.RWReweight.process_args">(westpa.cli.tools.w_reweight.RWReweight method)</a>
+        <li><a href="documentation/cli/deprecated/w_reweight.html#westpa.cli.tools.w_reweight.RWReweight.process_args">(westpa.cli.tools.w_reweight.RWReweight method)</a>
 </li>
         <li><a href="documentation/cli/w_select.html#westpa.cli.tools.w_select.WSelectTool.process_args">(westpa.cli.tools.w_select.WSelectTool method)</a>
 </li>
@@ -3064,29 +3008,29 @@
 </li>
         <li><a href="documentation/cli/w_direct.html#westpa.cli.tools.w_direct.WDirect.prog">(westpa.cli.tools.w_direct.WDirect attribute)</a>
 </li>
-        <li><a href="documentation/cli/w_dumpsegs.html#westpa.cli.tools.w_dumpsegs.WDumpSegs.prog">(westpa.cli.tools.w_dumpsegs.WDumpSegs attribute)</a>
+        <li><a href="documentation/cli/deprecated/w_dumpsegs.html#westpa.cli.tools.w_dumpsegs.WDumpSegs.prog">(westpa.cli.tools.w_dumpsegs.WDumpSegs attribute)</a>
 </li>
         <li><a href="documentation/cli/w_eddist.html#westpa.cli.tools.w_eddist.WEDDist.prog">(westpa.cli.tools.w_eddist.WEDDist attribute)</a>
 </li>
         <li><a href="documentation/cli/w_fluxanl.html#westpa.cli.tools.w_fluxanl.WFluxanlTool.prog">(westpa.cli.tools.w_fluxanl.WFluxanlTool attribute)</a>
 </li>
-        <li><a href="documentation/cli/w_kinavg.html#westpa.cli.tools.w_kinavg.WDirect.prog">(westpa.cli.tools.w_kinavg.WDirect attribute)</a>
+        <li><a href="documentation/cli/deprecated/w_kinavg.html#westpa.cli.tools.w_kinavg.WDirect.prog">(westpa.cli.tools.w_kinavg.WDirect attribute)</a>
 </li>
-        <li><a href="documentation/cli/w_kinetics.html#westpa.cli.tools.w_kinetics.WDirect.prog">(westpa.cli.tools.w_kinetics.WDirect attribute)</a>
+        <li><a href="documentation/cli/deprecated/w_kinetics.html#westpa.cli.tools.w_kinetics.WDirect.prog">(westpa.cli.tools.w_kinetics.WDirect attribute)</a>
 </li>
         <li><a href="documentation/cli/w_ntop.html#westpa.cli.tools.w_ntop.WNTopTool.prog">(westpa.cli.tools.w_ntop.WNTopTool attribute)</a>
 </li>
         <li><a href="documentation/cli/w_pdist.html#westpa.cli.tools.w_pdist.WPDist.prog">(westpa.cli.tools.w_pdist.WPDist attribute)</a>
 </li>
-        <li><a href="documentation/cli/w_postanalysis_matrix.html#westpa.cli.tools.w_postanalysis_matrix.WReweight.prog">(westpa.cli.tools.w_postanalysis_matrix.WReweight attribute)</a>
+        <li><a href="documentation/cli/deprecated/w_postanalysis_matrix.html#westpa.cli.tools.w_postanalysis_matrix.WReweight.prog">(westpa.cli.tools.w_postanalysis_matrix.WReweight attribute)</a>
 </li>
-        <li><a href="documentation/cli/w_postanalysis_reweight.html#westpa.cli.tools.w_postanalysis_reweight.WReweight.prog">(westpa.cli.tools.w_postanalysis_reweight.WReweight attribute)</a>
+        <li><a href="documentation/cli/deprecated/w_postanalysis_reweight.html#westpa.cli.tools.w_postanalysis_reweight.WReweight.prog">(westpa.cli.tools.w_postanalysis_reweight.WReweight attribute)</a>
 </li>
-        <li><a href="documentation/cli/w_reweight.html#westpa.cli.tools.w_reweight.WReweight.prog">(westpa.cli.tools.w_reweight.WReweight attribute)</a>
+        <li><a href="documentation/cli/deprecated/w_reweight.html#westpa.cli.tools.w_reweight.WReweight.prog">(westpa.cli.tools.w_reweight.WReweight attribute)</a>
 </li>
         <li><a href="documentation/cli/w_select.html#westpa.cli.tools.w_select.WSelectTool.prog">(westpa.cli.tools.w_select.WSelectTool attribute)</a>
 </li>
-        <li><a href="documentation/cli/w_stateprobs.html#westpa.cli.tools.w_stateprobs.WDirect.prog">(westpa.cli.tools.w_stateprobs.WDirect attribute)</a>
+        <li><a href="documentation/cli/deprecated/w_stateprobs.html#westpa.cli.tools.w_stateprobs.WDirect.prog">(westpa.cli.tools.w_stateprobs.WDirect attribute)</a>
 </li>
         <li><a href="documentation/cli/w_trace.html#westpa.cli.tools.w_trace.WTraceTool.prog">(westpa.cli.tools.w_trace.WTraceTool attribute)</a>
 </li>
@@ -3399,17 +3343,17 @@
         <li><a href="documentation/work_managers/westpa.work_managers.html#westpa.work_managers.ThreadsWorkManager.runtask">(westpa.work_managers.ThreadsWorkManager method)</a>
 </li>
       </ul></li>
-      <li><a href="documentation/cli/w_reweight.html#westpa.cli.tools.w_reweight.RWAll">RWAll (class in westpa.cli.tools.w_reweight)</a>
+      <li><a href="documentation/cli/deprecated/w_reweight.html#westpa.cli.tools.w_reweight.RWAll">RWAll (class in westpa.cli.tools.w_reweight)</a>
 </li>
-      <li><a href="documentation/cli/w_reweight.html#westpa.cli.tools.w_reweight.RWAverage">RWAverage (class in westpa.cli.tools.w_reweight)</a>
+      <li><a href="documentation/cli/deprecated/w_reweight.html#westpa.cli.tools.w_reweight.RWAverage">RWAverage (class in westpa.cli.tools.w_reweight)</a>
 </li>
-      <li><a href="documentation/cli/w_reweight.html#westpa.cli.tools.w_reweight.RWMatrix">RWMatrix (class in westpa.cli.tools.w_reweight)</a>
+      <li><a href="documentation/cli/deprecated/w_reweight.html#westpa.cli.tools.w_reweight.RWMatrix">RWMatrix (class in westpa.cli.tools.w_reweight)</a>
 </li>
-      <li><a href="documentation/cli/w_reweight.html#westpa.cli.tools.w_reweight.RWRate">RWRate (class in westpa.cli.tools.w_reweight)</a>
+      <li><a href="documentation/cli/deprecated/w_reweight.html#westpa.cli.tools.w_reweight.RWRate">RWRate (class in westpa.cli.tools.w_reweight)</a>
 </li>
-      <li><a href="documentation/cli/w_reweight.html#westpa.cli.tools.w_reweight.RWReweight">RWReweight (class in westpa.cli.tools.w_reweight)</a>
+      <li><a href="documentation/cli/deprecated/w_reweight.html#westpa.cli.tools.w_reweight.RWReweight">RWReweight (class in westpa.cli.tools.w_reweight)</a>
 </li>
-      <li><a href="documentation/cli/w_reweight.html#westpa.cli.tools.w_reweight.RWStateProbs">RWStateProbs (class in westpa.cli.tools.w_reweight)</a>
+      <li><a href="documentation/cli/deprecated/w_reweight.html#westpa.cli.tools.w_reweight.RWStateProbs">RWStateProbs (class in westpa.cli.tools.w_reweight)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -3448,79 +3392,31 @@
 </li>
       </ul></li>
       <li><a href="documentation/core/westpa.core.html#westpa.core.segment.Segment.SEG_ENDPOINT_CONTINUES">SEG_ENDPOINT_CONTINUES (westpa.core.segment.Segment attribute)</a>
-
-      <ul>
-        <li><a href="documentation/westpa.html#westpa.Segment.SEG_ENDPOINT_CONTINUES">(westpa.Segment attribute)</a>
 </li>
-      </ul></li>
       <li><a href="documentation/core/westpa.core.html#westpa.core.segment.Segment.SEG_ENDPOINT_MERGED">SEG_ENDPOINT_MERGED (westpa.core.segment.Segment attribute)</a>
-
-      <ul>
-        <li><a href="documentation/westpa.html#westpa.Segment.SEG_ENDPOINT_MERGED">(westpa.Segment attribute)</a>
 </li>
-      </ul></li>
       <li><a href="documentation/core/westpa.core.html#westpa.core.segment.Segment.SEG_ENDPOINT_RECYCLED">SEG_ENDPOINT_RECYCLED (westpa.core.segment.Segment attribute)</a>
-
-      <ul>
-        <li><a href="documentation/westpa.html#westpa.Segment.SEG_ENDPOINT_RECYCLED">(westpa.Segment attribute)</a>
 </li>
-      </ul></li>
       <li><a href="documentation/core/westpa.core.html#westpa.core.segment.Segment.SEG_ENDPOINT_UNSET">SEG_ENDPOINT_UNSET (westpa.core.segment.Segment attribute)</a>
-
-      <ul>
-        <li><a href="documentation/westpa.html#westpa.Segment.SEG_ENDPOINT_UNSET">(westpa.Segment attribute)</a>
 </li>
-      </ul></li>
       <li><a href="documentation/others/westpa.trajtree.html#westpa.trajtree.trajtree.trajnode.seg_id">seg_id() (westpa.trajtree.trajtree.trajnode property)</a>
 </li>
       <li><a href="documentation/core/westpa.core.html#westpa.core.segment.Segment.SEG_INITPOINT_CONTINUES">SEG_INITPOINT_CONTINUES (westpa.core.segment.Segment attribute)</a>
-
-      <ul>
-        <li><a href="documentation/westpa.html#westpa.Segment.SEG_INITPOINT_CONTINUES">(westpa.Segment attribute)</a>
 </li>
-      </ul></li>
       <li><a href="documentation/core/westpa.core.html#westpa.core.segment.Segment.SEG_INITPOINT_NEWTRAJ">SEG_INITPOINT_NEWTRAJ (westpa.core.segment.Segment attribute)</a>
-
-      <ul>
-        <li><a href="documentation/westpa.html#westpa.Segment.SEG_INITPOINT_NEWTRAJ">(westpa.Segment attribute)</a>
 </li>
-      </ul></li>
       <li><a href="documentation/core/westpa.core.html#westpa.core.segment.Segment.SEG_INITPOINT_UNSET">SEG_INITPOINT_UNSET (westpa.core.segment.Segment attribute)</a>
-
-      <ul>
-        <li><a href="documentation/westpa.html#westpa.Segment.SEG_INITPOINT_UNSET">(westpa.Segment attribute)</a>
 </li>
-      </ul></li>
       <li><a href="documentation/core/westpa.core.html#westpa.core.segment.Segment.SEG_STATUS_COMPLETE">SEG_STATUS_COMPLETE (westpa.core.segment.Segment attribute)</a>
-
-      <ul>
-        <li><a href="documentation/westpa.html#westpa.Segment.SEG_STATUS_COMPLETE">(westpa.Segment attribute)</a>
 </li>
-      </ul></li>
       <li><a href="documentation/core/westpa.core.html#westpa.core.segment.Segment.SEG_STATUS_FAILED">SEG_STATUS_FAILED (westpa.core.segment.Segment attribute)</a>
-
-      <ul>
-        <li><a href="documentation/westpa.html#westpa.Segment.SEG_STATUS_FAILED">(westpa.Segment attribute)</a>
 </li>
-      </ul></li>
       <li><a href="documentation/core/westpa.core.html#westpa.core.segment.Segment.SEG_STATUS_PREPARED">SEG_STATUS_PREPARED (westpa.core.segment.Segment attribute)</a>
-
-      <ul>
-        <li><a href="documentation/westpa.html#westpa.Segment.SEG_STATUS_PREPARED">(westpa.Segment attribute)</a>
 </li>
-      </ul></li>
       <li><a href="documentation/core/westpa.core.html#westpa.core.segment.Segment.SEG_STATUS_UNSET">SEG_STATUS_UNSET (westpa.core.segment.Segment attribute)</a>
-
-      <ul>
-        <li><a href="documentation/westpa.html#westpa.Segment.SEG_STATUS_UNSET">(westpa.Segment attribute)</a>
 </li>
-      </ul></li>
-      <li><a href="documentation/westpa.html#westpa.Segment">Segment (class in westpa)</a>
-
-      <ul>
-        <li><a href="documentation/core/westpa.core.html#westpa.core.segment.Segment">(class in westpa.core.segment)</a>
+      <li><a href="documentation/core/westpa.core.html#westpa.core.segment.Segment">Segment (class in westpa.core.segment)</a>
 </li>
-      </ul></li>
       <li><a href="documentation/tools/westpa.tools.html#westpa.tools.selected_segs.SegmentSelection">SegmentSelection (class in westpa.tools.selected_segs)</a>
 </li>
       <li><a href="documentation/tools/westpa.tools.html#westpa.tools.SegSelector">SegSelector (class in westpa.tools)</a>
@@ -3699,12 +3595,12 @@
         <li><a href="documentation/core/westpa.core.binning.html#westpa.core.binning.RecursiveBinMapper.start_index">(westpa.core.binning.RecursiveBinMapper property)</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="documentation/tools/westpa.tools.html#westpa.tools.selected_segs.SegmentSelection.start_iter">start_iter() (westpa.tools.selected_segs.SegmentSelection property)</a>
 </li>
       <li><a href="documentation/work_managers/westpa.work_managers.zeromq.html#westpa.work_managers.zeromq.core.PassiveTimer.started">started (westpa.work_managers.zeromq.core.PassiveTimer attribute)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="documentation/work_managers/westpa.work_managers.html#westpa.work_managers.core.WorkManager.startup">startup() (westpa.work_managers.core.WorkManager method)</a>
 
       <ul>
@@ -3747,46 +3643,26 @@
       </ul></li>
       <li><a href="documentation/cli/w_assign.html#westpa.cli.tools.w_assign.WAssign.states_from_dict">states_from_dict() (westpa.cli.tools.w_assign.WAssign method)</a>
 </li>
-      <li><a href="documentation/westpa.html#westpa.BasisState.states_from_file">states_from_file() (westpa.BasisState class method)</a>
+      <li><a href="documentation/core/westpa.core.html#westpa.core.states.BasisState.states_from_file">states_from_file() (westpa.core.states.BasisState class method)</a>
 
       <ul>
-        <li><a href="documentation/core/westpa.core.html#westpa.core.states.BasisState.states_from_file">(westpa.core.states.BasisState class method)</a>
-</li>
         <li><a href="documentation/core/westpa.core.html#westpa.core.states.TargetState.states_from_file">(westpa.core.states.TargetState class method)</a>
 </li>
-        <li><a href="documentation/westpa.html#westpa.TargetState.states_from_file">(westpa.TargetState class method)</a>
-</li>
       </ul></li>
-      <li><a href="documentation/westpa.html#westpa.BasisState.states_to_file">states_to_file() (westpa.BasisState class method)</a>
+      <li><a href="documentation/core/westpa.core.html#westpa.core.states.BasisState.states_to_file">states_to_file() (westpa.core.states.BasisState class method)</a>
 
       <ul>
-        <li><a href="documentation/core/westpa.core.html#westpa.core.states.BasisState.states_to_file">(westpa.core.states.BasisState class method)</a>
-</li>
         <li><a href="documentation/core/westpa.core.html#westpa.core.states.TargetState.states_to_file">(westpa.core.states.TargetState class method)</a>
-</li>
-        <li><a href="documentation/westpa.html#westpa.TargetState.states_to_file">(westpa.TargetState class method)</a>
 </li>
       </ul></li>
       <li><a href="documentation/core/westpa.core.reweight.html#westpa.core.reweight.stats_process">stats_process() (in module westpa.core.reweight)</a>
 </li>
       <li><a href="documentation/core/westpa.core.html#westpa.core.segment.Segment.status_names">status_names (westpa.core.segment.Segment attribute)</a>
-
-      <ul>
-        <li><a href="documentation/westpa.html#westpa.Segment.status_names">(westpa.Segment attribute)</a>
 </li>
-      </ul></li>
       <li><a href="documentation/core/westpa.core.html#westpa.core.segment.Segment.status_text">status_text() (westpa.core.segment.Segment property)</a>
-
-      <ul>
-        <li><a href="documentation/westpa.html#westpa.Segment.status_text">(westpa.Segment property)</a>
 </li>
-      </ul></li>
       <li><a href="documentation/core/westpa.core.html#westpa.core.segment.Segment.statuses">statuses (westpa.core.segment.Segment attribute)</a>
-
-      <ul>
-        <li><a href="documentation/westpa.html#westpa.Segment.statuses">(westpa.Segment attribute)</a>
 </li>
-      </ul></li>
       <li><a href="documentation/others/westpa.oldtools.stats.html#westpa.oldtools.stats.accumulator.RunningStatsAccumulator.std">std() (westpa.oldtools.stats.accumulator.RunningStatsAccumulator method)</a>
 
       <ul>
@@ -3826,25 +3702,25 @@
 </li>
         <li><a href="documentation/cli/w_direct.html#westpa.cli.tools.w_direct.DStateProbs.subcommand">(westpa.cli.tools.w_direct.DStateProbs attribute)</a>
 </li>
-        <li><a href="documentation/cli/w_kinavg.html#westpa.cli.tools.w_kinavg.WKinAvg.subcommand">(westpa.cli.tools.w_kinavg.WKinAvg attribute)</a>
+        <li><a href="documentation/cli/deprecated/w_kinavg.html#westpa.cli.tools.w_kinavg.WKinAvg.subcommand">(westpa.cli.tools.w_kinavg.WKinAvg attribute)</a>
 </li>
-        <li><a href="documentation/cli/w_kinetics.html#westpa.cli.tools.w_kinetics.WKinetics.subcommand">(westpa.cli.tools.w_kinetics.WKinetics attribute)</a>
+        <li><a href="documentation/cli/deprecated/w_kinetics.html#westpa.cli.tools.w_kinetics.WKinetics.subcommand">(westpa.cli.tools.w_kinetics.WKinetics attribute)</a>
 </li>
-        <li><a href="documentation/cli/w_postanalysis_matrix.html#westpa.cli.tools.w_postanalysis_matrix.PAMatrix.subcommand">(westpa.cli.tools.w_postanalysis_matrix.PAMatrix attribute)</a>
+        <li><a href="documentation/cli/deprecated/w_postanalysis_matrix.html#westpa.cli.tools.w_postanalysis_matrix.PAMatrix.subcommand">(westpa.cli.tools.w_postanalysis_matrix.PAMatrix attribute)</a>
 </li>
-        <li><a href="documentation/cli/w_postanalysis_reweight.html#westpa.cli.tools.w_postanalysis_reweight.PAAverage.subcommand">(westpa.cli.tools.w_postanalysis_reweight.PAAverage attribute)</a>
+        <li><a href="documentation/cli/deprecated/w_postanalysis_reweight.html#westpa.cli.tools.w_postanalysis_reweight.PAAverage.subcommand">(westpa.cli.tools.w_postanalysis_reweight.PAAverage attribute)</a>
 </li>
-        <li><a href="documentation/cli/w_reweight.html#westpa.cli.tools.w_reweight.RWAll.subcommand">(westpa.cli.tools.w_reweight.RWAll attribute)</a>
+        <li><a href="documentation/cli/deprecated/w_reweight.html#westpa.cli.tools.w_reweight.RWAll.subcommand">(westpa.cli.tools.w_reweight.RWAll attribute)</a>
 </li>
-        <li><a href="documentation/cli/w_reweight.html#westpa.cli.tools.w_reweight.RWAverage.subcommand">(westpa.cli.tools.w_reweight.RWAverage attribute)</a>
+        <li><a href="documentation/cli/deprecated/w_reweight.html#westpa.cli.tools.w_reweight.RWAverage.subcommand">(westpa.cli.tools.w_reweight.RWAverage attribute)</a>
 </li>
-        <li><a href="documentation/cli/w_reweight.html#westpa.cli.tools.w_reweight.RWMatrix.subcommand">(westpa.cli.tools.w_reweight.RWMatrix attribute)</a>
+        <li><a href="documentation/cli/deprecated/w_reweight.html#westpa.cli.tools.w_reweight.RWMatrix.subcommand">(westpa.cli.tools.w_reweight.RWMatrix attribute)</a>
 </li>
-        <li><a href="documentation/cli/w_reweight.html#westpa.cli.tools.w_reweight.RWRate.subcommand">(westpa.cli.tools.w_reweight.RWRate attribute)</a>
+        <li><a href="documentation/cli/deprecated/w_reweight.html#westpa.cli.tools.w_reweight.RWRate.subcommand">(westpa.cli.tools.w_reweight.RWRate attribute)</a>
 </li>
-        <li><a href="documentation/cli/w_reweight.html#westpa.cli.tools.w_reweight.RWStateProbs.subcommand">(westpa.cli.tools.w_reweight.RWStateProbs attribute)</a>
+        <li><a href="documentation/cli/deprecated/w_reweight.html#westpa.cli.tools.w_reweight.RWStateProbs.subcommand">(westpa.cli.tools.w_reweight.RWStateProbs attribute)</a>
 </li>
-        <li><a href="documentation/cli/w_stateprobs.html#westpa.cli.tools.w_stateprobs.WStateProbs.subcommand">(westpa.cli.tools.w_stateprobs.WStateProbs attribute)</a>
+        <li><a href="documentation/cli/deprecated/w_stateprobs.html#westpa.cli.tools.w_stateprobs.WStateProbs.subcommand">(westpa.cli.tools.w_stateprobs.WStateProbs attribute)</a>
 </li>
         <li><a href="documentation/tools/westpa.tools.html#westpa.tools.core.WESTSubcommand.subcommand">(westpa.tools.core.WESTSubcommand attribute)</a>
 </li>
@@ -3858,17 +3734,17 @@
 </li>
         <li><a href="documentation/cli/w_direct.html#westpa.cli.tools.w_direct.WDirect.subcommands">(westpa.cli.tools.w_direct.WDirect attribute)</a>
 </li>
-        <li><a href="documentation/cli/w_kinavg.html#westpa.cli.tools.w_kinavg.WDirect.subcommands">(westpa.cli.tools.w_kinavg.WDirect attribute)</a>
+        <li><a href="documentation/cli/deprecated/w_kinavg.html#westpa.cli.tools.w_kinavg.WDirect.subcommands">(westpa.cli.tools.w_kinavg.WDirect attribute)</a>
 </li>
-        <li><a href="documentation/cli/w_kinetics.html#westpa.cli.tools.w_kinetics.WDirect.subcommands">(westpa.cli.tools.w_kinetics.WDirect attribute)</a>
+        <li><a href="documentation/cli/deprecated/w_kinetics.html#westpa.cli.tools.w_kinetics.WDirect.subcommands">(westpa.cli.tools.w_kinetics.WDirect attribute)</a>
 </li>
-        <li><a href="documentation/cli/w_postanalysis_matrix.html#westpa.cli.tools.w_postanalysis_matrix.WReweight.subcommands">(westpa.cli.tools.w_postanalysis_matrix.WReweight attribute)</a>
+        <li><a href="documentation/cli/deprecated/w_postanalysis_matrix.html#westpa.cli.tools.w_postanalysis_matrix.WReweight.subcommands">(westpa.cli.tools.w_postanalysis_matrix.WReweight attribute)</a>
 </li>
-        <li><a href="documentation/cli/w_postanalysis_reweight.html#westpa.cli.tools.w_postanalysis_reweight.WReweight.subcommands">(westpa.cli.tools.w_postanalysis_reweight.WReweight attribute)</a>
+        <li><a href="documentation/cli/deprecated/w_postanalysis_reweight.html#westpa.cli.tools.w_postanalysis_reweight.WReweight.subcommands">(westpa.cli.tools.w_postanalysis_reweight.WReweight attribute)</a>
 </li>
-        <li><a href="documentation/cli/w_reweight.html#westpa.cli.tools.w_reweight.WReweight.subcommands">(westpa.cli.tools.w_reweight.WReweight attribute)</a>
+        <li><a href="documentation/cli/deprecated/w_reweight.html#westpa.cli.tools.w_reweight.WReweight.subcommands">(westpa.cli.tools.w_reweight.WReweight attribute)</a>
 </li>
-        <li><a href="documentation/cli/w_stateprobs.html#westpa.cli.tools.w_stateprobs.WDirect.subcommands">(westpa.cli.tools.w_stateprobs.WDirect attribute)</a>
+        <li><a href="documentation/cli/deprecated/w_stateprobs.html#westpa.cli.tools.w_stateprobs.WDirect.subcommands">(westpa.cli.tools.w_stateprobs.WDirect attribute)</a>
 </li>
         <li><a href="documentation/tools/westpa.tools.html#westpa.tools.core.WESTMasterCommand.subcommands">(westpa.tools.core.WESTMasterCommand attribute)</a>
 </li>
@@ -3912,17 +3788,17 @@
 </li>
         <li><a href="documentation/cli/w_direct.html#westpa.cli.tools.w_direct.WDirect.subparsers_title">(westpa.cli.tools.w_direct.WDirect attribute)</a>
 </li>
-        <li><a href="documentation/cli/w_kinavg.html#westpa.cli.tools.w_kinavg.WDirect.subparsers_title">(westpa.cli.tools.w_kinavg.WDirect attribute)</a>
+        <li><a href="documentation/cli/deprecated/w_kinavg.html#westpa.cli.tools.w_kinavg.WDirect.subparsers_title">(westpa.cli.tools.w_kinavg.WDirect attribute)</a>
 </li>
-        <li><a href="documentation/cli/w_kinetics.html#westpa.cli.tools.w_kinetics.WDirect.subparsers_title">(westpa.cli.tools.w_kinetics.WDirect attribute)</a>
+        <li><a href="documentation/cli/deprecated/w_kinetics.html#westpa.cli.tools.w_kinetics.WDirect.subparsers_title">(westpa.cli.tools.w_kinetics.WDirect attribute)</a>
 </li>
-        <li><a href="documentation/cli/w_postanalysis_matrix.html#westpa.cli.tools.w_postanalysis_matrix.WReweight.subparsers_title">(westpa.cli.tools.w_postanalysis_matrix.WReweight attribute)</a>
+        <li><a href="documentation/cli/deprecated/w_postanalysis_matrix.html#westpa.cli.tools.w_postanalysis_matrix.WReweight.subparsers_title">(westpa.cli.tools.w_postanalysis_matrix.WReweight attribute)</a>
 </li>
-        <li><a href="documentation/cli/w_postanalysis_reweight.html#westpa.cli.tools.w_postanalysis_reweight.WReweight.subparsers_title">(westpa.cli.tools.w_postanalysis_reweight.WReweight attribute)</a>
+        <li><a href="documentation/cli/deprecated/w_postanalysis_reweight.html#westpa.cli.tools.w_postanalysis_reweight.WReweight.subparsers_title">(westpa.cli.tools.w_postanalysis_reweight.WReweight attribute)</a>
 </li>
-        <li><a href="documentation/cli/w_reweight.html#westpa.cli.tools.w_reweight.WReweight.subparsers_title">(westpa.cli.tools.w_reweight.WReweight attribute)</a>
+        <li><a href="documentation/cli/deprecated/w_reweight.html#westpa.cli.tools.w_reweight.WReweight.subparsers_title">(westpa.cli.tools.w_reweight.WReweight attribute)</a>
 </li>
-        <li><a href="documentation/cli/w_stateprobs.html#westpa.cli.tools.w_stateprobs.WDirect.subparsers_title">(westpa.cli.tools.w_stateprobs.WDirect attribute)</a>
+        <li><a href="documentation/cli/deprecated/w_stateprobs.html#westpa.cli.tools.w_stateprobs.WDirect.subparsers_title">(westpa.cli.tools.w_stateprobs.WDirect attribute)</a>
 </li>
         <li><a href="documentation/tools/westpa.tools.html#westpa.tools.core.WESTMasterCommand.subparsers_title">(westpa.tools.core.WESTMasterCommand attribute)</a>
 </li>
@@ -3945,12 +3821,8 @@
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="documentation/core/westpa.core.html#westpa.core.data_manager.WESTDataManager.table_scan_chunksize">table_scan_chunksize (westpa.core.data_manager.WESTDataManager attribute)</a>
 </li>
-      <li><a href="documentation/westpa.html#westpa.TargetState">TargetState (class in westpa)</a>
-
-      <ul>
-        <li><a href="documentation/core/westpa.core.html#westpa.core.states.TargetState">(class in westpa.core.states)</a>
+      <li><a href="documentation/core/westpa.core.html#westpa.core.states.TargetState">TargetState (class in westpa.core.states)</a>
 </li>
-      </ul></li>
       <li><a href="documentation/work_managers/westpa.work_managers.html#westpa.work_managers.threads.Task">Task (class in westpa.work_managers.threads)</a>
 
       <ul>
@@ -4155,9 +4027,9 @@
         <li><a href="documentation/core/westpa.core.reweight.html#westpa.core.reweight.matrix.FluxMatrix.w_postanalysis_matrix">(westpa.core.reweight.matrix.FluxMatrix method)</a>
 </li>
       </ul></li>
-      <li><a href="documentation/cli/w_reweight.html#westpa.cli.tools.w_reweight.RWRate.w_postanalysis_reweight">w_postanalysis_reweight() (westpa.cli.tools.w_reweight.RWRate method)</a>
+      <li><a href="documentation/cli/deprecated/w_reweight.html#westpa.cli.tools.w_reweight.RWRate.w_postanalysis_reweight">w_postanalysis_reweight() (westpa.cli.tools.w_reweight.RWRate method)</a>
 </li>
-      <li><a href="documentation/cli/w_reweight.html#westpa.cli.tools.w_reweight.RWStateProbs.w_postanalysis_stateprobs">w_postanalysis_stateprobs() (westpa.cli.tools.w_reweight.RWStateProbs method)</a>
+      <li><a href="documentation/cli/deprecated/w_reweight.html#westpa.cli.tools.w_reweight.RWStateProbs.w_postanalysis_stateprobs">w_postanalysis_stateprobs() (westpa.cli.tools.w_reweight.RWStateProbs method)</a>
 </li>
       <li><a href="documentation/cli/w_direct.html#westpa.cli.tools.w_direct.DStateProbs.w_stateprobs">w_stateprobs() (westpa.cli.tools.w_direct.DStateProbs method)</a>
 </li>
@@ -4182,14 +4054,14 @@
       <li><a href="documentation/cli/w_direct.html#westpa.cli.tools.w_direct.WDirect">WDirect (class in westpa.cli.tools.w_direct)</a>
 
       <ul>
-        <li><a href="documentation/cli/w_kinavg.html#westpa.cli.tools.w_kinavg.WDirect">(class in westpa.cli.tools.w_kinavg)</a>
+        <li><a href="documentation/cli/deprecated/w_kinavg.html#westpa.cli.tools.w_kinavg.WDirect">(class in westpa.cli.tools.w_kinavg)</a>
 </li>
-        <li><a href="documentation/cli/w_kinetics.html#westpa.cli.tools.w_kinetics.WDirect">(class in westpa.cli.tools.w_kinetics)</a>
+        <li><a href="documentation/cli/deprecated/w_kinetics.html#westpa.cli.tools.w_kinetics.WDirect">(class in westpa.cli.tools.w_kinetics)</a>
 </li>
-        <li><a href="documentation/cli/w_stateprobs.html#westpa.cli.tools.w_stateprobs.WDirect">(class in westpa.cli.tools.w_stateprobs)</a>
+        <li><a href="documentation/cli/deprecated/w_stateprobs.html#westpa.cli.tools.w_stateprobs.WDirect">(class in westpa.cli.tools.w_stateprobs)</a>
 </li>
       </ul></li>
-      <li><a href="documentation/cli/w_dumpsegs.html#westpa.cli.tools.w_dumpsegs.WDumpSegs">WDumpSegs (class in westpa.cli.tools.w_dumpsegs)</a>
+      <li><a href="documentation/cli/deprecated/w_dumpsegs.html#westpa.cli.tools.w_dumpsegs.WDumpSegs">WDumpSegs (class in westpa.cli.tools.w_dumpsegs)</a>
 </li>
       <li><a href="documentation/cli/w_eddist.html#westpa.cli.tools.w_eddist.WEDDist">WEDDist (class in westpa.cli.tools.w_eddist)</a>
 </li>
@@ -4259,13 +4131,6 @@
 
       <ul>
         <li><a href="documentation/tools/westpa.tools.html#westpa.tools.core.WESTMasterCommand">(class in westpa.tools.core)</a>
-</li>
-      </ul></li>
-      <li>
-    westpa
-
-      <ul>
-        <li><a href="documentation/westpa.html#module-westpa">module</a>
 </li>
       </ul></li>
       <li>
@@ -4349,7 +4214,7 @@
     westpa.cli.tools.w_dumpsegs
 
       <ul>
-        <li><a href="documentation/cli/w_dumpsegs.html#module-westpa.cli.tools.w_dumpsegs">module</a>
+        <li><a href="documentation/cli/deprecated/w_dumpsegs.html#module-westpa.cli.tools.w_dumpsegs">module</a>
 </li>
       </ul></li>
       <li>
@@ -4377,14 +4242,14 @@
     westpa.cli.tools.w_kinavg
 
       <ul>
-        <li><a href="documentation/cli/w_kinavg.html#module-westpa.cli.tools.w_kinavg">module</a>
+        <li><a href="documentation/cli/deprecated/w_kinavg.html#module-westpa.cli.tools.w_kinavg">module</a>
 </li>
       </ul></li>
       <li>
     westpa.cli.tools.w_kinetics
 
       <ul>
-        <li><a href="documentation/cli/w_kinetics.html#module-westpa.cli.tools.w_kinetics">module</a>
+        <li><a href="documentation/cli/deprecated/w_kinetics.html#module-westpa.cli.tools.w_kinetics">module</a>
 </li>
       </ul></li>
       <li>
@@ -4405,21 +4270,21 @@
     westpa.cli.tools.w_postanalysis_matrix
 
       <ul>
-        <li><a href="documentation/cli/w_postanalysis_matrix.html#module-westpa.cli.tools.w_postanalysis_matrix">module</a>
+        <li><a href="documentation/cli/deprecated/w_postanalysis_matrix.html#module-westpa.cli.tools.w_postanalysis_matrix">module</a>
 </li>
       </ul></li>
       <li>
     westpa.cli.tools.w_postanalysis_reweight
 
       <ul>
-        <li><a href="documentation/cli/w_postanalysis_reweight.html#module-westpa.cli.tools.w_postanalysis_reweight">module</a>
+        <li><a href="documentation/cli/deprecated/w_postanalysis_reweight.html#module-westpa.cli.tools.w_postanalysis_reweight">module</a>
 </li>
       </ul></li>
       <li>
     westpa.cli.tools.w_reweight
 
       <ul>
-        <li><a href="documentation/cli/w_reweight.html#module-westpa.cli.tools.w_reweight">module</a>
+        <li><a href="documentation/cli/deprecated/w_reweight.html#module-westpa.cli.tools.w_reweight">module</a>
 </li>
       </ul></li>
       <li>
@@ -4433,7 +4298,7 @@
     westpa.cli.tools.w_stateprobs
 
       <ul>
-        <li><a href="documentation/cli/w_stateprobs.html#module-westpa.cli.tools.w_stateprobs">module</a>
+        <li><a href="documentation/cli/deprecated/w_stateprobs.html#module-westpa.cli.tools.w_stateprobs">module</a>
 </li>
       </ul></li>
       <li>
@@ -4611,8 +4476,6 @@
         <li><a href="documentation/core/westpa.core.html#module-westpa.core.yamlcfg">module</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li>
     westpa.fasthist
 
@@ -4620,6 +4483,8 @@
         <li><a href="documentation/others/westpa.fasthist.html#module-westpa.fasthist">module</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li>
     westpa.mclib
 
@@ -4969,12 +4834,8 @@
         <li><a href="documentation/tools/westpa.tools.html#westpa.tools.core.WESTSubcommand">(class in westpa.tools.core)</a>
 </li>
       </ul></li>
-      <li><a href="documentation/westpa.html#westpa.WESTSystem">WESTSystem (class in westpa)</a>
-
-      <ul>
-        <li><a href="documentation/core/westpa.core.html#westpa.core.systems.WESTSystem">(class in westpa.core.systems)</a>
+      <li><a href="documentation/core/westpa.core.html#westpa.core.systems.WESTSystem">WESTSystem (class in westpa.core.systems)</a>
 </li>
-      </ul></li>
       <li><a href="documentation/tools/westpa.tools.html#westpa.tools.WESTTool">WESTTool (class in westpa.tools)</a>
 
       <ul>
@@ -5007,9 +4868,9 @@
         <li><a href="documentation/tools/westpa.tools.html#westpa.tools.wipi.WIPIScheme">(class in westpa.tools.wipi)</a>
 </li>
       </ul></li>
-      <li><a href="documentation/cli/w_kinavg.html#westpa.cli.tools.w_kinavg.WKinAvg">WKinAvg (class in westpa.cli.tools.w_kinavg)</a>
+      <li><a href="documentation/cli/deprecated/w_kinavg.html#westpa.cli.tools.w_kinavg.WKinAvg">WKinAvg (class in westpa.cli.tools.w_kinavg)</a>
 </li>
-      <li><a href="documentation/cli/w_kinetics.html#westpa.cli.tools.w_kinetics.WKinetics">WKinetics (class in westpa.cli.tools.w_kinetics)</a>
+      <li><a href="documentation/cli/deprecated/w_kinetics.html#westpa.cli.tools.w_kinetics.WKinetics">WKinetics (class in westpa.cli.tools.w_kinetics)</a>
 
       <ul>
         <li><a href="documentation/core/westpa.core.kinetics.html#westpa.core.kinetics.events.WKinetics">(class in westpa.core.kinetics.events)</a>
@@ -5031,12 +4892,12 @@
 </li>
       <li><a href="documentation/cli/w_pdist.html#westpa.cli.tools.w_pdist.WPDist">WPDist (class in westpa.cli.tools.w_pdist)</a>
 </li>
-      <li><a href="documentation/cli/w_postanalysis_matrix.html#westpa.cli.tools.w_postanalysis_matrix.WReweight">WReweight (class in westpa.cli.tools.w_postanalysis_matrix)</a>
+      <li><a href="documentation/cli/deprecated/w_postanalysis_matrix.html#westpa.cli.tools.w_postanalysis_matrix.WReweight">WReweight (class in westpa.cli.tools.w_postanalysis_matrix)</a>
 
       <ul>
-        <li><a href="documentation/cli/w_postanalysis_reweight.html#westpa.cli.tools.w_postanalysis_reweight.WReweight">(class in westpa.cli.tools.w_postanalysis_reweight)</a>
+        <li><a href="documentation/cli/deprecated/w_postanalysis_reweight.html#westpa.cli.tools.w_postanalysis_reweight.WReweight">(class in westpa.cli.tools.w_postanalysis_reweight)</a>
 </li>
-        <li><a href="documentation/cli/w_reweight.html#westpa.cli.tools.w_reweight.WReweight">(class in westpa.cli.tools.w_reweight)</a>
+        <li><a href="documentation/cli/deprecated/w_reweight.html#westpa.cli.tools.w_reweight.WReweight">(class in westpa.cli.tools.w_reweight)</a>
 </li>
       </ul></li>
       <li><a href="documentation/core/westpa.core.html#westpa.core.textio.NumericTextOutputFormatter.write">write() (westpa.core.textio.NumericTextOutputFormatter method)</a>
@@ -5061,7 +4922,7 @@
 </li>
       <li><a href="documentation/cli/w_select.html#westpa.cli.tools.w_select.WSelectTool">WSelectTool (class in westpa.cli.tools.w_select)</a>
 </li>
-      <li><a href="documentation/cli/w_stateprobs.html#westpa.cli.tools.w_stateprobs.WStateProbs">WStateProbs (class in westpa.cli.tools.w_stateprobs)</a>
+      <li><a href="documentation/cli/deprecated/w_stateprobs.html#westpa.cli.tools.w_stateprobs.WStateProbs">WStateProbs (class in westpa.cli.tools.w_stateprobs)</a>
 </li>
       <li><a href="documentation/cli/w_succ.html#westpa.cli.core.w_succ.WSucc">WSucc (class in westpa.cli.core.w_succ)</a>
 </li>

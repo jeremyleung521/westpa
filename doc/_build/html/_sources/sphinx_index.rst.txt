@@ -10,7 +10,7 @@
     WESTPA Work Manager               <documentation/work_managers>
     WESTPA Tools                      <documentation/tools/westpa.tools>
     WESTPA Other Components           <documentation/others>
-    WESTPA Extentions                 <documentation/ext>
+    WESTPA Extensions                 <documentation/ext>
     HDF5 file structure               <documentation/hdf5>
 
 
