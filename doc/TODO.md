@@ -28,14 +28,16 @@
 * copyright names and years
 * fix faq link on readme landing page, check other links
 * side bar command_line_tool_index button should link to page instead of expanding, this might be more navigable
-
+* Create a sphinx-sitemap for easier navigation? https://github.com/jdillard/sphinx-sitemap
+* currently can't `make html` without install
 
 ## Regarding autodoc
 * westext is not being surveyed by correctly, due to import errors (wess,weed are depreciated, will see about the other 2)
 * westpatools (westpa.cli.tools package) have odd description formatting. Might have to go back to fix docstrings in files.
 
 
-## Completed on 30Jan2021
+
+## Completed on 01Feb2021
 * Reorganized CLI tools into subgroups when they expand?
 * Reorganized autodoc structure because all information are 5 levels in
 * Overview is Empty? Delete? Or fill out intro to WESTPA dev
