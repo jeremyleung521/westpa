@@ -8,6 +8,7 @@ westpa.oldtools.stats module
    :members:
    :undoc-members:
    :show-inheritance:
+   :imported-members:
 
 westpa.oldtools.stats.accumulator module
 ----------------------------------------
@@ -16,6 +17,7 @@ westpa.oldtools.stats.accumulator module
    :members:
    :undoc-members:
    :show-inheritance:
+   :imported-members:
 
 westpa.oldtools.stats.edfs module
 ---------------------------------
@@ -24,6 +26,7 @@ westpa.oldtools.stats.edfs module
    :members:
    :undoc-members:
    :show-inheritance:
+   :imported-members:
 
 westpa.oldtools.stats.mcbs module
 ---------------------------------
@@ -32,5 +35,5 @@ westpa.oldtools.stats.mcbs module
    :members:
    :undoc-members:
    :show-inheritance:
-
+   :imported-members:
 

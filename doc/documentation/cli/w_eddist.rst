@@ -209,4 +209,4 @@ westpa.cli.tools.w\_eddist module
    :members:
    :undoc-members:
    :show-inheritance:
-
+   :imported-members:

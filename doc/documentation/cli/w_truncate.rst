@@ -39,4 +39,4 @@ westpa.cli.core.w\_truncate module
    :members:
    :undoc-members:
    :show-inheritance:
-
+   :imported-members:

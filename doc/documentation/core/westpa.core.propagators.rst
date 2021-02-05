@@ -8,6 +8,7 @@ westpa.core.propagators module
    :members:
    :undoc-members:
    :show-inheritance:
+   :imported-members:
 
 westpa.core.propagators.executable module
 -----------------------------------------
@@ -16,5 +17,5 @@ westpa.core.propagators.executable module
    :members:
    :undoc-members:
    :show-inheritance:
-
+   :imported-members:
 

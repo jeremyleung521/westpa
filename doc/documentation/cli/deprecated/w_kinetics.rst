@@ -97,4 +97,4 @@ westpa.cli.tools.w\_kinetics module
    :members:
    :undoc-members:
    :show-inheritance:
-
+   :imported-members:

@@ -252,4 +252,4 @@ westpa.cli.tools.plothist module
    :members:
    :undoc-members:
    :show-inheritance:
-
+   :imported-members:

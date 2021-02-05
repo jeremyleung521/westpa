@@ -8,6 +8,7 @@ westpa.core.reweight module
    :members:
    :undoc-members:
    :show-inheritance:
+   :imported-members:
 
 westpa.core.reweight.matrix module
 ----------------------------------
@@ -16,3 +17,4 @@ westpa.core.reweight.matrix module
    :members:
    :undoc-members:
    :show-inheritance:
+   :imported-members:

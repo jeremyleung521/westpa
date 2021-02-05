@@ -8,4 +8,4 @@ westpa.cli.tools.w\_dumpsegs module
    :members:
    :undoc-members:
    :show-inheritance:
-
+   :imported-members:

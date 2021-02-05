@@ -8,6 +8,7 @@ westpa.trajtree module
    :members:
    :undoc-members:
    :show-inheritance:
+   :imported-members:
 
 westpa.trajtree.trajtree module
 -------------------------------
@@ -16,5 +17,5 @@ westpa.trajtree.trajtree module
    :members:
    :undoc-members:
    :show-inheritance:
-
+   :imported-members:
 

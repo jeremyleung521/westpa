@@ -133,4 +133,4 @@ westpa.cli.tools.w\_bins module
    :members:
    :undoc-members:
    :show-inheritance:
-
+   :imported-members:

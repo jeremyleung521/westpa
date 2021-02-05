@@ -11,6 +11,7 @@ westpa.westext.adaptvoronoi.adaptVor\_driver module
    :members:
    :undoc-members:
    :show-inheritance:
+   :imported-members:
 
 Module contents
 ---------------
@@ -19,3 +20,4 @@ Module contents
    :members:
    :undoc-members:
    :show-inheritance:
+   :imported-members:

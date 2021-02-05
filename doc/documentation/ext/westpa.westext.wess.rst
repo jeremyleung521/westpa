@@ -11,6 +11,7 @@ westpa.westext.wess.ProbAdjust module
    :members:
    :undoc-members:
    :show-inheritance:
+   :imported-members:
 
 westpa.westext.wess.wess\_driver module
 ---------------------------------------
@@ -19,6 +20,7 @@ westpa.westext.wess.wess\_driver module
    :members:
    :undoc-members:
    :show-inheritance:
+   :imported-members:
 
 Module contents
 ---------------
@@ -27,3 +29,4 @@ Module contents
    :members:
    :undoc-members:
    :show-inheritance:
+   :imported-members:

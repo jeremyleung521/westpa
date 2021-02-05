@@ -8,6 +8,7 @@ westpa.core.kinetics module
    :members:
    :undoc-members:
    :show-inheritance:
+   :imported-members:
 
 westpa.core.kinetics.events module
 ----------------------------------
@@ -16,6 +17,7 @@ westpa.core.kinetics.events module
    :members:
    :undoc-members:
    :show-inheritance:
+   :imported-members:
 
 westpa.core.kinetics.matrates module
 ------------------------------------
@@ -24,6 +26,7 @@ westpa.core.kinetics.matrates module
    :members:
    :undoc-members:
    :show-inheritance:
+   :imported-members:
 
 westpa.core.kinetics.rate\_averaging module
 -------------------------------------------
@@ -32,5 +35,5 @@ westpa.core.kinetics.rate\_averaging module
    :members:
    :undoc-members:
    :show-inheritance:
-
+   :imported-members:
 

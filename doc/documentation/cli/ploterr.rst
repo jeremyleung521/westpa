@@ -41,4 +41,4 @@ westpa.cli.tools.ploterr module
    :members:
    :undoc-members:
    :show-inheritance:
-
+   :imported-members:

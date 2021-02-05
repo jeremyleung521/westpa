@@ -8,6 +8,7 @@ westpa.oldtools module
    :members:
    :undoc-members:
    :show-inheritance:
+   :imported-members:
 
 westpa.oldtools.files module
 ----------------------------
@@ -16,6 +17,7 @@ westpa.oldtools.files module
    :members:
    :undoc-members:
    :show-inheritance:
+   :imported-members:
 
 westpa.oldtools.miscfn module
 -----------------------------
@@ -24,5 +26,5 @@ westpa.oldtools.miscfn module
    :members:
    :undoc-members:
    :show-inheritance:
-
+   :imported-members:
 

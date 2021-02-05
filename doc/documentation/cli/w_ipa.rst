@@ -110,4 +110,4 @@ westpa.cli.tools.w\_ipa module
    :members:
    :undoc-members:
    :show-inheritance:
-
+   :imported-members:

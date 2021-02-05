@@ -11,6 +11,7 @@ westpa.westext.weed.BinCluster module
    :members:
    :undoc-members:
    :show-inheritance:
+   :imported-members:
 
 westpa.westext.weed.ProbAdjustEquil module
 ------------------------------------------
@@ -19,6 +20,7 @@ westpa.westext.weed.ProbAdjustEquil module
    :members:
    :undoc-members:
    :show-inheritance:
+   :imported-members:
 
 westpa.westext.weed.UncertMath module
 -------------------------------------
@@ -27,6 +29,7 @@ westpa.westext.weed.UncertMath module
    :members:
    :undoc-members:
    :show-inheritance:
+   :imported-members:
 
 westpa.westext.weed.weed\_driver module
 ---------------------------------------
@@ -35,6 +38,7 @@ westpa.westext.weed.weed\_driver module
    :members:
    :undoc-members:
    :show-inheritance:
+   :imported-members:
 
 Module contents
 ---------------
@@ -43,3 +47,4 @@ Module contents
    :members:
    :undoc-members:
    :show-inheritance:
+   :imported-members:

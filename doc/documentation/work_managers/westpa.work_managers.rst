@@ -8,6 +8,7 @@ westpa.work\_managers module
    :members:
    :undoc-members:
    :show-inheritance:
+   :imported-members:
 
 westpa.work\_managers.core module
 ---------------------------------
@@ -16,6 +17,7 @@ westpa.work\_managers.core module
    :members:
    :undoc-members:
    :show-inheritance:
+   :imported-members:
 
 westpa.work\_managers.environment module
 ----------------------------------------
@@ -24,6 +26,7 @@ westpa.work\_managers.environment module
    :members:
    :undoc-members:
    :show-inheritance:
+   :imported-members:
 
 westpa.work\_managers.mpi module
 --------------------------------
@@ -32,6 +35,7 @@ westpa.work\_managers.mpi module
    :members:
    :undoc-members:
    :show-inheritance:
+   :imported-members:
 
 westpa.work\_managers.processes module
 --------------------------------------
@@ -40,6 +44,7 @@ westpa.work\_managers.processes module
    :members:
    :undoc-members:
    :show-inheritance:
+   :imported-members:
 
 westpa.work\_managers.serial module
 -----------------------------------
@@ -48,6 +53,7 @@ westpa.work\_managers.serial module
    :members:
    :undoc-members:
    :show-inheritance:
+   :imported-members:
 
 westpa.work\_managers.threads module
 ------------------------------------
@@ -56,5 +62,5 @@ westpa.work\_managers.threads module
    :members:
    :undoc-members:
    :show-inheritance:
-
+   :imported-members:
 

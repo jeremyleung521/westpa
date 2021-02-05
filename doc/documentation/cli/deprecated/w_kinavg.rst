@@ -170,4 +170,4 @@ westpa.cli.tools.w\_kinavg module
    :members:
    :undoc-members:
    :show-inheritance:
-
+   :imported-members:

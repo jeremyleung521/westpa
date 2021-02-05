@@ -47,4 +47,4 @@ westpa.cli.tools.w\_fork module
    :members:
    :undoc-members:
    :show-inheritance:
-
+   :imported-members:

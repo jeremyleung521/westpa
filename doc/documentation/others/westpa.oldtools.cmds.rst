@@ -8,6 +8,7 @@ westpa.oldtools.cmds module
    :members:
    :undoc-members:
    :show-inheritance:
+   :imported-members:
 
 westpa.oldtools.cmds.w\_ttimes module
 -------------------------------------
@@ -16,5 +17,5 @@ westpa.oldtools.cmds.w\_ttimes module
    :members:
    :undoc-members:
    :show-inheritance:
-
+   :imported-members:
 

@@ -8,6 +8,7 @@ westpa.core.binning module
    :members:
    :undoc-members:
    :show-inheritance:
+   :imported-members:
 
 westpa.core.binning.assign module
 ---------------------------------
@@ -16,6 +17,7 @@ westpa.core.binning.assign module
    :members:
    :undoc-members:
    :show-inheritance:
+   :imported-members:
 
 westpa.core.binning.bins module
 -------------------------------
@@ -24,5 +26,5 @@ westpa.core.binning.bins module
    :members:
    :undoc-members:
    :show-inheritance:
-
+   :imported-members:
 

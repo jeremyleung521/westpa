@@ -8,6 +8,7 @@ westpa.oldtools.aframe
    :members:
    :undoc-members:
    :show-inheritance:
+   :imported-members:
 
 westpa.oldtools.aframe.atool module
 -----------------------------------
@@ -16,6 +17,7 @@ westpa.oldtools.aframe.atool module
    :members:
    :undoc-members:
    :show-inheritance:
+   :imported-members:
 
 westpa.oldtools.aframe.base\_mixin module
 -----------------------------------------
@@ -24,6 +26,8 @@ westpa.oldtools.aframe.base\_mixin module
    :members:
    :undoc-members:
    :show-inheritance:
+   :imported-members:
+   :imported-members:
 
 westpa.oldtools.aframe.binning module
 -------------------------------------
@@ -32,6 +36,7 @@ westpa.oldtools.aframe.binning module
    :members:
    :undoc-members:
    :show-inheritance:
+   :imported-members:
 
 westpa.oldtools.aframe.data\_reader module
 ------------------------------------------
@@ -40,6 +45,7 @@ westpa.oldtools.aframe.data\_reader module
    :members:
    :undoc-members:
    :show-inheritance:
+   :imported-members:
 
 westpa.oldtools.aframe.iter\_range module
 -----------------------------------------
@@ -48,6 +54,7 @@ westpa.oldtools.aframe.iter\_range module
    :members:
    :undoc-members:
    :show-inheritance:
+   :imported-members:
 
 westpa.oldtools.aframe.kinetics module
 --------------------------------------
@@ -56,6 +63,7 @@ westpa.oldtools.aframe.kinetics module
    :members:
    :undoc-members:
    :show-inheritance:
+   :imported-members:
 
 westpa.oldtools.aframe.mcbs module
 ----------------------------------
@@ -64,6 +72,7 @@ westpa.oldtools.aframe.mcbs module
    :members:
    :undoc-members:
    :show-inheritance:
+   :imported-members:
 
 westpa.oldtools.aframe.output module
 ------------------------------------
@@ -72,6 +81,7 @@ westpa.oldtools.aframe.output module
    :members:
    :undoc-members:
    :show-inheritance:
+   :imported-members:
 
 westpa.oldtools.aframe.plotting module
 --------------------------------------
@@ -80,6 +90,7 @@ westpa.oldtools.aframe.plotting module
    :members:
    :undoc-members:
    :show-inheritance:
+   :imported-members:
 
 westpa.oldtools.aframe.trajwalker module
 ----------------------------------------
@@ -88,6 +99,7 @@ westpa.oldtools.aframe.trajwalker module
    :members:
    :undoc-members:
    :show-inheritance:
+   :imported-members:
 
 westpa.oldtools.aframe.transitions module
 -----------------------------------------
@@ -96,5 +108,5 @@ westpa.oldtools.aframe.transitions module
    :members:
    :undoc-members:
    :show-inheritance:
-
+   :imported-members:
 

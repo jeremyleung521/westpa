@@ -91,4 +91,4 @@ westpa.cli.core.w\_init module
    :members:
    :undoc-members:
    :show-inheritance:
-
+   :imported-members:

@@ -8,6 +8,7 @@ westpa.work\_managers.zeromq module
    :members:
    :undoc-members:
    :show-inheritance:
+   :imported-members:
 
 westpa.work\_managers.zeromq.core module
 ----------------------------------------
@@ -16,6 +17,7 @@ westpa.work\_managers.zeromq.core module
    :members:
    :undoc-members:
    :show-inheritance:
+   :imported-members:
 
 westpa.work\_managers.zeromq.node module
 ----------------------------------------
@@ -24,6 +26,7 @@ westpa.work\_managers.zeromq.node module
    :members:
    :undoc-members:
    :show-inheritance:
+   :imported-members:
 
 westpa.work\_managers.zeromq.work\_manager module
 -------------------------------------------------
@@ -32,6 +35,7 @@ westpa.work\_managers.zeromq.work\_manager module
    :members:
    :undoc-members:
    :show-inheritance:
+   :imported-members:
 
 westpa.work\_managers.zeromq.worker module
 ------------------------------------------
@@ -40,5 +44,4 @@ westpa.work\_managers.zeromq.worker module
    :members:
    :undoc-members:
    :show-inheritance:
-
-
+   :imported-members:

@@ -11,6 +11,7 @@ westpa.westext.stringmethod.fourier\_fitting module
    :members:
    :undoc-members:
    :show-inheritance:
+   :imported-members:
 
 westpa.westext.stringmethod.string\_driver module
 -------------------------------------------------
@@ -19,6 +20,7 @@ westpa.westext.stringmethod.string\_driver module
    :members:
    :undoc-members:
    :show-inheritance:
+   :imported-members:
 
 westpa.westext.stringmethod.string\_method module
 -------------------------------------------------
@@ -27,6 +29,7 @@ westpa.westext.stringmethod.string\_method module
    :members:
    :undoc-members:
    :show-inheritance:
+   :imported-members:
 
 Module contents
 ---------------
@@ -35,3 +38,4 @@ Module contents
    :members:
    :undoc-members:
    :show-inheritance:
+   :imported-members:

@@ -139,4 +139,4 @@ westpa.cli.tools.w\_assign module
    :members:
    :undoc-members:
    :show-inheritance:
-
+   :imported-members:
