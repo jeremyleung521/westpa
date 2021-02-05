@@ -26,15 +26,20 @@
 * tab groups can be changed in /westpa/doc/sphinx_index.rst
 * Link back to github wiki, westpa.github.io/westpa
 * copyright names and years
-* fix faq link on readme landing page, check other links
 * side bar command_line_tool_index button should link to page instead of expanding, this might be more navigable
 * Create a sphinx-sitemap for easier navigation? https://github.com/jdillard/sphinx-sitemap
-* currently can't `make html` without install
+* currently can't `make html` successfully without install
+* I would be useful to add 'last modified' timestamps to each page:
+    * see: https://stackoverflow.com/questions/53554636/how-to-make-sphinx-generate-last-modified-from-access-time-of-source-files-for
 
 ## Regarding autodoc
 * westext is not being surveyed by correctly, due to import errors (wess,weed are depreciated, will see about the other 2)
 * westpatools (westpa.cli.tools package) have odd description formatting. Might have to go back to fix docstrings in files.
 
+## Completed on 02Feb2021
+* fixed faq link on readme landing page, check other links (they seem okay)
+    * This points to wiki faq page, which I think is best since it will likely be more frequently updated
+    * Subsequently added note + link (to wiki faq) to documentation's faq page
 
 
 ## Completed on 01Feb2021

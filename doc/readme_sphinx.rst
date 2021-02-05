@@ -73,7 +73,7 @@ FAQ
 
 Responses to frequently asked questions (FAQ) can be found in the following page: 
   
-- `Frequently Asked Questions (FAQ)`_
+- `Frequently Asked Questions <https://github.com/westpa/westpa/wiki/Frequently-Asked-Questions>`__
 
 
 A mailing list for WESTPA is available, at which one can ask questions (or see
