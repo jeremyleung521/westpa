@@ -88,7 +88,7 @@ Specifying input file
 
 ***``input``***
     Specify the input *hdf5* file ''``input``. This is the output file
-    from a previous analysis tool (e.g. 'pcpdist.h5')
+    from a previous analysis tool (e.g. 'pdist.h5')
 
 Output plot pdf file
 ^^^^^^^^^^^^^^^^^^^^
@@ -203,24 +203,24 @@ at once using a color map if this positional argument is specified:
 Examples
 --------
 
-These examples assume the input file is created using w\_pcpdist and is
-named 'pcpdist.h5'
+These examples assume the input file is created using w\_pdist and is
+named 'pdist.h5'
 
 Basic plotting
 ~~~~~~~~~~~~~~
 
 Plot the energy ( -ln(P(x)) ) for the last iteration
 
-``plothist instant pcpdist.h5``
+``plothist instant pdist.h5``
 
 Plot the evolution of the log10 of the probability distribution over all
 iterations
 
-``plothist evolution pcpdist.h5 --log10 ``
+``plothist evolution pdist.h5 --log10 ``
 
 Plot the average linear probability distribution over all iterations
 
-``plothist average pcpdist.h5 --linear``
+``plothist average pdist.h5 --linear``
 
 Specifying progress coordinate
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -228,12 +228,12 @@ Specifying progress coordinate
 Plot the average probability distribution as the energy, label the
 x-axis 'pcoord', over the entire range of the progress coordinate
 
-``plothist average pcpdist.h5 0::pcoord``
+``plothist average pdist.h5 0::pcoord``
 
 Same as above, but only plot the energies for with progress coordinate
 between 0 and 10
 
-``plothist average pcpdist.h5 '0:0,10:pcoord'``
+``plothist average pdist.h5 '0:0,10:pcoord'``
 
 (Note: the quotes are needed if specifying a range that includes a
 negative bound)
@@ -242,7 +242,7 @@ negative bound)
 probability distribution for the 5th iteration, representing the first
 two progress coordinates as a heatmap
 
-``plothist instant pcpdist.h5 0 1 --iter 5 --linear``
+``plothist instant pdist.h5 0 1 --iter 5 --linear``
 
 
 westpa.cli.tools.plothist module
