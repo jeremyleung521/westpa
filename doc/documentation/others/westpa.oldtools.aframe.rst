@@ -27,7 +27,6 @@ westpa.oldtools.aframe.base\_mixin module
    :undoc-members:
    :show-inheritance:
    :imported-members:
-   :imported-members:
 
 westpa.oldtools.aframe.binning module
 -------------------------------------
