@@ -5,10 +5,12 @@ on:
     branches:
       - "main"
       - "westpa-2.0-restruct"
+      - "westpa-2.0-tests"
   pull_request:
     branches:
       - "main"
       - "westpa-2.0-restruct"
+      - "westpa-2.0-tests"
   #schedule:
     # Nightly tests run on master by default:
     #   Scheduled workflows run on the latest commit on the default or base branch.
@@ -32,7 +34,7 @@ jobs:
 
   test:
     name: Test on Linux, Python ${{ matrix.python-version }}
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-20.04
     strategy:
       matrix:
         python-version: ["3.7", "3.8", "3.9"]
