@@ -33,7 +33,7 @@ jobs:
 
   test:
     name: Test on Mac, Python ${{ matrix.python-version }}
-    runs-on: macos-
+    runs-on: macos-latest
     strategy:
       matrix:
         python-version: ["3.8", "3.9"]
