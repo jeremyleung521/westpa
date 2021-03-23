@@ -32,8 +32,8 @@ jobs:
           pre-commit run --all-files
 
   test:
-    name: Test on Linux, Python ${{ matrix.python-version }}
-    runs-on: macos-latest"
+    name: Test on Mac, Python ${{ matrix.python-version }}
+    runs-on: macos-latest
     strategy:
       matrix:
         python-version: ["3.7", "3.8", "3.9"]
