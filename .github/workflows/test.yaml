@@ -5,6 +5,7 @@ on:
     branches:
       - "main"
       - "westpa-2.0-restruct"
+      - "sphinx"
   pull_request:
     branches:
       - "main"
