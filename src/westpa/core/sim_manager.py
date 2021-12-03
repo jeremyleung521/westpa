@@ -127,13 +127,21 @@ class WESimManager:
             log.debug('invoking callback {!r} for hook {!r}'.format(fn, hook))
             fn(*args, **kwargs)
 
-    def load_plugins(self):
+    def load_plugins(self, plugins=None):
+        if plugins is None:
+            plugins = []
+
         try:
             plugins_config = westpa.rc.config['west', 'plugins']
         except KeyError:
-            return
+            plugins_config = []
 
-        for plugin_config in plugins_config or []:
+        if plugins_config is None:
+            plugins_config = []
+
+        plugins += plugins_config
+
+        for plugin_config in plugins:
             plugin_name = plugin_config['plugin']
             if plugin_config.get('enabled', True):
                 log.info('loading plugin {!r}'.format(plugin_name))
@@ -254,6 +262,7 @@ class WESimManager:
         # Process basis states
         self.get_bstate_pcoords(basis_states)
         self.data_manager.create_ibstate_group(basis_states)
+        self.data_manager.create_ibstate_iter_h5file(basis_states)
         self.report_basis_states(basis_states)
 
         pstatus('Preparing initial states')
@@ -402,6 +411,11 @@ class WESimManager:
         # Let the WE driver assign completed segments
         if completed_segments:
             self.we_driver.assign(list(completed_segments.values()))
+
+        # load restart data
+        self.data_manager.prepare_segment_restarts(
+            incomplete_segments.values(), self.current_iter_bstates, self.current_iter_istates
+        )
 
         # Get the basis states and initial states for the next iteration, necessary for doing on-the-fly recycling
         self.next_iter_bstates = self.data_manager.get_basis_states(self.n_iter + 1)

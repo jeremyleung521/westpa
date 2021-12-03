@@ -1,6 +1,9 @@
-import numpy as np
-from .fourier_fitting import FourierFit
+from abc import ABCMeta, abstractmethod, abstractproperty
 from collections import Iterable
+import logging
+
+import numpy as np
+
 
 try:
     import scipy
@@ -11,35 +14,60 @@ try:
 except Exception:
     SCIPY_FLAG = False
 
-from westext.stringmethod import WESTStringMethod
+from .fourier_fitting import FourierFit
 
-import logging
 
 log = logging.getLogger(__name__)
 
 
-class DefaultStringMethod(WESTStringMethod):
-    """ Implementation of a method to evolve one or more pseudo-1D strings in a high dimensional
-        progress coordinate space.
+class WESTStringMethod:
 
-        **Parameters**
-        centers:        A numpy array of size (number of total centers,pcoord dim) that stores
-                            the positions of all of the string images
-        slen:           An iterable containing the number of centers in each string
-        slabels:        An list containing the relative positions in each string of any state label
-                            progress coordinates if present. These progress coordinates will be ignored in the
-                            calculation. None if no labels
-        mpairs:         A list of lists containing the indices of pairs of centers that should move together.
-                            None if strings move independently
-        dtau:           Parameter controlling the rate at which centers move toward the average value in the bin
-        kappa:          Parameter controlling the smoothing of the string
-        fixed_ends:     Boolean flag specifying whether to fix ends of the strings
-        sciflag:        Boolean flag specifying whether to attempt to use scipy methods which are
-                            generally more efficient
-        fourierflag:    Boolean flag specifying whether to user fourier fitting method
-        fourier_P:      Integer value specifying how many fourier modes to use in fitting
-        fourier_maxiters: Maximum number of iterations of fourier fitting procedure
-        fourier_tol:    Tolerance for ending fourier fitting
+    ___metaclass__ = ABCMeta
+
+    def __init__(self, centers, **kwargs):
+        pass
+
+    @abstractproperty
+    def centers(self):
+        """Return the centers of all of the strings"""
+        pass
+
+    @abstractproperty
+    def length(self):
+        """Return a list of the lengths of each string"""
+        pass
+
+    @abstractmethod
+    def update_string_centers(self, avgcoords, binprob):
+        """Given a set of average coordinates (avgcoords) in each bin
+        and the individual probabilities for each bin (binprob), update
+        the string centers
+        """
+        pass
+
+
+class DefaultStringMethod(WESTStringMethod):
+    """Implementation of a method to evolve one or more pseudo-1D strings in a high dimensional
+    progress coordinate space.
+
+    **Parameters**
+    centers:        A numpy array of size (number of total centers,pcoord dim) that stores
+                        the positions of all of the string images
+    slen:           An iterable containing the number of centers in each string
+    slabels:        An list containing the relative positions in each string of any state label
+                        progress coordinates if present. These progress coordinates will be ignored in the
+                        calculation. None if no labels
+    mpairs:         A list of lists containing the indices of pairs of centers that should move together.
+                        None if strings move independently
+    dtau:           Parameter controlling the rate at which centers move toward the average value in the bin
+    kappa:          Parameter controlling the smoothing of the string
+    fixed_ends:     Boolean flag specifying whether to fix ends of the strings
+    sciflag:        Boolean flag specifying whether to attempt to use scipy methods which are
+                        generally more efficient
+    fourierflag:    Boolean flag specifying whether to user fourier fitting method
+    fourier_P:      Integer value specifying how many fourier modes to use in fitting
+    fourier_maxiters: Maximum number of iterations of fourier fitting procedure
+    fourier_tol:    Tolerance for ending fourier fitting
     """
 
     def __init__(
@@ -167,7 +195,7 @@ class DefaultStringMethod(WESTStringMethod):
                 self._A[ulen] += np.diag(dd, k=-1)
 
     def update_string_centers(self, avgcoords, binprob):
-        """ Update the position of all string centers
+        """Update the position of all string centers
         **Parameters**
         avgcoords:      Average position of replicas in each voronoi cell
         binprob:        The total weight in each voronoi cell
