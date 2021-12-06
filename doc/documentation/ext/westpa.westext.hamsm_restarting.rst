@@ -35,10 +35,10 @@ This plugin requires the following section in :code:`west.cfg` (or whatever your
       initialization_file: restart_initialization.json	# JSON describing w_run parameters for new runs
       ref_pdb_file: common_files/bstate.pdb 		# File containing reference structure/topology
       model_name: NaClFlux                              # Name for msm_we model
-      n_clusters: 25			        	# Number of clusters in haMSM building
+      n_clusters: 2			        	# Number of clusters in haMSM building
       we_folder: .                      		# Should point to the same directory as WEST_SIM_ROOT
       target_pcoord_bounds: [[-inf, 2.60]]		# Progress coordinate boundaries for the target state
-      basis_pcoord_bounds: [[12.0, 13.0]]               # Progress coordinate boundaries for the basis state
+      basis_pcoord_bounds: [[12.0, inf]]               # Progress coordinate boundaries for the basis state
       tau: 5e-13                                        # Resampling time, i.e. length of a WE iteration in physical units
       pcoord_ndim0: 1	                                # Dimensionality of progress coordinate
       dim_reduce_method: pca	                	# Dimensionality reduction scheme, either "pca", "vamp", or "none"
@@ -48,6 +48,7 @@ This plugin requires the following section in :code:`west.cfg` (or whatever your
       struct_filetype: mdtraj.formats.PDBTrajectoryFile 	# Filetype for output start-structures
       debug: False              # Optional, defaults to False. If true, enables debug-mode logging.
       streaming: True           # Does clustering in a streaming fashion, versus trying to load all coords in memory
+      n_cpus: 1                 # Number of CPUs to use for parallel calculations
 
 Some sample parameters are provided in the above, but of course should be modified to your specific system.
 
