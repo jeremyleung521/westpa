@@ -24,7 +24,8 @@ Configuration
 This plugin requires the following section in :code:`west.cfg` (or whatever your WE configuration file is named):
 
 .. code-block:: yaml
-
+  
+  west:
     plugins:
     - plugin: westpa.westext.hamsm_restarting.restart_driver.RestartDriver
       n_restarts: 0 	        # Number of restarts to perform
