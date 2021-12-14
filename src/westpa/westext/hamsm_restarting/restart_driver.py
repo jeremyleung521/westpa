@@ -581,12 +581,18 @@ class RestartDriver:
 
         model = self.model
 
+        plot_directory = f"{restart_directory}/plots"
+
+        if not os.path.exists(plot_directory):
+            log.info(f"{plot_directory} doesn't exist, creating it.")
+            os.mkdir(plot_directory)
+
         log.info("Producing flux-profile, pseudocommittor, and target flux comparison plots.")
         flux_pcoord_fig, flux_pcoord_ax = plt.subplots()
         model.plot_flux(ax=flux_pcoord_ax, suppress_validation=True)
         flux_pcoord_fig.text(x=0.1, y=-0.05, s='This flux profile should become flatter after restarting', fontsize=12)
         flux_pcoord_ax.legend(bbox_to_anchor=(1.01, 1.0), loc="upper left")
-        flux_pcoord_fig.savefig(f'{restart_directory}/flux_plot.pdf', bbox_inches="tight")
+        flux_pcoord_fig.savefig(f'{plot_directory}/flux_plot.pdf', bbox_inches="tight")
 
         flux_pseudocomm_fig, flux_pseudocomm_ax = plt.subplots()
         model.plot_flux_committor(ax=flux_pseudocomm_ax, suppress_validation=True)
@@ -599,7 +605,7 @@ class RestartDriver:
             fontsize=12,
         )
         flux_pseudocomm_ax.legend(bbox_to_anchor=(1.01, 1.0), loc="upper left")
-        flux_pseudocomm_fig.savefig(f'{restart_directory}/pseudocomm-flux_plot.pdf', bbox_inches="tight")
+        flux_pseudocomm_fig.savefig(f'{plot_directory}/pseudocomm-flux_plot.pdf', bbox_inches="tight")
 
         flux_comparison_fig, flux_comparison_ax = plt.subplots(figsize=(7, 3))
         # Get haMSM flux estimates
@@ -653,7 +659,7 @@ class RestartDriver:
         flux_comparison_ax.set_ylabel('Flux')
         flux_comparison_ax.set_xticks([])
         flux_comparison_fig.tight_layout()
-        flux_comparison_fig.savefig(f'{restart_directory}/hamsm_vs_direct_flux_comparison_plot.pdf', bbox_inches="tight")
+        flux_comparison_fig.savefig(f'{plot_directory}/hamsm_vs_direct_flux_comparison_plot.pdf', bbox_inches="tight")
 
     def prepare_new_we(self):
         """
