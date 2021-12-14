@@ -607,6 +607,12 @@ class RestartDriver:
         flux_pseudocomm_ax.legend(bbox_to_anchor=(1.01, 1.0), loc="upper left")
         flux_pseudocomm_fig.savefig(f'{plot_directory}/pseudocomm-flux_plot.pdf', bbox_inches="tight")
 
+        flux_pcomm_color_fig, flux_pcomm_color_ax = plt.subplots()
+        model.plot_flux_committor_pcoordcolor(ax=flux_pcomm_color_ax)
+        flux_pcomm_color_fig.text(x=0.1, y=-0.05, s='This flux profile should become flatter after restarting', fontsize=12)
+        flux_pcomm_color_ax.legend(bbox_to_anchor=(1.01, 1.0), loc="upper left")
+        flux_pcomm_color_fig.savefig(f'{plot_directory}/pseudocomm-flux_plot_pcoordcolor.pdf', bbox_inches="tight")
+
         flux_comparison_fig, flux_comparison_ax = plt.subplots(figsize=(7, 3))
         # Get haMSM flux estimates
         models = [model]
