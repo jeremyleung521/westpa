@@ -270,7 +270,7 @@ class TestZMQWorkManagerInternalNone(ZMQTestBase, unittest.TestCase):
 
     def test_shutdown_without_workers_after_submission(self):
         self.test_wm.submit(identity, (1,), {})
-        time.sleep(1.5)
+        time.sleep(3)
         assert not self.test_wm.comm_thread.is_alive()
 
     def test_shutdown_without_workers_raises_future_error(self):
