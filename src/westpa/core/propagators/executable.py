@@ -46,8 +46,8 @@ def pcoord_loader(fieldname, pcoord_return_filename, destobj, single_point):
             pcoord.shape = (1,)
     else:
         expected_shape = (system.pcoord_len, system.pcoord_ndim)
-        if pcoord.ndim == 1:
-            pcoord.shape = (len(pcoord), 1)
+        if pcoord.ndim < 2:
+            pcoord.shape = expected_shape
     if pcoord.shape != expected_shape:
         raise ValueError(
             'progress coordinate data has incorrect shape {!r} [expected {!r}] Check pcoord.err or seg_logs for more information.'.format(
@@ -92,30 +92,39 @@ def restart_loader(fieldname, restart_folder, segment, single_point):
 
 
 def restart_writer(path, segment):
-    '''Prepare the necessary files from the per-iteration HDF5 file to run ``segnment``.'''
+    '''Prepare the necessary files from the per-iteration HDF5 file to run ``segment``.'''
     try:
         restart = segment.data.pop('iterh5/restart', None)
+        # Making an exception for start states in iteration 1
         if restart is None:
             raise ValueError('restart data is not present')
 
         d = BytesIO(restart[:-1])  # remove tail protection
         with tarfile.open(fileobj=d, mode='r:gz') as t:
             t.extractall(path=path)
-
+    except ValueError as e:
+        log.warning('could not write restart data for {}: {}'.format(str(segment), str(e)))
+        d = BytesIO()
+        if segment.n_iter == 1:
+            log.warning(
+                'In iteration 1. Assuming this is a start state and proceeding to skip reading restart from per-iteration HDF5 file for {}'.format(
+                    str(segment)
+                )
+            )
     except Exception as e:
         log.warning('could not write restart data for {}: {}'.format(str(segment), str(e)))
     finally:
         d.close()
 
 
-def seglog_loader(fieldname, log_folder, segment, single_point):
-    '''Load data from the log return. The loader will tar all files in ``log_folder``
+def seglog_loader(fieldname, log_file, segment, single_point):
+    '''Load data from the log return. The loader will tar all files in ``log_file``
     and store it in the per-iteration HDF5 file. ``segment`` is the ``Segment`` object that
     the data is associated with. ``single_point`` is not used by this loader.'''
     try:
         d = BytesIO()
         with tarfile.open(mode='w:gz', fileobj=d) as t:
-            t.add(log_folder, arcname='.')
+            t.add(log_file, arcname='.')
 
         segment.data['iterh5/log'] = d.getvalue() + b'\x01'  # add tail protection
     except Exception as e:
@@ -190,7 +199,7 @@ class ExecutablePropagator(WESTPropagator):
         self.addtl_child_environ.update({k: str(v) for k, v in (config['west', 'executable', 'environ'] or {}).items()})
 
         # Load configuration items relating to child processes
-        for child_type in ('propagator', 'pre_iteration', 'post_iteration', 'get_pcoord', 'gen_istate', 'group_walkers'):
+        for child_type in ('propagator', 'pre_iteration', 'post_iteration', 'get_pcoord', 'gen_istate', 'subgroup_walkers'):
             child_info = config.get(['west', 'executable', child_type])
             if not child_info:
                 continue
@@ -233,7 +242,7 @@ class ExecutablePropagator(WESTPropagator):
             'filename': None,
             'dir': True,
         }
-        self.data_info['log'] = {'name': 'seglog', 'loader': seglog_loader, 'enabled': store_h5, 'filename': None, 'dir': True}
+        self.data_info['log'] = {'name': 'seglog', 'loader': seglog_loader, 'enabled': store_h5, 'filename': None, 'dir': False}
 
         dataset_configs = config.get(['west', 'executable', 'datasets']) or []
         for dsinfo in dataset_configs:
@@ -251,10 +260,11 @@ class ExecutablePropagator(WESTPropagator):
             loader_directive = dsinfo.get('loader')
             if loader_directive:
                 loader = get_object(loader_directive)
-            elif dsname != 'pcoord':
+                dsinfo['loader'] = loader
+            elif dsname not in ['pcoord', 'seglog', 'restart', 'trajectory']:
                 loader = aux_data_loader
+                dsinfo['loader'] = loader
 
-            dsinfo['loader'] = loader
             self.data_info.setdefault(dsname, {}).update(dsinfo)
 
         log.debug('data_info: {!r}'.format(self.data_info))
@@ -280,10 +290,10 @@ class ExecutablePropagator(WESTPropagator):
         ``subprocess.Popen()``. Every child process executed by ``exec_child()`` gets these.'''
 
         return {
-            self.ENV_RAND16: str(random.randint(0, 2 ** 16)),
-            self.ENV_RAND32: str(random.randint(0, 2 ** 32)),
-            self.ENV_RAND64: str(random.randint(0, 2 ** 64)),
-            self.ENV_RAND128: str(random.randint(0, 2 ** 128)),
+            self.ENV_RAND16: str(random.randint(0, 2**16)),
+            self.ENV_RAND32: str(random.randint(0, 2**32)),
+            self.ENV_RAND64: str(random.randint(0, 2**64)),
+            self.ENV_RAND128: str(random.randint(0, 2**128)),
             self.ENV_RANDFLOAT: str(random.random()),
         }
 
@@ -357,6 +367,10 @@ class ExecutablePropagator(WESTPropagator):
 
         if initial_state.basis_state is not None:
             basis_state = initial_state.basis_state
+        elif initial_state.istate_type == InitialState.ISTATE_TYPE_START:
+            basis_state = BasisState(
+                label=f"sstate_{initial_state.state_id}", pcoord=initial_state.pcoord, probability=0.0, auxref=""
+            )
         else:
             basis_state = self.basis_states[initial_state.basis_state_id]
 
@@ -391,16 +405,33 @@ class ExecutablePropagator(WESTPropagator):
             # This segment is initiated from a basis state; WEST_PARENT_SEG_ID and WEST_PARENT_DATA_REF are
             # set to the basis state ID and data ref
             initial_state = self.initial_states[segment.initial_state_id]
-            basis_state = self.basis_states[initial_state.basis_state_id]
+
+            if initial_state.istate_type == InitialState.ISTATE_TYPE_START:
+
+                basis_state = BasisState(
+                    label=f"sstate_{initial_state.state_id}", pcoord=initial_state.pcoord, probability=0.0, auxref=""
+                )
+
+            else:
+                basis_state = self.basis_states[initial_state.basis_state_id]
 
             if self.ENV_BSTATE_ID not in environ:
                 self.update_args_env_basis_state(template_args, environ, basis_state)
             if self.ENV_ISTATE_ID not in environ:
                 self.update_args_env_initial_state(template_args, environ, initial_state)
 
-            assert initial_state.istate_type in (InitialState.ISTATE_TYPE_BASIS, InitialState.ISTATE_TYPE_GENERATED)
+            assert initial_state.istate_type in (
+                InitialState.ISTATE_TYPE_BASIS,
+                InitialState.ISTATE_TYPE_GENERATED,
+                InitialState.ISTATE_TYPE_START,
+            )
             if initial_state.istate_type == InitialState.ISTATE_TYPE_BASIS:
                 environ[self.ENV_PARENT_DATA_REF] = environ[self.ENV_BSTATE_DATA_REF]
+
+            elif initial_state.istate_type == InitialState.ISTATE_TYPE_START:
+
+                # This points to the start-state PDB
+                environ[self.ENV_PARENT_DATA_REF] = environ[self.ENV_BSTATE_DATA_REF] + '/' + initial_state.basis_auxref
             else:  # initial_state.type == InitialState.ISTATE_TYPE_GENERATED
                 environ[self.ENV_PARENT_DATA_REF] = environ[self.ENV_ISTATE_DATA_REF]
 
