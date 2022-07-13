@@ -541,9 +541,13 @@ class WEDriver:
     def _merge_by_weight(self, bin, target_count, ideal_weight, number_of_subgroups):
         '''Merge underweight particles'''
 
+        # For edge cases, respect largest_allowed_weight and break out of the while loop
+        if ideal_weight * self.weight_merge_cutoff > self.largest_allowed_weight:
+            largest_weight_flag = True
+        else:
+            largest_weight_flag = False
         to_merge_count = len(bin)
-        flag = False
-        print(to_merge_count)
+
         while True:
             segments = np.array(sorted(bin, key=operator.attrgetter('weight')), dtype=np.object_)
             weights = np.array(list(map(operator.attrgetter('weight'), segments)))
@@ -552,21 +556,17 @@ class WEDriver:
             to_merge = segments[cumul_weight <= ideal_weight * self.weight_merge_cutoff]
             print(len(to_merge))
             if len(to_merge) < 2:
-                print('original break')
                 return
-            elif len(to_merge) == to_merge_count and flag is True:
-                print('alternate break')
-                return
-
-            to_merge_count = len(to_merge)
-            print(to_merge_count)
+            if largest_weight_flag is True:
+                if len(to_merge) == to_merge_count:
+                    return
+                to_merge_count = len(to_merge)
 
             bin.difference_update(to_merge)
             new_segment, parent = self._merge_walkers(to_merge, cumul_weight, bin)
             if new_segment.weight > self.largest_allowed_weight:
                 print("instance of threshold break (bw)")
                 bin.update(to_merge)
-                flag = True
             else:
                 print("no threshold break (bw)")
                 bin.add(new_segment)
