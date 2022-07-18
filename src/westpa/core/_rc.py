@@ -13,7 +13,7 @@ import numpy as np
 import westpa
 import westpa.core.data_manager
 from westpa.core.binning.assign import BinMapper
-from westpa.core.binning import RectilinearBinMapper, RecursiveBinMapper, MABBinMapper, BinlessMapper
+from westpa.core.binning import RectilinearBinMapper, RecursiveBinMapper, MABBinMapper, BinlessMapper, CustomMapper
 from westpa.core.extloader import get_object
 from .yamlcfg import YAMLConfig
 from .yamlcfg import YAMLSystem
@@ -107,6 +107,21 @@ def detect_binless_mapper(mapper):
         for ibin in mapper._recursion_targets:
             rec_mapper = mapper._recursion_targets[ibin]
             if detect_binless_mapper(rec_mapper):
+                return True
+    else:
+        return False
+
+
+def detect_custom_mapper(mapper):
+    if isinstance(mapper, CustomMapper):
+        return True
+    elif isinstance(mapper, RecursiveBinMapper):
+        if detect_custom_mapper(mapper.base_mapper):
+            return True
+
+        for ibin in mapper._recursion_targets:
+            rec_mapper = mapper._recursion_targets[ibin]
+            if detect_custom_mapper(rec_mapper):
                 return True
     else:
         return False
@@ -338,10 +353,20 @@ class WESTRC:
 
         return use_binless
 
+    def detect_custom_mapper(self):
+        bin_dict = self.config.get(['west', 'system', 'system_options', 'bins'])
+        use_custom = False
+        if bin_dict is not None:
+            mapper = bins_from_yaml_dict(bin_dict)
+            use_custom = detect_custom_mapper(mapper)
+
+        return use_custom
+
     def new_sim_manager(self):
         drivername = self.config.get(['west', 'drivers', 'sim_manager'], 'default')
         use_mab = self.detect_mab_mapper()
         use_binless = self.detect_binless_mapper()
+        use_custom = self.detect_custom_mapper()
 
         if use_mab:
             from .binning.mab_manager import MABSimManager
@@ -351,6 +376,10 @@ class WESTRC:
             from .binning.binless_manager import BinlessSimManager
 
             sim_manager = BinlessSimManager(rc=self)
+        elif use_custom:
+            from .binning.custom_manager import CustomSimManager
+
+            sim_manager = CustomSimManager(rc=self)
         elif drivername.lower() == 'default':
             from .sim_manager import WESimManager
 
@@ -388,6 +417,7 @@ class WESTRC:
         drivername = self.config.get(['west', 'drivers', 'we_driver'], 'default')
         use_mab = self.detect_mab_mapper()
         use_binless = self.detect_binless_mapper()
+        use_custom = self.detect_custom_mapper()
 
         if use_mab:
             from .binning.mab_driver import MABDriver
@@ -397,6 +427,10 @@ class WESTRC:
             from .binning.binless_driver import BinlessDriver
 
             we_driver = BinlessDriver()
+        elif use_custom:
+            from .binning.custom_driver import CustomDriver
+
+            we_driver = CustomDriver()
         elif drivername.lower() == 'default':
             from .we_driver import WEDriver
 
