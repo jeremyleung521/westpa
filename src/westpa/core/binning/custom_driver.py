@@ -122,7 +122,7 @@ class CustomDriver(WEDriver):
     def _split_by_threshold(self, bin, subgroup):
         # split to satisfy weight thresholds
         # this splits walkers that are too big
-        segments, weights, to_split, _ = self.sorting_function(self, bin, 4)
+        segments, weights, to_split, _ = self.sorting_function(self, bin, 3)
 
         for segment in to_split:
             m = int(math.ceil(segment.weight / self.largest_allowed_weight))
@@ -136,7 +136,7 @@ class CustomDriver(WEDriver):
         # merge to satisfy weight thresholds
         # this gets rid of weights that are too small
         while True:
-            segments, weights, to_merge, cumul_weight = self.sorting_function(self, bin, 5)
+            segments, weights, to_merge, cumul_weight = self.sorting_function(self, bin, 4)
 
             if len(to_merge) < 2:
                 return
