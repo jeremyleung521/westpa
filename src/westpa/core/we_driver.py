@@ -598,6 +598,21 @@ class WEDriver:
                     if len(bin) == target_count:
                         break
 
+    def _split_by_threshold(self, bin, subgroup):
+        # split to satisfy weight thresholds
+        # this splits walkers that are too big
+        segments = np.array(sorted(subgroup, key=operator.attrgetter('weight')), dtype=np.object_)
+        weights = np.array(list(map(operator.attrgetter('weight'), segments)))
+
+        to_split = segments[weights > self.largest_allowed_weight]
+        for segment in to_split:
+            m = int(math.ceil(segment.weight / self.largest_allowed_weight))
+            bin.remove(segment)
+            subgroup.remove(segment)
+            new_segments_list = self._split_walker(segment, m, bin)
+            bin.update(new_segments_list)
+            subgroup.update(new_segments_list)
+
     def _merge_by_threshold(self, bin, subgroup):
         # merge to satisfy weight thresholds
         # this gets rid of weights that are too small
@@ -614,21 +629,6 @@ class WEDriver:
             new_segment, parent = self._merge_walkers(to_merge, cumul_weight, bin)
             bin.add(new_segment)
             subgroup.add(new_segment)
-
-    def _split_by_threshold(self, bin, subgroup):
-        # split to satisfy weight thresholds
-        # this splits walkers that are too big
-        segments = np.array(sorted(subgroup, key=operator.attrgetter('weight')), dtype=np.object_)
-        weights = np.array(list(map(operator.attrgetter('weight'), segments)))
-
-        to_split = segments[weights > self.largest_allowed_weight]
-        for segment in to_split:
-            m = int(math.ceil(segment.weight / self.largest_allowed_weight))
-            bin.remove(segment)
-            subgroup.remove(segment)
-            new_segments_list = self._split_walker(segment, m, bin)
-            bin.update(new_segments_list)
-            subgroup.update(new_segments_list)
 
     def _check_pre(self):
         for ibin, _bin in enumerate(self.next_iter_binning):

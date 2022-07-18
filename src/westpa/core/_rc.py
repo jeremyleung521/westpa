@@ -431,6 +431,25 @@ class WESTRC:
             from .binning.custom_driver import CustomDriver
 
             we_driver = CustomDriver()
+
+            sorting_function = self.config.get(['west', 'drivers', 'sorting_function'], 'default')
+            if sorting_function.lower() == 'default':
+                try:
+                    sorting_function = 'westpa.core.we_driver._sort_walkers_identity'
+                    we_driver.sorting_function = westpa.core.binning.custom_driver._sort_walkers_identity
+                except Exception:
+                    pass
+            else:
+                we_driver.sorting_function = extloader.get_object(sorting_function)
+            we_driver.sorting_function_kwargs = self.config.get(['west', 'drivers', 'sorting_arguments'])
+
+            # Necessary if the user hasn't specified any options.
+            print('was here')
+            if we_driver.sorting_function_kwargs is None:
+                we_driver.subgroup_function_kwargs = {}
+            log.debug('loaded WE algorithm driver sorting function {!r}'.format(sorting_function))
+            log.debug('WE algorithm driver sorting function kwargs: {!r}'.format(we_driver.sorting_function_kwargs))
+
         elif drivername.lower() == 'default':
             from .we_driver import WEDriver
 

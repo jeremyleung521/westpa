@@ -1,10 +1,11 @@
 import logging
 
-from westpa.core.binning.binless import CustomMapper
+from westpa.core.binning.custom import CustomMapper
 from westpa.core.sim_manager import WESimManager, grouper
 from westpa.core.states import InitialState, pare_basis_initial_states
 from westpa.core import wm_ops
 from westpa.core.segment import Segment
+
 import numpy as np
 
 log = logging.getLogger(__name__)
