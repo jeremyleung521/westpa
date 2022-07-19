@@ -680,7 +680,6 @@ class WESimManager:
 
         self.bin_mapper_hash = hashed
         self.we_driver.construct_next()
-        print('more here')
         if self.we_driver.used_initial_states:
             for initial_state in self.we_driver.used_initial_states.values():
                 initial_state.iter_used = self.n_iter + 1
