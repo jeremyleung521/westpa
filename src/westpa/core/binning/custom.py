@@ -1,3 +1,4 @@
+# This is not actually used... because we're not modifying anything relating to the walker assignment, just how they are organized.
 # from westpa.core.binning import FuncBinMapper
 from westpa.core.binning import RectilinearBinMapper
 

@@ -222,7 +222,7 @@ class CustomDriver(WEDriver):
         log.debug('used initial states: {!r}'.format(self.used_initial_states))
         log.debug('available initial states: {!r}'.format(self.avail_initial_states))
 
-    def __init__(self):
+    def __init__(self, rc=None, system=None):
         self.sorting_function = _sort_walkers_identity
         self.sorting_function_kwargs = {}
         super().__init__()
