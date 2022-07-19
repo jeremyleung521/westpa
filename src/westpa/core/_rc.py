@@ -444,9 +444,8 @@ class WESTRC:
             we_driver.sorting_function_kwargs = self.config.get(['west', 'drivers', 'sorting_arguments'])
 
             # Necessary if the user hasn't specified any options.
-            print('was here')
             if we_driver.sorting_function_kwargs is None:
-                we_driver.subgroup_function_kwargs = {}
+                we_driver.sorting_function_kwargs = {}
             log.debug('loaded WE algorithm driver sorting function {!r}'.format(sorting_function))
             log.debug('WE algorithm driver sorting function kwargs: {!r}'.format(we_driver.sorting_function_kwargs))
 
