@@ -14,11 +14,11 @@ def _sort_walkers_identity(we_driver, ibin, status, **kwargs):
     arguments mean the following:
 
     status = 0    _run_we() - not doing any sorting
-    status = 1    _split_by_weight()
-    status = 2    _merge_by_weight()
+    status = 1    _split_by_weight() - check upper ideal weight threshold
+    status = 2    _merge_by_weight() - check lower ideal weight threshold
     status = 3    _adjust_count()
-    status = 4    _split_by_threshold()
-    status = 5    _merge_by_threshold()
+    status = 4    _split_by_threshold() - check upper weight threshold
+    status = 5    _merge_by_threshold() - check lower weight threshold
     status = 6    _run_we() - merging all segs in one group
     '''
     log.debug('using we_driver._sort_walkers_identity')
