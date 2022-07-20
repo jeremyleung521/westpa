@@ -38,9 +38,13 @@ def _sort_walkers_identity(we_driver, ibin, status, **kwargs):
     elif status == 3:  # _adjust_count()
         ordered_array = segments
     elif status == 4:  # _split_by_threshold() - check upper weight threshold
-        ordered_array = segments[weights > we_driver.largest_allowed_weight]
+        ordered_array = segments[
+            weights > we_driver.largest_allowed_weight and not np.isclose(weights, we_driver.largest_allowed_weight)
+        ]
     elif status == 5:  # _merge_by_threshold() - check lower weight threshold
-        ordered_array = segments[weights < we_driver.smallest_allowed_weight]
+        ordered_array = segments[
+            weights < we_driver.smallest_allowed_weight and not np.isclose(weights, we_driver.smallest_allowed_weight)
+        ]
     elif status == 6:  # _run_we - merging all segs in one group
         ordered_array = np.add.accumulate(weights)
     else:
@@ -57,11 +61,15 @@ class CustomDriver(WEDriver):
             assert target_count > 0
         self.sorting_function_kwargs['ideal_weight'] = ideal_weight
         segments, weights, to_split, _ = self.sorting_function(self, bin, 1, **self.sorting_function_kwargs)
-        for segment in to_split:
-            m = int(math.ceil(segment.weight / ideal_weight))
-            bin.remove(segment)
-            new_segments_list = self._split_walker(segment, m, bin)
-            bin.update(new_segments_list)
+        if self.sorting_function_kwargs['scheme'] == 'list':
+            for segment in to_split:
+                m = int(math.ceil(segment.weight / ideal_weight))
+                bin.remove(segment)
+                new_segments_list = self._split_walker(segment, m, bin)
+                bin.update(new_segments_list)
+        elif self.sorting_function_kwargs['scheme'] == 'paired':
+            for segment in to_split:
+                pass
 
     def _merge_by_weight(self, bin, target_count, ideal_weight):
         '''Merge underweight particles'''
@@ -90,7 +98,7 @@ class CustomDriver(WEDriver):
             for i in sorted_subgroups:
                 log.debug('adjusting counts by splitting')
                 # always split the highest probability walker into two
-                segments, _, _, _ = self.sorting_function(self, bin, 3, self.sorting_function_kwargs)
+                segments, _, _, _ = self.sorting_function(self, bin, 3, **self.sorting_function_kwargs)
                 bin.remove(segments[-1])
                 i.remove(segments[-1])
                 new_segments_list = self._split_walker(segments[-1], 2, bin)
