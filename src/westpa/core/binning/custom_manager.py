@@ -1,6 +1,5 @@
 import logging
 
-from westpa.core.binning.custom import CustomMapper
 from westpa.core.sim_manager import WESimManager, grouper
 from westpa.core.states import InitialState, pare_basis_initial_states
 from westpa.core import wm_ops
@@ -13,10 +12,6 @@ log = logging.getLogger(__name__)
 
 class CustomSimManager(WESimManager):
     def initialize_simulation(self, basis_states, target_states, start_states, segs_per_state=1, suppress_we=False):
-        if len(target_states) > 0:
-            if isinstance(self.system.bin_mapper, CustomMapper):
-                log.error("CustomMapper cannot be an outer binning scheme with a target state\n")
-
         super().initialize_simulation(
             basis_states, target_states, start_states, segs_per_state=segs_per_state, suppress_we=suppress_we
         )

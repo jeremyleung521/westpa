@@ -4,7 +4,9 @@ import operator
 
 import numpy as np
 
+import westpa
 from westpa.core.we_driver import WEDriver
+from westpa.core.extloader import get_object
 
 log = logging.getLogger(__name__)
 
@@ -231,6 +233,22 @@ class CustomDriver(WEDriver):
         log.debug('available initial states: {!r}'.format(self.avail_initial_states))
 
     def __init__(self, rc=None, system=None):
-        self.sorting_function = _sort_walkers_identity
-        self.sorting_function_kwargs = {}
+        sorting_function = westpa.rc.config.get(['west', 'drivers', 'sorting_function'], 'default')
+        if sorting_function.lower() == 'default':
+            try:
+                sorting_function = 'westpa.core.we_driver._sort_walkers_identity'
+                self.sorting_function = _sort_walkers_identity
+            except Exception:
+                pass
+        else:
+            self.sorting_function = get_object(sorting_function)
+        self.sorting_function_kwargs = westpa.rc.config.get(['west', 'drivers', 'sorting_arguments'])
+
+        # Necessary if the user hasn't specified any options.
+        if self.sorting_function_kwargs is None:
+            self.sorting_function_kwargs = {'scheme': 'list'}
+        elif 'scheme' not in self.sorting_function_kwargs:
+            self.sorting_function_kwargs['scheme'] = 'list'
+        log.debug('loaded WE algorithm driver sorting function {!r}'.format(sorting_function))
+        log.debug('WE algorithm driver sorting function kwargs: {!r}'.format(self.sorting_function_kwargs))
         super().__init__()

@@ -13,7 +13,6 @@ from .assign import (
 
 from .mab import map_mab, MABBinMapper
 from .binless import map_binless, BinlessMapper
-from .custom import CustomMapper
 
 from .mab_driver import MABDriver
 from .mab_manager import MABSimManager
@@ -42,14 +41,12 @@ __all__ = [
     'VoronoiBinMapper',
     'map_mab',
     'map_binless',
-    #    'map_custom',
     'MABBinMapper',
     'BinlessMapper',
     'MABDriver',
     'MABSimManager',
     'BinlessDriver',
     'BinlessSimManager',
-    'CustomMapper',
     'CustomDriver',
     'CustomSimManager',
     'accumulate_labeled_populations',
