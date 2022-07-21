@@ -10,8 +10,10 @@ from westpa.core.extloader import get_object
 
 log = logging.getLogger(__name__)
 
+# log = logging.getLogger('westpa.rc')
 
-def _sort_walkers_identity(we_driver, ibin, status, scheme='list', **kwargs):
+
+def _sort_walkers_identity(we_driver, bin, status, scheme='list', **kwargs):
     '''A function that, given  sorts the walkers based on a given criteria. Status indicate which method it's from. The integer in
     the status argument means the following:
 
@@ -24,12 +26,12 @@ def _sort_walkers_identity(we_driver, ibin, status, scheme='list', **kwargs):
     status = 6    _run_we() - merging all segs in one group
     '''
     log.debug('using we_driver._sort_walkers_identity')
-    segments = np.array(sorted(ibin, key=operator.attrgetter('weight')), dtype=np.object_)
+    segments = np.array(sorted(bin, key=operator.attrgetter('weight')), dtype=np.object_)
     weights = np.array(list(map(operator.attrgetter('weight'), segments)))
     cumul_weight = 0
 
     if status == 0:  # run_we - not doing any sorting
-        ordered_array = []
+        ordered_array = segments
     elif status == 1:  # _split_by_weight() - check upper ideal weight threshold
         ideal_weight = kwargs['ideal_weight']
         ordered_array = segments[weights > we_driver.weight_split_threshold * ideal_weight]
@@ -90,7 +92,7 @@ class CustomDriver(WEDriver):
                 new_segment, parent = self._merge_walkers(to_merge, cumul_weight, bin)
                 bin.add(new_segment)
 
-    def adjust_count(self, bin, subgroups, target_count):
+    def _adjust_count(self, bin, subgroups, target_count):
         # Order subgroups by the sum of their weights.
         if len(subgroups) > target_count:
             sorted_subgroups = [set()]
@@ -105,7 +107,7 @@ class CustomDriver(WEDriver):
             for i in sorted_subgroups:
                 log.debug('adjusting counts by splitting')
                 # always split the highest probability walker into two
-                _, _, segments, _ = self.sorting_function(self, bin, 3, **self.sorting_function_kwargs)
+                _, _, segments, _ = self.sorting_function(self, bin, 0, **self.sorting_function_kwargs)
                 bin.remove(segments[-1])
                 i.remove(segments[-1])
                 new_segments_list = self._split_walker(segments[-1], 2, bin)
@@ -114,6 +116,8 @@ class CustomDriver(WEDriver):
 
                 if len(bin) == target_count:
                     break
+
+        log.warning(f"before: {np.array(sorted(bin, key=operator.attrgetter('weight')), dtype=np.object_)}")
 
         # merge
         while len(bin) > target_count:
@@ -125,7 +129,7 @@ class CustomDriver(WEDriver):
                     if len(i) > 1:
                         log.debug('adjusting counts by merging')
                         # merge based on chosen sorted list, which defaults to the walkers with lowest weights
-                        _, _, segments, _ = self.sorting_function(self, bin, 3, **self.sorting_function_kwargs)
+                        _, _, segments, _ = self.sorting_function(self, i, 3, **self.sorting_function_kwargs)
                         bin.difference_update(segments[:2])
                         i.difference_update(segments[:2])
                         merged_segment, parent = self._merge_walkers(segments[:2], cumul_weight=None, bin=bin)
@@ -138,10 +142,11 @@ class CustomDriver(WEDriver):
                         if len(bin) == target_count:
                             break
                 elif self.sorting_function_kwargs['scheme'] == 'paired':
-                    if i:
-                        _, _, ordered_array, _ = self.sorting_function(self, bin, 3, **self.sorting_function_kwargs)
-                        bin.difference_update(ordered_array[0])
-                        i.difference_update(ordered_array[0])
+                    log.debug(f'subgroup: {len(i)}')
+                    if len(i) > 1:
+                        _, _, ordered_array, _ = self.sorting_function(self, i, 3, **self.sorting_function_kwargs)
+                        bin.difference_update(ordered_array)
+                        i.difference_update(ordered_array)
                         merged_segment, parent = self._merge_walkers(ordered_array[0], cumul_weight=None, bin=bin)
                         i.add(merged_segment)
                         bin.add(merged_segment)
@@ -155,6 +160,7 @@ class CustomDriver(WEDriver):
                         # in bash, "find . -name \*.py | xargs fgrep -n '_merge_walkers'"
                         if len(bin) == target_count:
                             break
+        log.warning(f"after: {np.array(sorted(bin, key=operator.attrgetter('weight')), dtype=np.object_)}")
 
     def _update_paired_array(ordered_array, merged_segment):
         '''A method to clean up a paired segment eligible array. This is to save time so pairwise distance matrix does not have to be
@@ -262,8 +268,6 @@ class CustomDriver(WEDriver):
             total_number_of_particles += len(bin)
         log.debug('Total number of subgroups: {!r}'.format(total_number_of_subgroups))
 
-        dataf = operator.attrgetter('data')
-        log.warning(dataf(np.array(sorted(self.current_iter_segments, key=operator.attrgetter('weight')), dtype=np.object_)[0]))
         self._check_post()
 
         self.new_weights = self.new_weights or []
