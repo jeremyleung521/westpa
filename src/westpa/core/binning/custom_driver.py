@@ -74,22 +74,21 @@ class CustomDriver(WEDriver):
     def _merge_by_weight(self, bin, target_count, ideal_weight):
         '''Merge underweight particles'''
         self.sorting_function_kwargs['ideal_weight'] = ideal_weight
-
-        if self.sorting_function_kwargs['scheme'] == 'list':
-            while True:
-                segments, weights, to_merge, cumul_weight = self.sorting_function(self, bin, 2, **self.sorting_function_kwargs)
+        print(self.sorting_function_kwargs['scheme'])
+        while True:
+            segments, weights, to_merge, cumul_weight = self.sorting_function(self, bin, 2, **self.sorting_function_kwargs)
+            if self.sorting_function_kwargs['scheme'] == 'list':
                 if len(to_merge) < 2:
                     return
                 bin.difference_update(to_merge)
                 new_segment, parent = self._merge_walkers(to_merge, cumul_weight, bin)
                 bin.add(new_segment)
-        elif self.sorting_function_kwargs['scheme'] == 'paired':
-            while True:
+            elif self.sorting_function_kwargs['scheme'] == 'paired':
                 segments, weights, to_merge, cumul_weight = self.sorting_function(self, bin, 2, **self.sorting_function_kwargs)
-                if len(to_merge) < 2:
+                if len(to_merge) < 1:
                     return
-                bin.difference_update(to_merge)
-                new_segment, parent = self._merge_walkers(to_merge, cumul_weight, bin)
+                bin.difference_update(to_merge[0])
+                new_segment, parent = self._merge_walkers(to_merge[0], cumul_weight, bin)
                 bin.add(new_segment)
 
     def _adjust_count(self, bin, subgroups, target_count):
@@ -142,9 +141,8 @@ class CustomDriver(WEDriver):
                         if len(bin) == target_count:
                             break
                 elif self.sorting_function_kwargs['scheme'] == 'paired':
-                    log.debug(f'subgroup: {len(i)}')
                     if len(i) > 1:
-                        log.debug('adjusting counts by merging paired')
+                        log.debug('adjusting counts by merging, paired')
                         # _, _, ordered_array, _ = self.sorting_function(self, i, 3, **self.sorting_function_kwargs)
                         bin.difference_update(ordered_array[0])
                         i.difference_update(ordered_array[0])
@@ -195,14 +193,22 @@ class CustomDriver(WEDriver):
         # this gets rid of weights that are too small
         while True:
             segments, weights, to_merge, cumul_weight = self.sorting_function(self, bin, 5, **self.sorting_function_kwargs)
-
-            if len(to_merge) < 2:
-                return
-            bin.difference_update(to_merge)
-            subgroup.difference_update(to_merge)
-            new_segment, parent = self._merge_walkers(to_merge, cumul_weight, bin)
-            bin.add(new_segment)
-            subgroup.add(new_segment)
+            if self.sorting_function_kwargs['scheme'] == 'list':
+                if len(to_merge) < 2:
+                    return
+                bin.difference_update(to_merge)
+                subgroup.difference_update(to_merge)
+                new_segment, parent = self._merge_walkers(to_merge, cumul_weight, bin)
+                bin.add(new_segment)
+                subgroup.add(new_segment)
+            elif self.sorting_function_kwargs['scheme'] == 'paired':
+                if len(to_merge) < 1:
+                    return
+                bin.difference_update(to_merge[0])
+                subgroup.difference_update(to_merge[0])
+                new_segment, parent = self._merge_walkers(to_merge[0], cumul_weight, bin)
+                bin.add(new_segment)
+                subgroup.add(new_segment)
 
     def _run_we(self):
         '''Run recycle/split/merge. Do not call this function directly; instead, use
@@ -234,10 +240,10 @@ class CustomDriver(WEDriver):
                 for i in subgroups:
                     # Merges all members of set i.  Checks to see whether there are any to merge.
                     if len(i) > 1:
-                        _, _, to_merge, _ = self.sorting_function(self, i, 6, **self.sorting_function_kwargs)
+                        _, _, cumul_weight, _ = self.sorting_function(self, i, 6, **self.sorting_function_kwargs)
                         (segment, parent) = self._merge_walkers(
                             list(i),
-                            to_merge,
+                            cumul_weight,
                             i,
                         )
                         i.clear()

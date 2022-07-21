@@ -149,7 +149,7 @@ class WEDriver:
         log.info('Largest allowed weight: {}'.format(self.largest_allowed_weight))
 
         self.smallest_allowed_weight = config.get(['west', 'we', 'smallest_allowed_weight'], self.smallest_allowed_weight)
-        log.info('Smallest allowed_weight: {}'.format(self.smallest_allowed_weight))
+        log.info('Smallest allowed weight: {}'.format(self.smallest_allowed_weight))
 
     @property
     def next_iter_segments(self):
