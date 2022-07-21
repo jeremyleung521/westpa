@@ -74,7 +74,6 @@ class CustomDriver(WEDriver):
     def _merge_by_weight(self, bin, target_count, ideal_weight):
         '''Merge underweight particles'''
         self.sorting_function_kwargs['ideal_weight'] = ideal_weight
-        print(self.sorting_function_kwargs['scheme'])
         while True:
             segments, weights, to_merge, cumul_weight = self.sorting_function(self, bin, 2, **self.sorting_function_kwargs)
             if self.sorting_function_kwargs['scheme'] == 'list':
@@ -116,7 +115,7 @@ class CustomDriver(WEDriver):
                 if len(bin) == target_count:
                     break
 
-        log.warning(f"before: {np.array(sorted(bin, key=operator.attrgetter('weight')), dtype=np.object_)}")
+        log.debug(f"before: {np.array(sorted(bin, key=operator.attrgetter('weight')), dtype=np.object_)}")
         # merge
         while len(bin) > target_count:
             sorted_subgroups.reverse()
@@ -159,7 +158,7 @@ class CustomDriver(WEDriver):
                         # in bash, "find . -name \*.py | xargs fgrep -n '_merge_walkers'"
                         if len(bin) == target_count:
                             break
-        log.warning(f"after: {np.array(sorted(bin, key=operator.attrgetter('weight')), dtype=np.object_)}")
+        log.debug(f"after: {np.array(sorted(bin, key=operator.attrgetter('weight')), dtype=np.object_)}")
 
     def _update_paired_array(ordered_array, merged_segment):
         '''A method to clean up a paired segment eligible array. This is to save time so pairwise distance matrix does not have to be
