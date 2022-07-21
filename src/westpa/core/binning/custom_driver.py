@@ -81,14 +81,14 @@ class CustomDriver(WEDriver):
                 if len(to_merge) < 2:
                     return
                 bin.difference_update(to_merge)
-                new_segment, parent = self._merge_walkers(to_merge, cumul_weight, bin)
+                new_segment, parent = self._merge_walkers(to_merge, cumul_weight=None, bin=bin)
                 bin.add(new_segment)
             elif self.sorting_function_kwargs['scheme'] == 'paired':
                 segments, weights, to_merge, cumul_weight = self.sorting_function(self, bin, 2, **self.sorting_function_kwargs)
                 if len(to_merge) < 1:
                     return
                 bin.difference_update(to_merge[0])
-                new_segment, parent = self._merge_walkers(to_merge[0], cumul_weight, bin)
+                new_segment, parent = self._merge_walkers(to_merge[0], cumul_weight=None, bin=bin)
                 bin.add(new_segment)
 
     def _adjust_count(self, bin, subgroups, target_count):
@@ -192,13 +192,13 @@ class CustomDriver(WEDriver):
         # merge to satisfy weight thresholds
         # this gets rid of weights that are too small
         while True:
-            segments, weights, to_merge, cumul_weight = self.sorting_function(self, bin, 5, **self.sorting_function_kwargs)
+            segments, weights, to_merge, _ = self.sorting_function(self, bin, 5, **self.sorting_function_kwargs)
             if self.sorting_function_kwargs['scheme'] == 'list':
                 if len(to_merge) < 2:
                     return
                 bin.difference_update(to_merge)
                 subgroup.difference_update(to_merge)
-                new_segment, parent = self._merge_walkers(to_merge, cumul_weight, bin)
+                new_segment, parent = self._merge_walkers(to_merge, cumul_weight=None, bin=bin)
                 bin.add(new_segment)
                 subgroup.add(new_segment)
             elif self.sorting_function_kwargs['scheme'] == 'paired':
@@ -206,7 +206,7 @@ class CustomDriver(WEDriver):
                     return
                 bin.difference_update(to_merge[0])
                 subgroup.difference_update(to_merge[0])
-                new_segment, parent = self._merge_walkers(to_merge[0], cumul_weight, bin)
+                new_segment, parent = self._merge_walkers(to_merge[0], cumul_weight=None, bin=bin)
                 bin.add(new_segment)
                 subgroup.add(new_segment)
 
