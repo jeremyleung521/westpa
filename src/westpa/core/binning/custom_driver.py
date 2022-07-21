@@ -118,7 +118,6 @@ class CustomDriver(WEDriver):
                     break
 
         log.warning(f"before: {np.array(sorted(bin, key=operator.attrgetter('weight')), dtype=np.object_)}")
-        log.warning(f"paired: {self.sorting_function_kwargs['scheme']}")
         # merge
         while len(bin) > target_count:
             sorted_subgroups.reverse()
