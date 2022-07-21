@@ -118,18 +118,19 @@ class CustomDriver(WEDriver):
                     break
 
         log.warning(f"before: {np.array(sorted(bin, key=operator.attrgetter('weight')), dtype=np.object_)}")
-
+        log.warning(f"paired: {self.sorting_function_kwargs['scheme']}")
         # merge
         while len(bin) > target_count:
             sorted_subgroups.reverse()
             # Adjust to go from lowest weight group to highest to merge
             for i in sorted_subgroups:
+                segments, _, ordered_array, _ = self.sorting_function(self, i, 3, **self.sorting_function_kwargs)
                 if self.sorting_function_kwargs['scheme'] == 'list':
                     # Ensures that there are least two walkers to merge
                     if len(i) > 1:
                         log.debug('adjusting counts by merging')
                         # merge based on chosen sorted list, which defaults to the walkers with lowest weights
-                        _, _, segments, _ = self.sorting_function(self, i, 3, **self.sorting_function_kwargs)
+                        # _, _, segments, _ = self.sorting_function(self, i, 3, **self.sorting_function_kwargs)
                         bin.difference_update(segments[:2])
                         i.difference_update(segments[:2])
                         merged_segment, parent = self._merge_walkers(segments[:2], cumul_weight=None, bin=bin)
@@ -144,9 +145,10 @@ class CustomDriver(WEDriver):
                 elif self.sorting_function_kwargs['scheme'] == 'paired':
                     log.debug(f'subgroup: {len(i)}')
                     if len(i) > 1:
-                        _, _, ordered_array, _ = self.sorting_function(self, i, 3, **self.sorting_function_kwargs)
-                        bin.difference_update(ordered_array)
-                        i.difference_update(ordered_array)
+                        log.debug('adjusting counts by merging paired')
+                        # _, _, ordered_array, _ = self.sorting_function(self, i, 3, **self.sorting_function_kwargs)
+                        bin.difference_update(ordered_array[0])
+                        i.difference_update(ordered_array[0])
                         merged_segment, parent = self._merge_walkers(ordered_array[0], cumul_weight=None, bin=bin)
                         i.add(merged_segment)
                         bin.add(merged_segment)
