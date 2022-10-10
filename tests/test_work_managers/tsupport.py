@@ -6,9 +6,6 @@ class ExceptionForTest(Exception):
 
 
 def will_succeed():
-    import time
-
-    time.sleep(0.01)
     return True
 
 
@@ -18,6 +15,13 @@ def will_fail():
 
 def fn_interrupted():
     raise KeyboardInterrupt
+
+
+def will_wait():
+    import time
+
+    time.sleep(0.1)
+    return True
 
 
 def will_hang():
