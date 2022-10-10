@@ -8,7 +8,7 @@ class ExceptionForTest(Exception):
 def will_succeed():
     import time
 
-    time.sleep(1)
+    time.sleep(0.01)
     return True
 
 
