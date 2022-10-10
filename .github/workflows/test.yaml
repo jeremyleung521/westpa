@@ -55,6 +55,7 @@ jobs:
       with:
         python-version: ${{ matrix.python-version }}
         mamba-version: "*"
+        use-mamba: true
         environment-file: devtools/conda-envs/test_env.yaml
         activate-environment: test_env
         channel-priority: true
