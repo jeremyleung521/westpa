@@ -6,9 +6,9 @@ class ExceptionForTest(Exception):
 
 
 def will_succeed():
-    from os import wait
+    import time
 
-    wait(1)
+    time.sleep(1)
     return True
 
 
