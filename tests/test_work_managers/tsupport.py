@@ -20,7 +20,7 @@ def fn_interrupted():
 def will_wait():
     import time
 
-    time.sleep(0.1)
+    time.sleep(0.5)
     return True
 
 
