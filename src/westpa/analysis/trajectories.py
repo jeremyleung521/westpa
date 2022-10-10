@@ -10,6 +10,8 @@ import numpy as np
 from tqdm import tqdm
 from typing import Callable
 from westpa.analysis.core import Walker, Trace
+from westpa.core.states import InitialState
+from westpa.core.h5io import WESTIterationFile
 
 
 class Trajectory:
@@ -204,45 +206,72 @@ class SegmentCollector:
 
 
 class BasicMDTrajectory(Trajectory):
-    """A MD trajectory stored as in the
-    `Basic NaCl tutorial <https://github.com/westpa/westpa_tutorials/tree/main/basic_nacl>`_.
+    """Trajectory reader for MD trajectories stored as in the
+    `Basic Tutorial <https://github.com/westpa/westpa_tutorials/tree/main/basic_nacl>`_.
 
     Parameters
     ----------
-    traj_filename : str, default 'seg.dcd'
-    parent_filename : str, default 'parent.xml'
     top : str or mdtraj.Topology, default 'bstate.pdb'
+    traj_ext : str, default '.dcd'
+    state_ext : str, default '.xml'
+    sim_root : str, default '.'
 
     """
 
-    def __init__(self, traj_filename='seg.dcd', parent_filename='parent.xml', top='bstate.pdb'):
-        self.traj_filename = traj_filename
-        self.parent_filename = parent_filename
+    def __init__(self, top='bstate.pdb', traj_ext='.dcd', state_ext='.xml', sim_root='.'):
         self.top = top
+        self.traj_ext = traj_ext
+        self.state_ext = state_ext
+        self.sim_root = sim_root
 
-        def fget(walker, include_initpoint=True, atom_indices=None, sim_root='.'):
-            seg_dir = os.path.join(
+        def fget(walker, include_initpoint=True, atom_indices=None, sim_root=None):
+            sim_root = sim_root or self.sim_root
+
+            if isinstance(self.top, str):
+                top = os.path.join(sim_root, 'common_files', self.top)
+            else:
+                top = self.top
+
+            path = os.path.join(
                 sim_root,
                 'traj_segs',
                 format(walker.iteration.number, '06d'),
                 format(walker.index, '06d'),
+                'seg' + self.traj_ext,
             )
-
-            if isinstance(self.top, str):
-                top = os.path.join(seg_dir, self.top)
-            else:
-                top = self.top
-
-            path = os.path.join(seg_dir, self.traj_filename)
             if top is not None:
                 traj = mdtraj.load(path, top=top)
             else:
                 traj = mdtraj.load(path)
 
             if include_initpoint:
-                path = os.path.join(seg_dir, self.parent_filename)
-                parent = mdtraj.load(path, top=traj.top)
-                traj = parent.join(traj, check_topology=False)
+                parent = walker.parent
+
+                if isinstance(parent, InitialState):
+                    if parent.istate_type == InitialState.ISTATE_TYPE_BASIS:
+                        path = os.path.join(
+                            sim_root,
+                            'bstates',
+                            parent.basis_state.auxref,
+                        )
+                    else:
+                        path = os.path.join(
+                            sim_root,
+                            'istates',
+                            str(parent.iter_created),
+                            str(parent.state_id) + self.state_ext,
+                        )
+                else:
+                    path = os.path.join(
+                        sim_root,
+                        'traj_segs',
+                        format(walker.iteration.number - 1, '06d'),
+                        format(parent.index, '06d'),
+                        'seg' + self.state_ext,
+                    )
+
+                frame = mdtraj.load(path, top=traj.top)
+                traj = frame.join(traj, check_topology=False)
 
             if atom_indices is not None:
                 traj.atom_slice(atom_indices, inplace=True)
@@ -252,6 +281,61 @@ class BasicMDTrajectory(Trajectory):
         super().__init__(fget)
 
         self.segment_collector.use_threads = True
+        self.segment_collector.show_progress = True
+
+
+class HDF5MDTrajectory(Trajectory):
+    """Trajectory reader for MD trajectories stored by the HDF5 framework."""
+
+    def __init__(self):
+        def fget(walker, include_initpoint=True, atom_indices=None):
+            iteration = walker.iteration
+
+            try:
+                link = iteration.h5group['trajectories']
+            except KeyError:
+                msg = 'the HDF5 framework does not appear to have been used to store trajectories for this run'
+                raise ValueError(msg)
+
+            with WESTIterationFile(link.file.filename) as traj_file:
+                traj = traj_file.read_as_traj(
+                    iteration=iteration.number,
+                    segment=walker.index,
+                    atom_indices=atom_indices,
+                )
+
+            if include_initpoint:
+                parent = walker.parent
+
+                if isinstance(parent, InitialState):
+                    if parent.istate_type == InitialState.ISTATE_TYPE_BASIS:
+                        link = walker.run.h5file.get_iter_group(0)['trajectories']
+                        with WESTIterationFile(link.file.filename) as traj_file:
+                            frame = traj_file.read_as_traj(
+                                iteration=0,
+                                segment=parent.basis_state_id,
+                                atom_indices=atom_indices,
+                            )
+                    elif parent.istate_type == InitialState.ISTATE_TYPE_GENERATED:
+                        link = walker.run.h5file.get_iter_group(0)['trajectories']
+                        istate_iter = -int(parent.iter_created)  # the conversion to int is because iter_created is uint
+                        with WESTIterationFile(link.file.filename) as traj_file:
+                            frame = traj_file.read_as_traj(
+                                iteration=istate_iter,
+                                segment=parent.state_id,
+                                atom_indices=atom_indices,
+                            )
+                    else:
+                        raise ValueError('unsupported initial state type: %d' % parent.istate_type)
+                else:
+                    frame = fget(parent, include_initpoint=False, atom_indices=atom_indices)[-1]
+                traj = frame.join(traj, check_topology=False)
+
+            return traj
+
+        super().__init__(fget)
+
+        self.segment_collector.use_threads = False
         self.segment_collector.show_progress = True
 
 

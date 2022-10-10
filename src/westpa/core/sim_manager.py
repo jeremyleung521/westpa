@@ -90,11 +90,6 @@ class WESimManager:
         self.next_iter_bstates = None  # BasisStates valid for the next iteration
         self.next_iter_bstate_cprobs = None  # Cumulative probabilities for basis states, used for selection
 
-        # Initial states for next iteration
-        # self.next_iter_istates = None
-        # self.next_iter_avail_istates = None    # InitialStates available for use next iteration
-        # self.next_iter_assigned_istates = None # InitialStates that were available or generated in this iteration but then used
-
         # Tracking of this iteration's segments
         self.segments = None  # Mapping of seg_id to segment for all segments in this iteration
         self.completed_segments = None  # Mapping of seg_id to segment for all completed segments in this iteration
@@ -166,13 +161,17 @@ class WESimManager:
                 plugin = extloader.get_object(plugin_name)(self, plugin_config)
                 log.debug('loaded plugin {!r}'.format(plugin))
 
-    def report_bin_statistics(self, bins, save_summary=False):
+    def report_bin_statistics(self, bins, target_states, save_summary=False):
         segments = list(self.segments.values())
         bin_counts = np.fromiter(map(len, bins), dtype=np.int_, count=len(bins))
         target_counts = self.we_driver.bin_target_counts
 
         # Do not include bins with target count zero (e.g. sinks, never-filled bins) in the (non)empty bins statistics
         n_active_bins = len(target_counts[target_counts != 0])
+
+        if target_states:
+            n_active_bins -= len(target_states)
+
         seg_probs = np.fromiter(map(operator.attrgetter('weight'), segments), dtype=weight_dtype, count=len(segments))
         bin_probs = np.fromiter(map(operator.attrgetter('weight'), bins), dtype=weight_dtype, count=len(bins))
         norm = seg_probs.sum()
@@ -197,6 +196,11 @@ class WESimManager:
         self.rc.pstatus('norm = {:g}, error in norm = {:g} ({:.2g}*epsilon)'.format(norm, (norm - 1), (norm - 1) / EPS))
         self.rc.pflush()
 
+        if min_seg_prob < 1e-100:
+            log.warning(
+                '\nMinimum segment weight is < 1e-100 and might not be physically relevant. Please reconsider your progress coordinate or binning scheme.'
+            )
+
         if save_summary:
             iter_summary = self.data_manager.get_iter_summary()
             iter_summary['n_particles'] = len(segments)
@@ -211,19 +215,19 @@ class WESimManager:
                 iter_summary['walltime'] = 0.0
             self.data_manager.update_iter_summary(iter_summary)
 
-    def get_bstate_pcoords(self, basis_states):
+    def get_bstate_pcoords(self, basis_states, label='basis'):
         '''For each of the given ``basis_states``, calculate progress coordinate values
         as necessary.  The HDF5 file is not updated.'''
 
-        self.rc.pstatus('Calculating progress coordinate values for basis states.')
+        self.rc.pstatus('Calculating progress coordinate values for {} states.'.format(label))
         futures = [self.work_manager.submit(wm_ops.get_pcoord, args=(basis_state,)) for basis_state in basis_states]
         fmap = {future: i for (i, future) in enumerate(futures)}
         for future in self.work_manager.as_completed(futures):
             basis_states[fmap[future]].pcoord = future.get_result().pcoord
 
-    def report_basis_states(self, basis_states):
+    def report_basis_states(self, basis_states, label='basis'):
         pstatus = self.rc.pstatus
-        pstatus('{:d} basis state(s) present'.format(len(basis_states)), end='')
+        pstatus('{:d} {} state(s) present'.format(len(basis_states), label), end='')
         if self.rc.verbose_mode:
             pstatus(':')
             pstatus(
@@ -286,8 +290,23 @@ class WESimManager:
         # Process start states
         # Unlike the above, does not create an ibstate group.
         # TODO: Should it? I don't think so, if needed it can be traced back through basis_auxref
-        self.get_bstate_pcoords(start_states)
-        self.report_basis_states(start_states)
+
+        # Here, we are trying to assign a state_id to the start state to be initialized, without actually
+        # saving it to the ibstates records in any of the h5 files. It might actually be a problem
+        # when tracing trajectories with westpa.analysis (especially with HDF5 framework) since it would
+        # try to look for a basis state id > len(basis_state).
+        # Since start states are only used while initializing and iteration 1, it's ok to not save it to save space. If necessary,
+        # the structure can be traced directly to the parent file using the standard basis state logic referencing
+        # west[iterations/iter_00000001/ibstates/istate_index/basis_auxref] of that istate.
+
+        if len(start_states) > 0 and start_states[0].state_id is None:
+            last_id = basis_states[-1].state_id
+            for start_state in start_states:
+                start_state.state_id = last_id + 1
+                last_id += 1
+
+        self.get_bstate_pcoords(start_states, label='start')
+        self.report_basis_states(start_states, label='start')
 
         pstatus('Preparing initial states')
         initial_states = []
@@ -351,6 +370,10 @@ class WESimManager:
         bin_occupancies = np.fromiter(map(len, binning), dtype=np.uint, count=self.we_driver.bin_mapper.nbins)
         target_occupancies = np.require(self.we_driver.bin_target_counts, dtype=np.uint)
 
+        # total_bins/replicas defined here to remove target state bin from "active" bins
+        total_bins = len(bin_occupancies) - len(target_states)
+        total_replicas = int(sum(target_occupancies)) - int(self.we_driver.bin_target_counts[-1]) * len(target_states)
+
         # Make sure we have
         for segment in segments:
             segment.n_iter = 1
@@ -372,11 +395,11 @@ class WESimManager:
         Initial replicas:      {init_replicas:d} in {occ_bins:d} bins, total weight = {weight:g}
         Total target replicas: {total_replicas:d}
         '''.format(
-                total_bins=len(bin_occupancies),
+                total_bins=total_bins,
                 init_replicas=int(sum(bin_occupancies)),
                 occ_bins=len(bin_occupancies[bin_occupancies > 0]),
                 weight=float(sum(segment.weight for segment in segments)),
-                total_replicas=int(sum(target_occupancies)),
+                total_replicas=total_replicas,
             )
         )
 
@@ -400,7 +423,7 @@ class WESimManager:
         # Report statistics
         pstatus('Simulation prepared.')
         self.segments = {segment.seg_id: segment for segment in segments}
-        self.report_bin_statistics(binning, save_summary=True)
+        self.report_bin_statistics(binning, target_states, save_summary=True)
         data_manager.flush_backing()
         data_manager.close_backing()
 
@@ -457,8 +480,10 @@ class WESimManager:
         initial_assignments = self.system.bin_mapper.assign(initial_pcoords)
         for (segment, assignment) in zip(iter(segments.values()), initial_assignments):
             initial_binning[assignment].add(segment)
-        self.report_bin_statistics(initial_binning, save_summary=True)
+        self.report_bin_statistics(initial_binning, [], save_summary=True)
         del initial_pcoords, initial_binning
+
+        self.rc.pstatus('Waiting for segments to complete...')
 
         # Let the WE driver assign completed segments
         if completed_segments:
@@ -498,6 +523,8 @@ class WESimManager:
         # Move existing segments into place as new segments
         del self.segments
         self.segments = {segment.seg_id: segment for segment in self.we_driver.next_iter_segments}
+
+        self.rc.pstatus("Iteration completed successfully")
 
     def get_istate_futures(self):
         '''Add ``n_states`` initial states to the internal list of initial states assigned to

@@ -1,6 +1,6 @@
 import logging
 
-from westpa.core.binning.mab import MABBinMapper
+from westpa.core.binning.binless import BinlessMapper
 from westpa.core.sim_manager import WESimManager, grouper
 from westpa.core.states import InitialState, pare_basis_initial_states
 from westpa.core import wm_ops
@@ -10,18 +10,18 @@ import numpy as np
 log = logging.getLogger(__name__)
 
 
-class MABSimManager(WESimManager):
+class BinlessSimManager(WESimManager):
     def initialize_simulation(self, basis_states, target_states, start_states, segs_per_state=1, suppress_we=False):
         if len(target_states) > 0:
-            if isinstance(self.system.bin_mapper, MABBinMapper):
-                log.error("MABBinMapper cannot be an outer binning scheme with a target state\n")
+            if isinstance(self.system.bin_mapper, BinlessMapper):
+                log.error("BinlessMapper cannot be an outer binning scheme with a target state\n")
 
         super().initialize_simulation(
             basis_states, target_states, start_states, segs_per_state=segs_per_state, suppress_we=suppress_we
         )
 
     def propagate(self):
-        log.debug("MABSimManager in use")
+        log.debug("BinlessManager in use")
         segments = list(self.incomplete_segments.values())
         log.debug('iteration {:d}: propagating {:d} segments'.format(self.n_iter, len(segments)))
 
@@ -126,23 +126,18 @@ class MABSimManager(WESimManager):
         }
         log.debug('This iteration uses {:d} initial states'.format(len(self.current_iter_istates)))
 
-        n_segments = len(segments)
-        pcoords_with_weights = np.empty((n_segments, self.system.pcoord_ndim + 2), dtype=self.system.pcoord_dtype)
-
-        for iseg, segment in enumerate(segments.values()):
-            pcoords_with_weights[iseg] = np.append(segment.pcoord[0, :], [segment.weight, 1.0])
-
         # Assign this iteration's segments' initial points to bins and report on bin population
+        initial_pcoords = self.system.new_pcoord_array(len(segments))
         initial_binning = self.system.bin_mapper.construct_bins()
-        initial_assignments = self.system.bin_mapper.assign(pcoords_with_weights)
+        for iseg, segment in enumerate(segments.values()):
+            initial_pcoords[iseg] = segment.pcoord[0]
+        initial_assignments = self.system.bin_mapper.assign(initial_pcoords)
         for (segment, assignment) in zip(iter(segments.values()), initial_assignments):
             initial_binning[assignment].add(segment)
         self.report_bin_statistics(initial_binning, [], save_summary=True)
-        del pcoords_with_weights, initial_binning
+        del initial_pcoords, initial_binning
 
-        self.rc.pstatus("MAB binning in use")
-
-        self.rc.pstatus("Bottleneck bin occupancy may not be accurately reported")
+        self.rc.pstatus("Binless scheme in use")
 
         self.rc.pstatus("Waiting for segments to complete...")
 

@@ -8,6 +8,7 @@ import sys
 import tempfile
 import time
 import tarfile
+import pickle
 from io import BytesIO
 
 import numpy as np
@@ -46,8 +47,8 @@ def pcoord_loader(fieldname, pcoord_return_filename, destobj, single_point):
             pcoord.shape = (1,)
     else:
         expected_shape = (system.pcoord_len, system.pcoord_ndim)
-        if pcoord.ndim == 1:
-            pcoord.shape = (len(pcoord), 1)
+        if pcoord.ndim < 2:
+            pcoord.shape = expected_shape
     if pcoord.shape != expected_shape:
         raise ValueError(
             'progress coordinate data has incorrect shape {!r} [expected {!r}] Check pcoord.err or seg_logs for more information.'.format(
@@ -59,6 +60,23 @@ def pcoord_loader(fieldname, pcoord_return_filename, destobj, single_point):
 
 def aux_data_loader(fieldname, data_filename, segment, single_point):
     data = np.loadtxt(data_filename)
+    segment.data[fieldname] = data
+    if data.nbytes == 0:
+        raise ValueError('could not read any data for {}'.format(fieldname))
+
+
+def npy_data_loader(fieldname, coord_file, segment, single_point):
+    log.debug('using npy_data_loader')
+    data = np.load(coord_file)
+    segment.data[fieldname] = data
+    if data.nbytes == 0:
+        raise ValueError('could not read any data for {}'.format(fieldname))
+
+
+def pickle_data_loader(fieldname, coord_file, segment, single_point):
+    log.debug('using pickle_data_loader')
+    with open(coord_file, 'rb') as fo:
+        data = pickle.load(fo)
     segment.data[fieldname] = data
     if data.nbytes == 0:
         raise ValueError('could not read any data for {}'.format(fieldname))
@@ -92,30 +110,39 @@ def restart_loader(fieldname, restart_folder, segment, single_point):
 
 
 def restart_writer(path, segment):
-    '''Prepare the necessary files from the per-iteration HDF5 file to run ``segnment``.'''
+    '''Prepare the necessary files from the per-iteration HDF5 file to run ``segment``.'''
     try:
         restart = segment.data.pop('iterh5/restart', None)
+        # Making an exception for start states in iteration 1
         if restart is None:
             raise ValueError('restart data is not present')
 
         d = BytesIO(restart[:-1])  # remove tail protection
         with tarfile.open(fileobj=d, mode='r:gz') as t:
             t.extractall(path=path)
-
+    except ValueError as e:
+        log.warning('could not write restart data for {}: {}'.format(str(segment), str(e)))
+        d = BytesIO()
+        if segment.n_iter == 1:
+            log.warning(
+                'In iteration 1. Assuming this is a start state and proceeding to skip reading restart from per-iteration HDF5 file for {}'.format(
+                    str(segment)
+                )
+            )
     except Exception as e:
         log.warning('could not write restart data for {}: {}'.format(str(segment), str(e)))
     finally:
         d.close()
 
 
-def seglog_loader(fieldname, log_folder, segment, single_point):
-    '''Load data from the log return. The loader will tar all files in ``log_folder``
+def seglog_loader(fieldname, log_file, segment, single_point):
+    '''Load data from the log return. The loader will tar all files in ``log_file``
     and store it in the per-iteration HDF5 file. ``segment`` is the ``Segment`` object that
     the data is associated with. ``single_point`` is not used by this loader.'''
     try:
         d = BytesIO()
         with tarfile.open(mode='w:gz', fileobj=d) as t:
-            t.add(log_folder, arcname='.')
+            t.add(log_file, arcname='.')
 
         segment.data['iterh5/log'] = d.getvalue() + b'\x01'  # add tail protection
     except Exception as e:
@@ -190,7 +217,7 @@ class ExecutablePropagator(WESTPropagator):
         self.addtl_child_environ.update({k: str(v) for k, v in (config['west', 'executable', 'environ'] or {}).items()})
 
         # Load configuration items relating to child processes
-        for child_type in ('propagator', 'pre_iteration', 'post_iteration', 'get_pcoord', 'gen_istate', 'group_walkers'):
+        for child_type in ('propagator', 'pre_iteration', 'post_iteration', 'get_pcoord', 'gen_istate', 'subgroup_walkers'):
             child_info = config.get(['west', 'executable', child_type])
             if not child_info:
                 continue
@@ -233,7 +260,7 @@ class ExecutablePropagator(WESTPropagator):
             'filename': None,
             'dir': True,
         }
-        self.data_info['log'] = {'name': 'seglog', 'loader': seglog_loader, 'enabled': store_h5, 'filename': None, 'dir': True}
+        self.data_info['log'] = {'name': 'seglog', 'loader': seglog_loader, 'enabled': store_h5, 'filename': None, 'dir': False}
 
         dataset_configs = config.get(['west', 'executable', 'datasets']) or []
         for dsinfo in dataset_configs:
@@ -250,11 +277,20 @@ class ExecutablePropagator(WESTPropagator):
 
             loader_directive = dsinfo.get('loader')
             if loader_directive:
-                loader = get_object(loader_directive)
-            elif dsname != 'pcoord':
+                if loader_directive == 'default':
+                    if dsname not in ['pcoord', 'seglog', 'restart', 'trajectory']:
+                        loader = aux_data_loader
+                elif loader_directive == 'npy_loader':
+                    loader = npy_data_loader
+                elif loader_directive == 'pickle_loader':
+                    loader = pickle_data_loader
+                else:
+                    loader = get_object(loader_directive)
+                dsinfo['loader'] = loader
+            elif dsname not in ['pcoord', 'seglog', 'restart', 'trajectory']:
                 loader = aux_data_loader
+                dsinfo['loader'] = loader
 
-            dsinfo['loader'] = loader
             self.data_info.setdefault(dsname, {}).update(dsinfo)
 
         log.debug('data_info: {!r}'.format(self.data_info))
@@ -280,10 +316,10 @@ class ExecutablePropagator(WESTPropagator):
         ``subprocess.Popen()``. Every child process executed by ``exec_child()`` gets these.'''
 
         return {
-            self.ENV_RAND16: str(random.randint(0, 2 ** 16)),
-            self.ENV_RAND32: str(random.randint(0, 2 ** 32)),
-            self.ENV_RAND64: str(random.randint(0, 2 ** 64)),
-            self.ENV_RAND128: str(random.randint(0, 2 ** 128)),
+            self.ENV_RAND16: str(random.randint(0, 2**16)),
+            self.ENV_RAND32: str(random.randint(0, 2**32)),
+            self.ENV_RAND64: str(random.randint(0, 2**64)),
+            self.ENV_RAND128: str(random.randint(0, 2**128)),
             self.ENV_RANDFLOAT: str(random.random()),
         }
 
