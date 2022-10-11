@@ -24,7 +24,7 @@ jobs:
       - name: Build wheels
         uses: pypa/cibuildwheel@v2.10.2
         env:
-          CIBW_SKIP: pp*
+          CIBW_SKIP: "pp* *-musllinux"
           CIBW_ARCHS_MACOS: x86_64 arm64
           CIBW_ARCHS_LINUX: auto64
         with:
