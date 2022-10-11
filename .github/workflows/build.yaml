@@ -26,6 +26,7 @@ jobs:
         env:
           CIBW_SKIP: pp*
           CIBW_ARCHS_MACOS: x86_64 arm64
+          CIBW_ARCHS_LINUX: auto64
         with:
           package-dir: .
           output-dir: wheelhouse
