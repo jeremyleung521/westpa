@@ -53,6 +53,46 @@ jobs:
         with:
           path: ./wheelhouse/*.whl
 
+  # Split off macos arm64 building...
+  build_wheels_macos_arm64:
+    name: Build wheels on ${{ matrix.os }}-py3.${{ matrix.python-version }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [macos-latest]
+        python-version: [7, 8, 9, 10] # sub-versions of Python
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Build wheels
+        uses: pypa/cibuildwheel@v2.10.2
+        env:
+          CIBW_SKIP: "pp* *-musllinux*"
+          CIBW_BUILD: "cp3${{ matrix.python-version }}-*"
+          CIBW_ARCHS_MACOS: arm64
+          CIBW_TEST_SKIP: "*-macosx_arm64"
+          CIBW_TEST_COMMAND: > 
+            python -c "import westpa" && 
+            python -c "import westpa.core.propagators" &&
+            python -c "import westpa.core.binning" &&
+            python -c "import westpa.core.kinetics" &&
+            python -c "import westpa.core.reweight" &&
+            python -c "import westpa.work_managers" &&
+            python -c "import westpa.tools" &&
+            python -c "import westpa.fasthist" &&
+            python -c "import westpa.mclib"
+            # Currently blocked by https://github.com/westpa/westpa/issues/70
+            #python -c "import westpa.trajtree"
+        with:
+          package-dir: .
+          output-dir: wheelhouse
+          config-file: "{package}/pyproject.toml"
+
+      - uses: actions/upload-artifact@v3
+        with:
+          path: ./wheelhouse/*.whl
+
   build_sdist:
     name: Build source distribution
     runs-on: ubuntu-latest
