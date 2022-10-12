@@ -56,9 +56,36 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
+      - uses: actions/setup-python@v4
       - name: Build sdist
-        run: pipx run build --sdist
+        run: pipx run build --sdisti
 
+      # More info on options: https://github.com/goanpeca/setup-miniconda
+      - uses: conda-incubator/setup-miniconda@v2
+        with:
+          python-version: ${{ matrix.python-version }}
+          environment-file: devtools/conda-envs/test_env.yaml
+          activate-environment: test_env
+          auto-update-conda: true
+          auto-activate-base: false
+          show-channel-urls: true
+
+      - name: Install from sdist and import
+        shell: bash -l {0}
+        run: |
+            conda info --all
+            python -m pip install dist/*.tar.gz
+            conda list
+            python -c "import westpa" && 
+            python -c "import westpa.core.propagators" &&
+            python -c "import westpa.core.binning" &&
+            python -c "import westpa.core.kinetics" &&
+            python -c "import westpa.core.reweight" &&
+            python -c "import westpa.work_managers" &&
+            python -c "import westpa.tools" &&
+            python -c "import westpa.fasthist" &&
+            python -c "import westpa.mclib"
+         
       - uses: actions/upload-artifact@v3
         with:
           path: dist/*.tar.gz
