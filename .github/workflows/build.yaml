@@ -34,7 +34,7 @@ jobs:
           CIBW_TEST_SKIP: "*-macosx_arm64"
           CIBW_TEST_COMMAND: > 
             python -c "import westpa" && 
-            python -c "import westpa.core.propagators2" &&
+            python -c "import westpa.core.propagators" &&
             python -c "import westpa.core.binning" &&
             python -c "import westpa.core.kinetics" &&
             python -c "import westpa.core.reweight" &&
@@ -80,7 +80,7 @@ jobs:
         run: |
           python -m pip install dist/*.tar.gz &&
           python -c "import westpa" && 
-          python -c "import westpa.core.propagators2" &&
+          python -c "import westpa.core.propagators" &&
           python -c "import westpa.core.binning" &&
           python -c "import westpa.core.kinetics" &&
           python -c "import westpa.core.reweight" &&
