@@ -30,7 +30,6 @@ jobs:
           python-version: ${{ matrix.python-version }}
 
       - name: Build wheels
-        shell: bash
         uses: pypa/cibuildwheel@v2.10.2
         env:
           CIBW_SKIP: "pp* *-musllinux*"
