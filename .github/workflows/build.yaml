@@ -80,7 +80,7 @@ jobs:
 
       - name: Install from sdist and import
         run: |
-            python -m pip install dist/*.tar.gz
+            python -m pip install dist/*.tar.gz &&
             python -c "import westpa" && 
             python -c "import westpa.core.propagators" &&
             python -c "import westpa.core.binning" &&
