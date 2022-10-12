@@ -19,7 +19,7 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest, macos-latest]
-        python-version: [7, 8, 9, 10, 11]
+        python-version: [37, 38, 39, 310, 311]
 
     steps:
       - uses: actions/checkout@v3
@@ -27,13 +27,13 @@ jobs:
       - uses: actions/setup-python@v4
         name: Install Python
         with:
-          python-version: 3.${{ matrix.python-version }}
+          python-version: 3.8
 
       - name: Build wheels
         uses: pypa/cibuildwheel@v2.10.2
         env:
           CIBW_SKIP: "pp* *-musllinux*"
-          CIBW_BUILD: "cp3${{ matrix.python-version }}-*"
+          CIBW_BUILD: "cp${{ matrix.python-version }}-*"
           CIBW_ARCHS_MACOS: x86_64 arm64
           CIBW_ARCHS_LINUX: auto64
           CIBW_TEST_COMMAND: > 
@@ -67,22 +67,22 @@ jobs:
       - name: Build sdist
         run: pipx run build --sdist
 
-      # More info on options: https://github.com/goanpeca/setup-miniconda
-      - uses: conda-incubator/setup-miniconda@v2
-        with:
-          python-version: ${{ matrix.python-version }}
-          environment-file: devtools/conda-envs/test_env.yaml
-          activate-environment: test_env
-          auto-update-conda: true
-          auto-activate-base: false
-          show-channel-urls: true
+#       # More info on options: https://github.com/goanpeca/setup-miniconda
+#       - uses: conda-incubator/setup-miniconda@v2
+#         with:
+#           python-version: ${{ matrix.python-version }}
+#           environment-file: devtools/conda-envs/test_env.yaml
+#           activate-environment: test_env
+#           auto-update-conda: true
+#           auto-activate-base: false
+#           show-channel-urls: true
 
       - name: Install from sdist and import
-        shell: bash -l {0}
+#        shell: bash -l {0}
         run: |
-            conda info --all
+#            conda info --all
             python -m pip install dist/*.tar.gz
-            conda list
+#            conda list
             python -c "import westpa" && 
             python -c "import westpa.core.propagators" &&
             python -c "import westpa.core.binning" &&
