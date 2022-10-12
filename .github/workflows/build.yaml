@@ -29,8 +29,8 @@ jobs:
         env:
           CIBW_SKIP: "pp* *-musllinux*"
           CIBW_BUILD: "cp3${{ matrix.python-version }}-*"
-          CIBW_ARCHS_MACOS: x86_64 arm64
-          CIBW_ARCHS_LINUX: auto64
+          CIBW_ARCHS_MACOS: "auto64"
+          CIBW_ARCHS_LINUX: "auto64"
           CIBW_TEST_SKIP: "*-macosx_arm64"
           CIBW_TEST_COMMAND: > 
             python -c "import westpa" && 
@@ -55,12 +55,12 @@ jobs:
 
   # Split off macos arm64 building...
   build_wheels_macos_arm64:
-    name: Build wheels on ${{ matrix.os }}-py3.${{ matrix.python-version }}
+    name: Build Apple Silicon wheels on py3.${{ matrix.python-version }}
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
         os: [macos-latest]
-        python-version: [7, 8, 9, 10] # sub-versions of Python
+        python-version: [8, 9, 10] # sub-versions of Python
 
     steps:
       - uses: actions/checkout@v3
@@ -68,9 +68,9 @@ jobs:
       - name: Build wheels
         uses: pypa/cibuildwheel@v2.10.2
         env:
-          CIBW_SKIP: "pp* *-musllinux*"
+          CIBW_SKIP: "pp*"
           CIBW_BUILD: "cp3${{ matrix.python-version }}-*"
-          CIBW_ARCHS_MACOS: arm64
+          CIBW_ARCHS_MACOS: "arm64"
           CIBW_TEST_SKIP: "*-macosx_arm64"
           CIBW_TEST_COMMAND: > 
             python -c "import westpa" && 
