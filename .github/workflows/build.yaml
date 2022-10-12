@@ -36,6 +36,7 @@ jobs:
           CIBW_BUILD: "cp3${{ matrix.python-version }}-*"
           CIBW_ARCHS_MACOS: x86_64 arm64
           CIBW_ARCHS_LINUX: auto64
+          CIBW_TEST_SKIP: *-macosx_arm64
           CIBW_TEST_COMMAND: > 
             python -c "import westpa" && 
             python -c "import westpa.core.propagators" &&
@@ -62,8 +63,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-
+      
       - uses: actions/setup-python@v4
+        python-version: 3.9
 
       - name: Build sdist
         run: pipx run build --sdist
@@ -80,16 +82,17 @@ jobs:
 
       - name: Install from sdist and import
         run: |
-            python -m pip install dist/*.tar.gz &&
-            python -c "import westpa" && 
-            python -c "import westpa.core.propagators" &&
-            python -c "import westpa.core.binning" &&
-            python -c "import westpa.core.kinetics" &&
-            python -c "import westpa.core.reweight" &&
-            python -c "import westpa.work_managers" &&
-            python -c "import westpa.tools" &&
-            python -c "import westpa.fasthist" &&
-            python -c "import westpa.mclib"
+          python -m pip install dist/*.tar.gz &&
+          python -c "import westpa" && 
+          python -c "import westpa.core.propagators" &&
+          python -c "import westpa.core.binning" &&
+          python -c "import westpa.core.kinetics" &&
+          python -c "import westpa.core.reweight" &&
+          python -c "import westpa.work_managers" &&
+          python -c "import westpa.tools" &&
+          python -c "import westpa.fasthist" &&
+          python -c "import westpa.mclib" &&
+          echo "All done!"
          
       - uses: actions/upload-artifact@v3
         with:
