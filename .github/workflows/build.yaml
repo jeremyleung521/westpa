@@ -19,15 +19,22 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest, macos-latest]
+        python-version: [37, 38, 39, 310, 311]
 
     steps:
       - uses: actions/checkout@v3
 
+      - uses: actions/setup-python@v4
+        name: Install Python
+        with:
+          python-version: ${{ matrix.python-version }}
+
       - name: Build wheels
-        shell: bash -l {0}
+        shell: bash
         uses: pypa/cibuildwheel@v2.10.2
         env:
           CIBW_SKIP: "pp* *-musllinux*"
+          CIBW_BUILD: "cp${{ matrix.python-version }}-*"
           CIBW_ARCHS_MACOS: x86_64 arm64
           CIBW_ARCHS_LINUX: auto64
           CIBW_TEST_COMMAND: > 
