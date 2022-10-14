@@ -8,10 +8,14 @@ on:
     branches:
       - 'westpa2'
       - 'CI_test'
+    tags:
+      - 'v*'
 #  pull_request:
   release:
     types:
       - published
+  create:
+    
 
 jobs:
   build_wheels:
