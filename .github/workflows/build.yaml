@@ -14,8 +14,6 @@ on:
   release:
     types:
       - published
-  create:
-    
 
 jobs:
   build_wheels:
@@ -138,7 +136,7 @@ jobs:
     # if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags/v')
     # alternatively, to publish when a GitHub Release is created, use the following rule:
     if: |
-      github.repository == 'westpa/westpa' &&
+      github.repository == 'jeremyleung521/westpa' &&
       (github.event_name == 'push' && startsWith(github.ref, 'refs/tags/v'))
     steps:
       - uses: actions/download-artifact@v3
