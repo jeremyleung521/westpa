@@ -82,6 +82,7 @@ def entry_point():
     # Copy basis states
     basis_states = dm_old.get_basis_states(n_iter)
     dm_new.create_ibstate_group(basis_states, n_iter=1)
+    dm_new.create_ibstate_iter_h5file(basis_states)
 
     # Transform old segments into initial states and new segments
     # We produce one initial state and one corresponding
