@@ -52,7 +52,7 @@ jobs:
     - uses: conda-incubator/setup-miniconda@v2
       with:
         python-version: ${{ matrix.python-version }}
-        mamba-version: "*"
+        miniforge-variant: Mambaforge
         environment-file: devtools/conda-envs/test_env.yaml
         activate-environment: test_env
         channel-priority: true
@@ -80,7 +80,7 @@ jobs:
         file: ./coverage.xml
         flags: unittests
         name: codecov-{{ '${{ matrix.os }}' }}-py{{ '${{ matrix.python-version }}' }}
-        fail_ci_if_error: true
+        fail_ci_if_error: false
 
   install-dev:
     strategy:
