@@ -12,9 +12,5 @@ build:
 sphinx:
   configuration: doc/conf.py
 
-python:
-  install:
-    - method: pip
-      path: .
 conda:
   environment: doc/doc_env.yaml
