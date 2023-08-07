@@ -14,3 +14,9 @@ sphinx:
 
 conda:
   environment: doc/doc_env.yaml
+
+python:
+  install:
+  - path: .
+    extra_requirements:
+      - doc
