@@ -35,9 +35,9 @@ author = 'Matthew C. Zwier and Lillian T. Chong'
 # built documents.
 #
 # The short X.Y version.
-version = '2.0'
+version = '2022.05'
 # The full version, including alpha/beta/rc tags.
-release = '2.0'
+release = '2022.05'
 
 
 # -- General configuration ---------------------------------------------------
