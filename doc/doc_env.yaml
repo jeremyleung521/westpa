@@ -15,4 +15,5 @@ dependencies:
   - ipykernel
   - mpi4py
   - pip
+  - pip:
     - .
