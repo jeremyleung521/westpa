@@ -250,6 +250,7 @@ class WESTDataManager:
         self.store_h5 = self.iter_ref_h5_template is not None
 
         # Process dataset options
+        self.load_auxdata = config.get(['west', 'data', 'load_auxdata'], False)
         dsopts_list = config.get(['west', 'data', 'datasets']) or []
         for dsopts in dsopts_list:
             dsopts = normalize_dataset_options(dsopts, path_prefix='auxdata' if dsopts['name'] != 'pcoord' else '')
@@ -281,6 +282,7 @@ class WESTDataManager:
         self._system = None
         self.iter_ref_h5_template = None
         self.store_h5 = False
+        self.load_auxdata = False
 
         self.dataset_options = {}
         self.process_config()
@@ -1054,15 +1056,15 @@ class WESTDataManager:
     def get_segments(self, n_iter=None, seg_ids=None, load_pcoords=True):
         '''Return the given (or all) segments from a given iteration.
 
-        If the optional parameter ``load_auxdata`` is true, then all auxiliary datasets
-        available are loaded and mapped onto the ``data`` dictionary of each segment. If
-        ``load_auxdata`` is None, then use the default ``self.auto_load_auxdata``, which can
-        be set by the option ``load_auxdata`` in the ``[data]`` section of ``west.cfg``. This
-        essentially requires as much RAM as there is per-iteration auxiliary data, so this
-        behavior is not on by default.'''
+        By default, datasets are loaded and mapped onto the ``data`` dictionary of each segment
+        if ``load: True`` in the config file. If the optional parameter ``load_auxdata`` is True,
+        then all auxiliary datasets without an explicit ``load:`` option are loaded in.
+        If ``load_auxdata`` is False or not specified, then all auxiliary datasets without
+        an explicit ``load:`` would not be loaded.'''
 
         n_iter = n_iter or self.current_iteration
         file_version = self.we_h5file_version
+        load_auxdata = self.load_auxdata or False
 
         with self.lock:
             iter_group = self.get_iter_group(n_iter)
@@ -1119,7 +1121,7 @@ class WESTDataManager:
 
             # If any other data sets are requested, load them as well
             for dsinfo in self.dataset_options.values():
-                if dsinfo.get('load', False):
+                if dsinfo.get('load', load_auxdata):
                     dsname = dsinfo['name']
                     try:
                         ds = iter_group[dsinfo['h5path']]
