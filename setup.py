@@ -120,11 +120,12 @@ INSTALL_REQUIRES = [
     "ipykernel",
     "tqdm",
     "pandas",
-    "tables",
+    "tables < 3.9; python_version < '3.9'",
+    "tables; python_version >= '3.9'",
 ]
 
 EXTRAS_REQUIRE = {
-    "tests": ["pytest", "pytest-cov", "pytest-rerunfailures"],
+    "tests": ["pytest", "pytest-cov", "pytest-rerunfailures", "pytest-timeout"],
     "mpi": ["mpi4py"],
 }
 
