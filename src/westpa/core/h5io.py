@@ -9,9 +9,11 @@ import socket
 import sys
 import time
 import logging
+import westpa
 
 import h5py
 import numpy as np
+import tables.exceptions
 from numpy import index_exp
 
 from mdtraj import Trajectory, join as join_traj
@@ -731,6 +733,17 @@ class WESTIterationFile(HDF5TrajectoryFile):
                 obj=slog,
                 createparents=True,
             )
+
+    def scrub_data(self):
+        '''Method to remove existing coordinates, pointers etc. while preserving topology'''
+        for node in ['log', 'restart', 'time', 'coordinates', 'pointer', 'cell_angles', 'cell_lengths']:
+            try:
+                self._remove_node('/', node, recursive=True)
+            except tables.exceptions.NoSuchNodeError:
+                pass
+        self._frame_index = 0
+        self.root._v_attrs.n_iter = 0
+        self.flush()
 
     @property
     def _create_group(self):

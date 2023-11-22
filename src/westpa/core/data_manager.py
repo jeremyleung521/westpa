@@ -47,8 +47,10 @@ import posixpath
 import sys
 import threading
 import time
+import re
 from operator import attrgetter
-from os.path import relpath, dirname
+from os.path import relpath, dirname, exists
+from shutil import copyfile
 
 import h5py
 from h5py import h5s
@@ -246,8 +248,17 @@ class WESTDataManager:
             ['west', 'data', 'aux_compression_threshold'], self.default_aux_compression_threshold
         )
         self.flush_period = config.get(['west', 'data', 'flush_period'], self.default_flush_period)
-        self.iter_ref_h5_template = config.get(['west', 'data', 'data_refs', 'iteration'], None)
-        self.store_h5 = self.iter_ref_h5_template is not None
+
+        # Path to per-iter h5 file
+        self.iter_ref_h5_path_template = config.get(['west', 'data', 'data_refs', 'iteration'], None)
+        try:
+            # Generating path to a template file for per-iter h5 file
+            self.iter_ref_h5_template = re.sub(r'\{(.*?)\}', 'template', self.iter_ref_h5_path_template)
+        except TypeError:
+            self.iter_ref_h5_template = None
+
+        # If not provided, turn HDF5 Framework off.
+        self.store_h5 = self.iter_ref_h5_path_template is not None
 
         # Process dataset options
         dsopts_list = config.get(['west', 'data', 'datasets']) or []
@@ -279,8 +290,10 @@ class WESTDataManager:
         self.last_flush = 0
 
         self._system = None
-        self.iter_ref_h5_template = None
-        self.store_h5 = False
+        self.iter_ref_h5_path_template = None  # Template for per-iter H5 file Path
+        self.iter_ref_h5_template = None  # Path to per-iter H5 template file
+        self.store_h5 = False  # Indicates HDF5 Framework is activated or not
+        self.template_copy_flag = False  # Flag indicating the template file was made this iteration
 
         self.dataset_options = {}
         self.process_config()
@@ -568,12 +581,25 @@ class WESTDataManager:
             return
 
         west_h5_file = makepath(self.we_h5filename)
-        iter_ref_h5_file = makepath(self.iter_ref_h5_template, {'n_iter': n_iter})
+        iter_ref_h5_file = makepath(self.iter_ref_h5_path_template, {'n_iter': n_iter})
         iter_ref_rel_path = relpath(iter_ref_h5_file, dirname(west_h5_file))
+        if self.iter_ref_h5_template:
+            # M<ake path to per-iter H5 File
+            iter_ref_h5_file_template = makepath(self.iter_ref_h5_template, {'n_iter': n_iter})
+
+            # Copy the template per-iter H5 file with topology
+            if exists(iter_ref_h5_file_template) and not exists(iter_ref_h5_file):
+                copyfile(iter_ref_h5_file_template, iter_ref_h5_file)
 
         with h5io.WESTIterationFile(iter_ref_h5_file, 'a') as outf:
             for segment in segments:
                 outf.write_segment(segment, True)
+
+        if self.iter_ref_h5_template and not exists(iter_ref_h5_file_template):
+            # If template per-iter H5 file does not exist, copy and scrub out old data
+            copyfile(iter_ref_h5_file, iter_ref_h5_file_template)
+            with h5io.WESTIterationFile(iter_ref_h5_file_template, 'a') as outf:
+                outf.scrub_data()
 
         iter_group = self.get_iter_group(n_iter)
 
@@ -1160,7 +1186,7 @@ class WESTDataManager:
                 parent = Segment(n_iter=segment.n_iter - 1, seg_id=segment.parent_id)
 
             try:
-                parent_iter_ref_h5_file = makepath(self.iter_ref_h5_template, {'n_iter': parent.n_iter})
+                parent_iter_ref_h5_file = makepath(self.iter_ref_h5_path_template, {'n_iter': parent.n_iter})
 
                 with h5io.WESTIterationFile(parent_iter_ref_h5_file, 'r') as outf:
                     outf.read_restart(parent)

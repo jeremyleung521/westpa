@@ -6,9 +6,13 @@ from mdtraj.core.trajectory import _TOPOLOGY_EXTS, _get_extension as get_extensi
 
 FormatRegistry.loaders['.rst'] = mdformats.amberrst.load_restrt
 FormatRegistry.fileobjects['.rst'] = mdformats.AmberRestartFile
+FormatRegistry.loaders['.ncrst'] = mdformats.amberrst.load_ncrestrt
+FormatRegistry.fileobjects['.ncrst'] = mdformats.AmberRestartFile
 
 TRAJECTORY_EXTS = list(FormatRegistry.loaders.keys())
 TOPOLOGY_EXTS = list(_TOPOLOGY_EXTS)
+NETCDF_EXTS = ['.nc']
+
 for ext in [".h5", ".hdf5", ".lh5"]:
     TOPOLOGY_EXTS.remove(ext)
 
@@ -327,3 +331,39 @@ def load_trajectory(folder):
 
     traj = load_traj(traj_file, **kwargs)
     return traj
+
+
+def load_netcdf(folder):
+    '''Load netcdf file from ``folder`` using ``netCDF`` and return a ``mdtraj.Trajectory``
+    object. The folder should contain a trajectory and a topology file (with a recognizable
+    extension) that is supported by ``mdtraj``. The topology file is optional if the
+    trajectory file contains topology data (e.g., HDF5 format).
+    '''
+
+    import netCDF4
+    traj_file = None
+    file_list = [f_name for f_name in os.listdir(folder) if not f_name.startswith('.')]
+    for filename in file_list:
+        filepath = os.path.join(folder, filename)
+        if not os.path.isfile(filepath):
+            continue
+
+        ext = get_extension(filename).lower()
+        # Catching trajectory formats that can be topology and trajectories at the same time.
+        # Only activates when there is a single file.
+        if ext in NETCDF_EXTS:
+            traj_file = filename
+
+        if traj_file is not None:
+            break
+
+    if traj_file is None:
+        raise ValueError('trajectory file not found')
+
+    traj_file = os.path.join(folder, traj_file)
+
+    rootgrp = netCDF4.Dataset(traj_file, 'r', format="NETCDF3")
+    traj = np.asarray(rootgrp.variables['coordinates'][:])
+
+    return traj
+

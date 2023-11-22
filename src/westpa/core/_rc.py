@@ -440,6 +440,10 @@ class WESTRC:
             from westpa.core.propagators.executable import ExecutablePropagator
 
             propagator = ExecutablePropagator()
+        elif drivername.lower() == 'executable_mod':
+            from westpa.core.propagators.executable_mod import ExecutablePropagator
+
+            propagator = ExecutablePropagator()
         else:
             propagator = extloader.get_object(drivername)(rc=self)
         log.debug('loaded propagator {!r}'.format(propagator))
