@@ -339,7 +339,6 @@ def load_netcdf(folder):
     extension) that is supported by ``mdtraj``. The topology file is optional if the
     trajectory file contains topology data (e.g., HDF5 format).
     '''
-
     import netCDF4
     traj_file = None
     file_list = [f_name for f_name in os.listdir(folder) if not f_name.startswith('.')]
@@ -362,8 +361,15 @@ def load_netcdf(folder):
 
     traj_file = os.path.join(folder, traj_file)
 
+    coords, cell_lengths, cell_angles, time = None, None, None, None
+
     rootgrp = netCDF4.Dataset(traj_file, 'r', format="NETCDF3")
-    traj = np.asarray(rootgrp.variables['coordinates'][:])
+    datasets = {'coordinates': coords, 'cell_lengths': cell_lengths, 'cell_angles': cell_angles, 'time': time}
+    for (key, val) in datasets:
+        if key in rootgrp.variables:
+            val = np.asarray(rootgrp.variables[key][:])
+
+    traj = WESTTrajectory(coordinates=coords, unitcell_lengths=cell_lengths, unitcell_angles=cell_angles, time=time)
 
     return traj
 

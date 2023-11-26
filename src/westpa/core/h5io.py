@@ -667,8 +667,9 @@ class WESTIterationFile(HDF5TrajectoryFile):
         slog = get_data('iterh5/log', None)
 
         if traj is not None:
-            # create trajectory object
-            traj = WESTTrajectory(traj, iter_labels=n_iter, seg_labels=segment.seg_id)
+            # create trajectory object or if already is, skip.
+            if not isinstance(traj, WESTTrajectory):
+                traj = WESTTrajectory(traj, iter_labels=n_iter, seg_labels=segment.seg_id)
             if traj.n_frames == 0:
                 # we may consider logging warnings instead throwing errors for later.
                 # right now this is good for debugging purposes

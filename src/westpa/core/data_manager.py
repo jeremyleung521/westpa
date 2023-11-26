@@ -1008,7 +1008,7 @@ class WESTDataManager:
                 si_fsel.select_hyperslab((seg_id,), (1,), op=op)
                 pc_fsel.select_hyperslab((seg_id, 0, 0), (1, pcoord_len, pcoord_ndim), op=op)
 
-            # read summary data so that we have valud parent and weight transfer information
+            # read summary data so that we have value, parent and weight transfer information
             si_dsid.read(si_msel, si_fsel, seg_index_entries)
 
             for iseg, (segment, ientry) in enumerate(zip(segments, seg_index_entries)):
