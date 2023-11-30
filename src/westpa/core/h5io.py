@@ -9,6 +9,9 @@ import socket
 import sys
 import time
 import logging
+
+import mdtraj.formats
+
 import westpa
 
 import h5py
@@ -447,15 +450,15 @@ class WESTPAH5File(h5py.File):
 
 class WESTIterationFile(HDF5TrajectoryFile):
     def __init__(self, file, mode='r', force_overwrite=True, compression='zlib', link=None):
-        if isinstance(file, str):
+        if isinstance(file, str):  # Create new file from string
             super(WESTIterationFile, self).__init__(file, mode, force_overwrite, compression)
         else:
             try:
-                self._init_from_handle(file)
+                self._init_from_handle(file)  # If a WESTIterationFile object, just make sure it's open correctly
             except AttributeError:
                 raise ValueError('unknown input type: %s' % str(type(file)))
 
-    def _init_from_handle(self, handle):
+    def _init_from_handle(self, handle: mdtraj.formats.HDF5TrajectoryFile):
         self._handle = handle
         self._open = handle.isopen != 0
         self.mode = mode = handle.mode  # the mode in which the file was opened?

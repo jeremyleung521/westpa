@@ -50,7 +50,8 @@ import time
 import re
 from operator import attrgetter
 from os.path import relpath, dirname, exists
-from shutil import copyfile
+from shutil import copyfile, move
+from subprocess import call
 
 import h5py
 from h5py import h5s
@@ -584,7 +585,7 @@ class WESTDataManager:
         iter_ref_h5_file = makepath(self.iter_ref_h5_path_template, {'n_iter': n_iter})
         iter_ref_rel_path = relpath(iter_ref_h5_file, dirname(west_h5_file))
         if self.iter_ref_h5_template:
-            # M<ake path to per-iter H5 File
+            # Make path to per-iter H5 File
             iter_ref_h5_file_template = makepath(self.iter_ref_h5_template, {'n_iter': n_iter})
 
             # Copy the template per-iter H5 file with topology
@@ -600,6 +601,10 @@ class WESTDataManager:
             copyfile(iter_ref_h5_file, iter_ref_h5_file_template)
             with h5io.WESTIterationFile(iter_ref_h5_file_template, 'a') as outf:
                 outf.scrub_data()
+            # Launch a subprocess to repack the file to reclaim space, replace template with smaller file
+            call(f'h5repack {iter_ref_h5_file_template} {iter_ref_h5_file_template+"_repacked"}', shell=True)
+            move(f'{iter_ref_h5_file_template+"_repacked"}', iter_ref_h5_file_template)
+
 
         iter_group = self.get_iter_group(n_iter)
 

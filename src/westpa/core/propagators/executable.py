@@ -20,7 +20,7 @@ from westpa.core.states import BasisState, InitialState
 from westpa.core.segment import Segment
 from westpa.core.yamlcfg import check_bool
 
-from westpa.core.trajectory import load_trajectory
+from westpa.core.trajectory import load_trajectory, load_netcdf
 from westpa.core.h5io import safe_extract
 
 log = logging.getLogger(__name__)
@@ -52,7 +52,8 @@ def pcoord_loader(fieldname, pcoord_return_filename, destobj, single_point):
             pcoord.shape = expected_shape
     if pcoord.shape != expected_shape:
         raise ValueError(
-            'progress coordinate data has incorrect shape {!r} [expected {!r}] Check pcoord.err or seg_logs for more information.'.format(
+            'progress coordinate data has incorrect shape {!r} [expected {!r}] Check pcoord.err or seg_logs for more '
+            'information.'.format(
                 pcoord.shape, expected_shape
             )
         )
@@ -92,6 +93,18 @@ def trajectory_loader(fieldname, coord_folder, segment, single_point):
         segment.data['iterh5/trajectory'] = data
     except Exception as e:
         log.warning('could not read any data for {}: {}'.format(fieldname, str(e)))
+
+
+def netcdf_trajectory_loader(fieldname, coord_folder, segment, single_point):
+    '''Load amber .nc data from the trajectory return. ``coord_folder`` should be the path to a folder
+    containing trajectory files. ``segment`` is the ``Segment`` object that the data is associated with.
+    Please see ``load_trajectory`` for more details. ``single_point`` is not used by this loader.'''
+    try:
+        data = load_netcdf(coord_folder)
+        segment.data['iterh5/trajectory'] = data
+    except Exception as e:
+        trajectory_loader(fieldname, coord_folder, segment, single_point)
+        # log.warning('could not read any data for {}: {}'.format(fieldname, str(e)))
 
 
 def restart_loader(fieldname, restart_folder, segment, single_point):
@@ -153,7 +166,7 @@ def seglog_loader(fieldname, log_file, segment, single_point):
         d.close()
 
 
-# Dictionary with all the possible loaders
+# Dictionary with all the possible aux dataset loaders
 data_loaders = {
     'default': aux_data_loader,
     'auxdata_loader': aux_data_loader,
@@ -162,6 +175,14 @@ data_loaders = {
     'npy_data_loader': npy_data_loader,
     'pickle_loader': pickle_data_loader,
     'pickle_data_loader': pickle_data_loader,
+}
+
+# Dictionary with all the possible trajectory loaders
+trajectory_loaders = {
+    'default': trajectory_loader,
+    'trajectory_loader': trajectory_loader,
+    'amber_trajectory_loader': netcdf_trajectory_loader,
+    'netcdf_trajectory_loader': netcdf_trajectory_loader,
 }
 
 
@@ -190,6 +211,21 @@ class ExecutablePropagator(WESTPropagator):
     ENV_RAND128 = 'WEST_RAND128'
     ENV_RANDFLOAT = 'WEST_RANDFLOAT'
 
+    @staticmethod
+    def makepath(template, template_args=None, expanduser=True, expandvars=True, abspath=False, realpath=False):
+        template_args = template_args or {}
+        path = template.format(**template_args)
+        if expandvars:
+            path = os.path.expandvars(path)
+        if expanduser:
+            path = os.path.expanduser(path)
+        if realpath:
+            path = os.path.realpath(path)
+        if abspath:
+            path = os.path.abspath(path)
+        path = os.path.normpath(path)
+        return path
+
     def __init__(self, rc=None):
         super().__init__(rc)
 
@@ -208,8 +244,7 @@ class ExecutablePropagator(WESTPropagator):
 
         # A mapping of data set name ('pcoord', 'coord', 'com', etc) to a dictionary of
         # attributes like 'loader', 'dtype', etc
-        self.data_info = {}
-        self.data_info['pcoord'] = {}
+        self.data_info = {'pcoord': {}}
 
         # Validate configuration
         config = self.rc.config
@@ -259,22 +294,36 @@ class ExecutablePropagator(WESTPropagator):
         log.debug('exe_info: {!r}'.format(self.exe_info))
 
         # Load configuration items relating to dataset input
-        self.data_info['pcoord'] = {'name': 'pcoord', 'loader': pcoord_loader, 'enabled': True, 'filename': None, 'dir': False}
-        self.data_info['trajectory'] = {
-            'name': 'trajectory',
-            'loader': trajectory_loader,
-            'enabled': store_h5,
+        self.data_info['pcoord'] = {
+            'name': 'pcoord',
+            'loader': pcoord_loader,
+            'enabled': True,
             'filename': None,
-            'dir': True,
+            'dir': False
         }
-        self.data_info['restart'] = {
-            'name': 'restart',
-            'loader': restart_loader,
-            'enabled': store_h5,
-            'filename': None,
-            'dir': True,
-        }
-        self.data_info['log'] = {'name': 'seglog', 'loader': seglog_loader, 'enabled': store_h5, 'filename': None, 'dir': False}
+
+        if store_h5:
+            self.data_info['trajectory'] = {
+                'name': 'trajectory',
+                'loader': trajectory_loader,
+                'enabled': store_h5,
+                'filename': None,
+                'dir': True,
+            }
+            self.data_info['restart'] = {
+                'name': 'restart',
+                'loader': restart_loader,
+                'enabled': store_h5,
+                'filename': None,
+                'dir': True,
+            }
+            self.data_info['log'] = {
+                'name': 'seglog',
+                'loader': seglog_loader,
+                'enabled': store_h5,
+                'filename': None,
+                'dir': False
+            }
 
         dataset_configs = config.get(['west', 'executable', 'datasets']) or []
         for dsinfo in dataset_configs:
@@ -290,35 +339,30 @@ class ExecutablePropagator(WESTPropagator):
                 dsinfo['enabled'] = True
 
             loader_directive = dsinfo.get('loader')
-            if callable(loader_directive):
+            if callable(loader_directive):  # If directly callable, then use it
                 loader = loader_directive
-            elif loader_directive in data_loaders.keys():
-                if dsname not in ['pcoord', 'seglog', 'restart', 'trajectory']:
+            elif dsname in ['pcoord', 'seglog', 'restart']:  # These are "protected" dataset names
+                if loader_directive in data_loaders.keys():
                     loader = data_loaders[loader_directive]
                 else:
                     loader = get_object(loader_directive)
-            elif dsname not in ['pcoord', 'seglog', 'restart', 'trajectory']:
+            elif dsname in ['trajectory']:  # Special dataset for saving trajectory coordinates in HDF5 Framework
+                if 'module_path' in dsinfo.keys():
+                    dspath = self.makepath(dsinfo['module_path'])
+                else:
+                    dspath = None
+                if loader_directive in trajectory_loaders.keys():
+                    loader = trajectory_loaders[loader_directive]
+                else:
+                    loader = get_object(loader_directive, path=dspath)
+
+            else:  # Assumed aux dataset, defaulting to aux_data_loader
                 loader = aux_data_loader
 
             dsinfo['loader'] = loader
             self.data_info.setdefault(dsname, {}).update(dsinfo)
 
         log.debug('data_info: {!r}'.format(self.data_info))
-
-    @staticmethod
-    def makepath(template, template_args=None, expanduser=True, expandvars=True, abspath=False, realpath=False):
-        template_args = template_args or {}
-        path = template.format(**template_args)
-        if expandvars:
-            path = os.path.expandvars(path)
-        if expanduser:
-            path = os.path.expanduser(path)
-        if realpath:
-            path = os.path.realpath(path)
-        if abspath:
-            path = os.path.abspath(path)
-        path = os.path.normpath(path)
-        return path
 
     def random_val_env_vars(self):
         '''Return a set of environment variables containing random seeds. These are returned
