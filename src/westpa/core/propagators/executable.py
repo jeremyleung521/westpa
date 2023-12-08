@@ -302,28 +302,27 @@ class ExecutablePropagator(WESTPropagator):
             'dir': False
         }
 
-        if store_h5:
-            self.data_info['trajectory'] = {
-                'name': 'trajectory',
-                'loader': trajectory_loader,
-                'enabled': store_h5,
-                'filename': None,
-                'dir': True,
-            }
-            self.data_info['restart'] = {
-                'name': 'restart',
-                'loader': restart_loader,
-                'enabled': store_h5,
-                'filename': None,
-                'dir': True,
-            }
-            self.data_info['log'] = {
-                'name': 'seglog',
-                'loader': seglog_loader,
-                'enabled': store_h5,
-                'filename': None,
-                'dir': False
-            }
+        self.data_info['trajectory'] = {
+            'name': 'trajectory',
+            'loader': trajectory_loader,
+            'enabled': store_h5,
+            'filename': None,
+            'dir': True,
+        }
+        self.data_info['restart'] = {
+            'name': 'restart',
+            'loader': restart_loader,
+            'enabled': store_h5,
+            'filename': None,
+            'dir': True,
+        }
+        self.data_info['log'] = {
+            'name': 'seglog',
+            'loader': seglog_loader,
+            'enabled': store_h5,
+            'filename': None,
+            'dir': False
+        }
 
         dataset_configs = config.get(['west', 'executable', 'datasets']) or []
         for dsinfo in dataset_configs:
