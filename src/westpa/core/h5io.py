@@ -12,8 +12,6 @@ import logging
 
 import mdtraj.formats
 
-import westpa
-
 import h5py
 import numpy as np
 import tables.exceptions
@@ -486,6 +484,14 @@ class WESTIterationFile(HDF5TrajectoryFile):
             self._frame_index = 0
             self._needs_initialization = False
 
+    def __contains__(self, path):
+        try:
+            self._get_node('/', path)
+        except self.tables.NoSuchNodeError:
+            return False
+
+        return True
+
     def read(self, frame_indices=None, atom_indices=None):
         _check_mode(self.mode, ('r',))
 
@@ -669,6 +675,13 @@ class WESTIterationFile(HDF5TrajectoryFile):
         restart = get_data('iterh5/restart', None)
         slog = get_data('iterh5/log', None)
 
+        # topology
+        if self.mode == 'a':
+            if not self.has_topology():
+                self.topology = traj.topology
+        elif self.mode == 'w':
+            self.topology = traj.topology
+
         if traj is not None:
             # create trajectory object or if already is, skip.
             if not isinstance(traj, WESTTrajectory):
@@ -705,13 +718,6 @@ class WESTIterationFile(HDF5TrajectoryFile):
                 cell_lengths=in_units_of(traj.unitcell_lengths, Trajectory._distance_unit, self.distance_unit),
                 cell_angles=traj.unitcell_angles,
             )
-
-            # topology
-            if self.mode == 'a':
-                if not self.has_topology():
-                    self.topology = traj.topology
-            elif self.mode == 'w':
-                self.topology = traj.topology
 
         # restart
         if restart is not None:

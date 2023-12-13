@@ -53,9 +53,7 @@ def pcoord_loader(fieldname, pcoord_return_filename, destobj, single_point):
     if pcoord.shape != expected_shape:
         raise ValueError(
             'progress coordinate data has incorrect shape {!r} [expected {!r}] Check pcoord.err or seg_logs for more '
-            'information.'.format(
-                pcoord.shape, expected_shape
-            )
+            'information.'.format(pcoord.shape, expected_shape)
         )
     destobj.pcoord = pcoord
 
@@ -103,8 +101,8 @@ def netcdf_trajectory_loader(fieldname, coord_folder, segment, single_point):
         data = load_netcdf(coord_folder)
         segment.data['iterh5/trajectory'] = data
     except Exception as e:
+        log.warning('Falling back to default loader for {}: {}'.format(fieldname, str(e)))
         trajectory_loader(fieldname, coord_folder, segment, single_point)
-        # log.warning('could not read any data for {}: {}'.format(fieldname, str(e)))
 
 
 def restart_loader(fieldname, restart_folder, segment, single_point):
@@ -294,13 +292,7 @@ class ExecutablePropagator(WESTPropagator):
         log.debug('exe_info: {!r}'.format(self.exe_info))
 
         # Load configuration items relating to dataset input
-        self.data_info['pcoord'] = {
-            'name': 'pcoord',
-            'loader': pcoord_loader,
-            'enabled': True,
-            'filename': None,
-            'dir': False
-        }
+        self.data_info['pcoord'] = {'name': 'pcoord', 'loader': pcoord_loader, 'enabled': True, 'filename': None, 'dir': False}
 
         self.data_info['trajectory'] = {
             'name': 'trajectory',
@@ -316,13 +308,7 @@ class ExecutablePropagator(WESTPropagator):
             'filename': None,
             'dir': True,
         }
-        self.data_info['log'] = {
-            'name': 'seglog',
-            'loader': seglog_loader,
-            'enabled': store_h5,
-            'filename': None,
-            'dir': False
-        }
+        self.data_info['log'] = {'name': 'seglog', 'loader': seglog_loader, 'enabled': store_h5, 'filename': None, 'dir': False}
 
         dataset_configs = config.get(['west', 'executable', 'datasets']) or []
         for dsinfo in dataset_configs:

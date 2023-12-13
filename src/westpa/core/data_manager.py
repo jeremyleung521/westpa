@@ -50,8 +50,9 @@ import time
 import re
 from operator import attrgetter
 from os.path import relpath, dirname, exists
+from os import remove
 from shutil import copyfile, move
-from subprocess import call
+from subprocess import run, CalledProcessError
 
 import h5py
 from h5py import h5s
@@ -601,10 +602,17 @@ class WESTDataManager:
             copyfile(iter_ref_h5_file, iter_ref_h5_file_template)
             with h5io.WESTIterationFile(iter_ref_h5_file_template, 'a') as outf:
                 outf.scrub_data()
-            # Launch a subprocess to repack the file to reclaim space, replace template with smaller file
-            call(f'h5repack {iter_ref_h5_file_template} {iter_ref_h5_file_template+"_repacked"}', shell=True)
-            move(f'{iter_ref_h5_file_template+"_repacked"}', iter_ref_h5_file_template)
 
+            # Launch a subprocess to repack the file to reclaim space, replacing template with smaller file
+            try:
+                run(
+                    f'h5repack {iter_ref_h5_file_template} {iter_ref_h5_file_template + "_repacked"}', shell=True
+                ).check_returncode()
+                move(f'{iter_ref_h5_file_template+"_repacked.h5"}', iter_ref_h5_file_template)
+            except CalledProcessError as e:  # Unsuccessful in repacking file
+                log.warning(f'Unable to repack into {iter_ref_h5_file_template}_repacked.h5: {e}')
+                if exists(f'{iter_ref_h5_file_template+"_repacked.h5"}'):
+                    remove(f'{iter_ref_h5_file_template+"_repacked.h5"}')
 
         iter_group = self.get_iter_group(n_iter)
 

@@ -340,6 +340,7 @@ def load_netcdf(folder):
     trajectory file contains topology data (e.g., HDF5 format).
     '''
     import netCDF4
+
     traj_file = None
     file_list = [f_name for f_name in os.listdir(folder) if not f_name.startswith('.')]
     for filename in file_list:
@@ -365,11 +366,10 @@ def load_netcdf(folder):
 
     rootgrp = netCDF4.Dataset(traj_file, 'r', format="NETCDF3")
     datasets = {'coordinates': coords, 'cell_lengths': cell_lengths, 'cell_angles': cell_angles, 'time': time}
-    for (key, val) in datasets:
+    for key, val in datasets:
         if key in rootgrp.variables:
-            val = np.asarray(rootgrp.variables[key][:])
+            val = np.asarray(rootgrp.variables[key][:])  # noqa: F841
 
     traj = WESTTrajectory(coordinates=coords, unitcell_lengths=cell_lengths, unitcell_angles=cell_angles, time=time)
 
     return traj
-
