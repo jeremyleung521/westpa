@@ -14,7 +14,6 @@ import mdtraj.formats
 
 import h5py
 import numpy as np
-import tables.exceptions
 from numpy import index_exp
 
 from mdtraj import Trajectory, join as join_traj
@@ -749,7 +748,7 @@ class WESTIterationFile(HDF5TrajectoryFile):
         for node in ['log', 'restart', 'time', 'coordinates', 'pointer', 'cell_angles', 'cell_lengths']:
             try:
                 self._remove_node('/', node, recursive=True)
-            except tables.exceptions.NoSuchNodeError:
+            except self.tables.exceptions.NoSuchNodeError:
                 pass
         self._frame_index = 0
         self.root._v_attrs.n_iter = 0
