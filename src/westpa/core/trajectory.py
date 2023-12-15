@@ -3,6 +3,7 @@ import os
 
 from mdtraj import Trajectory, load as load_traj, FormatRegistry, formats as mdformats
 from mdtraj.core.trajectory import _TOPOLOGY_EXTS, _get_extension as get_extension
+from mdtraj.utils import in_units_of
 
 FormatRegistry.loaders['.rst'] = mdformats.amberrst.load_restrt
 FormatRegistry.fileobjects['.rst'] = mdformats.AmberRestartFile
@@ -338,6 +339,8 @@ def load_netcdf(folder):
     object. The folder should contain a trajectory and a topology file (with a recognizable
     extension) that is supported by ``mdtraj``. The topology file is optional if the
     trajectory file contains topology data (e.g., HDF5 format).
+
+    Note coordinates and box lengths are all divided by 10 to change from Angstroms to nanometers.
     '''
     import netCDF4
 
@@ -365,10 +368,17 @@ def load_netcdf(folder):
     coords, cell_lengths, cell_angles, time = None, None, None, None
 
     rootgrp = netCDF4.Dataset(traj_file, 'r', format="NETCDF3")
+
+    # Extracting these datasets
     datasets = {'coordinates': coords, 'cell_lengths': cell_lengths, 'cell_angles': cell_angles, 'time': time}
+    convert = ['coordinates', 'cell_lengths']  # Length-based datasets that need to be converted
+
     for key, val in datasets:
         if key in rootgrp.variables:
-            val = np.asarray(rootgrp.variables[key][:])  # noqa: F841
+            if key in convert:
+                val = in_units_of(np.asarray(rootgrp.variables[key][:]), units_in='nanometers', units_out='angstrom', inplace=True)
+            else:
+                val = np.asarray(rootgrp.variables[key][:])  # noqa: F841
 
     traj = WESTTrajectory(coordinates=coords, unitcell_lengths=cell_lengths, unitcell_angles=cell_angles, time=time)
 
