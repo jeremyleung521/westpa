@@ -374,13 +374,12 @@ def load_netcdf(folder):
     convert = ['coordinates', 'cell_lengths']  # Length-based datasets that need to be converted
 
     for key in datasets.keys():
-        if key in rootgrp.variables:
-            if key in convert:
-                datasets[key] = in_units_of(
-                    np.asarray(rootgrp.variables[key][:]), units_in='angstrom', units_out='nanometers', inplace=True
-                )
-            else:
-                datasets[key] = np.asarray(rootgrp.variables[key][:])  # noqa: F841
+        if key in convert and key in rootgrp.variables:
+            datasets[key] = in_units_of(
+                np.asarray(rootgrp.variables[key][:]), units_in='angstrom', units_out='nanometers', inplace=True
+            )
+        else:
+            datasets[key] = np.asarray(rootgrp.variables[key][:])  # noqa: F841
 
     traj = WESTTrajectory(coordinates=coords, unitcell_lengths=cell_lengths, unitcell_angles=cell_angles, time=time)
 
