@@ -21,6 +21,4 @@ dependencies:
   - pytest-rerunfailures
   - pytest-timeout
   - codecov
-  - pip
-  - pip:
-    - mdtraj
+  - mdtraj
