@@ -1,21 +1,7 @@
 import numpy as np
 import os
 
-from mdtraj import Trajectory, load as load_traj, FormatRegistry, formats as mdformats
-from mdtraj.core.trajectory import _TOPOLOGY_EXTS, _get_extension as get_extension
-from mdtraj.utils import in_units_of
-
-FormatRegistry.loaders['.rst'] = mdformats.amberrst.load_restrt
-FormatRegistry.fileobjects['.rst'] = mdformats.AmberRestartFile
-FormatRegistry.loaders['.ncrst'] = mdformats.amberrst.load_ncrestrt
-FormatRegistry.fileobjects['.ncrst'] = mdformats.AmberRestartFile
-
-TRAJECTORY_EXTS = list(FormatRegistry.loaders.keys())
-TOPOLOGY_EXTS = list(_TOPOLOGY_EXTS)
-NETCDF_EXTS = ['.nc']
-
-for ext in [".h5", ".hdf5", ".lh5"]:
-    TOPOLOGY_EXTS.remove(ext)
+from mdtraj import Trajectory
 
 
 class WESTTrajectory(Trajectory):
@@ -291,14 +277,50 @@ class WESTTrajectory(Trajectory):
         return traj
 
 
-def load_trajectory(folder):
-    '''Load trajectory from ``folder`` using ``mdtraj`` and return a ``mdtraj.Trajectory``
-    object. The folder should contain a trajectory and a topology file (with a recognizable
-    extension) that is supported by ``mdtraj``. The topology file is optional if the
-    trajectory file contains topology data (e.g., HDF5 format).
+def get_extension(filename):
+    '''A function to get the format extension of a file.'''
+    (base, extension) = os.path.splitext(filename)
+
+    # Return the other part of the extension as well if it's a gzip.
+    if extension == '.gz':
+        return os.path.splitext(base)[1] + extension
+
+    return extension
+
+
+def find_top_traj_file(folder, eligible_top, eligible_traj):
+    '''A general (reusable) function for identifying and returning the appropriate
+    file names in ``folder`` which are toplogy and trajectory. Useful when writing custom loaders.
+    Note that it's possible that the topology_file and trajectory_file are identical.
+
+    Parameters
+    ----------
+    folder : str or os.Pathlike
+        A string or Pathlike to the folder to search.
+
+    eligible_top : list of strings
+        A list of accepted topology extensions.
+
+    eligible_traj : list of strings
+        A list of accepted topology extensions.
+
+
+    Returns
+    -------
+    top_file : str
+        Path to topology file
+
+    traj_file : str
+        Path to trajectory file
+
     '''
-    traj_file = top_file = None
+
+    # Setting up the return variables
+    top_file = traj_file = None
+
+    # Extract a list of all files, ignoring hidden files that start with a '.'
     file_list = [f_name for f_name in os.listdir(folder) if not f_name.startswith('.')]
+
     for filename in file_list:
         filepath = os.path.join(folder, filename)
         if not os.path.isfile(filepath):
@@ -306,15 +328,15 @@ def load_trajectory(folder):
 
         ext = get_extension(filename).lower()
         # Catching trajectory formats that can be topology and trajectories at the same time.
-        # Only activates when there is a single file.
-        if len(file_list) < 2 and ext in TOPOLOGY_EXTS and ext in TRAJECTORY_EXTS:
+        # Only activates when there is a single file in the folder.
+        if len(file_list) < 2 and ext in eligible_top and ext in eligible_traj:
             top_file = filename
             traj_file = filename
 
         # Assuming topology file is copied first.
-        if ext in TOPOLOGY_EXTS and top_file is None:
+        if ext in eligible_top and top_file is None:
             top_file = filename
-        elif ext in TRAJECTORY_EXTS and traj_file is None:
+        elif ext in eligible_traj and traj_file is None:
             traj_file = filename
 
         if top_file is not None and traj_file is not None:
@@ -325,61 +347,123 @@ def load_trajectory(folder):
 
     traj_file = os.path.join(folder, traj_file)
 
-    kwargs = {}
     if top_file is not None:
         top_file = os.path.join(folder, top_file)
-        kwargs['top'] = top_file
+
+    return top_file, traj_file
+
+
+def mdtraj_supported_extensions():
+    from mdtraj import FormatRegistry, formats as mdformats
+    from mdtraj.core.trajectory import _TOPOLOGY_EXTS
+
+    FormatRegistry.loaders['.rst'] = mdformats.amberrst.load_restrt
+    FormatRegistry.fileobjects['.rst'] = mdformats.AmberRestartFile
+    FormatRegistry.loaders['.ncrst'] = mdformats.amberrst.load_ncrestrt
+    FormatRegistry.fileobjects['.ncrst'] = mdformats.AmberRestartFile
+
+    TRAJECTORY_EXTS = list(FormatRegistry.loaders.keys())
+    TOPOLOGY_EXTS = list(_TOPOLOGY_EXTS)
+
+    for ext in [".h5", ".hdf5", ".lh5"]:
+        TOPOLOGY_EXTS.remove(ext)
+
+    return TOPOLOGY_EXTS, TRAJECTORY_EXTS
+
+
+def mdanalysis_supported_extensions():
+    import MDAnalysis as mda
+
+    TRAJECTORY_EXTS = [reader.format if isinstance(reader.format, list) else [reader.format] for reader in mda._READERS.values()]
+    TRAJECTORY_EXTS = list(set(f'.{ext.lower()}' for ilist in TRAJECTORY_EXTS for ext in ilist))
+
+    TOPOLOGY_EXTS = [parser.format if isinstance(parser.format, list) else [parser.format] for parser in mda._PARSERS.values()]
+    TOPOLOGY_EXTS = list(set(f'.{ext.lower()}' for ilist in TOPOLOGY_EXTS for ext in ilist))
+
+    return TOPOLOGY_EXTS, TRAJECTORY_EXTS
+
+
+def load_mdtraj(folder):
+    '''Load trajectory from ``folder`` using ``mdtraj`` and return a ``mdtraj.Trajectory``
+    object. The folder should contain a trajectory and a topology file (with a recognizable
+    extension) that is supported by ``mdtraj``. The topology file is optional if the
+    trajectory file contains topology data (e.g., HDF5 format).
+    '''
+    from mdtraj import load as load_traj
+
+    TOPOLOGY_EXTS, TRAJECTORY_EXTS = mdtraj_supported_extensions()
+
+    top_file, traj_file = find_top_traj_file(folder, TOPOLOGY_EXTS, TRAJECTORY_EXTS)
+
+    # MDTraj likes the (optional) topology part to be provided within a dictionary
+    kwargs = {'top': top_file}
 
     traj = load_traj(traj_file, **kwargs)
+
     return traj
 
 
 def load_netcdf(folder):
-    '''Load netcdf file from ``folder`` using ``netCDF`` and return a ``mdtraj.Trajectory``
-    object. The folder should contain a trajectory and a topology file (with a recognizable
-    extension) that is supported by ``mdtraj``. The topology file is optional if the
-    trajectory file contains topology data (e.g., HDF5 format).
+    '''Load netcdf file from ``folder`` using ``scipy.io`` and return a ``mdtraj.Trajectory``
+    object. The folder should contain a Amber trajectory file with extensions `.nc` or `.ncdf`.
 
     Note coordinates and box lengths are all divided by 10 to change from Angstroms to nanometers.
     '''
-    import netCDF4
+    from scipy.io import netcdf_file
 
-    traj_file = None
-    file_list = [f_name for f_name in os.listdir(folder) if not f_name.startswith('.')]
-    for filename in file_list:
-        filepath = os.path.join(folder, filename)
-        if not os.path.isfile(filepath):
-            continue
-
-        ext = get_extension(filename).lower()
-        # Catching trajectory formats that can be topology and trajectories at the same time.
-        # Only activates when there is a single file.
-        if ext in NETCDF_EXTS:
-            traj_file = filename
-
-        if traj_file is not None:
-            break
-
-    if traj_file is None:
-        raise ValueError('trajectory file not found')
-
-    traj_file = os.path.join(folder, traj_file)
+    _, traj_file = find_top_traj_file(folder, [], ['.nc', '.ncdf'])
 
     coords, cell_lengths, cell_angles, time = None, None, None, None
 
-    rootgrp = netCDF4.Dataset(traj_file, 'r', format="NETCDF3")
-
     # Extracting these datasets
     datasets = {'coordinates': coords, 'cell_lengths': cell_lengths, 'cell_angles': cell_angles, 'time': time}
-    convert = ['coordinates', 'cell_lengths']  # Length-based datasets that need to be converted
+    convert = ['coordinates', 'cell_lengths']  # Length-based datasets that need to be converted from Å to nm
 
-    for key in datasets.keys():
-        if key in convert and key in rootgrp.variables:
-            datasets[key] = in_units_of(
-                np.asarray(rootgrp.variables[key][:]), units_in='angstrom', units_out='nanometers', inplace=True
-            )
-        else:
-            datasets[key] = np.asarray(rootgrp.variables[key][:])  # noqa: F841
+    with netcdf_file(traj_file) as rootgrp:
+        for key in datasets.keys():
+            if key in convert and key in rootgrp.variables:
+                datasets[key] = rootgrp.variables[key][:].copy() / 10  # From Å to nm
+            else:
+                datasets[key] = rootgrp.variables[key][:].copy()  # noqa: F841
+
+    traj = WESTTrajectory(coordinates=coords, unitcell_lengths=cell_lengths, unitcell_angles=cell_angles, time=time)
+
+    return traj
+
+
+def load_mda(folder):
+    '''Load a file from ``folder`` using ``MDAnalysis`` and return a ``mdtraj.Trajectory``
+    object. The folder should contain a trajectory and a topology file (with a recognizable
+    extension) that is supported by ``MDAnalysis``. The topology file is optional if the
+    trajectory file contains topology data (e.g., H5MD format).
+
+    Note coordinates and box lengths are all divided by 10 to change from Angstroms to nanometers.
+    '''
+    import MDAnalysis as mda
+
+    TOPOLOGY_EXTS, TRAJECTORY_EXTS = mdanalysis_supported_extensions()
+
+    top_file, traj_file = find_top_traj_file(folder, TOPOLOGY_EXTS, TRAJECTORY_EXTS)
+
+    u = mda.Universe(top_file, traj_file)
+
+    tot_frames = len(u.trajectory)
+    coords = np.zeros((tot_frames, len(u.atoms), 3))
+    cell_lengths = np.zeros((tot_frames, 3))
+    cell_angles = np.zeros((tot_frames, 3))
+    time = np.zeros((tot_frames))
+
+    convert = [coords, cell_lengths]  # Length-based datasets that need to be converted
+
+    # Loop through each frame and add that frame to the relevant datasets
+    for iframe, frame in enumerate(u.trajectory):
+        coords[iframe] = frame._pos
+        cell_lengths[iframe] = frame.dimensions[:3]
+        cell_angles[iframe] = frame.dimensions[3:]
+        time[iframe] = frame.time
+
+    for dset in convert:
+        dset = mda.units.convert(dset, 'angstrom', 'nanometer')
 
     traj = WESTTrajectory(coordinates=coords, unitcell_lengths=cell_lengths, unitcell_angles=cell_angles, time=time)
 
