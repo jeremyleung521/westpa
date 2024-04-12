@@ -4,6 +4,11 @@ import os
 from mdtraj import Trajectory
 
 
+def convert_mda_top_to_mdtraj(opology):
+    '''Convert a MDAnalysis topology to a ``mdtraj.Topology`` object.'''
+    pass
+
+
 class WESTTrajectory(Trajectory):
     '''A subclass of ``mdtraj.Trajectory`` that contains the trajectory of atom coordinates with
     pointers denoting the iteration number and segment index of each frame.'''
@@ -396,9 +401,7 @@ def load_mdtraj(folder):
     top_file, traj_file = find_top_traj_file(folder, TOPOLOGY_EXTS, TRAJECTORY_EXTS)
 
     # MDTraj likes the (optional) topology part to be provided within a dictionary
-    kwargs = {'top': top_file}
-
-    traj = load_traj(traj_file, **kwargs)
+    traj = load_traj(traj_file, **{'top': top_file})
 
     return traj
 
@@ -413,22 +416,25 @@ def load_netcdf(folder):
 
     _, traj_file = find_top_traj_file(folder, [], ['.nc', '.ncdf'])
 
-    coords, cell_lengths, cell_angles, time = None, None, None, None
-
     # Extracting these datasets
-    datasets = {'coordinates': coords, 'cell_lengths': cell_lengths, 'cell_angles': cell_angles, 'time': time}
+    datasets = {'coordinates': None, 'cell_lengths': None, 'cell_angles': None, 'time': None}
     convert = ['coordinates', 'cell_lengths']  # Length-based datasets that need to be converted from Å to nm
 
     with netcdf_file(traj_file) as rootgrp:
-        for key in datasets.keys():
+        for key, val in datasets.items():
             if key in convert and key in rootgrp.variables:
                 datasets[key] = rootgrp.variables[key][:].copy() / 10  # From Å to nm
             else:
                 datasets[key] = rootgrp.variables[key][:].copy()  # noqa: F841
 
-    traj = WESTTrajectory(coordinates=coords, unitcell_lengths=cell_lengths, unitcell_angles=cell_angles, time=time)
+    map_dataset = {
+        'coordinates': datasets['coordinates'],
+        'unitcell_lengths': datasets['cell_lengths'],
+        'unitcell_angles': datasets['cell_angles'],
+        'time': datasets['time'],
+    }
 
-    return traj
+    return WESTTrajectory(**map_dataset)
 
 
 def load_mda(folder):
