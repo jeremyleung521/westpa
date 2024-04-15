@@ -4,9 +4,108 @@ import os
 from mdtraj import Trajectory
 
 
-def convert_mda_top_to_mdtraj(opology):
-    '''Convert a MDAnalysis topology to a ``mdtraj.Topology`` object.'''
-    pass
+def parseResidueAtoms(residue, map):
+    for atom in residue.findall('Atom'):
+        name = atom.attrib['name']
+        for id in atom.attrib:
+            map[atom.attrib[id]] = name
+
+
+def loadNameReplacementTables():
+    """Load the list of atom and residue name replacements."""
+
+    # importing things here because they're only used in this function
+    try:
+        from importlib.resources import files
+    except ImportError:
+        from importlib_resources import files
+
+    import xml.etree.ElementTree as etree
+    from copy import copy
+
+    residueNameReplacements = {}
+    atomNameReplacements = {}
+
+    tree = etree.parse(files('westpa') / 'data/pdbNames.xml')  # Make sure this is in the right place.
+    allResidues = {}
+    proteinResidues = {}
+    nucleicAcidResidues = {}
+    for residue in tree.getroot().findall('Residue'):
+        name = residue.attrib['name']
+        if name == 'All':
+            parseResidueAtoms(residue, allResidues)
+        elif name == 'Protein':
+            parseResidueAtoms(residue, proteinResidues)
+        elif name == 'Nucleic':
+            parseResidueAtoms(residue, nucleicAcidResidues)
+    for atom in allResidues:
+        proteinResidues[atom] = allResidues[atom]
+        nucleicAcidResidues[atom] = allResidues[atom]
+    for residue in tree.getroot().findall('Residue'):
+        name = residue.attrib['name']
+        for id in residue.attrib:
+            if id == 'name' or id.startswith('alt'):
+                residueNameReplacements[residue.attrib[id]] = name
+        if 'type' not in residue.attrib:
+            atoms = copy(allResidues)
+        elif residue.attrib['type'] == 'Protein':
+            atoms = copy(proteinResidues)
+        elif residue.attrib['type'] == 'Nucleic':
+            atoms = copy(nucleicAcidResidues)
+        else:
+            atoms = copy(allResidues)
+        parseResidueAtoms(residue, atoms)
+        atomNameReplacements[name] = atoms
+
+    return residueNameReplacements, atomNameReplacements
+
+
+def convert_mda_top_to_mdtraj(universe):
+    '''Convert a MDAnalysis Universe object's topology to a ``mdtraj.Topology`` object.'''
+
+    from mdtraj import Topology
+    from mdtraj.core.element import get_by_symbol
+    from MDAnalysis.exceptions import NoDataError
+
+    top = Topology()  # Empty topology object
+    residueNameReplacements, atomNameReplacements = loadNameReplacementTables()
+
+    # Add in all the chains (called segments in MDAnalysis)
+    for chain_segment in universe.segments:
+        top.add_chain()
+
+    all_chains = list(top.chains)
+
+    # Add in all the residues
+    for residue in universe.residues:
+        try:
+            resname = residueNameReplacements[residue.resname]
+        except KeyError:
+            resname = residue.resname
+
+        top.add_residue(name=resname, chain=all_chains[residue.segindex], resSeq=residue.resid)
+
+    all_residues = list(top.residues)
+
+    # Add in all the atoms
+    for atom, resid in zip(universe.atoms, universe.atoms.resindices):
+        try:
+            atomname = residueNameReplacements[atom.resname][atom.name]
+        except (KeyError, TypeError):
+            atomname = atom.name
+
+        top.add_atom(name=atomname, element=get_by_symbol(atom.element), residue=all_residues[resid])
+
+    all_atoms = list(top.atoms)
+
+    # Add in all the bonds.  Depending on the topology type (e.g., pdb), there might not be bond information.
+    try:
+        for b_idx in universe.bonds._bix:
+            top.add_bond(all_atoms[b_idx[0]], all_atoms[b_idx[1]])
+    except NoDataError:
+        top.create_standard_bonds()
+
+    return top
 
 
 class WESTTrajectory(Trajectory):
