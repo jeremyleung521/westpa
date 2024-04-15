@@ -10,8 +10,6 @@ import sys
 import time
 import logging
 
-import mdtraj.formats
-
 import h5py
 import numpy as np
 from numpy import index_exp
@@ -455,7 +453,7 @@ class WESTIterationFile(HDF5TrajectoryFile):
             except AttributeError:
                 raise ValueError('unknown input type: %s' % str(type(file)))
 
-    def _init_from_handle(self, handle: mdtraj.formats.HDF5TrajectoryFile):
+    def _init_from_handle(self, handle: HDF5TrajectoryFile):
         self._handle = handle
         self._open = handle.isopen != 0
         self.mode = mode = handle.mode  # the mode in which the file was opened?
