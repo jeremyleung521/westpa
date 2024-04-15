@@ -5,6 +5,7 @@ from mdtraj import Trajectory
 
 
 def parseResidueAtoms(residue, map):
+    '''Parse all atoms from residue. Taken from MDTraj.'''
     for atom in residue.findall('Atom'):
         name = atom.attrib['name']
         for id in atom.attrib:
@@ -12,7 +13,7 @@ def parseResidueAtoms(residue, map):
 
 
 def loadNameReplacementTables():
-    """Load the list of atom and residue name replacements."""
+    '''Load the list of atom and residue name replacements. Taken from MDTraj.'''
 
     # importing things here because they're only used in this function
     try:
@@ -26,7 +27,9 @@ def loadNameReplacementTables():
     residueNameReplacements = {}
     atomNameReplacements = {}
 
-    tree = etree.parse(files('westpa') / 'data/pdbNames.xml')  # Make sure this is in the right place.
+    # This XML file is a to map all sorts of atom names/ residue names to the PDB 3.0 convention.
+    # Taken from MDTraj.
+    tree = etree.parse(files('westpa') / 'data/pdbNames.xml')
     allResidues = {}
     proteinResidues = {}
     nucleicAcidResidues = {}
