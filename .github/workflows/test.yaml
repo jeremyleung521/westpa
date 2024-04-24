@@ -5,6 +5,7 @@ on:
     branches:
       - "westpa2"
       - "develop"
+      - "arm64-wheels-2"  # REMOVE AFTER TESTING
   pull_request:
     branches:
       - "westpa2"
