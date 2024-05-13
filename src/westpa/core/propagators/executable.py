@@ -343,24 +343,26 @@ class ExecutablePropagator(WESTPropagator):
                 check_bool(dsinfo.setdefault('enabled', True))
 
             loader_directive = dsinfo.get('loader', None)
+            if 'module_path' in dsinfo:
+                dspath = self.makepath(dsinfo['module_path'])
+            else:
+                dspath = None
+
             if callable(loader_directive):  # If directly callable, then use it
                 loader = loader_directive
-            elif dsname in ['pcoord', 'seglog', 'restart']:  # These are "protected" dataset names
-                if loader_directive in data_loaders.keys():
-                    loader = data_loaders[loader_directive]
-                else:
-                    loader = get_object(loader_directive)
             elif dsname in ['trajectory']:  # Special dataset for saving trajectory coordinates in HDF5 Framework
-                if 'module_path' in dsinfo.keys():
-                    dspath = self.makepath(dsinfo['module_path'])
-                else:
-                    dspath = None
-                if loader_directive in trajectory_loaders.keys():
+                if loader_directive in trajectory_loaders:
                     loader = trajectory_loaders[loader_directive]
                 else:
                     loader = get_object(loader_directive, path=dspath)
-            else:  # Assumed aux dataset, defaulting to aux_data_loader
-                loader = aux_data_loader
+            elif dsname not in ['pcoord', 'seglog', 'restart']:  # If not a "protected" dataset names
+                if loader_directive in data_loaders:
+                    loader = data_loaders[loader_directive]
+                else:
+                    loader = get_object(loader_directive, path=dspath)
+            else:
+                # YOLO. Or maybe it wasn't specified.
+                loader = loader_directive
 
             if loader:
                 dsinfo['loader'] = loader
