@@ -359,12 +359,8 @@ class ExecutablePropagator(WESTPropagator):
                     loader = trajectory_loaders[loader_directive]
                 else:
                     loader = get_object(loader_directive, path=dspath)
-
             else:  # Assumed aux dataset, defaulting to aux_data_loader
                 loader = aux_data_loader
-            else:
-                # YOLO. Or maybe it wasn't specified.
-                loader = loader_directive
 
             if loader:
                 dsinfo['loader'] = loader
