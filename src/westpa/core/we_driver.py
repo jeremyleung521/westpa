@@ -151,6 +151,10 @@ class WEDriver:
         self.smallest_allowed_weight = config.get(['west', 'we', 'smallest_allowed_weight'], self.smallest_allowed_weight)
         log.info('Smallest allowed_weight: {}'.format(self.smallest_allowed_weight))
 
+        self.new_subgroup_behavior = config.get(['west', 'we', 'new_subgroup_behavior'], False)
+        if self.new_subgroup_behavior:
+            log.info('New subgroup behavior is activated.')
+
     @property
     def next_iter_segments(self):
         '''Newly-created segments for the next iteration'''
@@ -670,24 +674,44 @@ class WEDriver:
             weights = np.array(list(map(operator.attrgetter('weight'), segments)))
             ideal_weight = weights.sum() / target_count
             bin.clear()
-            # Determines to see whether we have more sub bins than we have target walkers in a bin (or equal to), and then uses
-            # different logic to deal with those cases.  Should devolve to the Huber/Kim algorithm in the case of few subgroups.
-            if len(subgroups) >= target_count:
-                for i in subgroups:
-                    # Merges all members of set i.  Checks to see whether there are any to merge.
-                    if len(i) > 1:
-                        (segment, parent) = self._merge_walkers(
-                            list(i),
-                            np.add.accumulate(np.array(list(map(operator.attrgetter('weight'), i)))),
-                            i,
-                        )
-                        i.clear()
-                        i.add(segment)
-                    # Add all members of the set i to the bin.  This keeps the bins in sync for the adjustment step.
-                    bin.update(i)
 
-                if len(subgroups) > target_count:
-                    self._adjust_count(bin, subgroups, target_count)
+            # This if/else determines whether we want to activate the new subgroup behavior.
+            if self.new_subgroup_behavior:
+                if len(subgroups) >= target_count:
+                    # Throw all subgroups into a single subgroup
+                    identity_subgroup = _group_walkers_identity(self, ibin, **self.subgroup_function_kwargs)
+
+                    # Put all segments back into the bin and update counter
+                    bin.update(identity_subgroup)
+                    total_number_of_subgroups -= len(subgroups) - 1
+
+                    # Run Huber and Kim reweighting.
+                    self._split_by_weight(bin, identity_subgroup, ideal_weight)
+                    self._merge_by_weight(bin, identity_subgroup, ideal_weight)
+
+                    if self.do_adjust_counts:
+                        # A modified adjustment routine is necessary to ensure we don't unnecessarily destroy trajectory pathways.
+                        self._adjust_count(bin, identity_subgroup, target_count)
+
+            else:
+                # Determines to see whether we have more sub bins than we have target walkers in a bin (or equal to), and then uses
+                # different logic to deal with those cases.  Should devolve to the Huber/Kim algorithm in the case of few subgroups.
+                if len(subgroups) >= target_count:
+                    for i in subgroups:
+                        # Merges all members of set i.  Checks to see whether there are any to merge.
+                        if len(i) > 1:
+                            (segment, parent) = self._merge_walkers(
+                                list(i),
+                                np.add.accumulate(np.array(list(map(operator.attrgetter('weight'), i)))),
+                                i,
+                            )
+                            i.clear()
+                            i.add(segment)
+                        # Add all members of the set i to the bin.  This keeps the bins in sync for the adjustment step.
+                        bin.update(i)
+
+                    if len(subgroups) > target_count:
+                        self._adjust_count(bin, subgroups, target_count)
 
             if len(subgroups) < target_count:
                 for i in subgroups:
