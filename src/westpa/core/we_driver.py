@@ -678,16 +678,16 @@ class WEDriver:
             # This if/else determines whether we want to activate the new subgroup behavior.
             if self.new_subgroup_behavior:
                 if len(subgroups) >= target_count:
-                    # Throw all subgroups into a single subgroup
-                    identity_subgroup = _group_walkers_identity(self, ibin, **self.subgroup_function_kwargs)
-
-                    # Put all segments back into the bin and update counter
-                    bin.update(identity_subgroup)
+                    # Throw all segments back into a single subgroup, update counter
+                    identity_subgroup = set()
+                    for subgroup in subgroups:
+                        identity_subgroup.update(subgroup)
                     total_number_of_subgroups -= len(subgroups) - 1
 
-                    # Run Huber and Kim reweighting.
-                    self._split_by_weight(bin, identity_subgroup, ideal_weight)
-                    self._merge_by_weight(bin, identity_subgroup, ideal_weight)
+                    # Run Huber and Kim reweighting, update bin.
+                    self._split_by_weight(identity_subgroup, target_count, ideal_weight)
+                    self._merge_by_weight(identity_subgroup, target_count, ideal_weight)
+                    bin.update(identity_subgroup)
 
                     if self.do_adjust_counts:
                         # A modified adjustment routine is necessary to ensure we don't unnecessarily destroy trajectory pathways.
