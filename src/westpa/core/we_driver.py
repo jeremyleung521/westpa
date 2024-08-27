@@ -153,7 +153,8 @@ class WEDriver:
 
         self.new_subgroup_behavior = config.get(['west', 'we', 'new_subgroup_behavior'], False)
         if self.new_subgroup_behavior:
-            log.info('New subgroup behavior is activated.')
+            self.rc.pstatus('New subgroup behavior is activated.')
+            self.rc.pflush()
 
     @property
     def next_iter_segments(self):
@@ -691,7 +692,7 @@ class WEDriver:
 
                     if self.do_adjust_counts:
                         # A modified adjustment routine is necessary to ensure we don't unnecessarily destroy trajectory pathways.
-                        self._adjust_count(bin, identity_subgroup, target_count)
+                        self._adjust_count(bin, [identity_subgroup], target_count)
 
             else:
                 # Determines to see whether we have more sub bins than we have target walkers in a bin (or equal to), and then uses
