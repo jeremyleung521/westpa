@@ -52,6 +52,8 @@ class WESTSystem:
 
         self.bin_target_counts = [1]
 
+        self.sample_volume = None
+
     @property
     def bin_target_counts(self):
         return self._bin_target_counts
