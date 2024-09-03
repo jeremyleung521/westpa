@@ -123,6 +123,7 @@ class WEDriver:
         self.subgroup_function = _group_walkers_identity
         self.subgroup_function_kwargs = {}
 
+        # Process WE option from config
         self.process_config()
         self.check_threshold_configs()
 
