@@ -14,7 +14,7 @@ log = logging.getLogger(__name__)
 
 
 def _sort_walkers_identity(we_driver, bin, status, scheme='list', **kwargs):
-    '''A function that sorts walkers based on a given criteria. Status indicate which method it's from. The integer in
+    """A function that sorts walkers based on a given criteria. Status indicate which method it's from. The integer in
     the status argument means the following:
 
     status = 0    _run_we() - not doing any sorting
@@ -24,7 +24,7 @@ def _sort_walkers_identity(we_driver, bin, status, scheme='list', **kwargs):
     status = 4    _split_by_threshold() - check upper weight threshold
     status = 5    _merge_by_threshold() - check lower weight threshold
     status = 6    _run_we() - merging all segs in one group
-    '''
+    """
     log.debug('using we_driver._sort_walkers_identity')
     segments = np.array(sorted(bin, key=operator.attrgetter('weight')), dtype=np.object_)
     weights = np.array(list(map(operator.attrgetter('weight'), segments)))
@@ -62,7 +62,7 @@ def _sort_walkers_identity(we_driver, bin, status, scheme='list', **kwargs):
 
 class CustomDriver(WEDriver):
     def _split_by_weight(self, bin, target_count, ideal_weight):
-        '''Split overweight particles'''
+        """Split overweight particles"""
         if len(bin) > 0:
             assert target_count > 0
         self.sorting_function_kwargs['ideal_weight'] = ideal_weight
@@ -74,7 +74,7 @@ class CustomDriver(WEDriver):
             bin.update(new_segments_list)
 
     def _merge_by_weight(self, bin, target_count, ideal_weight):
-        '''Merge underweight particles'''
+        """Merge underweight particles"""
         self.sorting_function_kwargs['ideal_weight'] = ideal_weight
         while True:
             segments, weights, to_merge, cumul_weight = self.sorting_function(self, bin, 2, **self.sorting_function_kwargs)
@@ -159,7 +159,7 @@ class CustomDriver(WEDriver):
                             bin.add(merged_segment)
 
                             # Update ordered_array by first replacing all merged segments with new "glom" segment, then remove the very first array.
-                            ordered_array[idx] = self._update_paired_array(ordered_arrays[idx], removed_segs, merged_segment)
+                            ordered_arrays[idx] = self._update_paired_array(ordered_arrays[idx], removed_segs, merged_segment)
                             # ordered_array = numpy.delete(ordered_array, 0)
 
                             # As long as we're changing the merge_walkers and split_walkers, adjust them so that they don't update the bin within the function
@@ -171,16 +171,16 @@ class CustomDriver(WEDriver):
 
     @staticmethod
     def _update_paired_array(ordered_array, removed_segs, merged_segment):
-        '''A method to clean up a paired segment eligible array. This is to save time so the pairwise distance matrix
+        """A method to clean up a paired segment eligible array. This is to save time so the pairwise distance matrix
         does not have to be recalculated everytime.
-        '''
+        """
         pop_list = []
         for idx, pairs in enumerate(ordered_array):
             # Looping through ordered_array and then removed_segs
             # add index to pop_set if they contain the removed segments
             for removed_seg in removed_segs:
                 if removed_seg in pairs:
-                    pop_list.add(idx)
+                    pop_list.append(idx)
                     break  # Prevent duplicates
 
         # Doing the actual removing, from the largest index to smallest.
@@ -225,8 +225,8 @@ class CustomDriver(WEDriver):
                 subgroup.add(new_segment)
 
     def _run_we(self):
-        '''Run recycle/split/merge. Do not call this function directly; instead, use
-        populate_initial(), rebin_current(), or construct_next().'''
+        """Run recycle/split/merge. Do not call this function directly; instead, use
+        populate_initial(), rebin_current(), or construct_next()."""
         self._recycle_walkers()
 
         # sanity check
