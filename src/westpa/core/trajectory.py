@@ -1,16 +1,114 @@
 import numpy as np
 import os
 
-from mdtraj import Trajectory, load as load_traj, FormatRegistry, formats as mdformats
-from mdtraj.core.trajectory import _TOPOLOGY_EXTS, _get_extension as get_extension
+from mdtraj import Trajectory
 
-FormatRegistry.loaders['.rst'] = mdformats.amberrst.load_restrt
-FormatRegistry.fileobjects['.rst'] = mdformats.AmberRestartFile
 
-TRAJECTORY_EXTS = list(FormatRegistry.loaders.keys())
-TOPOLOGY_EXTS = list(_TOPOLOGY_EXTS)
-for ext in [".h5", ".hdf5", ".lh5"]:
-    TOPOLOGY_EXTS.remove(ext)
+def parseResidueAtoms(residue, map):
+    '''Parse all atoms from residue. Taken from MDTraj.'''
+    for atom in residue.findall('Atom'):
+        name = atom.attrib['name']
+        for id in atom.attrib:
+            map[atom.attrib[id]] = name
+
+
+def loadNameReplacementTables():
+    '''Load the list of atom and residue name replacements. Taken from MDTraj.'''
+
+    # importing things here because they're only used in this function
+    try:
+        from importlib.resources import files
+    except ImportError:
+        from importlib_resources import files
+
+    import xml.etree.ElementTree as etree
+    from copy import copy
+
+    residueNameReplacements = {}
+    atomNameReplacements = {}
+
+    # This XML file is a to map all sorts of atom names/ residue names to the PDB 3.0 convention.
+    # Taken from MDTraj.
+    tree = etree.parse(files('westpa') / 'data/pdbNames.xml')
+    allResidues = {}
+    proteinResidues = {}
+    nucleicAcidResidues = {}
+    for residue in tree.getroot().findall('Residue'):
+        name = residue.attrib['name']
+        if name == 'All':
+            parseResidueAtoms(residue, allResidues)
+        elif name == 'Protein':
+            parseResidueAtoms(residue, proteinResidues)
+        elif name == 'Nucleic':
+            parseResidueAtoms(residue, nucleicAcidResidues)
+    for atom in allResidues:
+        proteinResidues[atom] = allResidues[atom]
+        nucleicAcidResidues[atom] = allResidues[atom]
+    for residue in tree.getroot().findall('Residue'):
+        name = residue.attrib['name']
+        for id in residue.attrib:
+            if id == 'name' or id.startswith('alt'):
+                residueNameReplacements[residue.attrib[id]] = name
+        if 'type' not in residue.attrib:
+            atoms = copy(allResidues)
+        elif residue.attrib['type'] == 'Protein':
+            atoms = copy(proteinResidues)
+        elif residue.attrib['type'] == 'Nucleic':
+            atoms = copy(nucleicAcidResidues)
+        else:
+            atoms = copy(allResidues)
+        parseResidueAtoms(residue, atoms)
+        atomNameReplacements[name] = atoms
+
+    return residueNameReplacements, atomNameReplacements
+
+
+def convert_mda_top_to_mdtraj(universe):
+    '''Convert a MDAnalysis Universe object's topology to a ``mdtraj.Topology`` object.'''
+
+    from mdtraj import Topology
+    from mdtraj.core.element import get_by_symbol
+    from MDAnalysis.exceptions import NoDataError
+
+    top = Topology()  # Empty topology object
+    residueNameReplacements, atomNameReplacements = loadNameReplacementTables()
+
+    # Add in all the chains (called segments in MDAnalysis)
+    for chain_segment in universe.segments:
+        top.add_chain()
+
+    all_chains = list(top.chains)
+
+    # Add in all the residues
+    for residue in universe.residues:
+        try:
+            resname = residueNameReplacements[residue.resname]
+        except KeyError:
+            resname = residue.resname
+
+        top.add_residue(name=resname, chain=all_chains[residue.segindex], resSeq=residue.resid)
+
+    all_residues = list(top.residues)
+
+    # Add in all the atoms
+    for atom, resid in zip(universe.atoms, universe.atoms.resindices):
+        try:
+            atomname = residueNameReplacements[atom.resname][atom.name]
+        except (KeyError, TypeError):
+            atomname = atom.name
+
+        top.add_atom(name=atomname, element=get_by_symbol(atom.element), residue=all_residues[resid])
+
+    all_atoms = list(top.atoms)
+
+    # Add in all the bonds.  Depending on the topology type (e.g., pdb), there might not be bond information.
+    try:
+        for b_idx in universe.bonds._bix:
+            top.add_bond(all_atoms[b_idx[0]], all_atoms[b_idx[1]])
+    except NoDataError:
+        top.create_standard_bonds()
+
+    return top
 
 
 class WESTTrajectory(Trajectory):
@@ -286,13 +384,48 @@ class WESTTrajectory(Trajectory):
         return traj
 
 
-def load_trajectory(folder):
-    '''Load trajectory from ``folder`` using ``mdtraj`` and return a ``mdtraj.Trajectory``
-    object. The folder should contain a trajectory and a topology file (with a recognizable
-    extension) that is supported by ``mdtraj``. The topology file is optional if the
-    trajectory file contains topology data (e.g., HDF5 format).
+def get_extension(filename):
+    '''A function to get the format extension of a file.'''
+    (base, extension) = os.path.splitext(filename)
+
+    # Return the other part of the extension as well if it's a gzip.
+    if extension == '.gz':
+        return os.path.splitext(base)[1] + extension
+
+    return extension
+
+
+def find_top_traj_file(folder, eligible_top, eligible_traj):
+    '''A general (reusable) function for identifying and returning the appropriate
+    file names in ``folder`` which are toplogy and trajectory. Useful when writing custom loaders.
+    Note that it's possible that the topology_file and trajectory_file are identical.
+
+    Parameters
+    ----------
+    folder : str or os.Pathlike
+        A string or Pathlike to the folder to search.
+
+    eligible_top : list of strings
+        A list of accepted topology extensions.
+
+    eligible_traj : list of strings
+        A list of accepted topology extensions.
+
+
+    Returns
+    -------
+    top_file : str
+        Path to topology file
+
+    traj_file : str
+        Path to trajectory file
+
     '''
-    traj_file = top_file = None
+
+    # Setting up the return variables
+    top_file = traj_file = None
+
+    # Extract a list of all files, ignoring hidden files that start with a '.'
     file_list = [f_name for f_name in os.listdir(folder) if not f_name.startswith('.')]
 
     for filename in file_list:
@@ -302,15 +435,15 @@ def load_trajectory(folder):
 
         ext = get_extension(filename).lower()
         # Catching trajectory formats that can be topology and trajectories at the same time.
-        # Only activates when there is a single file.
-        if len(file_list) < 2 and ext in TOPOLOGY_EXTS and ext in TRAJECTORY_EXTS:
+        # Only activates when there is a single file in the folder.
+        if len(file_list) < 2 and ext in eligible_top and ext in eligible_traj:
             top_file = filename
             traj_file = filename
 
         # Assuming topology file is copied first.
-        if ext in TOPOLOGY_EXTS and top_file is None:
+        if ext in eligible_top and top_file is None:
             top_file = filename
-        elif ext in TRAJECTORY_EXTS and traj_file is None:
+        elif ext in eligible_traj and traj_file is None:
             traj_file = filename
 
         if top_file is not None and traj_file is not None:
@@ -321,10 +454,125 @@ def load_trajectory(folder):
 
     traj_file = os.path.join(folder, traj_file)
 
-    kwargs = {}
     if top_file is not None:
         top_file = os.path.join(folder, top_file)
-        kwargs['top'] = top_file
 
-    traj = load_traj(traj_file, **kwargs)
+    return top_file, traj_file
+
+
+def mdtraj_supported_extensions():
+    from mdtraj import FormatRegistry, formats as mdformats
+    from mdtraj.core.trajectory import _TOPOLOGY_EXTS
+
+    FormatRegistry.loaders['.rst'] = mdformats.amberrst.load_restrt
+    FormatRegistry.fileobjects['.rst'] = mdformats.AmberRestartFile
+    FormatRegistry.loaders['.ncrst'] = mdformats.amberrst.load_ncrestrt
+    FormatRegistry.fileobjects['.ncrst'] = mdformats.AmberRestartFile
+
+    TRAJECTORY_EXTS = list(FormatRegistry.loaders.keys())
+    TOPOLOGY_EXTS = list(_TOPOLOGY_EXTS)
+
+    for ext in [".h5", ".hdf5", ".lh5"]:
+        TOPOLOGY_EXTS.remove(ext)
+
+    return TOPOLOGY_EXTS, TRAJECTORY_EXTS
+
+
+def mdanalysis_supported_extensions():
+    import MDAnalysis as mda
+
+    TRAJECTORY_EXTS = [reader.format if isinstance(reader.format, list) else [reader.format] for reader in mda._READERS.values()]
+    TRAJECTORY_EXTS = list(set(f'.{ext.lower()}' for ilist in TRAJECTORY_EXTS for ext in ilist))
+
+    TOPOLOGY_EXTS = [parser.format if isinstance(parser.format, list) else [parser.format] for parser in mda._PARSERS.values()]
+    TOPOLOGY_EXTS = list(set(f'.{ext.lower()}' for ilist in TOPOLOGY_EXTS for ext in ilist))
+
+    return TOPOLOGY_EXTS, TRAJECTORY_EXTS
+
+
+def load_mdtraj(folder):
+    '''Load trajectory from ``folder`` using ``mdtraj`` and return a ``mdtraj.Trajectory``
+    object. The folder should contain a trajectory and a topology file (with a recognizable
+    extension) that is supported by ``mdtraj``. The topology file is optional if the
+    trajectory file contains topology data (e.g., HDF5 format).
+    '''
+    from mdtraj import load as load_traj
+
+    TOPOLOGY_EXTS, TRAJECTORY_EXTS = mdtraj_supported_extensions()
+
+    top_file, traj_file = find_top_traj_file(folder, TOPOLOGY_EXTS, TRAJECTORY_EXTS)
+
+    # MDTraj likes the (optional) topology part to be provided within a dictionary
+    traj = load_traj(traj_file, **{'top': top_file})
+
+    return traj
+
+
+def load_netcdf(folder):
+    '''Load netcdf file from ``folder`` using ``scipy.io`` and return a ``mdtraj.Trajectory``
+    object. The folder should contain a Amber trajectory file with extensions `.nc` or `.ncdf`.
+
+    Note coordinates and box lengths are all divided by 10 to change from Angstroms to nanometers.
+    '''
+    from scipy.io import netcdf_file
+
+    _, traj_file = find_top_traj_file(folder, [], ['.nc', '.ncdf'])
+
+    # Extracting these datasets
+    datasets = {'coordinates': None, 'cell_lengths': None, 'cell_angles': None, 'time': None}
+    convert = ['coordinates', 'cell_lengths']  # Length-based datasets that need to be converted from Å to nm
+
+    with netcdf_file(traj_file) as rootgrp:
+        for key, val in datasets.items():
+            if key in convert and key in rootgrp.variables:
+                datasets[key] = rootgrp.variables[key][:].copy() / 10  # From Å to nm
+            else:
+                datasets[key] = rootgrp.variables[key][:].copy()  # noqa: F841
+
+    map_dataset = {
+        'coordinates': datasets['coordinates'],
+        'unitcell_lengths': datasets['cell_lengths'],
+        'unitcell_angles': datasets['cell_angles'],
+        'time': datasets['time'],
+    }
+
+    return WESTTrajectory(**map_dataset)
+
+
+def load_mda(folder):
+    '''Load a file from ``folder`` using ``MDAnalysis`` and return a ``mdtraj.Trajectory``
+    object. The folder should contain a trajectory and a topology file (with a recognizable
+    extension) that is supported by ``MDAnalysis``. The topology file is optional if the
+    trajectory file contains topology data (e.g., H5MD format).
+
+    Note coordinates and box lengths are all divided by 10 to change from Angstroms to nanometers.
+    '''
+    import MDAnalysis as mda
+
+    TOPOLOGY_EXTS, TRAJECTORY_EXTS = mdanalysis_supported_extensions()
+
+    top_file, traj_file = find_top_traj_file(folder, TOPOLOGY_EXTS, TRAJECTORY_EXTS)
+
+    u = mda.Universe(top_file, traj_file)
+
+    tot_frames = len(u.trajectory)
+    coords = np.zeros((tot_frames, len(u.atoms), 3))
+    cell_lengths = np.zeros((tot_frames, 3))
+    cell_angles = np.zeros((tot_frames, 3))
+    time = np.zeros((tot_frames))
+
+    convert = [coords, cell_lengths]  # Length-based datasets that need to be converted
+
+    # Loop through each frame and add that frame to the relevant datasets
+    for iframe, frame in enumerate(u.trajectory):
+        coords[iframe] = frame._pos
+        cell_lengths[iframe] = frame.dimensions[:3]
+        cell_angles[iframe] = frame.dimensions[3:]
+        time[iframe] = frame.time
+
+    for dset in convert:
+        dset = mda.units.convert(dset, 'angstrom', 'nanometer')
+
+    traj = WESTTrajectory(coordinates=coords, unitcell_lengths=cell_lengths, unitcell_angles=cell_angles, time=time)
+
     return traj

@@ -121,6 +121,7 @@ INSTALL_REQUIRES = [
     "tqdm",
     "pandas",
     "tables",
+    "importlib-resources;python_version<'3.10'",
 ]
 
 EXTRAS_REQUIRE = {
@@ -145,7 +146,7 @@ metadata = dict(
     entry_points={'console_scripts': console_scripts},
     install_requires=INSTALL_REQUIRES,
     extras_require=EXTRAS_REQUIRE,
-    package_data={},
+    package_data={"westpa": ["data/*.xml"]},
     packages=find_packages(where='src'),
     package_dir={"": "src"},
     description='WESTPA is a package for constructing and running stochastic simulations using the "weighted ensemble" approach of Huber and Kim (1996).',
