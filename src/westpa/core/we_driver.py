@@ -450,7 +450,14 @@ class WEDriver:
         if _proposed_multiplier > self.system.max_target_count_multiplier:
             _proposed_multiplier = self.system.max_target_count_multiplier
 
+        past = self.bin_target_counts.copy()
+
         self.bin_target_counts *= _proposed_multiplier
+
+        if np.any(past != self.bin_target_counts):
+            self.rc.pstatus(f'Old Target Count:{np.array2string(past, separator=", ")}')
+            self.rc.pstatus(f'New Target Count:{np.array2string(self.bin_target_counts, separator=", ")}')
+            self.rc.pflush()
 
     def _split_walker(self, segment, m, bin):
         '''Split the walker ``segment`` (in ``bin``) into ``m`` walkers'''
@@ -673,7 +680,6 @@ class WEDriver:
         except AttributeError:
             pass
 
-        self.rc.pstatus(f'{self.bin_target_counts=}')
         # Regardless of current particle count, always split overweight particles and merge underweight particles
         # Then and only then adjust for correct particle count
         total_number_of_subgroups = 0
