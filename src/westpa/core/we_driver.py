@@ -350,6 +350,8 @@ class WEDriver:
         else:
             final_assignments = self.bin_mapper.assign(all_pcoords[1, :, :])
 
+        self.system.sample = self.bin_mapper.sample_volume
+
         initial_binning = self.initial_binning
         final_binning = self.final_binning
         flux_matrix = self.flux_matrix
@@ -441,6 +443,15 @@ class WEDriver:
         # Transfer newly-assigned states from "available" to "used"
         for state_id in used_istate_ids:
             self.used_initial_states[state_id] = self.avail_initial_states.pop(state_id)
+
+    def _adjust_bin_target_counts(self):
+        '''Adjust the bin target count based on sampled density'''
+        _proposed_multiplier = np.floor(self.system.sample_density / self.system.ideal_sample_density).astype(int) or 1
+
+        if _proposed_multiplier > self.system.max_target_count_multiplier:
+            _proposed_multiplier = self.system.max_target_count_multiplier
+
+        self.bin_target_counts *= _proposed_multiplier
 
     def _split_walker(self, segment, m, bin):
         '''Split the walker ``segment`` (in ``bin``) into ``m`` walkers'''
@@ -656,6 +667,14 @@ class WEDriver:
         # sanity check
         self._check_pre()
 
+        # Adjust bin target counts to account for sample density
+        # Especially useful for "Binless" protocols
+        try:
+            self._adjust_bin_target_counts()
+        except AttributeError:
+            pass
+
+        self.rc.pstatus(f'{self.bin_target_counts=}')
         # Regardless of current particle count, always split overweight particles and merge underweight particles
         # Then and only then adjust for correct particle count
         total_number_of_subgroups = 0
