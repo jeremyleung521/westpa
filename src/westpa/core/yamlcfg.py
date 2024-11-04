@@ -350,6 +350,11 @@ class YAMLSystem:
 
         self.bin_target_counts = [1]
 
+        # For calculating sample density
+        self.ideal_sample_density = None
+        self.sample_density = 1
+        self.max_target_count_multiplier = 1
+
     @property
     def bin_target_counts(self):
         return self._bin_target_counts

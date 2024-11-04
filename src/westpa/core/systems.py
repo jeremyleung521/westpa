@@ -52,7 +52,10 @@ class WESTSystem:
 
         self.bin_target_counts = [1]
 
-        self.sample_volume = None
+        # For calculating sample density
+        # self.ideal_sample_density = 1
+        self.sample_density = 1
+        # self.max_target_count_multiplier = 1
 
     @property
     def bin_target_counts(self):
@@ -62,6 +65,23 @@ class WESTSystem:
     def bin_target_counts(self, target_counts):
         maxcount = max(target_counts)
         self._bin_target_counts = np.array(target_counts, dtype=np.min_scalar_type(maxcount))
+
+    @property
+    def sample_density(self):
+        return self._sample_density
+
+    @sample_density.setter
+    def sample_density(self, val):
+        self._sample_density = val
+
+    @sample_density.getter
+    def sample_density(self):
+        if self.bin_mapper.sample_volume is None:
+            a = self.rc.system.ideal_sample_density
+        else:
+            a = np.sum(self.bin_target_counts) / self.bin_mapper.sample_volume
+        print(f'getter: sample_density={a}')
+        return a
 
     def initialize(self):
         '''Prepare this system object for use in simulation or analysis,

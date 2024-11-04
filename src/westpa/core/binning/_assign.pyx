@@ -29,7 +29,8 @@ cpdef rectilinear_assign(coord_t[:,:] coords,
                         numpy.ndarray[bool_t,ndim=1,cast=True] mask,
                         index_t[:] output,
                         boundaries,
-                        index_t[:] boundlens):
+                        index_t[:] boundlens,
+                        coord_t[:] sample_volume):
 
     '''For bins delimited by sets boundaries on a rectilinear grid (``boundaries``),
     assign coordinates to bins, assuming C ordering of indices within the grid.
@@ -43,9 +44,12 @@ cpdef rectilinear_assign(coord_t[:,:] coords,
         index_t index, stridefac
         coord_t bound
         coord_t cval
+        coord_t volume = 1
 
         numpy.ndarray[coord_t, ndim=1] boundvec
         numpy.ndarray[numpy.uintp_t, ndim=1] boundvecs
+
+        numpy.ndarray[coord_t, ndim=2] min_max
         coord_t* bvec
 
     # We assume greater locality across boundary vectors than across the
@@ -56,6 +60,11 @@ cpdef rectilinear_assign(coord_t[:,:] coords,
 
     ndim = len(boundaries)
     boundvecs = numpy.empty((ndim,), dtype=numpy.uintp)
+
+    # Variables for tracking min/max pcoord values
+    # First dimension is min, the second is max
+    min_max = numpy.empty((2, ndim), dtype=coord_dtype)
+    initialize_minmax = True
 
     for 0 <= idim < ndim:
         boundvec = boundaries[idim]
@@ -69,10 +78,17 @@ cpdef rectilinear_assign(coord_t[:,:] coords,
             output[icoord] = 0
             stridefac = 1
 
+            # Initialize min_max in each dimension with the first coord value
+            if initialize_minmax:
+                for idim in range(ndim-1, -1, -1):
+                    min_max[0, idim] = coords[icoord, idim]
+                    min_max[1, idim] = coords[icoord, idim]
+                initialize_minmax = False
+
             # backwards iteration needs signed values, so that the final != -1 works
             for idim in range(ndim-1,-1,-1):
                 found = 0
-                cval = coords[icoord,idim]
+                cval = coords[icoord, idim]
                 boundlen = boundlens[idim]
                 bvec = <coord_t*> boundvecs[idim]
 
@@ -85,8 +101,21 @@ cpdef rectilinear_assign(coord_t[:,:] coords,
                         index = ibound-1
                         break
 
+                if cval < min_max[0, idim]:
+                    min_max[0, idim] = cval
+                if cval > min_max[1, idim]:
+                    min_max[1, idim] = cval
+
                 output[icoord] += index * stridefac
                 stridefac *= boundlen-1
+
+
+        for idim in range(ndim - 1, -1, -1):
+            volume *= (min_max[1, idim] - min_max[0, idim])
+
+    if not numpy.isclose(volume, 0):
+        sample_volume[0] = volume
+
 
 @cython.boundscheck(False)
 @cython.wraparound(False)
@@ -96,12 +125,15 @@ cpdef testfunc(coord_t[:,:] coords,
     cdef:
         index_t icoord
 
-    for icoord in range(len(coords)):
+    ncoords = len(coords)
+
+    for icoord in range(ncoords):
         if mask[icoord]:
             if coords[icoord,0] < 0.5:
                 output[icoord] = 0
             else:
                 output[icoord] = 1
+
 
 # optimized function applications
 @cython.boundscheck(False)
@@ -121,6 +153,7 @@ cpdef apply_down(func,
     for i from 0 <= i < n:
         if mask[i]:
             output[i] = func(coords[i], *args, **kwargs)
+
 
 @cython.boundscheck(False)
 @cython.wraparound(False)
@@ -160,6 +193,7 @@ cpdef apply_down_argmin_across(func,
 
             output[icoord] = _argmin
 
+
 # optimized lookup table routine
 @cython.boundscheck(False)
 @cython.wraparound(False)
@@ -182,6 +216,7 @@ cpdef output_map(index_t[:] output,
                     with gil:
                         raise IndexError('value {} not available in output table'.format(o))
                 output[i] = omap[o]
+
 
 @cython.boundscheck(False)
 @cython.wraparound(False)
@@ -289,6 +324,7 @@ cpdef assign_and_label(Py_ssize_t nsegs_lb,
 
     return assignments, trajlabels, statelabels
 
+
 @cython.cdivision(True)
 @cython.boundscheck(False)
 @cython.wraparound(False)
@@ -324,6 +360,7 @@ cpdef accumulate_labeled_populations(weight_t[:]  weights,
 
                 labeled_bin_pops[traj_assignment,assignment] += ptwt
 
+
 @cython.boundscheck(False)
 @cython.wraparound(False)
 cpdef accumulate_state_populations_from_labeled(weight_t[:,:] labeled_bin_pops,
@@ -352,6 +389,7 @@ cpdef accumulate_state_populations_from_labeled(weight_t[:,:] labeled_bin_pops,
                     with gil:
                         raise ValueError('invalid state label {}'.format(istate))
                 state_pops[state_map[ibin]] += labeled_bin_pops[ilabel,ibin]
+
 
 @cython.wraparound(False)
 cpdef assignments_list_to_table(Py_ssize_t nsegs, Py_ssize_t nbins, index_t[:] assignments):
