@@ -116,10 +116,7 @@ class WEDriver:
         # Set of initial states passed to run_we() that are actually used for
         # recycling targets
         self.used_initial_states = None
-
         self.avail_initial_states = None
-
-        # Set of variables for
 
         # Make property for subgrouping function.
         self.subgroup_function = _group_walkers_identity
