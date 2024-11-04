@@ -76,12 +76,7 @@ class WESTSystem:
 
     @sample_density.getter
     def sample_density(self):
-        if self.bin_mapper.sample_volume is None:
-            a = self.rc.system.ideal_sample_density
-        else:
-            a = np.sum(self.bin_target_counts) / self.bin_mapper.sample_volume
-        print(f'getter: sample_density={a}')
-        return a
+        return np.sum(self.bin_target_counts) / self.bin_mapper.sample_volume
 
     def initialize(self):
         '''Prepare this system object for use in simulation or analysis,

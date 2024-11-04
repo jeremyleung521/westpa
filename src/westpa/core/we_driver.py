@@ -116,7 +116,6 @@ class WEDriver:
         # Set of initial states passed to run_we() that are actually used for
         # recycling targets
         self.used_initial_states = None
-
         self.avail_initial_states = None
 
         self.rng = Generator(MT19937())
