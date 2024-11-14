@@ -151,6 +151,12 @@ class WEDriver:
         self.smallest_allowed_weight = config.get(['west', 'we', 'smallest_allowed_weight'], self.smallest_allowed_weight)
         log.info('Smallest allowed_weight: {}'.format(self.smallest_allowed_weight))
 
+        self.do_target_density = config.get(['west', 'we', 'sample_density'], False)
+        log.info('Adjust target_counts to match sample density: {}'.format(self.do_target_density))
+
+        self.do_target_nsegs = config.get(['west', 'we', 'max_target_counts'], False)
+        log.info('Adjust target_counts to match max_target_counts: {}'.format(self.do_target_nsegs))
+
     @property
     def next_iter_segments(self):
         '''Newly-created segments for the next iteration'''
@@ -441,13 +447,16 @@ class WEDriver:
         for state_id in used_istate_ids:
             self.used_initial_states[state_id] = self.avail_initial_states.pop(state_id)
 
-    def _adjust_bin_target_counts(self):
-        '''Adjust the bin target count based on sampled density'''
-        _proposed_multiplier = np.floor(self.system.sample_density / self.system.ideal_sample_density).astype(int) or 1
+    def _adjust_bin_target_counts_nsegs(self):
+        '''Adjust the bin target count based on total number of segments'''
+        _occupied_bins = np.fromiter(map(len, self.next_iter_binning), dtype=np.int_, count=self.bin_mapper.nbins)
+        _expected_n_segs = np.sum(self.system.bin_target_counts[_occupied_bins != 0])
+        _proposed_multiplier = np.floor(self.system.ideal_total_segs / _expected_n_segs) or 1
 
         if _proposed_multiplier > self.system.max_target_count_multiplier:
-            _proposed_multiplier = self.system.max_target_count_multiplier
+            _proposed_multiplier = self.system.max_target_count_multipler
 
+        # The following is for reporting
         past = self.bin_target_counts.copy()
 
         self.bin_target_counts *= _proposed_multiplier
@@ -456,6 +465,27 @@ class WEDriver:
             self.rc.pstatus(f'Old Target Count:{np.array2string(past, separator=", ")}')
             self.rc.pstatus(f'New Target Count:{np.array2string(self.bin_target_counts, separator=", ")}')
             self.rc.pflush()
+
+        del past
+
+    def _adjust_bin_target_counts_density(self):
+        '''Adjust the bin target count based on sampled density'''
+        _proposed_multiplier = np.floor(self.system.sample_density / self.system.ideal_sample_density).astype(int) or 1
+
+        if _proposed_multiplier > self.system.max_target_count_multiplier:
+            _proposed_multiplier = self.system.max_target_count_multiplier
+
+        # The following is for reporting
+        past = self.bin_target_counts.copy()
+
+        self.bin_target_counts *= _proposed_multiplier
+
+        if np.any(past != self.bin_target_counts):
+            self.rc.pstatus(f'Old Target Count:{np.array2string(past, separator=", ")}')
+            self.rc.pstatus(f'New Target Count:{np.array2string(self.bin_target_counts, separator=", ")}')
+            self.rc.pflush()
+
+        del past
 
     def _split_walker(self, segment, m, bin):
         '''Split the walker ``segment`` (in ``bin``) into ``m`` walkers'''
@@ -674,7 +704,15 @@ class WEDriver:
         # Adjust bin target counts to account for sample density
         # Especially useful for "Binless" protocols
         try:
-            self._adjust_bin_target_counts()
+            if self.do_target_density:
+                self._adjust_bin_target_counts_density()
+        except AttributeError:
+            pass
+
+        # Adjust bin target counts to maximize constant number of segments
+        try:
+            if self.do_target_nsegs and self.do_adjust_counts:
+                self._adjust_bin_target_counts_nsegs()
         except AttributeError:
             pass
 
