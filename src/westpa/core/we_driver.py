@@ -308,9 +308,6 @@ class WEDriver:
         nbins = self.bin_mapper.nbins
         log.debug('mapper is {!r}, handling {:d} bins'.format(self.bin_mapper, nbins))
 
-        if self.past_bin_target_counts is None:
-            self.past_bin_target_counts = self.bin_target_counts.copy()
-
         self.initial_binning = self.bin_mapper.construct_bins()
         self.final_binning = self.bin_mapper.construct_bins()
         self.next_iter_binning = None
@@ -326,6 +323,10 @@ class WEDriver:
             self.target_states[tstate_assignment] = tstate
             log.debug('target state {!r} mapped to bin {}'.format(tstate, tstate_assignment))
             self.bin_target_counts[tstate_assignment] = 0
+
+        # for reporting when do_target_density or do_target_nsegs is on
+        if self.past_bin_target_counts is None:
+            self.past_bin_target_counts = self.bin_target_counts.copy()
 
         # loop over recycled segments, adding entries to the flux matrix appropriately
         if new_weights:
@@ -793,7 +794,7 @@ class WEDriver:
         log.debug('used initial states: {!r}'.format(self.used_initial_states))
         log.debug('available initial states: {!r}'.format(self.avail_initial_states))
 
-    def populate_initial(self, initial_states, weights, system=None):
+    def populate_initial(self, initial_states, weights, system=None, target_states=[]):
         '''Create walkers for a new weighted ensemble simulation.
 
         One segment is created for each provided initial state, then binned and split/merged
@@ -811,7 +812,7 @@ class WEDriver:
 
         system = system or westpa.rc.get_system_driver()
         self.new_iteration(
-            initial_states=[], target_states=[], bin_mapper=system.bin_mapper, bin_target_counts=system.bin_target_counts
+            initial_states=[], target_states=target_states, bin_mapper=system.bin_mapper, bin_target_counts=system.bin_target_counts
         )
 
         # Create dummy segments
