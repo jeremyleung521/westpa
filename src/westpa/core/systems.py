@@ -55,6 +55,7 @@ class WESTSystem:
         # For calculating sample density
         self.sample_density = 1
         self.ideal_total_segs = 1
+        self.expected_nsegs = 1
 
     @property
     def bin_target_counts(self):
@@ -76,7 +77,7 @@ class WESTSystem:
 
     @sample_density.getter
     def sample_density(self):
-        return np.sum(self.bin_target_counts) / self.bin_mapper.sample_volume
+        return self.expected_nsegs / self.bin_mapper.sample_volume
 
     def initialize(self):
         '''Prepare this system object for use in simulation or analysis,

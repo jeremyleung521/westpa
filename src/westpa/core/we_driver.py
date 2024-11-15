@@ -128,7 +128,7 @@ class WEDriver:
         # Process WE option from config
         self.process_config()
         self.check_threshold_configs()
-        self.process_dynamic_nsegs_config()
+        self.process_adaptive_nsegs_config()
 
     def process_config(self):
         config = self.rc.config
@@ -155,7 +155,7 @@ class WEDriver:
         self.smallest_allowed_weight = config.get(['west', 'we', 'smallest_allowed_weight'], self.smallest_allowed_weight)
         log.info('Smallest allowed_weight: {}'.format(self.smallest_allowed_weight))
 
-    def process_dynamic_nsegs_config(self):
+    def process_adaptive_nsegs_config(self):
         '''Process config related to dynamically adjusting bin_target_counts'''
         config = self.rc.config
 
@@ -181,9 +181,9 @@ class WEDriver:
             # ideal_sample_density needs to be defined
             config.require(['west', 'system', 'system_options', 'ideal_sample_density'])
 
-        if self.do_target_nsegs ^ self.do_adjust_counts:
-            # force_max_target_counts requires adjust_counts to be turned on
-            self.do_target_nsegs = False
+        if (self.do_target_nsegs or self.do_target_density) and not self.do_adjust_counts:
+            # using force_max_target_counts and sample_density requires adjust_counts to be turned on
+            self.do_target_nsegs = self.do_target_density = False
             log.info('Turning off force_max_target_counts because adjust_counts is off.')
 
     @property
@@ -479,28 +479,12 @@ class WEDriver:
         for state_id in used_istate_ids:
             self.used_initial_states[state_id] = self.avail_initial_states.pop(state_id)
 
-    def _adjust_bin_target_counts_nsegs(self):
-        '''Adjust the bin target count based on total number of segments'''
-        _occupied_bins = np.fromiter(map(len, self.next_iter_binning), dtype=np.int_, count=self.bin_mapper.nbins)
-        _expected_n_segs = np.sum(self.system.bin_target_counts[_occupied_bins != 0])
-        _proposed_multiplier = np.floor(self.system.ideal_total_segs / _expected_n_segs).astype(int) or 1
-
-        if _proposed_multiplier > self.system.max_target_count_multiplier:
-            _proposed_multiplier = self.system.max_target_count_multiplier
-
-        self.bin_target_counts *= _proposed_multiplier
-
-        # The following is for reporting
-        if np.any(self.past_bin_target_counts != self.bin_target_counts):
-            self.rc.pstatus(f'Old Target Count:{np.array2string(self.past_bin_target_counts, separator=", ")}')
-            self.rc.pstatus(f'New Target Count:{np.array2string(self.bin_target_counts, separator=", ")}')
-            self.rc.pflush()
-
-        self.past_bin_target_counts = self.bin_target_counts.copy()
-
-    def _adjust_bin_target_counts_density(self):
+    def _adjust_bin_target_counts(self, protocol):
         '''Adjust the bin target count based on sampled density'''
-        _proposed_multiplier = np.floor(self.system.sample_density / self.system.ideal_sample_density).astype(int) or 1
+        if protocol == 'density':
+            _proposed_multiplier = np.floor(self.system.ideal_sample_density / self.system.sample_density).astype(int) or 1
+        elif protocol == 'nsegs':
+            _proposed_multiplier = np.floor(self.system.ideal_total_segs / self.system.expected_nsegs).astype(int) or 1
 
         if _proposed_multiplier > self.system.max_target_count_multiplier:
             _proposed_multiplier = self.system.max_target_count_multiplier
@@ -729,20 +713,21 @@ class WEDriver:
         # sanity check
         self._check_pre()
 
-        # Adjust bin target counts to account for sample density
-        # Especially useful for "Binless" protocols
-        try:
-            if self.do_target_density:
-                self._adjust_bin_target_counts_density()
-        except AttributeError:
-            pass
+        if self.do_target_density or self.do_target_nsegs:
+            # Calculating stats for later
+            _occupied_bins = np.fromiter(map(len, self.next_iter_binning), dtype=np.int_, count=self.bin_mapper.nbins)
+            self.system.expected_nsegs = np.sum(self.system.bin_target_counts[_occupied_bins != 0]).astype(int)
 
-        # Adjust bin target counts to maximize constant number of segments
-        try:
-            if self.do_target_nsegs:
-                self._adjust_bin_target_counts_nsegs()
-        except AttributeError:
-            pass
+            # Adjust bin target counts to account for sample density, especially useful for "Binless" protocols.
+            # or adjust bin target counts to maximize constant number of segments
+            try:
+                if self.do_target_density:
+                    self._adjust_bin_target_counts('density')
+                elif self.do_target_nsegs:
+                    self._adjust_bin_target_counts('nsegs')
+            except AttributeError:
+                # When dealing with older BinMappers and/or Drivers
+                self.rc.pstatus('Unable to adaptively adjust bin target counts.')
 
         # Regardless of current particle count, always split overweight particles and merge underweight particles
         # Then and only then adjust for correct particle count
