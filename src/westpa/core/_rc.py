@@ -566,7 +566,6 @@ class WESTRC:
         setattr(yamlSystem, 'bin_mapper', mapper)
 
         trgt_cnt = self.config.require(system_options_path + ['bin_target_counts'])
-        setattr(yamlSystem, 'bin_target_counts', trgt_cnt)
 
         for not_required, default_val in not_required_options.items():
             setattr(yamlSystem, not_required, self.config.get(system_options_path + [not_required], default_val))
