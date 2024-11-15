@@ -554,7 +554,7 @@ class WESTRC:
         # require for these settings since they are musts.
         system_options_path = ['west', 'system', 'system_options']
         required_options = ['pcoord_ndim', 'pcoord_len', 'pcoord_dtype']
-        not_required_options = {'max_target_count_multiplier': 1, 'ideal_sample_density': None}
+        not_required_options = {'max_target_count_multiplier': 0, 'ideal_sample_density': None}
 
         # Basic pcoord settings that are required
         for required in required_options:
