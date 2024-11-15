@@ -372,7 +372,7 @@ class WESimManager:
         data_manager.update_initial_states(initial_states, n_iter=1)
 
         if not suppress_we:
-            self.we_driver.populate_initial(initial_states, weights, system)
+            self.we_driver.populate_initial(initial_states, weights, system, target_states)
             segments = list(self.we_driver.next_iter_segments)
             binning = self.we_driver.next_iter_binning
         else:
@@ -383,8 +383,8 @@ class WESimManager:
         target_occupancies = np.require(self.we_driver.bin_target_counts, dtype=np.uint)
 
         # total_bins/replicas defined here to remove target state bin from "active" bins
-        total_bins = len(bin_occupancies) - len(target_states)
-        total_replicas = int(sum(target_occupancies)) - int(self.we_driver.bin_target_counts[-1]) * len(target_states)
+        total_bins = len(bin_occupancies)
+        total_replicas = int(sum(target_occupancies))
 
         # Make sure we have
         for segment in segments:
@@ -435,7 +435,7 @@ class WESimManager:
         # Report statistics
         pstatus('Simulation prepared.')
         self.segments = {segment.seg_id: segment for segment in segments}
-        self.report_bin_statistics(binning, target_states, save_summary=True)
+        self.report_bin_statistics(binning, [], save_summary=True)
         data_manager.flush_backing()
         data_manager.close_backing()
 
