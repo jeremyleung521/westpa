@@ -93,6 +93,7 @@ class WEDriver:
         # bin mapper and per-bin target counts (see new_iteration for initialization)
         self.bin_mapper = None
         self.bin_target_counts = None
+        self.past_bin_target_counts = None
 
         # Mapping of bin index to target state
         self.target_states = None
@@ -127,6 +128,7 @@ class WEDriver:
         # Process WE option from config
         self.process_config()
         self.check_threshold_configs()
+        self.process_dynamic_nsegs_config()
 
     def process_config(self):
         config = self.rc.config
@@ -153,11 +155,36 @@ class WEDriver:
         self.smallest_allowed_weight = config.get(['west', 'we', 'smallest_allowed_weight'], self.smallest_allowed_weight)
         log.info('Smallest allowed_weight: {}'.format(self.smallest_allowed_weight))
 
-        self.do_target_density = config.get(['west', 'we', 'sample_density'], False)
+    def process_dynamic_nsegs_config(self):
+        '''Process config related to dynamically adjusting bin_target_counts'''
+        config = self.rc.config
+
+        config.require_type_if_present(['west', 'system', 'system_options', 'sample_density'], bool)
+        config.require_type_if_present(['west', 'system', 'system_options', 'force_max_target_counts'], bool)
+
+        self.do_target_density = config.get(['west', 'system', 'system_options', 'sample_density'], False)
         log.info('Adjust target_counts to match sample density: {}'.format(self.do_target_density))
 
-        self.do_target_nsegs = config.get(['west', 'we', 'max_target_counts'], False)
+        self.do_target_nsegs = config.get(['west', 'system', 'system_options', 'force_max_target_counts'], False)
         log.info('Adjust target_counts to match max_target_counts: {}'.format(self.do_target_nsegs))
+
+        if self.do_target_density and self.do_target_nsegs:
+            # Can't turn on both
+            self.do_target_nsegs = False
+            log.info('Prioritizing sample density and turning off force_max_target_counts.')
+
+        if self.do_target_density ^ self.do_target_nsegs:
+            # Need a max multiplier or bin_target_count will balloon. Or just stay at the same value.
+            config.require(['west', 'system', 'system_options', 'max_target_count_multiplier'])
+
+        if self.do_target_density:
+            # ideal_sample_density needs to be defined
+            config.require(['west', 'system', 'system_options', 'ideal_sample_density'])
+
+        if self.do_target_nsegs ^ self.do_adjust_counts:
+            # force_max_target_counts requires adjust_counts to be turned on
+            self.do_target_nsegs = False
+            log.info('Turning off force_max_target_counts because adjust_counts is off.')
 
     @property
     def next_iter_segments(self):
@@ -284,6 +311,9 @@ class WEDriver:
             self.bin_target_counts = np.array(self.system.bin_target_counts).copy()
         nbins = self.bin_mapper.nbins
         log.debug('mapper is {!r}, handling {:d} bins'.format(self.bin_mapper, nbins))
+
+        if self.past_bin_target_counts is None:
+            self.past_bin_target_counts = self.bin_target_counts.copy()
 
         self.initial_binning = self.bin_mapper.construct_bins()
         self.final_binning = self.bin_mapper.construct_bins()
@@ -453,22 +483,20 @@ class WEDriver:
         '''Adjust the bin target count based on total number of segments'''
         _occupied_bins = np.fromiter(map(len, self.next_iter_binning), dtype=np.int_, count=self.bin_mapper.nbins)
         _expected_n_segs = np.sum(self.system.bin_target_counts[_occupied_bins != 0])
-        _proposed_multiplier = np.floor(self.system.ideal_total_segs / _expected_n_segs) or 1
+        _proposed_multiplier = np.floor(self.system.ideal_total_segs / _expected_n_segs).astype(int) or 1
 
         if _proposed_multiplier > self.system.max_target_count_multiplier:
-            _proposed_multiplier = self.system.max_target_count_multipler
-
-        # The following is for reporting
-        past = self.bin_target_counts.copy()
+            _proposed_multiplier = self.system.max_target_count_multiplier
 
         self.bin_target_counts *= _proposed_multiplier
 
-        if np.any(past != self.bin_target_counts):
-            self.rc.pstatus(f'Old Target Count:{np.array2string(past, separator=", ")}')
+        # The following is for reporting
+        if np.any(self.past_bin_target_counts != self.bin_target_counts):
+            self.rc.pstatus(f'Old Target Count:{np.array2string(self.past_bin_target_counts, separator=", ")}')
             self.rc.pstatus(f'New Target Count:{np.array2string(self.bin_target_counts, separator=", ")}')
             self.rc.pflush()
 
-        del past
+        self.past_bin_target_counts = self.bin_target_counts.copy()
 
     def _adjust_bin_target_counts_density(self):
         '''Adjust the bin target count based on sampled density'''
@@ -477,17 +505,15 @@ class WEDriver:
         if _proposed_multiplier > self.system.max_target_count_multiplier:
             _proposed_multiplier = self.system.max_target_count_multiplier
 
-        # The following is for reporting
-        past = self.bin_target_counts.copy()
-
         self.bin_target_counts *= _proposed_multiplier
 
-        if np.any(past != self.bin_target_counts):
-            self.rc.pstatus(f'Old Target Count:{np.array2string(past, separator=", ")}')
+        # The following is for reporting
+        if np.any(self.past_bin_target_counts != self.bin_target_counts):
+            self.rc.pstatus(f'Old Target Count:{np.array2string(self.past_bin_target_counts, separator=", ")}')
             self.rc.pstatus(f'New Target Count:{np.array2string(self.bin_target_counts, separator=", ")}')
             self.rc.pflush()
 
-        del past
+        self.past_bin_target_counts = self.bin_target_counts.copy()
 
     def _split_walker(self, segment, m, bin):
         '''Split the walker ``segment`` (in ``bin``) into ``m`` walkers'''
@@ -713,7 +739,7 @@ class WEDriver:
 
         # Adjust bin target counts to maximize constant number of segments
         try:
-            if self.do_target_nsegs and self.do_adjust_counts:
+            if self.do_target_nsegs:
                 self._adjust_bin_target_counts_nsegs()
         except AttributeError:
             pass
