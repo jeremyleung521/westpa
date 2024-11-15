@@ -173,10 +173,6 @@ class WEDriver:
             self.do_target_nsegs = False
             log.info('Prioritizing sample density and turning off force_max_target_counts.')
 
-        if self.do_target_density ^ self.do_target_nsegs:
-            # Need a max multiplier or bin_target_count will balloon. Or just stay at the same value.
-            config.require(['west', 'system', 'system_options', 'max_target_count_multiplier'])
-
         if self.do_target_density:
             # ideal_sample_density needs to be defined
             config.require(['west', 'system', 'system_options', 'ideal_sample_density'])
@@ -486,7 +482,11 @@ class WEDriver:
         elif protocol == 'nsegs':
             _proposed_multiplier = np.floor(self.system.ideal_total_segs / self.system.expected_nsegs).astype(int) or 1
 
-        if _proposed_multiplier > self.system.max_target_count_multiplier:
+        if self.system.max_target_count_multiplier == 0:
+            _expected = self.system.expected_nsegs * _proposed_multiplier
+            if _expected > self.system.ideal_total_segs:
+                _proposed_multiplier = np.floor(_proposed_multiplier * (self.system.ideal_total_segs / _expected)).astype(int) or 1
+        elif _proposed_multiplier > self.system.max_target_count_multiplier:
             _proposed_multiplier = self.system.max_target_count_multiplier
 
         self.bin_target_counts *= _proposed_multiplier
