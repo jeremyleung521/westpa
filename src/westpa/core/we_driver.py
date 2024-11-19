@@ -382,8 +382,6 @@ class WEDriver:
         else:
             final_assignments = self.bin_mapper.assign(all_pcoords[1, :, :])
 
-        self.system.sample = self.bin_mapper.sample_volume
-
         initial_binning = self.initial_binning
         final_binning = self.final_binning
         flux_matrix = self.flux_matrix
