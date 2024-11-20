@@ -569,15 +569,15 @@ class WEDriver:
                     else:
                         try:
                             initial_state = self.used_initial_states.pop(segment.initial_state_id)
+                            self.avail_initial_states[initial_state.state_id] = initial_state
+                            initial_state.iter_used = None
+
+                            log.debug('freeing initial state {!r} for future use (merged)'.format(initial_state))
                         except KeyError as e:
                             if segment.initial_state_id not in self.avail_initial_states:
                                 raise e
                             else:
                                 print(f'attemped to remove istate id {segment.initial_state_id} multiple times.')
-
-                        log.debug('freeing initial state {!r} for future use (merged)'.format(initial_state))
-                        self.avail_initial_states[initial_state.state_id] = initial_state
-                        initial_state.iter_used = None
 
         if log.isEnabledFor(logging.DEBUG):
             log.debug('merging ({:d}) {!r} into 1:\n    {!r}'.format(len(segments), segments, glom))
