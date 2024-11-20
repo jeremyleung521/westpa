@@ -577,7 +577,7 @@ class WEDriver:
                             if segment.initial_state_id not in self.avail_initial_states:
                                 raise e
                             else:
-                                print(f'attemped to remove istate id {segment.initial_state_id} multiple times.')
+                                log.debug(f'attempted to remove istate id {segment.initial_state_id} multiple times.')
 
         if log.isEnabledFor(logging.DEBUG):
             log.debug('merging ({:d}) {!r} into 1:\n    {!r}'.format(len(segments), segments, glom))
