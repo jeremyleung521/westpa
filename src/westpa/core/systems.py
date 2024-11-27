@@ -55,7 +55,8 @@ class WESTSystem:
         # For calculating sample density
         self.sample_density = 1
         self.ideal_total_segs = 1
-        self.expected_nsegs = 1
+        self.expected_nsegs = 1  # updated in WEDriver._run_we
+        self.test_bin_target_counts = [1]  # updated in WEDriver._adjust_bin_target_counts
 
     @property
     def bin_target_counts(self):
@@ -66,6 +67,7 @@ class WESTSystem:
         maxcount = max(target_counts)
         self._bin_target_counts = np.array(target_counts, dtype=np.min_scalar_type(maxcount))
         self.ideal_total_segs = np.sum(self._bin_target_counts)
+        self.test_bin_target_counts = self._bin_target_counts.copy()
 
     @property
     def sample_density(self):
