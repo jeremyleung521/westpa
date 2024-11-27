@@ -475,16 +475,10 @@ class WEDriver:
     def _adjust_bin_target_counts(self, protocol):
         '''Adjust the bin target count based on sampled density'''
         if protocol == 'density':
-            _proposed_multiplier = self.system.ideal_sample_density / self.system.sample_density or 1
+            _proposed_multiplier = np.floor(self.system.ideal_sample_density / self.system.sample_density).astype(int) or 1
         elif protocol == 'nsegs':
-            _proposed_multiplier = self.system.ideal_total_segs / self.system.expected_nsegs or 1
+            _proposed_multiplier = np.floor(self.system.ideal_total_segs / self.system.expected_nsegs).astype(int) or 1
 
-        # Just going to try to see if we can min/max the way out of each bin to get maximum target count.
-        _test_bin_count = self.system.test_bin_target_counts * _proposed_multiplier
-        if np.sum(_test_bin_count) > self.system.ideal_total_segs:
-            _proposed_multiplier = np.floor(_proposed_multiplier).astype(int) or 1
-
-        # Checking to see if the proposed multiplier is within set parameters
         if self.system.max_target_count_multiplier == 0:
             _expected = self.system.expected_nsegs * _proposed_multiplier
             if _expected > self.system.ideal_total_segs:
@@ -492,10 +486,7 @@ class WEDriver:
         elif _proposed_multiplier > self.system.max_target_count_multiplier:
             _proposed_multiplier = self.system.max_target_count_multiplier
 
-        # First line actually setting the bin_target_count
-        # Second line rounds down each bin's target count into an integer. No change if _proposed_multiplier is already an int
         self.bin_target_counts *= _proposed_multiplier
-        self.bin_target_counts = np.floor(self.bin_target_counts * _proposed_multiplier).astype(int)
 
         # The following is for reporting
         if np.any(self.past_bin_target_counts != self.bin_target_counts):
@@ -728,9 +719,8 @@ class WEDriver:
 
         if self.do_target_density or self.do_target_nsegs:
             # Calculating stats for later
-            self._occupied_bins = np.fromiter(map(len, self.next_iter_binning), dtype=np.int_, count=self.bin_mapper.nbins)
-            self.system.test_bin_target_counts = self.system.bin_target_counts[self._occupied_bins != 0]
-            self.system.expected_nsegs = np.sum(self.system.test_bin_target_counts).astype(int)
+            _occupied_bins = np.fromiter(map(len, self.next_iter_binning), dtype=np.int_, count=self.bin_mapper.nbins)
+            self.system.expected_nsegs = np.sum(self.system.bin_target_counts[_occupied_bins != 0]).astype(int)
 
             # Adjust bin target counts to account for sample density, especially useful for "Binless" protocols.
             # or adjust bin target counts to maximize constant number of segments
