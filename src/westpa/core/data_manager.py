@@ -955,7 +955,10 @@ class WESTDataManager:
 
         with self.lock:
             iter_group = self.get_iter_group(n_iter)
-            iter_group.attrs['sample_density'] = self.system.sample_density or 1
+            try:
+                iter_group.attrs['sample_density'] = self.system.sample_density or 1
+            except AttributeError:
+                iter_group.attrs['sample_density'] = 1
 
             pc_dsid = iter_group['pcoord'].id
             si_dsid = iter_group['seg_index'].id
