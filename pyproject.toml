@@ -17,6 +17,14 @@ requires = [
 # always include this (pandas, numpy, etc), so leaving this off for now
 # build-backend = "setuptools.build_meta"
 
+[tool.versioneer]
+VCS = "git"
+style = "pep440"
+versionfile_source = "src/westpa/_version.py"
+versionfile_build = "westpa/_version.py"
+tag_prefix = v
+parentdir_prefix = "westpa-"
+
 [tool.black]
 line-length = 132
 skip-string-normalization = true
@@ -45,3 +53,5 @@ exclude = '''
      )
 )
 '''
+
+
