@@ -45,5 +45,3 @@ exclude = '''
 )
 '''
 
-[tool.ruff.lint]
-select = ['NPY201']
