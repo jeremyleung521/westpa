@@ -134,9 +134,9 @@ class RectilinearBinMapper(BinMapper):
     def boundaries(self, boundaries):
         del self._boundaries, self.labels
         self._boundaries = []
-        self.labels = labels = []
+        self.labels = []
         for boundset in boundaries:
-            boundarray = np.asarray(boundset, dtype=coord_dtype, order='C')
+            boundarray = np.ascontiguousarray(boundset, dtype=coord_dtype)
             db = np.diff(boundarray)
             if (db <= 0).any():
                 raise ValueError('boundary set must be strictly monotonically increasing')
@@ -148,8 +148,14 @@ class RectilinearBinMapper(BinMapper):
         _boundaries = self._boundaries
         binspace_shape = tuple(self._boundlens[:] - 1)
         for index in np.ndindex(binspace_shape):
-            bounds = [(_boundaries[idim][index[idim]], boundaries[idim][index[idim] + 1]) for idim in range(len(_boundaries))]
-            labels.append(repr(bounds))
+            label = (
+                '['
+                + ', '.join(
+                    f'({boundarray[index[idim]]!s}, {boundarray[index[idim] + 1]!s})' for idim, boundarray in enumerate(_boundaries)
+                )
+                + ']'
+            )
+            self.labels.append(label)
 
     def assign(self, coords, mask=None, output=None):
         try:
@@ -194,7 +200,7 @@ class PiecewiseBinMapper(BinMapper):
         self.functions = functions
         self.nbins = len(functions)
         self.index_dtype = np.min_scalar_type(self.nbins)
-        self.labels = [repr(func) for func in functions]
+        self.labels = [str(func) for func in functions]
         self.sample_volume = 1
 
     def assign(self, coords, mask=None, output=None):
