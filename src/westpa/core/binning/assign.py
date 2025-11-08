@@ -70,6 +70,7 @@ class BinMapper:
     def __init__(self):
         self.labels = None
         self.nbins = 0
+        self.sample_volume = 1
 
     def construct_bins(self, type_=Bin):
         '''Construct and return an array of bins of type ``type``'''
@@ -120,6 +121,7 @@ class RectilinearBinMapper(BinMapper):
         self._boundlens = None
         self.ndim = 0
         self.nbins = 0
+        self.sample_volume = 1.0
 
         # the setter function below handles all of the required wrangling
         self.boundaries = boundaries
@@ -177,13 +179,21 @@ class RectilinearBinMapper(BinMapper):
         elif len(output) != len(coords):
             raise TypeError('output has different length than coords')
 
-        rectilinear_assign(coords, mask, output, self.boundaries, self._boundlens)
+        sample_volume_return = np.ones((1,), dtype=coord_dtype)
+
+        rectilinear_assign(coords, mask, output, self.boundaries, self._boundlens, sample_volume_return)
+
+        # For backwards compatibility where pickled BinMappers does not have this attribute
+        try:
+            self.sample_volume = sample_volume_return[0]
+        except (AttributeError, NameError):
+            self.sample_volume = 1.0
 
         return output
 
 
 class PiecewiseBinMapper(BinMapper):
-    '''Binning using a set of functions returing boolean values; if the Nth function
+    '''Binning using a set of functions returning boolean values; if the Nth function
     returns True for a coordinate tuple, then that coordinate is in the Nth bin.'''
 
     def __init__(self, functions):
@@ -191,6 +201,7 @@ class PiecewiseBinMapper(BinMapper):
         self.nbins = len(functions)
         self.index_dtype = np.min_scalar_type(self.nbins)
         self.labels = [str(func) for func in functions]
+        self.sample_volume = 1
 
     def assign(self, coords, mask=None, output=None):
         if output is None:
@@ -214,6 +225,9 @@ class PiecewiseBinMapper(BinMapper):
                 fnvals[:, ifn] = rsl
         amask = np.require(fnvals.argmax(axis=1), dtype=index_dtype)
         output[mask] = amask
+
+        self.sample_volume = np.max(coord_subset) - np.min(coord_subset)
+
         return output
 
 
@@ -227,6 +241,7 @@ class FuncBinMapper(BinMapper):
         self.args = args or ()
         self.kwargs = kwargs or {}
         self.labels = ['{!r} bin {:d}'.format(func, ibin) for ibin in range(nbins)]
+        self.sample_volume = 1
 
     def assign(self, coords, mask=None, output=None):
         try:
@@ -250,6 +265,9 @@ class FuncBinMapper(BinMapper):
             raise TypeError('output has different length than coords')
 
         self.func(coords, mask, output, *self.args, **self.kwargs)
+
+        coord_subset = coords[mask]
+        self.sample_volume = np.max(coord_subset) - np.min(coord_subset)
 
         return output
 
@@ -351,6 +369,8 @@ class RecursiveBinMapper(BinMapper):
         self._recursion_map = np.zeros((self.base_mapper.nbins,), dtype=np.bool_)
 
         self.start_index = start_index
+
+        self.sample_volume = np.zeros((self.base_mapper.nbins,), dtype=np.float64)
 
     @property
     def labels(self):

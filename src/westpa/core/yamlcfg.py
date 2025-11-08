@@ -347,7 +347,6 @@ class YAMLSystem:
         self.bin_mapper = NopMapper()
         # self.bin_mapper = None
         self._bin_target_counts = None
-
         self.bin_target_counts = [1]
 
     @property

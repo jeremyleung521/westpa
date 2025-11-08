@@ -114,7 +114,7 @@ def detect_binless_mapper(mapper):
 
 def parsePCV(pc_str):
     # Execute arbitrary code within a limited
-    # scope to avoid nastyness. Stolen fully from
+    # scope to avoid nastiness. Stolen fully from
     # other parts of the WESTPA code.
     namespace = {'math': math, 'numpy': np, 'np': np, 'inf': float('inf')}
 
@@ -552,22 +552,24 @@ class WESTRC:
         print("System building only off of the configuration file")
         # Now for the building of the system from YAML we need to use
         # require for these settings since they are musts.
+        system_options_path = ['west', 'system', 'system_options']
+        required_options = ['pcoord_ndim', 'pcoord_len', 'pcoord_dtype']
+        not_required_options = {'max_target_count_multiplier': 0, 'ideal_sample_density': None}
 
-        # First basic pcoord settings
-        ndim = self.config.require(['west', 'system', 'system_options', 'pcoord_ndim'])
-        plen = self.config.require(['west', 'system', 'system_options', 'pcoord_len'])
-        # Dtype needs to be ran as code from YAML file, document YAML code execution syntax
-        # somewhere
-        ptype = self.config.require(['west', 'system', 'system_options', 'pcoord_dtype'])
-        # Bins
-        bins_obj = self.config.require(['west', 'system', 'system_options', 'bins'])
-        trgt_cnt = self.config.require(['west', 'system', 'system_options', 'bin_target_counts'])
-        # Now add the parsed settings to the system
+        # Basic pcoord settings that are required
+        for required in required_options:
+            setattr(yamlSystem, required, self.config.require(system_options_path + [required]))
+
+        # Read bin config and parse it
+        bins_obj = self.config.require(system_options_path + ['bins'])
         mapper = bins_from_yaml_dict(bins_obj)
-        setattr(yamlSystem, 'pcoord_ndim', ndim)
-        setattr(yamlSystem, 'pcoord_len', plen)
-        setattr(yamlSystem, 'pcoord_dtype', ptype)
         setattr(yamlSystem, 'bin_mapper', mapper)
+
+        trgt_cnt = self.config.require(system_options_path + ['bin_target_counts'])
+
+        for not_required, default_val in not_required_options.items():
+            setattr(yamlSystem, not_required, self.config.get(system_options_path + [not_required], default_val))
+
         # Check if the supplied target count object is
         # an iterable or not,
 

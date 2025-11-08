@@ -93,6 +93,7 @@ class WEDriver:
         # bin mapper and per-bin target counts (see new_iteration for initialization)
         self.bin_mapper = None
         self.bin_target_counts = None
+        self.past_bin_target_counts = None
 
         # Mapping of bin index to target state
         self.target_states = None
@@ -116,7 +117,6 @@ class WEDriver:
         # Set of initial states passed to run_we() that are actually used for
         # recycling targets
         self.used_initial_states = None
-
         self.avail_initial_states = None
 
         self.rng = Generator(MT19937())
@@ -125,8 +125,10 @@ class WEDriver:
         self.subgroup_function = _group_walkers_identity
         self.subgroup_function_kwargs = {}
 
+        # Process WE option from config
         self.process_config()
         self.check_threshold_configs()
+        self.process_adaptive_nsegs_config()
 
     def process_config(self):
         config = self.rc.config
@@ -152,6 +154,33 @@ class WEDriver:
 
         self.smallest_allowed_weight = config.get(['west', 'we', 'smallest_allowed_weight'], self.smallest_allowed_weight)
         log.info('Smallest allowed_weight: {}'.format(self.smallest_allowed_weight))
+
+    def process_adaptive_nsegs_config(self):
+        '''Process config related to dynamically adjusting bin_target_counts'''
+        config = self.rc.config
+
+        config.require_type_if_present(['west', 'system', 'system_options', 'sample_density'], bool)
+        config.require_type_if_present(['west', 'system', 'system_options', 'force_max_target_counts'], bool)
+
+        self.do_target_density = config.get(['west', 'system', 'system_options', 'sample_density'], False)
+        log.info('Adjust target_counts to match sample density: {}'.format(self.do_target_density))
+
+        self.do_target_nsegs = config.get(['west', 'system', 'system_options', 'force_max_target_counts'], False)
+        log.info('Adjust target_counts to match max_target_counts: {}'.format(self.do_target_nsegs))
+
+        if self.do_target_density and self.do_target_nsegs:
+            # Can't turn on both
+            self.do_target_nsegs = False
+            log.info('Prioritizing sample density and turning off force_max_target_counts.')
+
+        if self.do_target_density:
+            # ideal_sample_density needs to be defined
+            config.require(['west', 'system', 'system_options', 'ideal_sample_density'])
+
+        if (self.do_target_nsegs or self.do_target_density) and not self.do_adjust_counts:
+            # using force_max_target_counts and sample_density requires adjust_counts to be turned on
+            self.do_target_nsegs = self.do_target_density = False
+            log.info('Turning off force_max_target_counts because adjust_counts is off.')
 
     @property
     def next_iter_segments(self):
@@ -294,6 +323,10 @@ class WEDriver:
             self.target_states[tstate_assignment] = tstate
             log.debug('target state {!r} mapped to bin {}'.format(tstate, tstate_assignment))
             self.bin_target_counts[tstate_assignment] = 0
+
+        # for reporting when do_target_density or do_target_nsegs is on
+        if self.past_bin_target_counts is None:
+            self.past_bin_target_counts = self.bin_target_counts.copy()
 
         # loop over recycled segments, adding entries to the flux matrix appropriately
         if new_weights:
@@ -441,6 +474,30 @@ class WEDriver:
         for state_id in used_istate_ids:
             self.used_initial_states[state_id] = self.avail_initial_states.pop(state_id)
 
+    def _adjust_bin_target_counts(self, protocol):
+        '''Adjust the bin target count based on sampled density'''
+        if protocol == 'density':
+            _proposed_multiplier = np.floor(self.system.ideal_sample_density / self.system.sample_density).astype(int) or 1
+        elif protocol == 'nsegs':
+            _proposed_multiplier = np.floor(self.system.ideal_total_segs / self.system.expected_nsegs).astype(int) or 1
+
+        if self.system.max_target_count_multiplier == 0:
+            _expected = self.system.expected_nsegs * _proposed_multiplier
+            if _expected > self.system.ideal_total_segs:
+                _proposed_multiplier = np.floor(_proposed_multiplier * (self.system.ideal_total_segs / _expected)).astype(int) or 1
+        elif _proposed_multiplier > self.system.max_target_count_multiplier:
+            _proposed_multiplier = self.system.max_target_count_multiplier
+
+        self.bin_target_counts *= _proposed_multiplier
+
+        # The following is for reporting
+        if np.any(self.past_bin_target_counts != self.bin_target_counts):
+            self.rc.pstatus(f'Old Target Count:{np.array2string(self.past_bin_target_counts, separator=", ")}')
+            self.rc.pstatus(f'New Target Count:{np.array2string(self.bin_target_counts, separator=", ")}')
+            self.rc.pflush()
+
+        self.past_bin_target_counts = self.bin_target_counts.copy()
+
     def _split_walker(self, segment, m, bin):
         '''Split the walker ``segment`` (in ``bin``) into ``m`` walkers'''
         new_segments = []
@@ -510,10 +567,17 @@ class WEDriver:
                     if segment.initial_state_id in {segment.initial_state_id for segment in bin}:
                         log.debug('initial state in use by other walker; not removing')
                     else:
-                        initial_state = self.used_initial_states.pop(segment.initial_state_id)
-                        log.debug('freeing initial state {!r} for future use (merged)'.format(initial_state))
-                        self.avail_initial_states[initial_state.state_id] = initial_state
-                        initial_state.iter_used = None
+                        try:
+                            initial_state = self.used_initial_states.pop(segment.initial_state_id)
+                            self.avail_initial_states[initial_state.state_id] = initial_state
+                            initial_state.iter_used = None
+
+                            log.debug('freeing initial state {!r} for future use (merged)'.format(initial_state))
+                        except KeyError as e:
+                            if segment.initial_state_id not in self.avail_initial_states:
+                                raise e
+                            else:
+                                log.debug(f'attempted to remove istate id {segment.initial_state_id} multiple times.')
 
         if log.isEnabledFor(logging.DEBUG):
             log.debug('merging ({:d}) {!r} into 1:\n    {!r}'.format(len(segments), segments, glom))
@@ -655,6 +719,24 @@ class WEDriver:
         # sanity check
         self._check_pre()
 
+        if self.do_target_density or self.do_target_nsegs:
+            # Calculating stats for later
+            _occupied_bins = np.fromiter(map(len, self.next_iter_binning), dtype=np.int_, count=self.bin_mapper.nbins)
+            self.system.expected_nsegs = np.sum(self.system.bin_target_counts[_occupied_bins != 0]).astype(int)
+
+            # Adjust bin target counts to account for sample density, especially useful for "Binless" protocols.
+            # or adjust bin target counts to maximize constant number of segments
+            try:
+                if self.do_target_density:
+                    self.rc.pstatus(f'Sample Volume: {self.system.bin_mapper.sample_volume}')
+                    self.rc.pstatus(f'Sample Density: {self.system.sample_density}')
+                    self._adjust_bin_target_counts('density')
+                elif self.do_target_nsegs:
+                    self._adjust_bin_target_counts('nsegs')
+            except AttributeError:
+                # When dealing with older BinMappers and/or Drivers
+                self.rc.pstatus('Unable to adaptively adjust bin target counts.')
+
         # Regardless of current particle count, always split overweight particles and merge underweight particles
         # Then and only then adjust for correct particle count
         total_number_of_subgroups = 0
@@ -719,7 +801,7 @@ class WEDriver:
         log.debug('used initial states: {!r}'.format(self.used_initial_states))
         log.debug('available initial states: {!r}'.format(self.avail_initial_states))
 
-    def populate_initial(self, initial_states, weights, system=None):
+    def populate_initial(self, initial_states, weights, system=None, target_states=[]):
         '''Create walkers for a new weighted ensemble simulation.
 
         One segment is created for each provided initial state, then binned and split/merged
@@ -737,7 +819,7 @@ class WEDriver:
 
         system = system or westpa.rc.get_system_driver()
         self.new_iteration(
-            initial_states=[], target_states=[], bin_mapper=system.bin_mapper, bin_target_counts=system.bin_target_counts
+            initial_states=[], target_states=target_states, bin_mapper=system.bin_mapper, bin_target_counts=system.bin_target_counts
         )
 
         # Create dummy segments

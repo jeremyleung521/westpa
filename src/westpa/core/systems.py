@@ -52,6 +52,11 @@ class WESTSystem:
 
         self.bin_target_counts = [1]
 
+        # For calculating sample density
+        self.sample_density = 1
+        self.ideal_total_segs = 1
+        self.expected_nsegs = 1
+
     @property
     def bin_target_counts(self):
         return self._bin_target_counts
@@ -60,6 +65,19 @@ class WESTSystem:
     def bin_target_counts(self, target_counts):
         maxcount = max(target_counts)
         self._bin_target_counts = np.array(target_counts, dtype=np.min_scalar_type(maxcount))
+        self.ideal_total_segs = np.sum(self._bin_target_counts)
+
+    @property
+    def sample_density(self):
+        return self._sample_density
+
+    @sample_density.setter
+    def sample_density(self, val):
+        self._sample_density = val
+
+    @sample_density.getter
+    def sample_density(self):
+        return self.expected_nsegs / self.bin_mapper.sample_volume
 
     def initialize(self):
         '''Prepare this system object for use in simulation or analysis,
