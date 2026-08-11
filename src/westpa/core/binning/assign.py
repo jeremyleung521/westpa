@@ -510,11 +510,11 @@ def rectilinear_assign_python(coords, mask, output, boundaries):
                 'definitions.',
             )
             bid[idx] = np.clip(ibid, 1, nbins_per_dim[idx])
-
+ 
     # Calculate the bin indices in row-major order
     for idx, ibid in enumerate(bid.T):
         for idim in range(len(nbins_per_dim) - 1):
-            output[idx] += (ibid[idim] - 1) * nbins_per_dim[idim]
+            output[idx] += (ibid[idim] - 1) * np.prod(nbins_per_dim[idim+1:])
         output[idx] += ibid[-1] - 1
 
     return output
