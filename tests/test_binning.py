@@ -1,6 +1,7 @@
 import logging
 import os
 import pytest
+from itertools import product
 
 import h5py
 import numpy as np
@@ -15,7 +16,7 @@ from westpa.core.binning.assign import (
     VoronoiBinMapper,
     RecursiveBinMapper,
 )
-from westpa.core.binning.assign import coord_dtype
+from westpa.core.binning.assign import coord_dtype, rectilinear_assign_python
 from westpa.core.binning.binless import BinlessMapper
 from westpa.core.binning.mab import MABBinMapper, map_mab, log_bin_boundaries
 
@@ -59,6 +60,24 @@ class TestRectilinearBinMapper:
 
         assert (assigner.assign(coords) == [0, 5, 10, 10, 15, 7, 8]).all()
         assert list(assigner.labels) == expected_labels
+
+    def test2dAssign_v2(self):
+        boundaries = [(0, 1, 2, 3), (0, 1, 2)]
+        coords = np.array([(0.5, 0.5), (0.5, 1.5), (1.5, 0.5), (1.5, 1.5), (2.5, 0.5), (2.5, 1.5)])
+        assigner = RectilinearBinMapper(boundaries)
+
+        # first 6 points are in bins [0, 5]
+        assert (assigner.assign(coords) == [0, 1, 2, 3, 4, 5]).all()
+
+    def test3dAssign(self):
+        boundaries = [(0, 1, 2), (0, 1, 2, 3, 4, 5), (0, 1, 2)]
+        coords = list(product([0.5, 1.5], [0.5, 1.5, 2.5, 3.5, 4.5], [0.5, 1.5]))  # One point per bin, in row-major order
+        coords= np.asarray(coords)
+
+        assigner = RectilinearBinMapper(boundaries)
+
+        # first 20 points are in bins [0, 19]
+        assert (assigner.assign(coords) == list(range(20))).all()
 
 
 class TestPiecewiseBinMapper:
@@ -741,7 +760,7 @@ def output_mab_reference():
 
             f.create_dataset(f'3d_grid/test_result_{i:d}', data=output)
 
-        # 2D Gaussian
+        # # 2D Gaussian
         for i, (nbins_per_dim, direction, bottleneck, skip) in enumerate(
             [
                 ([2, 2], [0, 0], True, [0, 0]),
@@ -813,3 +832,46 @@ class TestBinlessMapper:
         ) in caplog.record_tuples
 
         assert output == [0]
+
+
+class TestRectilinear_assign_python:
+    def test1dAssign(self):
+        bounds = [0.0, 1.0, 2.0, 3.0]
+        coords = np.array([0, 0.5, 1.5, 1.6, 2.0, 2.0, 2.9])[:, None]
+
+        output = rectilinear_assign_python(coords, [True] * len(coords), None, [bounds])
+        assert (output == [0, 0, 1, 1, 2, 2, 2]).all()
+
+    def test2dAssign(self):
+        """bin structure: [(a,b), (c,d)] => x in [a,b), y in [c, d)"""
+
+        boundaries = [(-1, -0.5, 0, 0.5, 1), (-1, -0.5, 0, 0.5, 1)]
+        coords = np.array([(-0.75, -0.75), (-0.25, -0.25), (0, 0), (0.25, 0.25), (0.75, 0.75), (-0.25, 0.75), (0.25, -0.75)])
+        output = rectilinear_assign_python(coords, [True] * len(coords), None, boundaries)
+
+        assert (output == [0, 5, 10, 10, 15, 7, 8]).all()
+
+    def test2dAssign_v2(self) -> None:
+        boundaries = [(0, 1, 2, 3), (0, 1, 2)]
+        coords = np.array([(0.5, 0.5), (0.5, 1.5), (1.5, 0.5), (1.5, 1.5), (2.5, 0.5), (2.5, 1.5)])
+
+        output = rectilinear_assign_python(coords, [True] * len(coords), None, boundaries)
+
+        # first 6 points are in bins [0, 5].
+        assert (output == [0, 1, 2, 3, 4, 5]).all()
+
+        with pytest.raises(ValueError, match='is out of bin space in dimension'):
+            rectilinear_assign_python(np.asarray([(3.5, 1.5)]), [True], None, boundaries)
+
+    def test3dAssign(self) -> None: 
+        boundaries = [(0, 1, 2), (0, 1, 2, 3, 4, 5), (0, 1, 2)]
+        coords = np.asarray(list(product([0.5, 1.5], [0.5, 1.5, 2.5, 3.5, 4.5], [0.5, 1.5])))  # One point per bin, in row-major order
+
+        output = rectilinear_assign_python(coords, [True] * len(coords), None, boundaries)
+
+        # first 20 points are in bins [0, 19].
+        assert (output == list(range(20))).all()
+
+        with pytest.raises(ValueError, match='is out of bin space in dimension'):
+            rectilinear_assign_python(np.asarray([(2.5, 1.5, 0.5), (1.5, 5.5, 1.5)]), [True, True], None, boundaries)
+

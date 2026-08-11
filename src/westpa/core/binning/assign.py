@@ -500,17 +500,13 @@ def rectilinear_assign_python(coords, mask, output, boundaries):
     # Clip the bin indices so any index outside of defined bins are moved
     # to nearest defined bin
     for idx, ibid in enumerate(bid):
-        if not np.all(ibid > 0) or not np.all(ibid < len(boundaries[idx])):
-            log.warning(
-                'Segment with progress coordinates outside the bin '
-                f'boundaries definition of dimension {idx} are '
-                'automatically placed into the nearest terminal bins. '
-                'Consider modifying your bin boundaries by adding '
-                "'np.inf' or '-np.inf' on either end of your bin "
-                'definitions.',
-            )
-            bid[idx] = np.clip(ibid, 1, nbins_per_dim[idx])
- 
+        if np.any(ibid <= 0):
+            bad = np.where(ibid <= 0)[0]
+            raise ValueError('coordinate value {} is out of bin space in dimension {}'.format(coords[mask][bad, idx], idx)) 
+        elif np.any(ibid >= len(boundaries[idx])):
+            bad = np.where(ibid >= len(boundaries[idx]))[0]
+            raise ValueError('coordinate value {} is out of bin space in dimension {}'.format(coords[mask][bad, idx], idx))
+
     # Calculate the bin indices in row-major order
     for idx, ibid in enumerate(bid.T):
         for idim in range(len(nbins_per_dim) - 1):
