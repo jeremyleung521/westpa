@@ -396,7 +396,7 @@ def bin_assignment(
     # In forward direction, bin IDs are offset by all linear and boundary bins
     bneck_bin_id_offset_fwd = boundary_bin_id_offset_rev + (~skip_lag).sum()
     # In reverse, we add the number of forward bottleneck bins to the offset
-    bneck_bin_id_offset_rev = bneck_bin_id_offset_fwd + (~skip_bneck_fwd).sum()
+    bneck_bin_id_offset_rev = bneck_bin_id_offset_fwd + (~skip_bneck_fwd).sum() * bottleneck
 
     # Calculate the rectilinear bin bounds ahead of time.
     bin_bounds = [np.linspace(minlist[i], maxlist[i], nbins_per_dim[i] + 1) for i in range(ndim)]
@@ -420,18 +420,16 @@ def bin_assignment(
                 # Note: 86 implies no leading or lagging bins, but does add bottlenecks for *both* directions when bottleneck is enabled
                 # Note: All bottleneck bins will typically be filled unless a walker is simultaneously in bottleneck bins along multiple dimensions
                 # or there are too few walkers to compute free energy barriers
-                for bforward in bottlenecks_forward[n]:
+                for bfid, bforward in enumerate(bottlenecks_forward[n]):
                     if (coord == bforward).all() and not skip_bneck_fwd[n]:
-                        bin_id = bneck_bin_id_offset_fwd + n - skip_bneck_fwd[:n].sum()
+                        bin_id = bneck_bin_id_offset_fwd - skip_bneck_fwd[:n].sum() + (n * bottleneck) + bfid
                         special = True
                         n_bottleneck_filled += 1
-                        continue
-                for breverse in bottlenecks_reverse[n]:
+                for brid, breverse in enumerate(bottlenecks_reverse[n]):
                     if (coord == breverse).all() and not skip_bneck_rev[n]:
-                        bin_id = bneck_bin_id_offset_rev + n - skip_bneck_rev[:n].sum()
+                        bin_id = bneck_bin_id_offset_rev - skip_bneck_rev[:n].sum() + (n * bottleneck) + brid
                         special = True
                         n_bottleneck_filled += 1
-                        continue
 
         # Now check for boundary walkers, taking directionality into account
         # This should only be done after fully checking for bottleneck walkers
