@@ -479,7 +479,7 @@ def rectilinear_assign_python(coords, mask, output, boundaries):
     if isinstance(output, (np.ndarray, list)):
         assert len(output) == len(coords[mask]), 'Provided output array is not of same length as the number of segments to assign'
     else:
-        output = np.empty(len(coords[mask]), dtype=np.uint16)
+        output = np.zeros(len(coords[mask]), dtype=index_dtype)
 
     # Bin the progress coordinates (make sure the target state
     # boundary is included in the target state bin).
