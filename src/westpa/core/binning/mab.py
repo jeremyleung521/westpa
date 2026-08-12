@@ -411,6 +411,27 @@ def bin_assignment(
         bin_id, special = 0, False
 
         # Searching for bottleneck bins first
+        # if splitting and bottleneck:
+        #     for n in active_dims:
+        #         # Grab coord(s) of current walker
+        #         coord = coords[i][:ndim]
+        #         # Assign bottlenecks, taking directionality into account
+        #         # Check both directions when using 0 or 86
+        #         # Note: 86 implies no leading or lagging bins, but does add bottlenecks for *both* directions when bottleneck is enabled
+        #         # Note: All bottleneck bins will typically be filled unless a walker is simultaneously in bottleneck bins along multiple dimensions
+        #         # or there are too few walkers to compute free energy barriers
+        #         if (coord == bottlenecks_forward[n]).all() and not skip_bneck_fwd[n]:
+        #             bin_id = bneck_bin_id_offset_fwd + n - skip_bneck_fwd[:n].sum()
+        #             special = True
+        #             n_bottleneck_filled += 1
+        #             break
+        #         elif (coord == bottlenecks_reverse[n]).all() and not skip_bneck_rev[n]:
+        #             bin_id = bneck_bin_id_offset_rev + n - skip_bneck_rev[:n].sum()
+        #             special = True
+        #             n_bottleneck_filled += 1
+        #             break
+
+        # Searching for bottleneck bins first
         if splitting and bottleneck:
             for n in active_dims:
                 # Grab coord(s) of current walker
@@ -420,39 +441,18 @@ def bin_assignment(
                 # Note: 86 implies no leading or lagging bins, but does add bottlenecks for *both* directions when bottleneck is enabled
                 # Note: All bottleneck bins will typically be filled unless a walker is simultaneously in bottleneck bins along multiple dimensions
                 # or there are too few walkers to compute free energy barriers
-                if (coord == bottlenecks_forward[n]).all() and not skip_bneck_fwd[n]:
-                    bin_id = bneck_bin_id_offset_fwd + n - skip_bneck_fwd[:n].sum()
-                    special = True
-                    n_bottleneck_filled += 1
-                    break
-                elif (coord == bottlenecks_reverse[n]).all() and not skip_bneck_rev[n]:
-                    bin_id = bneck_bin_id_offset_rev + n - skip_bneck_rev[:n].sum()
-                    special = True
-                    n_bottleneck_filled += 1
-                    break
-
-        #        # Searching for bottleneck bins first
-        #        if splitting and bottleneck:
-        #            for n in active_dims:
-        #                # Grab coord(s) of current walker
-        #                coord = coords[i][:ndim]
-        #                # Assign bottlenecks, taking directionality into account
-        #                # Check both directions when using 0 or 86
-        #                # Note: 86 implies no leading or lagging bins, but does add bottlenecks for *both* directions when bottleneck is enabled
-        #                # Note: All bottleneck bins will typically be filled unless a walker is simultaneously in bottleneck bins along multiple dimensions
-        #                # or there are too few walkers to compute free energy barriers
-        #                for bforward in bottlenecks_forward[n]:
-        #                    if (coord == bforward).all() and not skip_bneck_fwd[n]:
-        #                        bin_id = bneck_bin_id_offset_fwd + n - skip_bneck_fwd[:n].sum()
-        #                        special = True
-        #                        n_bottleneck_filled += 1
-        #                        continue
-        #                for breverse in bottlenecks_reverse[n]:
-        #                    if (coord == breverse).all() and not skip_bneck_rev[n]:
-        #                        bin_id = bneck_bin_id_offset_rev + n - skip_bneck_rev[:n].sum()
-        #                        special = True
-        #                        n_bottleneck_filled += 1
-        #                        continue
+                for bforward in bottlenecks_forward[n]:
+                    if (coord == bforward).all() and not skip_bneck_fwd[n]:
+                        bin_id = bneck_bin_id_offset_fwd + n - skip_bneck_fwd[:n].sum()
+                        special = True
+                        n_bottleneck_filled += 1
+                        continue
+                for breverse in bottlenecks_reverse[n]:
+                    if (coord == breverse).all() and not skip_bneck_rev[n]:
+                        bin_id = bneck_bin_id_offset_rev + n - skip_bneck_rev[:n].sum()
+                        special = True
+                        n_bottleneck_filled += 1
+                        continue
 
         # Now check for boundary walkers, taking directionality into account
         # This should only be done after fully checking for bottleneck walkers
