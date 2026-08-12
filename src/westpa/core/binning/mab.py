@@ -7,7 +7,7 @@ import numpy as np
 
 import westpa
 from westpa.core.binning import FuncBinMapper
-from westpa.core.binning.assign import rectilinear_assign
+from westpa.core.binning.assign import rectilinear_assign_python
 
 log = logging.getLogger(__name__)
 
@@ -471,7 +471,10 @@ def bin_assignment(
 
         # Now check for linear bin walkers
         if not special:
-            [bin_id] = rectilinear_assign(coords[i, :ndim], mask=mask[i], output=None, boundaries=bin_bounds)
+            [bin_id] = rectilinear_assign_python(coords[i, :ndim], mask=mask[i], output=None, boundaries=bin_bounds)
+            #temp_output = np.empty((1, ), dtype=np.uint16)
+            #rectilinear_assign(np.asarray([coords[i, :ndim]], dtype=np.float32), mask=np.asarray([mask[i]], dtype=bool), output=temp_output, boundaries=bin_bounds, boundlens=bound_lens)
+            #[bin_id] = temp_output
 
         # Output is the main list that, for each segment, holds the bin assignment
         output[i] = bin_id

@@ -477,9 +477,9 @@ def rectilinear_assign_python(coords, mask, output, boundaries):
         The bin assignments for each simulation. Shape: (n_segs)
     """
     if isinstance(output, (np.ndarray, list)):
-        assert len(output) == len(coords[mask])
+        assert len(output) == len(coords[mask]), 'Provided output array is not of same length as the number of segments to assign'
     else:
-        output = np.zeros(len(coords[mask]), dtype=np.uint16)
+        output = np.empty(len(coords[mask]), dtype=np.uint16)
 
     # Bin the progress coordinates (make sure the target state
     # boundary is included in the target state bin).
