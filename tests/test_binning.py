@@ -16,7 +16,7 @@ from westpa.core.binning.assign import (
     VoronoiBinMapper,
     RecursiveBinMapper,
 )
-from westpa.core.binning.assign import coord_dtype, rectilinear_assign_python
+from westpa.core.binning.assign import coord_dtype, index_dtype, rectilinear_assign_python
 from westpa.core.binning.binless import BinlessMapper
 from westpa.core.binning.mab import MABBinMapper, map_mab, log_bin_boundaries
 
@@ -554,7 +554,7 @@ class TestMABBinMapper:
         allcoords = self.input_mab_data['allcoords_2d_grid']
         N_total = allcoords.shape[0] // 2
         mask = np.full((N_total * 2), True)
-        output = np.zeros((N_total * 2), dtype=int)
+        output = np.zeros((N_total * 2), dtype=index_dtype)
         output = map_mab(
             coords=allcoords,
             mask=mask,
@@ -564,10 +564,8 @@ class TestMABBinMapper:
             bottleneck=bottleneck,
             skip=skip,
         )
-        assert np.all(output[:N_total] == output[N_total:]), "Expected first half of bin assignments to equal second half"
-        assert np.all(
-            output == self.ref_mab_results['2d_grid'][ref_index]
-        ), f"Unexpected 2D grid MAB bin assignments with direction={direction}, bottleneck={bottleneck}, and skip={skip}"
+        assert np.array_equal(output[:N_total], output[N_total:]), "Expected first half of bin assignments to equal second half"
+        assert np.array_equal(output, self.ref_mab_results['2d_grid'][ref_index]), f"Unexpected 2D grid MAB bin assignments with direction={direction}, bottleneck={bottleneck}, and skip={skip}"
 
     @pytest.mark.parametrize(
         "nbins_per_dim, direction, bottleneck, skip, ref_index",
@@ -587,7 +585,7 @@ class TestMABBinMapper:
         allcoords = self.input_mab_data['allcoords_3d_grid']
         N_total = allcoords.shape[0] // 2
         mask = np.full((N_total * 2), True)
-        output = list(np.zeros((N_total * 2), dtype=int))
+        output = np.zeros((N_total * 2), dtype=index_dtype)
         output = map_mab(
             coords=allcoords,
             mask=mask,
@@ -597,10 +595,8 @@ class TestMABBinMapper:
             bottleneck=bottleneck,
             skip=skip,
         )
-        assert output[:N_total] == output[N_total:], "Expected first half of bin assignments to equal second half"
-        assert output == list(
-            self.ref_mab_results['3d_grid'][ref_index]
-        ), f"Unexpected 3D grid MAB bin assignments with direction={direction}, bottleneck={bottleneck}, and skip={skip}"
+        assert np.array_equal(output[:N_total], output[N_total:]), "Expected first half of bin assignments to equal second half"
+        assert np.array_equal(output, self.ref_mab_results['3d_grid'][ref_index]), f"Unexpected 3D grid MAB bin assignments with direction={direction}, bottleneck={bottleneck}, and skip={skip}"
 
     @pytest.mark.parametrize(
         "nbins_per_dim, direction, bottleneck, skip, ref_index",
@@ -622,7 +618,7 @@ class TestMABBinMapper:
         allcoords = self.input_mab_data['allcoords_2d_gauss']
         N_total = allcoords.shape[0] // 2
         mask = np.full((N_total * 2), True)
-        output = np.zeros((N_total * 2), dtype=int)
+        output = np.zeros((N_total * 2), dtype=index_dtype)
         output = map_mab(
             coords=allcoords,
             mask=mask,
@@ -632,10 +628,8 @@ class TestMABBinMapper:
             bottleneck=bottleneck,
             skip=skip,
         )
-        assert np.all(output[:N_total] == output[N_total:]), "Expected first half of bin assignments to equal second half"
-        assert np.all(
-            output == self.ref_mab_results['2d_gauss'][ref_index]
-        ), f"Unexpected 2D Gaussian MAB bin assignments with direction={direction}, bottleneck={bottleneck}, and skip={skip}"
+        assert np.array_equal(output[:N_total], output[N_total:]), "Expected first half of bin assignments to equal second half"
+        assert np.array_equal(output, self.ref_mab_results['2d_gauss'][ref_index]), f"Unexpected 2D Gaussian MAB bin assignments with direction={direction}, bottleneck={bottleneck}, and skip={skip}"
 
     @pytest.mark.parametrize(
         "skip, bottleneck, direction, minlist, maxlist, nbins_per_dim, n_bottleneck_filled, bottlenecks_forward, bottlenecks_reverse",
@@ -742,7 +736,7 @@ def output_mab_reference():
             allcoords = input_data['allcoords_2d_grid']
             N_total = allcoords.shape[0] // 2
             mask = np.full((N_total * 2), True)
-            output = np.zeros((N_total * 2), dtype=int)
+            output = np.zeros((N_total * 2), dtype=index_dtype)
             output = map_mab(
                 coords=allcoords,
                 mask=mask,
@@ -784,7 +778,7 @@ def output_mab_reference():
             allcoords = input_data['allcoords_3d_grid']
             N_total = allcoords.shape[0] // 2
             mask = np.full((N_total * 2), True)
-            output = np.zeros((N_total * 2), dtype=int)
+            output = np.zeros((N_total * 2), dtype=index_dtype)
             output = map_mab(
                 coords=allcoords,
                 mask=mask,
@@ -808,7 +802,7 @@ def output_mab_reference():
             allcoords = input_data['allcoords_2d_gauss']
             N_total = allcoords.shape[0] // 2
             mask = np.full((N_total * 2), True)
-            output = np.zeros((N_total * 2), dtype=int)
+            output = np.zeros((N_total * 2), dtype=index_dtype)
             output = map_mab(
                 coords=allcoords,
                 mask=mask,

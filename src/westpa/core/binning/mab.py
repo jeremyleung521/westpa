@@ -7,7 +7,7 @@ import numpy as np
 
 import westpa
 from westpa.core.binning import FuncBinMapper
-from westpa.core.binning.assign import rectilinear_assign_python
+from westpa.core.binning.assign import index_dtype, rectilinear_assign_python
 
 log = logging.getLogger(__name__)
 
@@ -132,7 +132,7 @@ class MABBinMapper(FuncBinMapper):
         return n_total_bins
 
 
-def map_mab(coords: np.ndarray, mask: np.ndarray, output: List[int], *args, **kwargs) -> List[int]:
+def map_mab(coords: np.ndarray, mask: np.ndarray, output: np.ndarray[index_dtype], *args, **kwargs) -> np.ndarray[index_dtype]:
     """
     Adaptively place bins based on extrema and bottleneck segments along the progress coordinate.
 
@@ -147,8 +147,8 @@ def map_mab(coords: np.ndarray, mask: np.ndarray, output: List[int], *args, **kw
         An array with pcoord and weight info.
     mask : np.ndarray
         Boolean array to filter out unwanted segments.
-    output : list
-        The main list that, for each segment, holds the bin assignment.
+    output : np.ndarray[index_dtype]
+        The main array that, for each segment, holds the bin assignment.
     *args : list
         Additional arguments.
     **kwargs : dict
@@ -156,8 +156,8 @@ def map_mab(coords: np.ndarray, mask: np.ndarray, output: List[int], *args, **kw
 
     Returns
     ------
-    output : list
-        List with bin assignments for each segment.
+    output : np.ndarray[index_dtype]
+        Array with bin assignments for each segment.
     """
 
     # Argument Processing
