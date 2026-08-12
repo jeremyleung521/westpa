@@ -412,7 +412,7 @@ def bin_assignment(
 
         # Searching for bottleneck bins first
         if splitting and bottleneck:
-            for n in active_dims:
+            for i_acdim, n in enumerate(active_dims):
                 # Grab coord(s) of current walker
                 coord = coords[i, :ndim]
                 # Assign bottlenecks, taking directionality into account
@@ -422,12 +422,12 @@ def bin_assignment(
                 # or there are too few walkers to compute free energy barriers
                 for bfid, bforward in enumerate(bottlenecks_forward[n]):
                     if (coord == bforward).all() and not skip_bneck_fwd[n]:
-                        bin_id = bneck_bin_id_offset_fwd - skip_bneck_fwd[:n].sum() + (n * bottleneck) + bfid
+                        bin_id = bneck_bin_id_offset_fwd + (i_acdim * bottleneck) + bfid
                         special = True
                         n_bottleneck_filled += 1
                 for brid, breverse in enumerate(bottlenecks_reverse[n]):
                     if (coord == breverse).all() and not skip_bneck_rev[n]:
-                        bin_id = bneck_bin_id_offset_rev - skip_bneck_rev[:n].sum() + (n * bottleneck) + brid
+                        bin_id = bneck_bin_id_offset_rev + (i_acdim * bottleneck) + brid
                         special = True
                         n_bottleneck_filled += 1
 

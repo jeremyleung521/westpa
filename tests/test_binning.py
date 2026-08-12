@@ -536,8 +536,8 @@ class TestMABBinMapper:
             ([2, 2], [0, 0], True, [1, 1], 5),
             ([2, 2], [86, 0], True, [0, 0], 6),
             ([2, 2], [86, 86], False, [0, 0], 7),
-            ([2, 2], [86, 0], 2, [0, 0], 8),
-            ([2, 2], [86, 0], 5, [0, 0], 9),
+            ([2, 2], [86, 0], 5, [0, 0], 8),
+            ([2, 2], [86, 86], 3, [1, 0], 9),
         ],
         ids=[
             'direction=[1,1], no bottleneck',
@@ -548,7 +548,8 @@ class TestMABBinMapper:
             'direction=[0,0], skip=[1,1]',
             'direction=[86,0]',
             'direction=[86,86], no bottleneck',
-            'direction=[86,0], 2 bottleneck',
+            'direction=[86,0], 5 bottlenecks',
+            'direction=[86,86], 3 bottlenecks, skip=[1,0]',
         ],
     )
     def test_2x2_2d_grid_mab_bin_assignments(
@@ -753,8 +754,8 @@ def output_mab_reference():
                 ([2, 2], [0, 0], True, [1, 1]),
                 ([2, 2], [86, 0], True, [0, 0]),
                 ([2, 2], [86, 86], False, [0, 0]),
-                ([2, 2], [86, 0], 2, [0, 0]),
                 ([2, 2], [86, 0], 5, [0, 0]),
+                ([2, 2], [86, 86], 3, [1, 0]),
             ]
         ):
             allcoords = input_data['allcoords_2d_grid']
@@ -815,7 +816,7 @@ def output_mab_reference():
 
             f.create_dataset(f'3d_grid/test_result_{i:d}', data=output)
 
-        # # 2D Gaussian
+        # 2D Gaussian
         for i, (nbins_per_dim, direction, bottleneck, skip) in enumerate(
             [
                 ([2, 2], [0, 0], True, [0, 0]),
