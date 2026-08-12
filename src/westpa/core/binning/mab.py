@@ -414,7 +414,7 @@ def bin_assignment(
         if splitting and bottleneck:
             for n in active_dims:
                 # Grab coord(s) of current walker
-                coord = coords[i][:ndim]
+                coord = coords[i, :ndim]
                 # Assign bottlenecks, taking directionality into account
                 # Check both directions when using 0 or 86
                 # Note: 86 implies no leading or lagging bins, but does add bottlenecks for *both* directions when bottleneck is enabled
