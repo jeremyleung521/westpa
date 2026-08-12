@@ -5,6 +5,7 @@ from itertools import product
 
 import h5py
 import numpy as np
+from numpy.testing import assert_array_equal
 from scipy.spatial.distance import cdist
 
 import westpa
@@ -564,8 +565,14 @@ class TestMABBinMapper:
             bottleneck=bottleneck,
             skip=skip,
         )
-        assert np.array_equal(output[:N_total], output[N_total:]), "Expected first half of bin assignments to equal second half"
-        assert np.array_equal(output, self.ref_mab_results['2d_grid'][ref_index]), f"Unexpected 2D grid MAB bin assignments with direction={direction}, bottleneck={bottleneck}, and skip={skip}"
+        assert_array_equal(
+            output[:N_total], output[N_total:], err_msg="Expected first half of bin assignments to equal second half"
+        )
+        assert_array_equal(
+            output,
+            self.ref_mab_results['2d_grid'][ref_index],
+            err_msg=f"Unexpected 2D grid MAB bin assignments with direction={direction}, bottleneck={bottleneck}, and skip={skip}",
+        )
 
     @pytest.mark.parametrize(
         "nbins_per_dim, direction, bottleneck, skip, ref_index",
@@ -595,8 +602,14 @@ class TestMABBinMapper:
             bottleneck=bottleneck,
             skip=skip,
         )
-        assert np.array_equal(output[:N_total], output[N_total:]), "Expected first half of bin assignments to equal second half"
-        assert np.array_equal(output, self.ref_mab_results['3d_grid'][ref_index]), f"Unexpected 3D grid MAB bin assignments with direction={direction}, bottleneck={bottleneck}, and skip={skip}"
+        assert_array_equal(
+            output[:N_total], output[N_total:], err_msg="Expected first half of bin assignments to equal second half"
+        )
+        assert_array_equal(
+            output,
+            self.ref_mab_results['3d_grid'][ref_index],
+            err_msg=f"Unexpected 3D grid MAB bin assignments with direction={direction}, bottleneck={bottleneck}, and skip={skip}",
+        )
 
     @pytest.mark.parametrize(
         "nbins_per_dim, direction, bottleneck, skip, ref_index",
@@ -628,8 +641,14 @@ class TestMABBinMapper:
             bottleneck=bottleneck,
             skip=skip,
         )
-        assert np.array_equal(output[:N_total], output[N_total:]), "Expected first half of bin assignments to equal second half"
-        assert np.array_equal(output, self.ref_mab_results['2d_gauss'][ref_index]), f"Unexpected 2D Gaussian MAB bin assignments with direction={direction}, bottleneck={bottleneck}, and skip={skip}"
+        assert_array_equal(
+            output[:N_total], output[N_total:], err_msg="Expected first half of bin assignments to equal second half"
+        )
+        assert_array_equal(
+            output,
+            self.ref_mab_results['2d_gauss'][ref_index],
+            err_msg=f"Unexpected 2D Gaussian MAB bin assignments with direction={direction}, bottleneck={bottleneck}, and skip={skip}",
+        )
 
     @pytest.mark.parametrize(
         "skip, bottleneck, direction, minlist, maxlist, nbins_per_dim, n_bottleneck_filled, bottlenecks_forward, bottlenecks_reverse",
