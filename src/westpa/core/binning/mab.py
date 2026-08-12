@@ -7,7 +7,7 @@ import numpy as np
 
 import westpa
 from westpa.core.binning import FuncBinMapper
-from westpa.core.binning.assign import rectilinear_assign_python, rectilinear_assign
+from westpa.core.binning.assign import rectilinear_assign
 
 log = logging.getLogger(__name__)
 
@@ -326,7 +326,9 @@ def detect_bottlenecks(unmasked_coords, unmasked_weights, n_coords, n, n_bottlen
         bottleneck_coords = [coords_srt[np.argmax(np.log(weights_srt[1:-1] / cumulative_prob)) + 1, :]]
         bottleneck_coords_flip = [coords_srt_flip[np.argmax(np.log(weights_srt_flip[1:-1] / cumulative_prob_flip)) + 1, :]]
     elif n_bottlenecks > 1:
-        output = heapq.nlargest(n_bottlenecks, zip(np.log(weights_srt[1:-1] / cumulative_prob), coords_srt[1:-1]), key=lambda x: x[0])
+        output = heapq.nlargest(
+            n_bottlenecks, zip(np.log(weights_srt[1:-1] / cumulative_prob), coords_srt[1:-1]), key=lambda x: x[0]
+        )
         bottleneck_coords = [coord for Z, coord in output]
 
         output = heapq.nlargest(
@@ -397,7 +399,7 @@ def bin_assignment(
     bneck_bin_id_offset_rev = bneck_bin_id_offset_fwd + (~skip_bneck_fwd).sum()
 
     # Calculate the rectilinear bin bounds ahead of time.
-    bin_bounds = [np.linspace(minlist[i], maxlist[i], nbins_per_dim[i]+1) for i in range(ndim)]
+    bin_bounds = [np.linspace(minlist[i], maxlist[i], nbins_per_dim[i] + 1) for i in range(ndim)]
 
     # Bin assignment loop over all walkers
     for i in range(len(output)):
@@ -429,28 +431,28 @@ def bin_assignment(
                     n_bottleneck_filled += 1
                     break
 
-#        # Searching for bottleneck bins first
-#        if splitting and bottleneck:
-#            for n in active_dims:
-#                # Grab coord(s) of current walker
-#                coord = coords[i][:ndim]
-#                # Assign bottlenecks, taking directionality into account
-#                # Check both directions when using 0 or 86
-#                # Note: 86 implies no leading or lagging bins, but does add bottlenecks for *both* directions when bottleneck is enabled
-#                # Note: All bottleneck bins will typically be filled unless a walker is simultaneously in bottleneck bins along multiple dimensions
-#                # or there are too few walkers to compute free energy barriers
-#                for bforward in bottlenecks_forward[n]:
-#                    if (coord == bforward).all() and not skip_bneck_fwd[n]:
-#                        bin_id = bneck_bin_id_offset_fwd + n - skip_bneck_fwd[:n].sum()
-#                        special = True
-#                        n_bottleneck_filled += 1
-#                        continue
-#                for breverse in bottlenecks_reverse[n]:
-#                    if (coord == breverse).all() and not skip_bneck_rev[n]:
-#                        bin_id = bneck_bin_id_offset_rev + n - skip_bneck_rev[:n].sum()
-#                        special = True
-#                        n_bottleneck_filled += 1
-#                        continue
+        #        # Searching for bottleneck bins first
+        #        if splitting and bottleneck:
+        #            for n in active_dims:
+        #                # Grab coord(s) of current walker
+        #                coord = coords[i][:ndim]
+        #                # Assign bottlenecks, taking directionality into account
+        #                # Check both directions when using 0 or 86
+        #                # Note: 86 implies no leading or lagging bins, but does add bottlenecks for *both* directions when bottleneck is enabled
+        #                # Note: All bottleneck bins will typically be filled unless a walker is simultaneously in bottleneck bins along multiple dimensions
+        #                # or there are too few walkers to compute free energy barriers
+        #                for bforward in bottlenecks_forward[n]:
+        #                    if (coord == bforward).all() and not skip_bneck_fwd[n]:
+        #                        bin_id = bneck_bin_id_offset_fwd + n - skip_bneck_fwd[:n].sum()
+        #                        special = True
+        #                        n_bottleneck_filled += 1
+        #                        continue
+        #                for breverse in bottlenecks_reverse[n]:
+        #                    if (coord == breverse).all() and not skip_bneck_rev[n]:
+        #                        bin_id = bneck_bin_id_offset_rev + n - skip_bneck_rev[:n].sum()
+        #                        special = True
+        #                        n_bottleneck_filled += 1
+        #                        continue
 
         # Now check for boundary walkers, taking directionality into account
         # This should only be done after fully checking for bottleneck walkers
@@ -469,7 +471,7 @@ def bin_assignment(
 
         # Now check for linear bin walkers
         if not special:
-            [bin_id] = rectilinear_assign_python(coords[i, :ndim], mask=mask[i], output=None, boundaries=bin_bounds)
+            [bin_id] = rectilinear_assign(coords[i, :ndim], mask=mask[i], output=None, boundaries=bin_bounds)
 
         # Output is the main list that, for each segment, holds the bin assignment
         output[i] = bin_id
