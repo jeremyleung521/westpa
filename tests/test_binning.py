@@ -72,7 +72,7 @@ class TestRectilinearBinMapper:
     def test3dAssign(self):
         boundaries = [(0, 1, 2), (0, 1, 2, 3, 4, 5), (0, 1, 2)]
         coords = list(product([0.5, 1.5], [0.5, 1.5, 2.5, 3.5, 4.5], [0.5, 1.5]))  # One point per bin, in row-major order
-        coords= np.asarray(coords)
+        coords = np.asarray(coords)
 
         assigner = RectilinearBinMapper(boundaries)
 
@@ -863,9 +863,11 @@ class TestRectilinear_assign_python:
         with pytest.raises(ValueError, match='is out of bin space in dimension'):
             rectilinear_assign_python(np.asarray([(3.5, 1.5)]), [True], None, boundaries)
 
-    def test3dAssign(self) -> None: 
+    def test3dAssign(self) -> None:
         boundaries = [(0, 1, 2), (0, 1, 2, 3, 4, 5), (0, 1, 2)]
-        coords = np.asarray(list(product([0.5, 1.5], [0.5, 1.5, 2.5, 3.5, 4.5], [0.5, 1.5])))  # One point per bin, in row-major order
+        coords = np.asarray(
+            list(product([0.5, 1.5], [0.5, 1.5, 2.5, 3.5, 4.5], [0.5, 1.5]))
+        )  # One point per bin, in row-major order
 
         output = rectilinear_assign_python(coords, [True] * len(coords), None, boundaries)
 
@@ -875,3 +877,39 @@ class TestRectilinear_assign_python:
         with pytest.raises(ValueError, match='is out of bin space in dimension'):
             rectilinear_assign_python(np.asarray([(2.5, 1.5, 0.5), (1.5, 5.5, 1.5)]), [True, True], None, boundaries)
 
+    def test3dAssign_v2(self) -> None:
+        boundaries = [(0, 1, 2, 3, 4, 5), (0, 1, 2, 3, 4, 5, 6), (0, 1, 2, 3, 4, 5, 6, 7)]
+        coords = np.asarray(
+            list(product([0.5, 1.5, 2.5, 3.5, 4.5], [0.5, 1.5, 2.5, 3.5, 4.5, 5.5], [0.5, 1.5, 2.5, 3.5, 4.5, 5.5, 6.5]))
+        )  # One point per bin, in row-major order
+
+        output = rectilinear_assign_python(coords, [True] * len(coords), None, boundaries)
+
+        # first 20 points are in bins [0, 210].
+        assert (output == list(range(210))).all()
+
+        with pytest.raises(ValueError, match='is out of bin space in dimension'):
+            rectilinear_assign_python(np.asarray([(5.5, 1.5, 0.5), (1.5, 6.5, 1.5)]), [True, True], None, boundaries)
+
+    def test4dAssign(self) -> None:
+        boundaries = [[i for i in range(6)], [i for i in range(7)], [i for i in range(8)], [i for i in range(6)]]
+
+        # One point per bin, in row-major order
+        coords = np.asarray(
+            list(
+                product(
+                    [i + 0.5 for i in range(5)],
+                    [i + 0.5 for i in range(6)],
+                    [i + 0.5 for i in range(7)],
+                    [i + 0.5 for i in range(5)],
+                )
+            )
+        )
+        output = rectilinear_assign_python(coords, [True] * len(coords), None, boundaries)
+
+        # Each point is in bins [0, 1050]
+        assert np.prod([len(i) - 1 for i in boundaries]) == 1050
+        assert (output == list(range(np.prod([len(i) - 1 for i in boundaries])))).all()
+
+        with pytest.raises(ValueError, match='is out of bin space in dimension'):
+            rectilinear_assign_python(np.asarray([(5.5, 1.5, 0.5, 3.5), (1.5, 8.5, 1.5, 8.5)]), [True, True], None, boundaries)
