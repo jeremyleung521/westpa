@@ -305,6 +305,10 @@ def detect_bottlenecks(unmasked_coords, unmasked_weights, n_coords, n, n_bottlen
     coords_srt = unmasked_coords[sorted_indices, :]
     weights_srt = unmasked_weights[sorted_indices]
 
+    # Short circuit out and return empty lists if only 2 or less segments
+    if len(weights_srt) < 3:
+        return [], []
+
     # Also sort in reverse order for opposite direction
     coords_srt_flip = np.flipud(coords_srt)
     weights_srt_flip = np.flipud(weights_srt)
@@ -399,7 +403,15 @@ def bin_assignment(
     bneck_bin_id_offset_rev = bneck_bin_id_offset_fwd + (~skip_bneck_fwd).sum() * bottleneck
 
     # Calculate the rectilinear bin bounds ahead of time.
-    bin_bounds = [np.linspace(minlist[i], maxlist[i], nbins_per_dim[i] + 1) for i in range(ndim)]
+    # Create a very small bin of width 0.1 if minlist[i] == maxlist[i]
+    bin_bounds = [
+        (
+            np.linspace(minlist[i], maxlist[i], nbins_per_dim[i] + 1)
+            if minlist[i] != maxlist[i]
+            else np.asarray([minlist[i], maxlist[i] + 0.1])
+        )
+        for i in range(ndim)
+    ]
 
     # Bin assignment loop over all walkers
     for i in range(len(output)):
