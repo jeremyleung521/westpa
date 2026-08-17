@@ -325,20 +325,26 @@ def detect_bottlenecks(unmasked_coords, unmasked_weights, n_coords, n, n_bottlen
     # We use the log as weights vary over many orders of magnitude and using log rules to calculate it.
     # Note a negative Z indicates the cumulative weight ahead of the current walker is larger than the weight of the current walker,
     # while a positive Z indicates the cumulative weight ahead of the current walker is smaller, indicating a barrier
-    # Efficiency is faster with np.argmax when looking at one bottleneck walker
+    # Only pick segment as bottleneck if Z > 0
+    # Efficiency is faster with np.argmax when looking for one bottleneck walker
     if n_bottlenecks == 1:
-        bottleneck_coords = [coords_srt[np.argmax(np.log(weights_srt[1:-1] / cumulative_prob)) + 1, :]]
-        bottleneck_coords_flip = [coords_srt_flip[np.argmax(np.log(weights_srt_flip[1:-1] / cumulative_prob_flip)) + 1, :]]
+        Z_array = np.log(weights_srt[1:-1] / cumulative_prob)
+        Zmax_idx = np.argmax(Z_array)
+        bottleneck_coords = [coords_srt[Zmax_idx + 1, :]] if Z_array[Zmax_idx] > 0 else []
+
+        Z_array_flip = np.log(weights_srt_flip[1:-1] / cumulative_prob_flip)
+        Zmax_idx_flip = np.argmax(Z_array_flip)
+        bottleneck_coords_flip = [coords_srt_flip[Zmax_idx_flip + 1, :]] if Z_array_flip[Zmax_idx] > 0 else []
     elif n_bottlenecks > 1:
         output = heapq.nlargest(
             n_bottlenecks, zip(np.log(weights_srt[1:-1] / cumulative_prob), coords_srt[1:-1]), key=lambda x: x[0]
         )
-        bottleneck_coords = [coord for Z, coord in output]
+        bottleneck_coords = [coord for Z, coord in output if Z > 0]
 
         output = heapq.nlargest(
             n_bottlenecks, zip(np.log(weights_srt_flip[1:-1] / cumulative_prob_flip), coords_srt_flip[1:-1]), key=lambda x: x[0]
         )
-        bottleneck_coords_flip = [coord for Z, coord in output]
+        bottleneck_coords_flip = [coord for Z, coord in output if Z > 0]
 
     return bottleneck_coords, bottleneck_coords_flip
 
