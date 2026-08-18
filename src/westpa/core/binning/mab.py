@@ -7,7 +7,6 @@ import numpy as np
 import westpa
 from westpa.core.binning import FuncBinMapper
 from westpa.core.binning.assign import index_dtype, rectilinear_assign_python
-from westpa.core.data_manager import weight_dtype
 
 log = logging.getLogger(__name__)
 
@@ -29,6 +28,7 @@ class MABBinMapper(FuncBinMapper):
         mab_log: bool = False,
         bin_log: bool = False,
         bin_log_path: str = "$WEST_SIM_ROOT/binbounds.log",
+        strict_Z: bool = False,
     ):
         """
         Parameters
@@ -53,6 +53,10 @@ class MABBinMapper(FuncBinMapper):
             Whether to output MAB bin boundaries to a log file.
         bin_log_path : str, default: "$WEST_SIM_ROOT/binbounds.log"
             Path to output bin boundaries.
+        strict_Z : bool, default: False
+            Whether to put the most bottleneck-like segments (but not technically a bottleneck, i.e, Z < 0)
+            into bottleneck bins or not.
+
         """
         # Verifying parameters
         if nbins is None:
@@ -78,6 +82,7 @@ class MABBinMapper(FuncBinMapper):
             mab_log=mab_log,
             bin_log=bin_log,
             bin_log_path=bin_log_path,
+            strict_Z=strict_Z,
         )
 
         n_total_bins = self.determine_total_bins(**kwargs)
@@ -110,6 +115,7 @@ class MABBinMapper(FuncBinMapper):
         -------
         n_total_bins : int
             Number of total bins.
+
         """
         # Update nbins_per_dim with any skipped dimensions, setting number of bins along skipped dimensions to 1
         skip = np.array([bool(s) for s in skip])
@@ -158,8 +164,8 @@ def map_mab(coords: np.ndarray, mask: np.ndarray, output: np.ndarray[index_dtype
     ------
     output : np.ndarray[index_dtype]
         Array with bin assignments for each segment.
-    """
 
+    """
     # Argument Processing
     nbins_per_dim = kwargs.get("nbins_per_dim")
     ndim = len(nbins_per_dim)
@@ -169,6 +175,7 @@ def map_mab(coords: np.ndarray, mask: np.ndarray, output: np.ndarray[index_dtype
     skip = kwargs.get("skip", [0] * ndim)
     mab_log = kwargs.get("mab_log", False)
     bin_log = kwargs.get("bin_log", False)
+    strict_Z = kwargs.get('strict_Z', False)
     bin_log_path = kwargs.get("bin_log_path", "$WEST_SIM_ROOT/binbounds.log")
 
     if not np.any(mask):
@@ -185,7 +192,7 @@ def map_mab(coords: np.ndarray, mask: np.ndarray, output: np.ndarray[index_dtype
     splitting = False
     report = False
 
-    # the segments should be sent in by the driver as half initial segments and half final segments
+    # The segments should be sent in by the driver as half initial segments and half final segments
     # allcoords contains all segments
     # coords should contain ONLY final segments
     if coords.shape[1] > ndim:
@@ -212,7 +219,7 @@ def map_mab(coords: np.ndarray, mask: np.ndarray, output: np.ndarray[index_dtype
 
     # Computing special bins (bottleneck and boundary bins)
     minlist, maxlist, bottlenecks_forward, bottlenecks_reverse = calculate_bin_boundaries(
-        originalcoords, weights, mask, skip, splitting, bottleneck
+        originalcoords, weights, mask, skip, splitting, bottleneck, strict_Z
     )
 
     if mab_log and report:
@@ -247,6 +254,7 @@ def map_mab(coords: np.ndarray, mask: np.ndarray, output: np.ndarray[index_dtype
             n_bottleneck_filled,
             bottlenecks_forward,
             bottlenecks_reverse,
+            strict_Z,
         )
 
     return output
@@ -262,7 +270,7 @@ def apply_pca(coords, weights):
     return np.dot(varcoords, eigvec)
 
 
-def calculate_bin_boundaries(coords, weights, mask, skip, splitting, bottleneck):
+def calculate_bin_boundaries(coords, weights, mask, skip, splitting, bottleneck, strict_Z):
     """
     This function calculates minima, maxima, and bottleneck segments.
     """
@@ -287,13 +295,13 @@ def calculate_bin_boundaries(coords, weights, mask, skip, splitting, bottleneck)
     for n in range(len(coords[0])):
         if splitting and bottleneck and not skip[n]:
             bottlenecks_forward[n], bottlenecks_reverse[n] = detect_bottlenecks(
-                unmasked_coords, unmasked_weights, n_coords, n, bottleneck
+                unmasked_coords, unmasked_weights, n_coords, n, bottleneck, strict_Z
             )
 
     return minlist, maxlist, bottlenecks_forward, bottlenecks_reverse
 
 
-def detect_bottlenecks(unmasked_coords, unmasked_weights, n_coords, n, n_bottlenecks):
+def detect_bottlenecks(unmasked_coords, unmasked_weights, n_coords, n, n_bottlenecks, strict_Z=False):
     """
     Detect the bottleneck segments along the given coordinate n, this uses the weights
     """
@@ -328,57 +336,52 @@ def detect_bottlenecks(unmasked_coords, unmasked_weights, n_coords, n, n_bottlen
     # Note a negative Z indicates the cumulative weight ahead of the current walker is larger than the weight of the current walker,
     # while a positive Z indicates the cumulative weight ahead of the current walker is smaller, indicating a barrier
     # Efficiency is better with np.argmax when looking for one bottleneck walker
-    # Return last segment
+    # Skips leading/trailing walker (because they are boundary walkers)
     if n_bottlenecks == 1:
-        # Forward direction (x -> +inf)
-        # Calculate Z for everything but last frame
+        # Forward direction (coord -> +inf)
+        # Calculate Z for everything but boundaries (first/last frame)
         Z_array = np.log(weights_srt[1:-1] / cumulative_prob)
         Zmax_idx = np.argmax(Z_array)
         Zmax_value = Z_array[Zmax_idx]
-        # Deal with last frame shenanigans
-        Z_lastframe = np.log(weights_srt[-1])
-        Zmax_idx = Zmax_idx + 1 if Zmax_value >= Z_lastframe else len(weights_srt) - 1
-        Zmax_value = Zmax_value if Zmax_value >= Z_lastframe else Z_lastframe
         # Only pick segment as bottleneck if Z > 0, else skip
         bottleneck_coords = [coords_srt[Zmax_idx, :]] if Zmax_value > 0 else []
 
-        # Do same for reverse direction (x -> -inf)
+        # Do same for reverse direction (coord -> -inf)
         Z_array = np.log(weights_srt_flip[1:-1] / cumulative_prob_flip)
         Zmax_idx = np.argmax(Z_array)
         Zmax_value = Z_array[Zmax_idx]
-        # More last frame shenanigans
-        Z_lastframe = np.log(weights_srt_flip[-1])
-        Zmax_idx = Zmax_idx + 1 if Zmax_value >= Z_lastframe else len(weights_srt_flip) - 1
-        Zmax_value = Zmax_value if Zmax_value >= Z_lastframe else Z_lastframe
         # Only pick segment as bottleneck if Z > 0, else skip
         bottleneck_coords_flip = [coords_srt_flip[Zmax_idx, :]] if Zmax_value > 0 else []
     elif n_bottlenecks > 1:
-        # Building a heap to query the n-largest weight in the reverse direction.
+        # Stable sort (secondary index by weight) to query the n-largest weight in the forward direction.
         # Tries to get as many unique bins as possible, up to requested (n_botlenecks).
-        sorted_Z = np.empty((len(weights_srt[1:])), dtype=weight_dtype)
-        sorted_Z[:-1] = np.log(weights_srt[1:-1] / cumulative_prob).sort(kind='stable', reverse=True)
-        sorted_Z[-1] = np.log(weights_srt[-1])
-        bottleneck_coords = set([coords_srt[idx + 1] for idx, Z in enumerate(sorted_Z[:n_bottlenecks]) if Z > 0])
+        Z = np.log(weights_srt[1:-1] / cumulative_prob)
+        sorted_Z_idx = np.argsort(Z, kind='stable')[::-1]  # Descending order, descending=True only added in numpy >= 2.5.0
+        sorted_Z = Z[sorted_Z_idx]
+        bottleneck_coords = set(
+            [tuple(coords_srt[sorted_Z_idx[idx] + 1]) for idx, Z in enumerate(sorted_Z[:n_bottlenecks]) if strict_Z and Z > 0]
+        )
         for bn_idx in range(n_bottlenecks, len(cumulative_prob)):
             if len(bottleneck_coords) == n_bottlenecks or sorted_Z[bn_idx] < 0:
-                # Stop search if we got enough unique bottleneck coords or if we ran out of coords with Z > 0
                 break
-            if sorted_Z[bn_idx + 1] > 0:
-                # Add next value if satisfies conditions
-                # Will automatically break out cleanly because of length differences
-                # len(cumulative_prob) + 2 == len(sorted_Z) + 1 == len(coords_srt) == len(weights_srt)
-                bottleneck_coords.add(coords_srt[bn_idx + 2])
+            elif not strict_Z or sorted_Z[bn_idx + 1] > 0:
+                # Will break out cleanly even if running through the for loop through completion because of the following correspondance
+                # len(cumulative_prob) + 2 == len(sorted_Z) + 2 == len(coords_srt) == len(weights_srt)
+                # cumulative_prob[i] <=> sorted_Z[i] <==> coords_srt[i+1] <==> weights_srt[i+1]
+                bottleneck_coords.add(tuple(coords_srt[sorted_Z_idx[bn_idx + 1] + 1]))
 
         # Doing the same for the opposite direction
-        sorted_Z = np.empty((len(weights_srt_flip[1:])), dtype=weight_dtype)
-        sorted_Z[:-1] = np.log(weights_srt_flip[1:-1] / cumulative_prob_flip).sort(kind='stable', reverse=True)
-        sorted_Z[-1] = np.log(weights_srt_flip[-1])
-        bottleneck_coords_flip = set([tuple(coords_srt_flip[idx + 1]) for idx, Z in enumerate(sorted_Z[:n_bottlenecks]) if Z > 0])
+        Z = np.log(weights_srt_flip[1:-1] / cumulative_prob_flip)
+        sorted_Z_idx = np.argsort(Z, kind='stable')[::-1]
+        sorted_Z = Z[sorted_Z_idx]
+        bottleneck_coords_flip = set(
+            [tuple(coords_srt_flip[sorted_Z_idx[idx] + 1]) for idx, Z in enumerate(sorted_Z[:n_bottlenecks]) if strict_Z and Z > 0]
+        )
         for bn_idx in range(n_bottlenecks, len(cumulative_prob_flip)):
             if len(bottleneck_coords_flip) == n_bottlenecks or sorted_Z[bn_idx] < 0:
                 break
-            if sorted_Z[bn_idx + 1] > 0:
-                bottleneck_coords_flip.add(coords_srt_flip[bn_idx + 2])
+            elif not strict_Z or sorted_Z[sorted_Z_idx[bn_idx] + 1] > 0:
+                bottleneck_coords_flip.add(tuple(coords_srt_flip[sorted_Z_idx[bn_idx + 1] + 1]))
 
     # Return sorted version, small to large because sets were unordered
     return sorted(bottleneck_coords), sorted(bottleneck_coords_flip)
@@ -505,7 +508,7 @@ def bin_assignment(
                     special = True
                     break
 
-        # Output is the main array that, for each segment, holds the bin assignment
+        # output is the main array that, for each segment, holds the bin assignment
         # Only rewrite if the bin_id actually changed (bin_id >= 0) and in a special bin.
         if special and bin_id >= 0:
             output[i] = bin_id
@@ -524,6 +527,7 @@ def log_bin_boundaries(
     n_bottleneck_filled,
     bottlenecks_forward,
     bottlenecks_reverse,
+    strict_Z,
 ):
     ndim = len(nbins_per_dim)
     skip = np.array([bool(s) for s in skip])
@@ -541,7 +545,7 @@ def log_bin_boundaries(
         bb_file.write(f'Leading pcoord in each dimension: {maxlist}\n')
         # Bottlenecks bins exist
         if bottleneck:
-            bb_file.write(f'Number of bottleneck bins filled: {n_bottleneck_filled} / {max_bottleneck}\n')
+            bb_file.write(f'Number of {strict_Z=} bottleneck bins filled: {n_bottleneck_filled} / {max_bottleneck}\n')
             for n in active_dims:
                 if direction[n] in [0, 1, 86]:
                     bb_file.write(f'Dimension {n} forward bottleneck walker at: {[bottlenecks_forward[n]]}\n')
