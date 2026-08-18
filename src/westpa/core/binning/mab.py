@@ -9,6 +9,13 @@ import westpa
 from westpa.core.binning import FuncBinMapper
 from westpa.core.binning.assign import index_dtype, rectilinear_assign_python
 
+try:
+    # Available Python 3.14+
+    from heapq import heapify_max as heapify_zip
+except ImportError:
+    from heapq import heapify as heapify_zip
+
+
 log = logging.getLogger(__name__)
 
 
@@ -298,14 +305,15 @@ def detect_bottlenecks(unmasked_coords, unmasked_weights, n_coords, n, n_bottlen
     Detect the bottleneck segments along the given coordinate n, this uses the weights
     """
     # Grabbing all unmasked coords in current dimension, plus corresponding weights
-    # Sort by current dimension in coord, smallest to largest
-    sorted_indices = unmasked_coords[:, n].argsort(kind='stable')
+    # Sort by current dimension in coord, smallest to largest, then by weights
+    sorted_indices = np.lexsort(unmasked_weights, unmasked_coords[:, n])
 
     # Grab sorted coords and weights
     coords_srt = unmasked_coords[sorted_indices, :]
     weights_srt = unmasked_weights[sorted_indices]
 
     # Short circuit out and return empty lists if only 2 or less segments
+    # Those will be considered by the leading/trailing walkers
     if len(weights_srt) < 3:
         return [], []
 
@@ -321,12 +329,13 @@ def detect_bottlenecks(unmasked_coords, unmasked_weights, n_coords, n, n_bottlen
     cumulative_prob = np.flipud(np.cumsum(weights_srt_flip[:-2]))
     cumulative_prob_flip = np.flipud(np.cumsum(weights_srt[:-2]))
 
-    # Calculating the bottlneck walker based on difference of log cumulative weight of current walker (Z in the MAB paper)
+    # Calculating the bottlneck walker based on difference of log weight of current walker
+    # and cumulative weight of everything ahead (Z in the MAB paper).
     # We use the log as weights vary over many orders of magnitude and using log rules to calculate it.
     # Note a negative Z indicates the cumulative weight ahead of the current walker is larger than the weight of the current walker,
     # while a positive Z indicates the cumulative weight ahead of the current walker is smaller, indicating a barrier
-    # Only pick segment as bottleneck if Z > 0
-    # Efficiency is faster with np.argmax when looking for one bottleneck walker
+    # Only pick segments as bottleneck if Z > 0
+    # Efficiency is better with np.argmax when looking for one bottleneck walker
     if n_bottlenecks == 1:
         Z_array = np.log(weights_srt[1:-1] / cumulative_prob)
         Zmax_idx = np.argmax(Z_array)
@@ -336,17 +345,32 @@ def detect_bottlenecks(unmasked_coords, unmasked_weights, n_coords, n, n_bottlen
         Zmax_idx_flip = np.argmax(Z_array_flip)
         bottleneck_coords_flip = [coords_srt_flip[Zmax_idx_flip + 1, :]] if Z_array_flip[Zmax_idx] > 0 else []
     elif n_bottlenecks > 1:
-        output = heapq.nlargest(
-            n_bottlenecks, zip(np.log(weights_srt[1:-1] / cumulative_prob), coords_srt[1:-1]), key=lambda x: x[0]
-        )
-        bottleneck_coords = [coord for Z, coord in output if Z > 0]
+        # Building a heap to query the n-largest weight in the reverse direction.
+        # Tries to get as many unique bins as possible, up to requested (n_botlenecks).
+        bn_idx = int(n_bottlenecks)
+        heap = heapify_zip(zip(np.log(weights_srt[1:-1] / cumulative_prob), coords_srt[1:-1]))
+        while bn_idx < len(cumulative_prob):
+            output = heapq.nlargest(bn_idx, heap, key=lambda x: x[0])
+            bottleneck_coords = set([coord for Z, coord in output if Z > 0])
+            if len(bottleneck_coords) == n_bottlenecks or output[-1][0] <= 0:
+                # Stop search if we got enough unique bottleneck coords or if we ran out of coords with Z > 0
+                break
+            else:
+                # Redo by asking for one more value
+                bn_idx += 1
 
-        output = heapq.nlargest(
-            n_bottlenecks, zip(np.log(weights_srt_flip[1:-1] / cumulative_prob_flip), coords_srt_flip[1:-1]), key=lambda x: x[0]
-        )
-        bottleneck_coords_flip = [coord for Z, coord in output if Z > 0]
+        # Doing the same for the opposite direction
+        bn_idx = int(n_bottlenecks)
+        heap = heapify_zip(zip(np.log(weights_srt_flip[1:-1] / cumulative_prob_flip), coords_srt_flip[1:-1]))
+        while bn_idx < len(cumulative_prob_flip):
+            output = heapq.nlargest(bn_idx, heap, key=lambda x: x[0])
+            bottleneck_coords_flip = set([coord for Z, coord in output if Z > 0])
+            if len(bottleneck_coords_flip) == n_bottlenecks or output[-1][0] <= 0:
+                break
+            else:
+                bn_idx += 1
 
-    return bottleneck_coords, bottleneck_coords_flip
+    return sorted(bottleneck_coords), sorted(bottleneck_coords_flip)
 
 
 def log_mab_stats(minlist, maxlist, direction, skip):
