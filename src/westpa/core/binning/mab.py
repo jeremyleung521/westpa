@@ -1,4 +1,3 @@
-import heapq
 import logging
 from os.path import expandvars
 from typing import List, Optional
@@ -8,13 +7,7 @@ import numpy as np
 import westpa
 from westpa.core.binning import FuncBinMapper
 from westpa.core.binning.assign import index_dtype, rectilinear_assign_python
-
-try:
-    # Available Python 3.14+
-    from heapq import heapify_max as heapify_zip
-except ImportError:
-    from heapq import heapify as heapify_zip
-
+from westpa.core.data_manager import weight_dtype
 
 log = logging.getLogger(__name__)
 
@@ -334,42 +327,60 @@ def detect_bottlenecks(unmasked_coords, unmasked_weights, n_coords, n, n_bottlen
     # We use the log as weights vary over many orders of magnitude and using log rules to calculate it.
     # Note a negative Z indicates the cumulative weight ahead of the current walker is larger than the weight of the current walker,
     # while a positive Z indicates the cumulative weight ahead of the current walker is smaller, indicating a barrier
-    # Only pick segments as bottleneck if Z > 0
     # Efficiency is better with np.argmax when looking for one bottleneck walker
+    # Return last segment
     if n_bottlenecks == 1:
+        # Forward direction (x -> +inf)
+        # Calculate Z for everything but last frame
         Z_array = np.log(weights_srt[1:-1] / cumulative_prob)
         Zmax_idx = np.argmax(Z_array)
-        bottleneck_coords = [coords_srt[Zmax_idx + 1, :]] if Z_array[Zmax_idx] > 0 else []
+        Zmax_value = Z_array[Zmax_idx]
+        # Deal with last frame shenanigans
+        Z_lastframe = np.log(weights_srt[-1])
+        Zmax_idx = Zmax_idx + 1 if Zmax_value >= Z_lastframe else len(weights_srt) - 1
+        Zmax_value = Zmax_value if Zmax_value >= Z_lastframe else Z_lastframe
+        # Only pick segment as bottleneck if Z > 0, else skip
+        bottleneck_coords = [coords_srt[Zmax_idx, :]] if Zmax_value > 0 else []
 
-        Z_array_flip = np.log(weights_srt_flip[1:-1] / cumulative_prob_flip)
-        Zmax_idx_flip = np.argmax(Z_array_flip)
-        bottleneck_coords_flip = [coords_srt_flip[Zmax_idx_flip + 1, :]] if Z_array_flip[Zmax_idx] > 0 else []
+        # Do same for reverse direction (x -> -inf)
+        Z_array = np.log(weights_srt_flip[1:-1] / cumulative_prob_flip)
+        Zmax_idx = np.argmax(Z_array)
+        Zmax_value = Z_array[Zmax_idx]
+        # More last frame shenanigans
+        Z_lastframe = np.log(weights_srt_flip[-1])
+        Zmax_idx = Zmax_idx + 1 if Zmax_value >= Z_lastframe else len(weights_srt_flip) - 1
+        Zmax_value = Zmax_value if Zmax_value >= Z_lastframe else Z_lastframe
+        # Only pick segment as bottleneck if Z > 0, else skip
+        bottleneck_coords_flip = [coords_srt_flip[Zmax_idx, :]] if Zmax_value > 0 else []
     elif n_bottlenecks > 1:
         # Building a heap to query the n-largest weight in the reverse direction.
         # Tries to get as many unique bins as possible, up to requested (n_botlenecks).
-        bn_idx = int(n_bottlenecks)
-        heap = heapify_zip(zip(np.log(weights_srt[1:-1] / cumulative_prob), coords_srt[1:-1]))
-        while bn_idx < len(cumulative_prob):
-            output = heapq.nlargest(bn_idx, heap, key=lambda x: x[0])
-            bottleneck_coords = set([coord for Z, coord in output if Z > 0])
-            if len(bottleneck_coords) == n_bottlenecks or output[-1][0] <= 0:
+        sorted_Z = np.empty((len(weights_srt[1:])), dtype=weight_dtype)
+        sorted_Z[:-1] = np.log(weights_srt[1:-1] / cumulative_prob).sort(kind='stable', reverse=True)
+        sorted_Z[-1] = np.log(weights_srt[-1])
+        bottleneck_coords = set([coords_srt[idx + 1] for idx, Z in enumerate(sorted_Z[:n_bottlenecks]) if Z > 0])
+        for bn_idx in range(n_bottlenecks, len(cumulative_prob)):
+            if len(bottleneck_coords) == n_bottlenecks or sorted_Z[bn_idx] < 0:
                 # Stop search if we got enough unique bottleneck coords or if we ran out of coords with Z > 0
                 break
-            else:
-                # Redo by asking for one more value
-                bn_idx += 1
+            if sorted_Z[bn_idx + 1] > 0:
+                # Add next value if satisfies conditions
+                # Will automatically break out cleanly because of length differences
+                # len(cumulative_prob) + 2 == len(sorted_Z) + 1 == len(coords_srt) == len(weights_srt)
+                bottleneck_coords.add(coords_srt[bn_idx + 2])
 
         # Doing the same for the opposite direction
-        bn_idx = int(n_bottlenecks)
-        heap = heapify_zip(zip(np.log(weights_srt_flip[1:-1] / cumulative_prob_flip), coords_srt_flip[1:-1]))
-        while bn_idx < len(cumulative_prob_flip):
-            output = heapq.nlargest(bn_idx, heap, key=lambda x: x[0])
-            bottleneck_coords_flip = set([coord for Z, coord in output if Z > 0])
-            if len(bottleneck_coords_flip) == n_bottlenecks or output[-1][0] <= 0:
+        sorted_Z = np.empty((len(weights_srt_flip[1:])), dtype=weight_dtype)
+        sorted_Z[:-1] = np.log(weights_srt_flip[1:-1] / cumulative_prob_flip).sort(kind='stable', reverse=True)
+        sorted_Z[-1] = np.log(weights_srt_flip[-1])
+        bottleneck_coords_flip = set([tuple(coords_srt_flip[idx + 1]) for idx, Z in enumerate(sorted_Z[:n_bottlenecks]) if Z > 0])
+        for bn_idx in range(n_bottlenecks, len(cumulative_prob_flip)):
+            if len(bottleneck_coords_flip) == n_bottlenecks or sorted_Z[bn_idx] < 0:
                 break
-            else:
-                bn_idx += 1
+            if sorted_Z[bn_idx + 1] > 0:
+                bottleneck_coords_flip.add(coords_srt_flip[bn_idx + 2])
 
+    # Return sorted version, small to large because sets were unordered
     return sorted(bottleneck_coords), sorted(bottleneck_coords_flip)
 
 
@@ -443,14 +454,20 @@ def bin_assignment(
         for i in range(ndim)
     ]
 
-    # Bin assignment loop over all walkers
+    # Assign everything in linear bins first, all at once.
+    output = rectilinear_assign_python(coords[:, :ndim], mask=mask[:], output=None, boundaries=bin_bounds)
+    # temp_output = np.empty((1, ), dtype=np.uint16)
+    # rectilinear_assign(np.asarray([coords[i, :ndim]], dtype=np.float32), mask=np.asarray([mask[i]], dtype=bool), output=temp_output, boundaries=bin_bounds, boundlens=bound_lens)
+    # [bin_id] = temp_output
+
+    # Loop through all walkers and overwrite bin id for  specials (bottleneck or leading walker)
     for i in range(len(output)):
         # Skip masked walkers, these walkers bin IDs are unchanged
         if not mask[i]:
             continue
         # Initialize bin ID and special tracker for current coord
         # The special variable indicates a boundary or bottleneck walker (not assigned to the linear space)
-        bin_id, special = 0, False
+        bin_id, special = -1, False
 
         # Searching for bottleneck bins first
         if splitting and bottleneck:
@@ -488,15 +505,10 @@ def bin_assignment(
                     special = True
                     break
 
-        # Now check for linear bin walkers
-        if not special:
-            [bin_id] = rectilinear_assign_python(coords[i, :ndim], mask=mask[i], output=None, boundaries=bin_bounds)
-            # temp_output = np.empty((1, ), dtype=np.uint16)
-            # rectilinear_assign(np.asarray([coords[i, :ndim]], dtype=np.float32), mask=np.asarray([mask[i]], dtype=bool), output=temp_output, boundaries=bin_bounds, boundlens=bound_lens)
-            # [bin_id] = temp_output
-
-        # Output is the main list that, for each segment, holds the bin assignment
-        output[i] = bin_id
+        # Output is the main array that, for each segment, holds the bin assignment
+        # Only rewrite if the bin_id actually changed (bin_id >= 0) and in a special bin.
+        if special and bin_id >= 0:
+            output[i] = bin_id
 
     return n_bottleneck_filled
 
@@ -517,7 +529,7 @@ def log_bin_boundaries(
     skip = np.array([bool(s) for s in skip])
     active_dims = np.array([n for n in range(ndim) if not skip[n]])
     max_bottleneck = np.sum([1 if direction[n] in [-1, 1] else 2 for n in active_dims]) if bottleneck else 0
-    with open(expandvars(bin_log_path), 'a') as bb_file:
+    with open(expandvars(bin_log_path), 'a') as bb_file, np.printoptions(legacy='1.25'):
         # Iteration Number
         bb_file.write(f'Iteration: {westpa.rc.sim_manager.n_iter}\n')
         bb_file.write('MAB linear bin boundaries: ')
