@@ -301,13 +301,19 @@ def calculate_bin_boundaries(coords, weights, mask, skip, splitting, bottleneck,
     return minlist, maxlist, bottlenecks_forward, bottlenecks_reverse
 
 
-def detect_bottlenecks(unmasked_coords, unmasked_weights, n_coords, n, n_bottlenecks, strict_Z=False):
+def detect_bottlenecks(unmasked_coords, unmasked_weights, n_coords, n, n_bottlenecks, strict_Z):
     """
     Detect the bottleneck segments along the given coordinate n, this uses the weights
     """
     # Grabbing all unmasked coords in current dimension, plus corresponding weights
     # Sort by current dimension in coord, smallest to largest, then by weights
-    sorted_indices = np.lexsort(unmasked_weights, unmasked_coords[:, n])
+    sorted_indices = np.lexsort(
+        (
+            unmasked_weights,
+            unmasked_coords[:, n],
+        )
+    )
+    # sorted_indices = np.lexsort((unmasked_coords[:, n],))  # same as argsort code before
 
     # Grab sorted coords and weights
     coords_srt = unmasked_coords[sorted_indices, :]
@@ -344,14 +350,14 @@ def detect_bottlenecks(unmasked_coords, unmasked_weights, n_coords, n, n_bottlen
         Zmax_idx = np.argmax(Z_array)
         Zmax_value = Z_array[Zmax_idx]
         # Only pick segment as bottleneck if Z > 0, else skip
-        bottleneck_coords = [coords_srt[Zmax_idx, :]] if Zmax_value > 0 else []
+        bottleneck_coords = [coords_srt[Zmax_idx + 1, :]] if not strict_Z or Zmax_value > 0 else []
 
         # Do same for reverse direction (coord -> -inf)
         Z_array = np.log(weights_srt_flip[1:-1] / cumulative_prob_flip)
         Zmax_idx = np.argmax(Z_array)
         Zmax_value = Z_array[Zmax_idx]
         # Only pick segment as bottleneck if Z > 0, else skip
-        bottleneck_coords_flip = [coords_srt_flip[Zmax_idx, :]] if Zmax_value > 0 else []
+        bottleneck_coords_flip = [coords_srt_flip[Zmax_idx + 1, :]] if not strict_Z or Zmax_value > 0 else []
     elif n_bottlenecks > 1:
         # Stable sort (secondary index by weight) to query the n-largest weight in the forward direction.
         # Tries to get as many unique bins as possible, up to requested (n_botlenecks).
@@ -359,7 +365,7 @@ def detect_bottlenecks(unmasked_coords, unmasked_weights, n_coords, n, n_bottlen
         sorted_Z_idx = np.argsort(Z, kind='stable')[::-1]  # Descending order, descending=True only added in numpy >= 2.5.0
         sorted_Z = Z[sorted_Z_idx]
         bottleneck_coords = set(
-            [tuple(coords_srt[sorted_Z_idx[idx] + 1]) for idx, Z in enumerate(sorted_Z[:n_bottlenecks]) if strict_Z and Z > 0]
+            [tuple(coords_srt[sorted_Z_idx[idx] + 1]) for idx, Z in enumerate(sorted_Z[:n_bottlenecks]) if not strict_Z or Z > 0]
         )
         for bn_idx in range(n_bottlenecks, len(cumulative_prob)):
             if len(bottleneck_coords) == n_bottlenecks or sorted_Z[bn_idx] < 0:
@@ -375,7 +381,11 @@ def detect_bottlenecks(unmasked_coords, unmasked_weights, n_coords, n, n_bottlen
         sorted_Z_idx = np.argsort(Z, kind='stable')[::-1]
         sorted_Z = Z[sorted_Z_idx]
         bottleneck_coords_flip = set(
-            [tuple(coords_srt_flip[sorted_Z_idx[idx] + 1]) for idx, Z in enumerate(sorted_Z[:n_bottlenecks]) if strict_Z and Z > 0]
+            [
+                tuple(coords_srt_flip[sorted_Z_idx[idx] + 1])
+                for idx, Z in enumerate(sorted_Z[:n_bottlenecks])
+                if not strict_Z or Z > 0
+            ]
         )
         for bn_idx in range(n_bottlenecks, len(cumulative_prob_flip)):
             if len(bottleneck_coords_flip) == n_bottlenecks or sorted_Z[bn_idx] < 0:
@@ -458,7 +468,7 @@ def bin_assignment(
     ]
 
     # Assign everything in linear bins first, all at once.
-    output = rectilinear_assign_python(coords[:, :ndim], mask=mask[:], output=None, boundaries=bin_bounds)
+    output[:] = rectilinear_assign_python(coords[:, :ndim], mask=mask[:], output=None, boundaries=bin_bounds)
     # temp_output = np.empty((1, ), dtype=np.uint16)
     # rectilinear_assign(np.asarray([coords[i, :ndim]], dtype=np.float32), mask=np.asarray([mask[i]], dtype=bool), output=temp_output, boundaries=bin_bounds, boundlens=bound_lens)
     # [bin_id] = temp_output

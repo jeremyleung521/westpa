@@ -568,6 +568,7 @@ class TestMABBinMapper:
             direction=direction,
             bottleneck=bottleneck,
             skip=skip,
+            strict_Z=False,
         )
         assert_array_equal(
             output[:N_total], output[N_total:], err_msg="Expected first half of bin assignments to equal second half"
@@ -605,6 +606,7 @@ class TestMABBinMapper:
             direction=direction,
             bottleneck=bottleneck,
             skip=skip,
+            strict_Z=False,
         )
         assert_array_equal(
             output[:N_total], output[N_total:], err_msg="Expected first half of bin assignments to equal second half"
@@ -644,6 +646,7 @@ class TestMABBinMapper:
             direction=direction,
             bottleneck=bottleneck,
             skip=skip,
+            strict_Z=False,
         )
         assert_array_equal(
             output[:N_total], output[N_total:], err_msg="Expected first half of bin assignments to equal second half"
@@ -701,6 +704,7 @@ class TestMABBinMapper:
                 n_bottleneck_filled=n_bottleneck_filled,
                 bottlenecks_forward=bottlenecks_forward,
                 bottlenecks_reverse=bottlenecks_reverse,
+                strict_Z=False,
             )
 
         # Correct outputs for comparison.
@@ -711,7 +715,7 @@ Leading pcoord in each dimension: [1.0, 1.0]
 '''
 
         if bottleneck:
-            template_output += f'''Number of bottleneck bins filled: {n_bottleneck_filled} / 3
+            template_output += f'''Number of strict_Z=False bottleneck bins filled: {n_bottleneck_filled} / 3
 Dimension 0 forward bottleneck walker at: [{bottlenecks_forward[0]}]
 Dimension 0 backward bottleneck walker at: [{bottlenecks_reverse[0]}]
 Dimension 1 backward bottleneck walker at: [{bottlenecks_reverse[1]}]
@@ -770,12 +774,13 @@ def output_mab_reference():
                 direction=direction,
                 bottleneck=bottleneck,
                 skip=skip,
+                strict_Z=False,
             )
 
             f.create_dataset(f'2d_grid/test_result_{i:d}', data=output)
 
             # Create a cmap with the same number of colors as the number of bins
-            cmap = plt.cm.get_cmap('tab20', int(np.max(output) + 1))
+            cmap = plt.get_cmap('tab20', int(np.max(output) + 1))
 
             # Plot the synthetic data in 2D using a scatter plot
             # Include a cbar to shown the bin assignments
@@ -841,7 +846,7 @@ def output_mab_reference():
             f.create_dataset(f'2d_gauss/test_result_{i:d}', data=output)
 
             # Create a cmap with the same number of colors as the number of bins
-            cmap = plt.cm.get_cmap('tab20', int(np.max(output) + 1))
+            cmap = plt.get_cmap('tab20', int(np.max(output) + 1))
 
             # Plot the synthetic data in 2D using a scatter plot
             # Include a cbar to shown the bin assignments
