@@ -324,17 +324,24 @@ def detect_bottlenecks(unmasked_coords, unmasked_weights, n_coords, n, n_bottlen
     if len(weights_srt) < 3:
         return [], []
 
-    # Also sort in reverse order for opposite direction
-    coords_srt_flip = np.flipud(coords_srt)
-    weights_srt_flip = np.flipud(weights_srt)
+    # Also sort in reverse order for opposite direction bottlenecks (reverse-stable), where equivalents
+    # in the first key (n-th dimension coord) are already sorted by secondary key (weights).
+    if np.__version__ >= '2.5.0':
+        flip_indices = np.argsort(coords_srt[:, n], descending=True)
+    else:
+        # Verified solution from https://stackoverflow.com/a/64243103
+        flip_indices = (len(coords_srt) - 1) - np.argsort(coords_srt[::-1, n], kind='stable')[::-1]
+    coords_srt_flip = coords_srt[flip_indices]
+    weights_srt_flip = weights_srt[flip_indices]
 
     # Initialize the max directional differences along current dimension as None (these may not be updated)
     bottleneck_coords, bottleneck_coords_flip = None, None
 
     # Summing up weights of all walkers ahead of current walker along current dim in both directions
     # Starting from 2 because we don't care about what is ahead of the boundary walker.
-    cumulative_prob = np.flipud(np.cumsum(weights_srt_flip[:-2]))
-    cumulative_prob_flip = np.flipud(np.cumsum(weights_srt[:-2]))
+    # Cumsum of the opposite direction starting from the third point, then reversing it.
+    cumulative_prob = np.cumsum(weights_srt[2:][::-1])[::-1]
+    cumulative_prob_flip = np.cumsum(weights_srt_flip[2:][::-1])[::-1]
 
     # Calculating the bottlneck walker based on difference of log weight of current walker
     # and cumulative weight of everything ahead (Z in the MAB paper).
@@ -469,8 +476,7 @@ def bin_assignment(
 
     # Assign everything in linear bins first, all at once.
     output[:] = rectilinear_assign_python(coords[:, :ndim], mask=mask[:], output=None, boundaries=bin_bounds)
-    # temp_output = np.empty((1, ), dtype=np.uint16)
-    # rectilinear_assign(np.asarray([coords[i, :ndim]], dtype=np.float32), mask=np.asarray([mask[i]], dtype=bool), output=temp_output, boundaries=bin_bounds, boundlens=bound_lens)
+    # rectilinear_assign(np.asarray([coords[i, :ndim]], dtype=np.float32), mask=np.asarray([mask[i]], dtype=bool), output=output, boundaries=bin_bounds, boundlens=bound_lens)
     # [bin_id] = temp_output
 
     # Loop through all walkers and overwrite bin id for  specials (bottleneck or leading walker)
