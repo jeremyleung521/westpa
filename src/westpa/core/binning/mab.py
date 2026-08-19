@@ -326,11 +326,8 @@ def detect_bottlenecks(unmasked_coords, unmasked_weights, n_coords, n, n_bottlen
 
     # Also sort in reverse order for opposite direction bottlenecks (reverse-stable), where equivalents
     # in the first key (n-th dimension coord) are already sorted by secondary key (weights).
-    if np.__version__ >= '2.5.0':
-        flip_indices = np.argsort(coords_srt[:, n], descending=True)
-    else:
-        # Verified solution from https://stackoverflow.com/a/64243103
-        flip_indices = (len(coords_srt) - 1) - np.argsort(coords_srt[::-1, n], kind='stable')[::-1]
+    # Verified solution from https://stackoverflow.com/a/64243103
+    flip_indices = (len(coords_srt) - 1) - np.argsort(coords_srt[::-1, n], kind='stable')[::-1]
     coords_srt_flip = coords_srt[flip_indices]
     weights_srt_flip = weights_srt[flip_indices]
 
