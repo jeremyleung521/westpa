@@ -219,7 +219,7 @@ def map_mab(coords: np.ndarray, mask: np.ndarray, output: np.ndarray[index_dtype
 
     # Computing special bins (bottleneck and boundary bins)
     minlist, maxlist, bottlenecks_forward, bottlenecks_reverse = calculate_bin_boundaries(
-        originalcoords, weights, mask, skip, splitting, bottleneck, strict_Z
+        originalcoords, weights, mask, skip, splitting, bottleneck, strict_Z, direction
     )
 
     if mab_log and report:
@@ -270,7 +270,7 @@ def apply_pca(coords, weights):
     return np.dot(varcoords, eigvec)
 
 
-def calculate_bin_boundaries(coords, weights, mask, skip, splitting, bottleneck, strict_Z):
+def calculate_bin_boundaries(coords, weights, mask, skip, splitting, bottleneck, strict_Z, direction):
     """
     This function calculates minima, maxima, and bottleneck segments.
     """
@@ -295,13 +295,13 @@ def calculate_bin_boundaries(coords, weights, mask, skip, splitting, bottleneck,
     for n in range(len(coords[0])):
         if splitting and bottleneck and not skip[n]:
             bottlenecks_forward[n], bottlenecks_reverse[n] = detect_bottlenecks(
-                unmasked_coords, unmasked_weights, n_coords, n, bottleneck, strict_Z
+                unmasked_coords, unmasked_weights, n_coords, n, bottleneck, strict_Z, direction[n]
             )
 
     return minlist, maxlist, bottlenecks_forward, bottlenecks_reverse
 
 
-def detect_bottlenecks(unmasked_coords, unmasked_weights, n_coords, n, n_bottlenecks, strict_Z):
+def detect_bottlenecks(unmasked_coords, unmasked_weights, n_coords, n, n_bottlenecks, strict_Z, direction):
     """
     Detect the bottleneck segments along the given coordinate n, this uses the weights
     """
@@ -319,9 +319,9 @@ def detect_bottlenecks(unmasked_coords, unmasked_weights, n_coords, n, n_bottlen
     coords_srt = unmasked_coords[sorted_indices, :]
     weights_srt = unmasked_weights[sorted_indices]
 
-    # Short circuit out and return empty lists if only 2 or less segments
+    # Short circuit out and return empty lists if only 1 or less segments
     # Those will be considered by the leading/trailing walkers
-    if len(weights_srt) < 3:
+    if len(weights_srt) < 2:
         return [], []
 
     # Also sort in reverse order for opposite direction bottlenecks (reverse-stable), where equivalents
@@ -335,10 +335,10 @@ def detect_bottlenecks(unmasked_coords, unmasked_weights, n_coords, n, n_bottlen
     bottleneck_coords, bottleneck_coords_flip = None, None
 
     # Summing up weights of all walkers ahead of current walker along current dim in both directions
-    # Starting from 2 because we don't care about what is ahead of the boundary walker.
-    # Cumsum of the opposite direction starting from the third point, then reversing it.
-    cumulative_prob = np.cumsum(weights_srt[2:][::-1])[::-1]
-    cumulative_prob_flip = np.cumsum(weights_srt_flip[2:][::-1])[::-1]
+    # Starting from 1 by default because we care about what is ahead of the boundary walker (not including it).
+    # Cumsum of the opposite direction starting from the second point, then reversing it.
+    cumulative_prob = np.cumsum(weights_srt[1:][::-1])[::-1]
+    cumulative_prob_flip = np.cumsum(weights_srt_flip[1:][::-1])[::-1]
 
     # Calculating the bottlneck walker based on difference of log weight of current walker
     # and cumulative weight of everything ahead (Z in the MAB paper).
@@ -349,53 +349,88 @@ def detect_bottlenecks(unmasked_coords, unmasked_weights, n_coords, n, n_bottlen
     # Skips leading/trailing walker (because they are boundary walkers)
     if n_bottlenecks == 1:
         # Forward direction (coord -> +inf)
-        # Calculate Z for everything but boundaries (first/last frame)
-        Z_array = np.log(weights_srt[1:-1] / cumulative_prob)
+        # Calculate Z
+        Z_array = np.log(weights_srt[:-1] / cumulative_prob)
         Zmax_idx = np.argmax(Z_array)
         Zmax_value = Z_array[Zmax_idx]
-        # Only pick segment as bottleneck if Z > 0, else skip
-        bottleneck_coords = [coords_srt[Zmax_idx + 1, :]] if not strict_Z or Zmax_value > 0 else []
+        # Include the last frame if we don't have a leading bin
+        if direction in (-1, 86):
+            final_frame_Z = -np.log(weights_srt[-1])
+            if final_frame_Z > Zmax_value:
+                Zmax_idx = -1
+                Zmax_value = final_frame_Z
+        # If strict_Z, only pick segment as bottleneck if Z > 0 or skip, otherwise pass most bottleneck-like
+        bottleneck_coords = [coords_srt[Zmax_idx, :]] if not strict_Z or Zmax_value > 0 else []
 
         # Do same for reverse direction (coord -> -inf)
-        Z_array = np.log(weights_srt_flip[1:-1] / cumulative_prob_flip)
+        Z_array = np.log(weights_srt_flip[:-1] / cumulative_prob_flip)
         Zmax_idx = np.argmax(Z_array)
         Zmax_value = Z_array[Zmax_idx]
-        # Only pick segment as bottleneck if Z > 0, else skip
-        bottleneck_coords_flip = [coords_srt_flip[Zmax_idx + 1, :]] if not strict_Z or Zmax_value > 0 else []
+        # Include last frame if we don't have a trailing bin
+        if direction in (1, 86):
+            final_frame_Z = -np.log(weights_srt[-1])
+            if final_frame_Z > Zmax_value:
+                Zmax_idx = -1
+                Zmax_value = final_frame_Z
+        bottleneck_coords_flip = [coords_srt_flip[Zmax_idx, :]] if not strict_Z or Zmax_value > 0 else []
     elif n_bottlenecks > 1:
         # Stable sort (secondary index by weight) to query the n-largest weight in the forward direction.
         # Tries to get as many unique bins as possible, up to requested (n_botlenecks).
-        Z = np.log(weights_srt[1:-1] / cumulative_prob)
-        sorted_Z_idx = np.argsort(Z, kind='stable')[::-1]  # Descending order, descending=True only added in numpy >= 2.5.0
+        Z = np.log(weights_srt[:-1] / cumulative_prob)
+        sorted_Z_idx = np.argsort(Z, kind='stable')[::-1]
         sorted_Z = Z[sorted_Z_idx]
+
+        # Consider final point if don't have leading walker bin
+        take_n_bottlenecks = n_bottlenecks
+        if direction in (-1, 86):
+            final_frame_Z = -np.log(weights_srt[-1])
+            take_n_bottlenecks = n_bottlenecks - 1 if final_frame_Z > sorted_Z[n_bottlenecks] else n_bottlenecks
+
         bottleneck_coords = set(
-            [tuple(coords_srt[sorted_Z_idx[idx] + 1]) for idx, Z in enumerate(sorted_Z[:n_bottlenecks]) if not strict_Z or Z > 0]
+            [tuple(coords_srt[sorted_Z_idx[idx]]) for idx, Z in enumerate(sorted_Z[:take_n_bottlenecks]) if not strict_Z or Z > 0]
         )
-        for bn_idx in range(n_bottlenecks, len(cumulative_prob)):
-            if len(bottleneck_coords) == n_bottlenecks or sorted_Z[bn_idx] < 0:
+
+        # Add final point if checked previously passed
+        if take_n_bottlenecks != n_bottlenecks:
+            bottleneck_coords.add(tuple(coords_srt[-1, :]))
+
+        for bn_idx in range(take_n_bottlenecks, len(cumulative_prob)):
+            if len(bottleneck_coords) == n_bottlenecks or (strict_Z and sorted_Z[bn_idx + 1] <= 0):
+                # We have our list or no more Z > 0 left
                 break
             elif not strict_Z or sorted_Z[bn_idx + 1] > 0:
                 # Will break out cleanly even if running through the for loop through completion because of the following correspondance
-                # len(cumulative_prob) + 2 == len(sorted_Z) + 2 == len(coords_srt) == len(weights_srt)
-                # cumulative_prob[i] <=> sorted_Z[i] <==> coords_srt[i+1] <==> weights_srt[i+1]
-                bottleneck_coords.add(tuple(coords_srt[sorted_Z_idx[bn_idx + 1] + 1]))
+                # len(cumulative_prob) + 1 == len(sorted_Z) + 1 == len(coords_srt) == len(weights_srt)
+                # cumulative_prob[i] <=> sorted_Z[i] <==> coords_srt[i-1] <==> weights_srt[i-1]
+                bottleneck_coords.add(tuple(coords_srt[sorted_Z_idx[bn_idx + 1]]))
 
         # Doing the same for the opposite direction
-        Z = np.log(weights_srt_flip[1:-1] / cumulative_prob_flip)
+        Z = np.log(weights_srt_flip[:-1] / cumulative_prob_flip)
         sorted_Z_idx = np.argsort(Z, kind='stable')[::-1]
         sorted_Z = Z[sorted_Z_idx]
+
+        # Consider first point (final point in flip) if don't have trailing walker bin
+        take_n_bottlenecks = n_bottlenecks
+        if direction in (1, 86):
+            final_frame_Z = -np.log(weights_srt_flip[-1])
+            take_n_bottlenecks = n_bottlenecks - 1 if final_frame_Z > sorted_Z[n_bottlenecks] else n_bottlenecks
+
         bottleneck_coords_flip = set(
             [
                 tuple(coords_srt_flip[sorted_Z_idx[idx] + 1])
-                for idx, Z in enumerate(sorted_Z[:n_bottlenecks])
+                for idx, Z in enumerate(sorted_Z[:take_n_bottlenecks])
                 if not strict_Z or Z > 0
             ]
         )
-        for bn_idx in range(n_bottlenecks, len(cumulative_prob_flip)):
-            if len(bottleneck_coords_flip) == n_bottlenecks or sorted_Z[bn_idx] < 0:
+
+        if take_n_bottlenecks != n_bottlenecks:
+            bottleneck_coords_flip.add(tuple(coords_srt_flip[-1, :]))
+
+        for bn_idx in range(take_n_bottlenecks, len(cumulative_prob_flip)):
+            if len(bottleneck_coords_flip) == n_bottlenecks or (strict_Z and sorted_Z[bn_idx + 1] <= 0):
                 break
-            elif not strict_Z or sorted_Z[sorted_Z_idx[bn_idx] + 1] > 0:
-                bottleneck_coords_flip.add(tuple(coords_srt_flip[sorted_Z_idx[bn_idx + 1] + 1]))
+            elif not strict_Z or sorted_Z[sorted_Z_idx[bn_idx + 1]] > 0:
+                bottleneck_coords_flip.add(tuple(coords_srt_flip[sorted_Z_idx[bn_idx + 1]]))
 
     # Return sorted version, small to large because sets were unordered
     return sorted(bottleneck_coords), sorted(bottleneck_coords_flip)
