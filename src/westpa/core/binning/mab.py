@@ -28,7 +28,7 @@ class MABBinMapper(FuncBinMapper):
         mab_log: bool = False,
         bin_log: bool = False,
         bin_log_path: str = "$WEST_SIM_ROOT/binbounds.log",
-        strict_Z: bool = False,
+        strict_Z: bool = True,
     ):
         """
         Parameters
@@ -53,8 +53,8 @@ class MABBinMapper(FuncBinMapper):
             Whether to output MAB bin boundaries to a log file.
         bin_log_path : str, default: "$WEST_SIM_ROOT/binbounds.log"
             Path to output bin boundaries.
-        strict_Z : bool, default: False
-            Whether to put the most bottleneck-like segments (but not technically a bottleneck, i.e, Z < 0)
+        strict_Z : bool, default: True
+            Whether to put bottleneck-like segments (highest Z value but not technically a bottleneck, i.e, Z < 0)
             into bottleneck bins or not.
 
         """
@@ -175,7 +175,7 @@ def map_mab(coords: np.ndarray, mask: np.ndarray, output: np.ndarray[index_dtype
     skip = kwargs.get("skip", [0] * ndim)
     mab_log = kwargs.get("mab_log", False)
     bin_log = kwargs.get("bin_log", False)
-    strict_Z = kwargs.get('strict_Z', False)
+    strict_Z = kwargs.get('strict_Z', True)
     bin_log_path = kwargs.get("bin_log_path", "$WEST_SIM_ROOT/binbounds.log")
 
     if not np.any(mask):
