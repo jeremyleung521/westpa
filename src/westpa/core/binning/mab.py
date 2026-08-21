@@ -219,7 +219,7 @@ def map_mab(coords: np.ndarray, mask: np.ndarray, output: np.ndarray[index_dtype
 
     # Computing special bins (bottleneck and boundary bins)
     minlist, maxlist, bottlenecks_forward, bottlenecks_reverse = calculate_bin_boundaries(
-        originalcoords, weights, mask, skip, splitting, bottleneck, strict_Z, direction
+        originalcoords, weights, mask, skip, splitting, bottleneck, strict_Z
     )
 
     if mab_log and report:
@@ -270,7 +270,7 @@ def apply_pca(coords, weights):
     return np.dot(varcoords, eigvec)
 
 
-def calculate_bin_boundaries(coords, weights, mask, skip, splitting, bottleneck, strict_Z, direction):
+def calculate_bin_boundaries(coords, weights, mask, skip, splitting, bottleneck, strict_Z):
     """
     This function calculates minima, maxima, and bottleneck segments.
     """
@@ -295,13 +295,13 @@ def calculate_bin_boundaries(coords, weights, mask, skip, splitting, bottleneck,
     for n in range(len(coords[0])):
         if splitting and bottleneck and not skip[n]:
             bottlenecks_forward[n], bottlenecks_reverse[n] = detect_bottlenecks(
-                unmasked_coords, unmasked_weights, n_coords, n, bottleneck, strict_Z, direction[n]
+                unmasked_coords, unmasked_weights, n_coords, n, bottleneck, strict_Z
             )
 
     return minlist, maxlist, bottlenecks_forward, bottlenecks_reverse
 
 
-def detect_bottlenecks(unmasked_coords, unmasked_weights, n_coords, n, n_bottlenecks, strict_Z, direction):
+def detect_bottlenecks(unmasked_coords, unmasked_weights, n_coords, n, n_bottlenecks, strict_Z):
     """
     Detect the bottleneck segments along the given coordinate n, this uses the weights
     """

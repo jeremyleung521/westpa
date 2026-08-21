@@ -817,6 +817,7 @@ def output_mab_reference():
                 direction=direction,
                 bottleneck=bottleneck,
                 skip=skip,
+                strict_Z=False,
             )
 
             f.create_dataset(f'3d_grid/test_result_{i:d}', data=output)
@@ -841,6 +842,7 @@ def output_mab_reference():
                 direction=direction,
                 bottleneck=bottleneck,
                 skip=skip,
+                strict_Z=False,
             )
 
             f.create_dataset(f'2d_gauss/test_result_{i:d}', data=output)
