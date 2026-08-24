@@ -226,9 +226,9 @@ def map_mab(coords: np.ndarray, mask: np.ndarray, output: np.ndarray[index_dtype
         log_mab_stats(minlist, maxlist, direction, skip)
 
     # Assign segments to bins
-    n_bottleneck_filled = bin_assignment(
+    output, n_bottleneck_filled = bin_assignment(
         allcoords,
-        allmask,
+        isfinal,
         minlist,
         maxlist,
         bottlenecks_forward,
@@ -288,8 +288,8 @@ def calculate_bin_boundaries(coords, weights, mask, skip, splitting, bottleneck,
         unmasked_weights[unmasked_weights == 0] = 10**-323
 
     # We calculate the min and max pcoord along each dimension (boundary segments) even if skipping
-    maxlist = np.max(coords[mask, :], axis=0)
-    minlist = np.min(coords[mask, :], axis=0)
+    maxlist = np.max(unmasked_coords, axis=0)
+    minlist = np.min(unmasked_coords, axis=0)
 
     # Looping over each dimension of progress coordinate to calculate bottleneck
     for n in range(len(coords[0])):
@@ -465,22 +465,23 @@ def bin_assignment(
     bneck_bin_id_offset_rev = bneck_bin_id_offset_fwd + (~skip_bneck_fwd).sum() * bottleneck
 
     # Calculate the rectilinear bin bounds ahead of time.
-    # Create a very small bin of width 0.1 if minlist[i] == maxlist[i]
+    # Create small-width bins if minlist[i] == maxlist[i]
     bin_bounds = [
         (
             np.linspace(minlist[i], maxlist[i], nbins_per_dim[i] + 1)
             if minlist[i] != maxlist[i]
-            else np.asarray([minlist[i], maxlist[i] + 0.1])
+            else np.linspace(minlist[i], maxlist[i] + 0.1, nbins_per_dim[i] + 1)
         )
         for i in range(ndim)
     ]
 
     # Assign everything in linear bins first, all at once.
-    output[:] = rectilinear_assign_python(coords[:, :ndim], mask=mask[:], output=None, boundaries=bin_bounds)
+    # If binning final coords, then we don't really care about what is being assigned to the initial coordinates.
+    output[mask] = rectilinear_assign_python(coords[:, :ndim], mask=mask, output=None, boundaries=bin_bounds)
     # rectilinear_assign(np.asarray([coords[i, :ndim]], dtype=np.float32), mask=np.asarray([mask[i]], dtype=bool), output=output, boundaries=bin_bounds, boundlens=bound_lens)
     # [bin_id] = temp_output
 
-    # Loop through all walkers and overwrite bin id for  specials (bottleneck or leading walker)
+    # Loop through all walkers and overwrite bin id for specials (bottleneck or leading walker)
     for i in range(len(output)):
         # Skip masked walkers, these walkers bin IDs are unchanged
         if not mask[i]:
@@ -530,7 +531,7 @@ def bin_assignment(
         if special and bin_id >= 0:
             output[i] = bin_id
 
-    return n_bottleneck_filled
+    return output, n_bottleneck_filled
 
 
 def log_bin_boundaries(

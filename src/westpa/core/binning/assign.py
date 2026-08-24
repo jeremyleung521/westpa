@@ -502,10 +502,10 @@ def rectilinear_assign_python(coords, mask, output, boundaries):
     for idx, ibid in enumerate(bid):
         if np.any(ibid <= 0):
             bad = np.where(ibid <= 0)[0]
-            raise ValueError('coordinate value {} is out of bin space in dimension {}'.format(coords[mask][bad, idx], idx))
+            raise ValueError('coordinate value {} is out of bin space in dimension {}'.format(coords[mask][bad, idx, None], idx))
         elif np.any(ibid >= len(boundaries[idx])):
             bad = np.where(ibid >= len(boundaries[idx]))[0]
-            raise ValueError('coordinate value {} is out of bin space in dimension {}'.format(coords[mask][bad, idx], idx))
+            raise ValueError('coordinate value {} is out of bin space in dimension {}'.format(coords[mask][bad, idx, None], idx))
 
     # Calculate the bin indices in row-major order
     for idx, ibid in enumerate(bid.T):
