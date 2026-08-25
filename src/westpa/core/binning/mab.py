@@ -191,13 +191,14 @@ def map_mab(coords: np.ndarray, mask: np.ndarray, output: np.ndarray[index_dtype
     splitting = True if report else False  # Only split when binning final
     strict = True if binbounds_determination_mask is not None else False
 
-    # Mask out everything not needed
-    # The "if" condition is a way to bypass the automatic behavior to determine the boundaries (min/max/bottleneck)
-    # with the same mask as what you want to assign.
-    if binbounds_determination_mask is not None:
-        coords = allcoords[mask, :ndim]
-        weights = allcoords[mask, ndim]
-        mask = allmask[mask]
+    # Mask out everything not needed for bin boundary determination (min/max/bottleneck).
+    # The "if" condition is a way to bypass the automatic behavior of using the same mask to both determine bin bounds + assign.
+    # The `mask` is recommended to be a subset of `binbounds_determination_mask` but guard rails are removed (when latter is provided)
+    # so points located outside of minlist/maxlist as determined by `binbounds_determination_mask` are clipped to the nearest bin.
+    if strict:
+        coords = allcoords[binbounds_determination_mask, :ndim]
+        weights = allcoords[binbounds_determination_mask, ndim] if allcoords.shape[1] >= ndim else None
+        mask = allmask[binbounds_determination_mask]
     else:
         coords = allcoords[allmask, :ndim]
         weights = allcoords[allmask, ndim] if allcoords.shape[1] >= ndim else None
