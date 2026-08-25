@@ -636,7 +636,7 @@ class TestMABBinMapper:
         '''Test MABBinMapper with 2x2 linear section on a 2D Gaussian space'''
         allcoords = self.input_mab_data['allcoords_2d_gauss']
         N_total = allcoords.shape[0] // 2
-        mask = np.full((N_total * 2), True)
+        mask = np.ones((N_total * 2), dtype=bool)
         output = np.zeros((N_total * 2), dtype=index_dtype)
         output = map_mab(
             coords=allcoords,

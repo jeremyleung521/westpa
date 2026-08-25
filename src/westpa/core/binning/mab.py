@@ -175,8 +175,8 @@ def map_mab(coords: np.ndarray, mask: np.ndarray, output: np.ndarray[index_dtype
     skip = kwargs.get("skip", [0] * ndim)
     mab_log = kwargs.get("mab_log", False)
     bin_log = kwargs.get("bin_log", False)
-    strict_Z = kwargs.get('strict_Z', True)
     bin_log_path = kwargs.get("bin_log_path", "$WEST_SIM_ROOT/binbounds.log")
+    strict_Z = kwargs.get('strict_Z', True)
 
     if not np.any(mask):
         return output
@@ -187,31 +187,12 @@ def map_mab(coords: np.ndarray, mask: np.ndarray, output: np.ndarray[index_dtype
     allcoords = coords.copy()
     allmask = mask.copy()
 
-    weights = None
-    isfinal = None
-    splitting = False
-    report = False
+    report = True if coords[-1, -1] == 1 else False  # Report only when binning final
+    splitting = True if coords[-1, -1] == 1 else False  # Only split when binning final
 
-    # The segments should be sent in by the driver as half initial segments and half final segments
-    # allcoords contains all segments
-    # coords should contain ONLY final segments
-    if coords.shape[1] > ndim:
-        if coords[0, -1] == 0:
-            report = True
-        if coords.shape[1] > ndim + 1:
-            isfinal = allcoords[:, ndim + 1].astype(bool)
-        else:
-            isfinal = np.ones(coords.shape[0], dtype=bool)
-        coords = coords[isfinal, :ndim]
-        weights = allcoords[isfinal, ndim]
-        mask = mask[isfinal]
-        splitting = True
-
-    if not np.any(mask):
-        coords = allcoords[:, :ndim]
-        mask = allmask
-        weights = None
-        splitting = False
+    # Mask out everything not needed
+    coords = coords[mask, :ndim]
+    weights = allcoords[mask, ndim] if allcoords.shape[1] > ndim else None
 
     originalcoords = np.copy(coords)
     if pca and len(output) > 1:
@@ -228,7 +209,7 @@ def map_mab(coords: np.ndarray, mask: np.ndarray, output: np.ndarray[index_dtype
     # Assign segments to bins
     output, n_bottleneck_filled = bin_assignment(
         allcoords,
-        isfinal,
+        allmask,
         minlist,
         maxlist,
         bottlenecks_forward,
@@ -297,6 +278,8 @@ def calculate_bin_boundaries(coords, weights, mask, skip, splitting, bottleneck,
             bottlenecks_forward[n], bottlenecks_reverse[n] = detect_bottlenecks(
                 unmasked_coords, unmasked_weights, n_coords, n, bottleneck, strict_Z
             )
+
+    # raise ValueError(f'{bottlenecks_forward=}, {bottlenecks_reverse=}')
 
     return minlist, maxlist, bottlenecks_forward, bottlenecks_reverse
 
@@ -477,7 +460,7 @@ def bin_assignment(
 
     # Assign everything in linear bins first, all at once.
     # If binning final coords, then we don't really care about what is being assigned to the initial coordinates.
-    output[mask] = rectilinear_assign_python(coords[:, :ndim], mask=mask, output=None, boundaries=bin_bounds)
+    output[:] = rectilinear_assign_python(coords[:, :ndim], mask=mask, output=None, boundaries=bin_bounds)
     # rectilinear_assign(np.asarray([coords[i, :ndim]], dtype=np.float32), mask=np.asarray([mask[i]], dtype=bool), output=output, boundaries=bin_bounds, boundlens=bound_lens)
     # [bin_id] = temp_output
 

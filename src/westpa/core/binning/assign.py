@@ -453,7 +453,7 @@ class RecursiveBinMapper(BinMapper):
         return output
 
 
-def rectilinear_assign_python(coords, mask, output, boundaries):
+def rectilinear_assign_python(coords, mask, output, boundaries, strict=True):
     """Bin the progress coordinate using numpy/scipy functions instead of
     customized Cython functions.
 
@@ -470,6 +470,10 @@ def rectilinear_assign_python(coords, mask, output, boundaries):
 
     boundaries : np.ndarray or ListLike of shape (n_dims, n_bin_per_dim)
         A 2D numpy array (or Listlike) consisting of the bin boundaries of each dimension.
+
+    strict : bool, default : True
+        If True, raise ValueError if any coordinates lie outside of the defined bin boundaries. Else,
+        automatically clip trajectories to the nearest bin.
 
     Returns
     -------
@@ -500,12 +504,19 @@ def rectilinear_assign_python(coords, mask, output, boundaries):
     # Clip the bin indices so any index outside of defined bins are moved
     # to nearest defined bin
     for idx, ibid in enumerate(bid):
-        if np.any(ibid <= 0):
-            bad = np.where(ibid <= 0)[0]
-            raise ValueError('coordinate value {} is out of bin space in dimension {}'.format(coords[mask][bad, idx, None], idx))
-        elif np.any(ibid >= len(boundaries[idx])):
-            bad = np.where(ibid >= len(boundaries[idx]))[0]
-            raise ValueError('coordinate value {} is out of bin space in dimension {}'.format(coords[mask][bad, idx, None], idx))
+        if np.any(ibid <= 0) or np.any(ibid >= len(boundaries[idx])):
+            bad = np.hstack((np.where(ibid <= 0)[0], np.where(ibid >= len(boundaries[idx]))[0]))
+            if strict:
+                raise ValueError(
+                    'coordinate value {} is out of bin space in dimension {}'.format(coords[mask][bad, idx, None], idx)
+                )
+            else:
+                bid[idx] = np.clip(ibid, 1, len(boundaries[idx]))
+                log.warning(
+                    'Simulation with progress coordinate {}, which lie outside the bin space dimension {}, are clipped into the nearest terminal bin.'.format(
+                        coords[mask][bad, idx, None], idx
+                    )
+                )
 
     # Calculate the bin indices in row-major order
     for idx, ibid in enumerate(bid.T):
