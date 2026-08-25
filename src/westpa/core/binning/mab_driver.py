@@ -24,7 +24,7 @@ class MABDriver(WEDriver):
 
         # assign based on initial and final progress coordinates
         initial_assignments = self.bin_mapper.assign(initial_pcoords)
-        if initializing:
+        if initializing and np.all(final_pcoords == 0):
             final_assignments = initial_assignments
         else:
             final_assignments = self.bin_mapper.assign(final_pcoords)

@@ -187,7 +187,7 @@ def map_mab(coords: np.ndarray, mask: np.ndarray, output: np.ndarray[index_dtype
     allcoords = coords.copy()
     allmask = mask.copy()
 
-    report = True if (coords.shape[1] >= ndim + 2) and (coords[-1, -1] == 1) else False  # Report only when binning final
+    report = True if (coords[-1, -1] == 0) else False  # Report only when binning final
     splitting = True if report else False  # Only split when binning final
     strict = True if binbounds_determination_mask is not None else False
 
@@ -545,7 +545,7 @@ def log_bin_boundaries(
     ndim = len(nbins_per_dim)
     skip = np.array([bool(s) for s in skip])
     active_dims = np.array([n for n in range(ndim) if not skip[n]])
-    max_bottleneck = np.sum([1 if direction[n] in [-1, 1] else 2 for n in active_dims]) if bottleneck else 0
+    max_bottleneck = np.sum([bottleneck if direction[n] in [-1, 1] else 2 * bottleneck for n in active_dims]) if bottleneck else 0
     with open(expandvars(bin_log_path), 'a') as bb_file, np.printoptions(legacy='1.25'):
         # Iteration Number
         bb_file.write(f'Iteration: {westpa.rc.sim_manager.n_iter}\n')
