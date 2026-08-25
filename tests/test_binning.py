@@ -637,19 +637,27 @@ class TestMABBinMapper:
         allcoords = self.input_mab_data['allcoords_2d_gauss']
         N_total = allcoords.shape[0] // 2
         mask = np.full((N_total * 2), True)
+        mask[:N_total] = False
         output = np.zeros((N_total * 2), dtype=index_dtype)
-        output = map_mab(
+        output[:N_total] = map_mab(
             coords=allcoords,
             mask=mask,
-            output=output,
+            output=output[:N_total],
             nbins_per_dim=nbins_per_dim,
             direction=direction,
             bottleneck=bottleneck,
             skip=skip,
             strict_Z=False,
         )
-        assert_array_equal(
-            output[:N_total], output[N_total:], err_msg="Expected first half of bin assignments to equal second half"
+        output[N_total:] = map_mab(
+            coords=allcoords,
+            mask=~mask,
+            output=output[N_total:],
+            nbins_per_dim=nbins_per_dim,
+            direction=direction,
+            bottleneck=bottleneck,
+            skip=skip,
+            strict_Z=False,
         )
         assert_array_equal(
             output,
@@ -766,7 +774,7 @@ def output_mab_reference():
             N_total = allcoords.shape[0] // 2
             mask = np.full((N_total * 2), True)
             output = np.zeros((N_total * 2), dtype=index_dtype)
-            output = map_mab(
+            output[:] = map_mab(
                 coords=allcoords,
                 mask=mask,
                 output=output,
@@ -785,10 +793,10 @@ def output_mab_reference():
             # Plot the synthetic data in 2D using a scatter plot
             # Include a cbar to shown the bin assignments
             plt.scatter(
-                allcoords[:N_total, 0],
-                allcoords[:N_total, 1],
-                s=allcoords[:N_total, 2] * 10000,
-                c=output[:N_total],
+                allcoords[N_total:, 0],
+                allcoords[N_total:, 1],
+                s=allcoords[N_total:, 2] * 10000,
+                c=output[N_total:],
                 cmap=cmap,
                 vmin=-0.5,
                 vmax=int(np.max(output)) + 0.5,
@@ -809,7 +817,7 @@ def output_mab_reference():
             N_total = allcoords.shape[0] // 2
             mask = np.full((N_total * 2), True)
             output = np.zeros((N_total * 2), dtype=index_dtype)
-            output = map_mab(
+            output[:] = map_mab(
                 coords=allcoords,
                 mask=mask,
                 output=output,
@@ -833,11 +841,23 @@ def output_mab_reference():
             allcoords = input_data['allcoords_2d_gauss']
             N_total = allcoords.shape[0] // 2
             mask = np.full((N_total * 2), True)
+            mask[:N_total] = False
             output = np.zeros((N_total * 2), dtype=index_dtype)
-            output = map_mab(
+            output[:N_total] = map_mab(
                 coords=allcoords,
                 mask=mask,
-                output=output,
+                output=output[:N_total],
+                nbins_per_dim=nbins_per_dim,
+                direction=direction,
+                bottleneck=bottleneck,
+                skip=skip,
+                strict_Z=False,
+            )
+
+            output[N_total:] = map_mab(
+                coords=allcoords,
+                mask=~mask,
+                output=output[N_total:],
                 nbins_per_dim=nbins_per_dim,
                 direction=direction,
                 bottleneck=bottleneck,
@@ -853,10 +873,10 @@ def output_mab_reference():
             # Plot the synthetic data in 2D using a scatter plot
             # Include a cbar to shown the bin assignments
             plt.scatter(
-                allcoords[:N_total, 0],
-                allcoords[:N_total, 1],
-                s=allcoords[:N_total, 2] * 10000,
-                c=output[:N_total],
+                allcoords[N_total:, 0],
+                allcoords[N_total:, 1],
+                s=allcoords[N_total:, 2] * 10000,
+                c=output[N_total:],
                 cmap=cmap,
                 vmin=-0.5,
                 vmax=int(np.max(output)) + 0.5,

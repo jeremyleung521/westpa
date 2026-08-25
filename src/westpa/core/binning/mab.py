@@ -187,12 +187,13 @@ def map_mab(coords: np.ndarray, mask: np.ndarray, output: np.ndarray[index_dtype
     allcoords = coords.copy()
     allmask = mask.copy()
 
-    report = True if coords[-1, -1] == 1 else False  # Report only when binning final
-    splitting = True if coords[-1, -1] == 1 else False  # Only split when binning final
+    report = True if (coords.shape[1] >= ndim + 2) and (coords[-1, -1] == 1) else False  # Report only when binning final
+    splitting = True if report else False  # Only split when binning final
 
     # Mask out everything not needed
-    coords = coords[mask, :ndim]
-    weights = allcoords[mask, ndim] if allcoords.shape[1] > ndim else None
+    coords = allcoords[allmask, :ndim]
+    weights = allcoords[allmask, ndim] if allcoords.shape[1] >= ndim else None
+    mask = allmask[mask]
 
     originalcoords = np.copy(coords)
     if pca and len(output) > 1:
