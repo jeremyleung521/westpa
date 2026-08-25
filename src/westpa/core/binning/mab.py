@@ -56,7 +56,6 @@ class MABBinMapper(FuncBinMapper):
         strict_Z : bool, default: True
             Whether to put bottleneck-like segments (highest Z value but not technically a bottleneck, i.e, Z < 0)
             into bottleneck bins or not.
-
         """
         # Verifying parameters
         if nbins is None:
@@ -177,6 +176,7 @@ def map_mab(coords: np.ndarray, mask: np.ndarray, output: np.ndarray[index_dtype
     bin_log = kwargs.get("bin_log", False)
     bin_log_path = kwargs.get("bin_log_path", "$WEST_SIM_ROOT/binbounds.log")
     strict_Z = kwargs.get('strict_Z', True)
+    binbounds_determination_mask = kwargs.get('binbounds_determination_mask', None)
 
     if not np.any(mask):
         return output
@@ -189,11 +189,19 @@ def map_mab(coords: np.ndarray, mask: np.ndarray, output: np.ndarray[index_dtype
 
     report = True if (coords.shape[1] >= ndim + 2) and (coords[-1, -1] == 1) else False  # Report only when binning final
     splitting = True if report else False  # Only split when binning final
+    strict = True if binbounds_determination_mask is not None else False
 
     # Mask out everything not needed
-    coords = allcoords[allmask, :ndim]
-    weights = allcoords[allmask, ndim] if allcoords.shape[1] >= ndim else None
-    mask = allmask[mask]
+    # The "if" condition is a way to bypass the automatic behavior to determine the boundaries (min/max/bottleneck)
+    # with the same mask as what you want to assign.
+    if binbounds_determination_mask is not None:
+        coords = allcoords[mask, :ndim]
+        weights = allcoords[mask, ndim]
+        mask = allmask[mask]
+    else:
+        coords = allcoords[allmask, :ndim]
+        weights = allcoords[allmask, ndim] if allcoords.shape[1] >= ndim else None
+        mask = allmask[mask]
 
     originalcoords = np.copy(coords)
     if pca and len(output) > 1:
@@ -221,6 +229,7 @@ def map_mab(coords: np.ndarray, mask: np.ndarray, output: np.ndarray[index_dtype
         splitting,
         bottleneck,
         output,
+        strict,
     )
 
     # Report MAB bin statistics
@@ -413,6 +422,7 @@ def bin_assignment(
     splitting,
     bottleneck,
     output,
+    strict,
 ):
     """
     Assign segments to bins based on the minima, maxima, and
@@ -461,7 +471,7 @@ def bin_assignment(
 
     # Assign everything in linear bins first, all at once.
     # If binning final coords, then we don't really care about what is being assigned to the initial coordinates.
-    output[:] = rectilinear_assign_python(coords[:, :ndim], mask=mask, output=None, boundaries=bin_bounds)
+    output = rectilinear_assign_python(coords[:, :ndim], mask=mask, output=output, boundaries=bin_bounds, strict=strict)
     # rectilinear_assign(np.asarray([coords[i, :ndim]], dtype=np.float32), mask=np.asarray([mask[i]], dtype=bool), output=output, boundaries=bin_bounds, boundlens=bound_lens)
     # [bin_id] = temp_output
 
