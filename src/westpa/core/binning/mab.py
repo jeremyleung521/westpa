@@ -439,7 +439,7 @@ def bin_assignment(
     # Some pre-calculated stats for tracking occupied bottleneck bins
     nbn_forward = [len(bn) if bn is not None else 0 for bn in bottlenecks_forward]
     nbn_reverse = [len(bn) if bn is not None else 0 for bn in bottlenecks_reverse]
-    n_bottleneck_filled = np.zeros((sum(nbn_forward) + sum(nbn_reverse)))
+    n_bottleneck_filled = np.zeros((sum(nbn_forward) + sum(nbn_reverse)), dtype=bool)
 
     # Boolean arrays that track use of special bins along each dimension
     skip_bneck_fwd = np.array([d == -1 if bottleneck else True for d in direction]) + skip

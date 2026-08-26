@@ -18,8 +18,11 @@ class MABDriver(WEDriver):
         initial_pcoords = np.empty((n_segments, self.system.pcoord_ndim + 2), dtype=self.system.pcoord_dtype)
         final_pcoords = np.empty((n_segments, self.system.pcoord_ndim + 2), dtype=self.system.pcoord_dtype)
 
+        # Also want to report during initializing, so this is a workaround.
+        state = 1.0 if initializing else 0.0
+
         for iseg, segment in enumerate(segments):
-            initial_pcoords[iseg] = np.append(segment.pcoord[0, :], [segment.weight, 0.0])
+            initial_pcoords[iseg] = np.append(segment.pcoord[0, :], [segment.weight, state])
             final_pcoords[iseg] = np.append(segment.pcoord[-1, :], [segment.weight, 1.0])
 
         # assign based on initial and final progress coordinates
