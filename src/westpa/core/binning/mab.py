@@ -187,8 +187,8 @@ def map_mab(coords: np.ndarray, mask: np.ndarray, output: np.ndarray[index_dtype
     allcoords = coords.copy()
     allmask = mask.copy()
 
-    report = True if (coords[-1, -1] == 0) else False  # Report only when binning final
-    splitting = True if report else False  # Only split when binning final
+    report = True if coords[-1, -1] == 1 else False  # Report only when binning final
+    splitting = True if coords[-1, -1] == 1 else False  # Only split when binning final
     strict = True if binbounds_determination_mask is not None else False
 
     # Mask out everything not needed for bin boundary determination (min/max/bottleneck).
@@ -486,7 +486,7 @@ def bin_assignment(
         bin_id, special = -1, False
 
         # Searching for bottleneck bins first
-        if splitting and bottleneck:
+        while splitting and bottleneck:
             for i_acdim, n in enumerate(active_dims):
                 # Grab coord(s) of current walker
                 coord = coords[i, :ndim]
@@ -505,21 +505,21 @@ def bin_assignment(
                         bin_id = bneck_bin_id_offset_rev + (i_acdim * bottleneck) + brid
                         special = True
                         n_bottleneck_filled += 1
+            break
 
         # Now check for boundary walkers, taking directionality into account
         # This should only be done after fully checking for bottleneck walkers
-        if splitting and not special:
+        while splitting and not special:
             for n in active_dims:
                 # Grab coord of current walker along current dimension
                 coord = coords[i, n]
                 if (coord == maxlist[n]) and not skip_lead[n]:
                     bin_id = boundary_bin_id_offset_fwd + n - skip_lead[:n].sum()
                     special = True
-                    break
                 elif (coord == minlist[n]) and not skip_lag[n]:
                     bin_id = boundary_bin_id_offset_rev + n - skip_lag[:n].sum()
                     special = True
-                    break
+            break
 
         # output is the main array that, for each segment, holds the bin assignment
         # Only rewrite if the bin_id actually changed (bin_id >= 0) and in a special bin.
