@@ -348,13 +348,13 @@ def detect_bottlenecks(unmasked_coords, unmasked_weights, n_coords, n, n_bottlen
         Zmax_idx = np.argmax(Z_array)
         Zmax_value = Z_array[Zmax_idx]
         # If strict_Z, only pick segment as bottleneck if Z > 0 or skip, otherwise pass most bottleneck-like
-        bottleneck_coords = [coords_srt[Zmax_idx, :]] if not strict_Z or Zmax_value > 0 else []
+        bottleneck_coords = [tuple(coords_srt[Zmax_idx, :])] if not strict_Z or Zmax_value > 0 else []
 
         # Do same for reverse direction (coord -> -inf)
         Z_array = np.log(weights_srt_flip[:-1]) - np.log(cumulative_prob_flip)
         Zmax_idx = np.argmax(Z_array)
         Zmax_value = Z_array[Zmax_idx]
-        bottleneck_coords_flip = [coords_srt_flip[Zmax_idx, :]] if not strict_Z or Zmax_value > 0 else []
+        bottleneck_coords_flip = [tuple(coords_srt_flip[Zmax_idx, :])] if not strict_Z or Zmax_value > 0 else []
     elif n_bottlenecks > 1:
         # Stable sort (secondary index by weight) to query the n-largest weight in the forward direction.
         # Tries to get as many unique bins as possible, up to requested (n_botlenecks).
