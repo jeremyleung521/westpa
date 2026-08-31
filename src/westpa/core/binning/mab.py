@@ -475,6 +475,10 @@ def bin_assignment(
 
     # Assign everything in linear bins first, all at once.
     # If binning final coords, then we don't really care about what is being assigned to the initial coordinates.
+    print(f'{coords=}')
+    print(f'{mask=}')
+    print(f'{coords[mask].shape=} {output.shape}')
+
     output = rectilinear_assign_python(coords[:, :ndim], mask=mask, output=output, boundaries=bin_bounds, strict=strict)
     # rectilinear_assign(np.asarray([coords[i, :ndim]], dtype=np.float32), mask=np.asarray([mask[i]], dtype=bool), output=output, boundaries=bin_bounds, boundlens=bound_lens)
     # [bin_id] = temp_output

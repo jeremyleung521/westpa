@@ -481,14 +481,13 @@ def rectilinear_assign_python(coords, mask, output, boundaries, strict=True):
         The bin assignments for each simulation. Shape: (n_segs)
     """
     if isinstance(output, (np.ndarray, list)):
-        assert len(output) == len(coords[mask]), 'Provided output array is not of same length as the number of segments to assign'
+        assert len(output) == len(coords), 'Provided output array is not of same length as the number of segments to assign'
     else:
-        output = np.zeros(len(coords[mask]), dtype=index_dtype)
+        output = np.zeros(len(coords), dtype=index_dtype)
 
-    # Bin the progress coordinates (make sure the target state
-    # boundary is included in the target state bin).
+    # Bin the progress coordinates
     _, bin_edges, bid = binned_statistic_dd(
-        coords[mask],
+        coords,
         values=None,
         statistic='count',
         bins=boundaries,
@@ -502,10 +501,11 @@ def rectilinear_assign_python(coords, mask, output, boundaries, strict=True):
     nbins_per_dim = [len(edges) - 1 for edges in bin_edges]
 
     # Clip the bin indices so any index outside of defined bins are moved
-    # to nearest defined bin
+    # to nearest defined bin. Only care about unmasked segments.
+    # Loop through each dimension...
     for idx, ibid in enumerate(bid):
-        if np.any(ibid <= 0) or np.any(ibid >= len(boundaries[idx])):
-            bad = np.hstack((np.where(ibid <= 0)[0], np.where(ibid >= len(boundaries[idx]))[0]))
+        if np.any(ibid[mask] <= 0) or np.any(ibid[mask] >= len(boundaries[idx])):
+            bad = np.hstack((np.where(ibid[mask] <= 0)[0], np.where(ibid[mask] >= len(boundaries[idx]))[0]))
             if strict:
                 raise ValueError(
                     'coordinate value {} is out of bin space in dimension {}'.format(coords[mask][bad, idx, None], idx)
@@ -520,6 +520,9 @@ def rectilinear_assign_python(coords, mask, output, boundaries, strict=True):
 
     # Calculate the bin indices in row-major order
     for idx, ibid in enumerate(bid.T):
+        if not mask[idx]:
+            continue
+
         for idim in range(len(nbins_per_dim) - 1):
             output[idx] += (ibid[idim] - 1) * np.prod(nbins_per_dim[idim + 1 :])
         output[idx] += ibid[-1] - 1
