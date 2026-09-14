@@ -21,7 +21,6 @@ class _DaskFutureWrapper:
     """WMFuture-like interface to a ``dask.distributed.Future`` object."""
 
     def __init__(self, future):
-        super().__init__()
         self.future = future
         self._result = None
 
@@ -40,6 +39,7 @@ class _DaskFutureWrapper:
         if not discard:
             self._result = result
         else:
+            del self.future
             self.future = None
         return result
 
