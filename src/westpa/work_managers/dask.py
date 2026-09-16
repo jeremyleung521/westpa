@@ -23,24 +23,30 @@ class _DaskFutureWrapper:
     def __init__(self, future):
         self.future = future
         self._result = None
+        self._hashval = hash(future)
 
     def __repr__(self):
         return type(self).__name__ + '(' + repr(self.future) + ')'
 
     def __hash__(self):
-        return hash(self.future)
+        return self._hashval
 
     def get_result(self, discard=True):
         """Get result from ``distributed.client.Future``. By default,
         reference to future object will be removed after completion.
         """
-        result = self.future.result()
+        if self.future:
+            # Grab newest result
+            result = self.future.result()
+        else:
+            # Alternatively, return cached result (which could be None)
+            result = self._result
 
         if not discard:
             self._result = result
         else:
-            del self.future
             self.future = None
+
         return result
 
     def get_exception(self):
