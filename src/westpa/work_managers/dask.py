@@ -148,9 +148,9 @@ class DaskWorkManager(WorkManager):
                     self.cluster = self.client.cluster
                     self._own_cluster = False
 
-                    if self.client.scheduler.n_workers == 0:
+                    if self.client._scheduler_identity['n_workers'] == 0:
                         logger.warning(
-                            'Inherited a cluster with no workers. Please connect your own workers to the scheduler (e.g. `dask worker <schedulerip:port> --nworkers 3`).'
+                            'Inherited a client with no workers. Please connect your own workers to the scheduler (e.g. `dask worker <schedulerip:port> --nworkers 3`).'
                         )
 
                 else:
