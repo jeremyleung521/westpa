@@ -1,15 +1,17 @@
 import logging
-from tqdm.auto import tqdm
 import os
 import shutil
 import tempfile
-from westpa.core.h5io import WESTIterationFile, WESTPAH5File
+
+import numpy as np
+from tqdm.auto import tqdm
+
+from westpa.core.h5io import WESTIterationFile
 from westpa.core.propagators.loaders import restart_writer
 from westpa.core.segment import Segment
-from westpa.core._rc import WESTRC
-from westpa.tools import WESTTool, WESTDataReader
-import numpy as np
 from westpa.core.trajectory import mdtraj_supported_extensions
+from westpa.core.yamlcfg import YAMLConfig
+from westpa.tools import WESTTool, WESTDataReader
 
 log = logging.getLogger('w_reverse')
 
@@ -30,35 +32,28 @@ Output format
 
 The output directory (--output-bstates-dir,-obd, by default "bstates_reverse") contains the following files:
 
-  Trajectory files
-    One trajectory file is saved for each successful trajctory in the simulation. If there are more than --max-n-bstates successful trajectories, by default 10000, then only --max-n-bstates trajectories will be saved in a random order. Trajectory files will be named {iteration:06d}_{walker:06d} with its original extension.
+  Trajectory restart files
+    One trajectory file is saved for each successful trajctory segment in the simulation. If there are more than ``--max-n-bstates``
+    successful recycled trajectory segments (default: 10000), then ``--max-n-bstates`` number of segments will be randomly picked
+    and saved. The output files will be named ``{iteration:06d}_{walker:06d}`` followed by its original file extension.
 
   Bstate file
-    File named --output-bstates-file, by default bstates.txt, contains the index, weight, and file name for each trajectory file in the output directory
+    File named ``--output-bstates-file``, by default ``bstates.txt``, contains the bstate index, weight, and file name for
+    each copied trajectory file in the output directory.
 
 '''
 
     def __init__(self):
         super().__init__()
-        self.westrc = WESTRC()
+        self.config = YAMLConfig()
         self.data_reader = WESTDataReader()
+        self.rng = None
         self.top_exts, self.traj_exts = mdtraj_supported_extensions()
 
     def add_args(self, parser):
         self.data_reader.add_args(parser)
+
         rgroup = parser.add_argument_group('reverse options')
-        rgroup.add_argument(
-            "-W",
-            "-w",
-            "--west",
-            "--west-data",
-            "-h5",
-            "--h5file",
-            dest="we_h5filename",
-            type=str,
-            default="west.h5",
-            help="Path to west.h5 file",
-        )
         rgroup.add_argument(
             "--first-iter", "-fi", dest="first_iter", type=int, default=1, help="First iteration to consider (default: 1)"
         )
@@ -68,21 +63,23 @@ The output directory (--output-bstates-dir,-obd, by default "bstates_reverse") c
             dest="last_iter",
             type=int,
             default=None,
-            help="Last iteration to consider (default: last recorded iteration in west.h5)",
+            help="Last iteration to consider (default: None, i.e. last recorded iteration in `west.h5`)",
         )
-        rgroup.add_argument("--config-file", dest="config_file", type=str, default="west.cfg", help="Path to the config file")
         rgroup.add_argument(
             "--max-n-bstates",
+            '--max',
+            '-m',
             dest="max_n_bstates",
             type=int,
             default=10000,
             help="Max number of bstates to copy over. Adjust this if you prefer "
             + "a subset of the first bstates found. Default max of 10000.",
         )
-        rgroup.add_argument("--rst-file", dest="rst_file", type=str, default=None, help="Path to the Restart File")
+        rgroup.add_argument("--rst-file", '-rf', dest="rst_file", type=str, default=None, help="Path to the Restart File")
         rgroup.add_argument(
             "--output-bstates-dir",
-            "-obd",
+            "-od",
+            "-o",
             dest="output_bstates_dir",
             type=str,
             default="bstates_reverse",
@@ -90,7 +87,7 @@ The output directory (--output-bstates-dir,-obd, by default "bstates_reverse") c
         )
         rgroup.add_argument(
             "--output-bstates-file",
-            "-obf",
+            '-of',
             dest="output_bstates_file",
             type=str,
             default="bstates.txt",
@@ -98,38 +95,46 @@ The output directory (--output-bstates-dir,-obd, by default "bstates_reverse") c
         )
         rgroup.add_argument(
             "--use-weights",
+            '--weights',
             "-uw",
             action='store_true',
             dest="use_weights",
             help="Include the recycled event weight when making the bstates.txt file",
         )
         rgroup.add_argument(
-            '--seed', type=int, default=None, dest='seed', help='Seed for randomly choosing which states to include'
+            '--seed',
+            '-s',
+            type=int,
+            default=None,
+            dest='seed',
+            help='Psuedo-random number generator seed used to select output structures.',
         )
 
     def process_args(self, args):
+        # Process config from parser, rcfile ('west.cfg')
         self.data_reader.process_args(args)
-        self.config_required = True
-        self.config_file = args.config_file
-        self.westrc.read_config(self.config_file)
-        self.config = self.westrc.config
-        # Read the west.h5 file
-        self.h5 = WESTPAH5File(args.we_h5filename, 'r')
-        self.first_iter = args.first_iter
-        self.last_iter = args.last_iter or self.h5.attrs['west_current_iteration'] - 1
-        # Look at the data_refs from the config file
+        self.config.update_from_file(args.rcfile)
         self.data_refs_dic = self.config.get(['west', 'data', 'data_refs'], {})
-        # Default to not using HDF5 framework
+
+        # Open the west.h5 file
+        self.data_reader.open('r')
+        self.h5 = self.data_reader.data_manager.we_h5file
+
+        # HDF5 framework or file path wrangling
         self.h5_framework = True if 'iteration' in self.data_refs_dic else False
         dict_key = 'iteration' if self.h5_framework else 'segment'
         self.traj_seg_path = os.path.expandvars(
             self.data_refs_dic[dict_key].replace('segment.n_iter', 'n_iter').replace('segment.seg_id', 'seg_id')
         )
-        # Proves that WEST_SIM_ROOT is not on os.environ, not replaced
-        self.traj_seg_path = self.traj_seg_path.replace('$WEST_SIM_ROOT', '.')
-        self.max_n_bstates = args.max_n_bstates
-        self.rst_file = args.rst_file.lower() if args.rst_file else None
-        self.rst_extension = self.rst_file.rsplit('.', maxsplit=1)[-1] if self.rst_file else None
+        self.traj_seg_path = (
+            self.traj_seg_path.replace('$WEST_SIM_ROOT', '.') if 'WEST_SIM_ROOT' in os.environ else self.traj_seg_path
+        )
+        self.output_bstates_dir = args.output_bstates_dir
+        self.output_bstates_file = args.output_bstates_file
+
+        # File extension wrangling
+        self.rst_file = args.rst_file if args.rst_file else None
+        self.rst_extension = self.rst_file.lower().rsplit('.', maxsplit=1)[-1] if self.rst_file else None
         self.traj_exc_exts = []
         self.traj_or_top_exts = []
         for i in self.traj_exts:
@@ -137,19 +142,28 @@ The output directory (--output-bstates-dir,-obd, by default "bstates_reverse") c
                 self.traj_or_top_exts.append(i)
             else:
                 self.traj_exc_exts.append(i)
-        self.output_bstates_dir = args.output_bstates_dir
-        self.output_bstates_file = args.output_bstates_file
+
+        # Dealing with other w_reverse parameters
+        self.first_iter = args.first_iter
+        self.last_iter = args.last_iter or self.h5.attrs['west_current_iteration'] - 1
+        self.max_n_bstates = args.max_n_bstates
         self.use_weights = args.use_weights
+
+        # pRNG stuff
         self.seed = args.seed
+        self.rng = np.random.default_rng(seed=self.seed) if self.rng is None else self.rng
         log.info(f'Using seed: {self.seed}')
 
     def w_succ(self):
         """
-        Find and return all successfully recycled (iter, seg) pairs.
+        Find and return an array containing all successfully recycled segments' (iter_id, seg_id, weight)
+        tuples based on the the segment endpoint status in the main HDF5 file (`west.h5`).
 
         Returns
         -------
-        succ : array of shape (n, 3) with [iteration, walker, weight] for each succ[i]
+        succ : np.ndarray of shape (n_successful_segments, 3)
+            An array of all successfully recycled segments. Each row is [iteration, walker, weight].
+
         """
         succ = []
         for iteration_index, iteration in tqdm(
@@ -170,26 +184,35 @@ The output directory (--output-bstates-dir,-obd, by default "bstates_reverse") c
 
     def copy_traj(self, search_folder, iteration, walker):
         """
-        Find the correct trajectory file in the serch_folder and copy it to the output_bstates_dir with the name {iteration:06d}_{walker:06d} and keeping the same extension
+        Find a restart file in the ``search_folder`` and copying it to the ``output_bstates_dir`` under the name
+        ``{iteration:06d}_{walker:06d}`` and the same file extension. Priority given if ``--rst-file`` is provided,
+        first based on exact name matching or if not found, a file with the same extension with the newest creation time.
+        Else, it will attempt to find the newest created file with a Mdtraj supported format extension.
 
         Arguments
         ---------
-        search_folder: path or string describing a path to the directory that will be searched for a trajectory file
+        search_folder: Path or str
+            Directory path to be searched for a trajectory file.
 
-        iteration: integer describing the iteration number of the trajectory
+        iteration: int
+            Iteration number of the trajectory segment.
 
-        walker: integer describing the segment id of the trajectory
+        walker: int
+            Segment id of the trajectory segment.
 
         Returns
         -------
-        rst_dest_name: string describing the name of the copied trajectory in the output_bstates_dir
+        rst_dest_name: str
+            Name of the copied trajectory in the ``output_bstates_dir``
 
         """
         files = [file for file in os.listdir(search_folder) if not file.startswith('.')]
         if self.rst_file in files:
+            # Exact file match
+            source_file = self.rst_file
             rst_dest_name = f"{iteration:06d}_{walker:06d}.{self.rst_extension}"
-            shutil.copyfile(os.path.join(search_folder, self.rst_file), os.path.join(self.output_bstates_dir, rst_dest_name))
         elif self.rst_extension:
+            # Attempt to find based on file extension provided through `--rst-file` / `self.rst_file`
             possible_hits = [file for file in files if file.endswith(self.rst_extension)]
             if len(possible_hits) > 1:
                 possible_hits = sorted(possible_hits, key=lambda file: os.path.getctime(file))
@@ -197,44 +220,53 @@ The output directory (--output-bstates-dir,-obd, by default "bstates_reverse") c
                     f'Found {possible_hits[-1]} as restart file for iteration {iteration} and walker {walker} based on file creation times. if this is incorrect, provide a file name using flag --rst-file'
                 )
             rst_dest_name = f"{iteration:06d}_{walker:06d}.{self.rst_extension}"
+            source_file = possible_hits[-1]
             shutil.copyfile(os.path.join(search_folder, possible_hits[-1]), os.path.join(self.output_bstates_dir, rst_dest_name))
         else:
+            # Guess based on MDTraj-supported file extensions
             possible_hits = []
             for test_extension in self.traj_exc_exts:
                 possible_hits += [file for file in files if file.endswith(test_extension)]
             if len(possible_hits) < 1:
                 for test_extension in self.traj_or_top_exts:
                     possible_hits += [file for file in files if file.endswith(test_extension)]
-            if len(possible_hits) == 1:
-                log.warning(
-                    f'Found {possible_hits[-1]} as restart file for iteration {iteration} and walker {walker} based on mdtraj extensions. if this is incorrect, provide a file name using flag --rst-file'
-                )
-            if len(possible_hits) > 1:
+            elif len(possible_hits) >= 1:
                 possible_hits = sorted(possible_hits, key=lambda file: os.path.getctime(os.path.join(search_folder, file)))
                 log.warning(
                     f'Found {possible_hits[-1]} as restart file for iteration {iteration} and walker {walker} based on file creation times. if this is incorrect, provide a file name using flag --rst-file'
                 )
+            source_file = possible_hits[-1]
+            self.rst_extension = possible_hits[-1].split('.')[-1] if self.rst_extension is None else self.rst_extension
             rst_dest_name = f"{iteration:06d}_{walker:06d}.{possible_hits[-1].split('.')[-1]}"
-            shutil.copyfile(os.path.join(search_folder, possible_hits[-1]), os.path.join(self.output_bstates_dir, rst_dest_name))
+
+        shutil.copyfile(os.path.join(search_folder, source_file), os.path.join(self.output_bstates_dir, rst_dest_name))
 
     def go(self):
-        '''Main public method for running w_reverse. Runs w_succ to find the successful trajectories then iterates over them to copy the trajectories to the output_bstates_dir. Then it iterates over the trajectories again to make the output_bstates_file.'''
-        succ_pairs = self.w_succ()
+        """
+        Main public method for running w_reverse. First runs ``w_succ`` to find the successfully recycled trajectories,
+        then iterates over them to copy the trajectories to ``output_bstates_dir``. Lastly, iterate over the
+        trajectories again to make the ``output_bstates_file``.
+
+        """
         # make directory for bstates_reverse if it doesn't already exist
         os.makedirs(self.output_bstates_dir, exist_ok=True)
-        # Number of reverse bstates created
-        # different totals if the max is less than total succ_pairs to loop
+
+        # Find successfully recycled trajectories and pick trajectories to copy
+        succ_pairs = self.w_succ()
         total_pairs = min(self.max_n_bstates, len(succ_pairs))
-        # then for each pair
-        rng = np.random.default_rng(self.seed)
-        succ_pairs_used = rng.choice(
-            succ_pairs, size=total_pairs, p=succ_pairs[:, 2] / np.sum(succ_pairs[:, 2], dtype=float), replace=False
+        succ_pairs_used = self.rng.choice(
+            succ_pairs,
+            size=total_pairs,
+            p=succ_pairs[:, 2] / np.sum(succ_pairs[:, 2], dtype=float),
+            replace=False,
         )
+
+        # Loop though picked segments and copy
         total_weight = 0.0
-        for idx, succ_pair_used in enumerate(tqdm(succ_pairs_used, total=total_pairs, desc="New bstates")):
-            iteration = int(succ_pair_used[0])
-            walker = int(succ_pair_used[1])
-            weight = float(succ_pair_used[2])
+        for idx, succ_pair in enumerate(tqdm(succ_pairs_used, total=total_pairs, desc="New bstates")):
+            iteration = int(succ_pair[0])
+            walker = int(succ_pair[1])
+            weight = float(succ_pair[2])
             total_weight += weight
             # check if using HDF5 framework
             if self.h5_framework:
@@ -248,32 +280,30 @@ The output directory (--output-bstates-dir,-obd, by default "bstates_reverse") c
             else:
                 search_folder = self.traj_seg_path.format(n_iter=iteration, seg_id=walker)
                 self.copy_traj(search_folder, iteration, walker)
-        # create bstates.txt file
+
+        # Loop through picked segemnts again and create `bstates.txt` file
         # fill out the bstates.txt file with name and weight
         # but only use weights if requested, otherwise use equal weights
         # bstates.txt row format: bstate_n | weight | bstate_filename
         with open(os.path.join(self.output_bstates_dir, self.output_bstates_file), "w") as bstates_f:
-            for idx, succ_pair_used in enumerate(succ_pairs_used):
-                iteration = int(succ_pair_used[0])
-                walker = int(succ_pair_used[1])
-                weight = float(succ_pair_used[2])
+            for idx, succ_pair in enumerate(tqdm(succ_pairs_used, desc='writing bstate file', leave=False)):
+                [iteration, walker, weight] = succ_pair
+                rst_dest_name = f'{iteration:06d}_{walker:06d}.{self.rst_extension}'
+
+                # Do some quick file checking to make sure files are there...
                 files = [file for file in os.listdir(self.output_bstates_dir) if file.startswith(f'{iteration:06d}_{walker:06d}')]
-                rst_dest_name = ''
-                if len(files) > 1:
-                    if f'{iteration:06d}_{walker:06d}.{self.rst_extension}' in files:
-                        rst_dest_name = f'{iteration:06d}_{walker:06d}.{self.rst_extension}'
-                    else:
-                        files = sorted(files, key=lambda file: os.path.getctime(file))
-                        rst_dest_name = files[-1]
-                        log.warning(
-                            f'Muliple files starting with {iteration:06d}_{walker:06d} are in the output directory. Using {rst_dest_name=}. if this is incorrect, provide a file name using flag `--rst-file` so that the correct extension can be used'
-                        )
-                elif len(files) == 1:
-                    rst_dest_name = files[0]
+                if len(files) > 1 and rst_dest_name not in files:
+                    files = sorted(files, key=lambda file: os.path.getctime(file))
+                    rst_dest_name = files[-1]
+                    log.warning(
+                        f'Muliple files starting with `{iteration:06d}_{walker:06d}` are in the output directory. Using {rst_dest_name=}. This is usually caused by running multiple rounds of `w_reverse` with different parameters.'
+                    )
                 else:
                     log.error(
                         f'A restart file starting with {iteration:06d}_{walker:06d} should be present in the output directory but is not!!!'
                     )
+
+                # Actual writing into the file
                 if self.use_weights:
                     bstates_f.write(f"{idx} {(weight / total_weight):.3e} {rst_dest_name}\n")
                 else:
