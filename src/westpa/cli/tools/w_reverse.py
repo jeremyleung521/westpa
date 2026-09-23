@@ -4,7 +4,7 @@ import shutil
 import tempfile
 
 import numpy as np
-from tqdm.auto import tqdm
+from tqdm.auto import tqdm, trange
 
 from westpa.core.h5io import WESTIterationFile
 from westpa.core.data_manager import seg_id_dtype, n_iter_dtype, weight_dtype
@@ -176,7 +176,7 @@ The output directory (--output-bstates-dir,-obd, by default "bstates_reverse") c
         self.seed = args.seed
         log.info(f'Using seed: {self.seed}')
 
-    def w_succ(self):
+    def _find_recycled_segments(self):
         """
         Find and return an array containing all successfully recycled segments' (iter_id, seg_id, weight)
         tuples based on the the segment endpoint status in the main HDF5 file (`west.h5`).
@@ -188,16 +188,16 @@ The output directory (--output-bstates-dir,-obd, by default "bstates_reverse") c
 
         """
         succ = []
-        for iteration_index, iteration in tqdm(
-            enumerate(self.h5['iterations'].keys()), total=len(self.h5['iterations'].keys()), desc="w_succ"
+        for iteration in trange(
+            1, len(self.h5['summary'][self.h5['summary']['walltime'] != 0]) + 1, desc="finding successful trajectories", leave=False
         ):
-            endpoint_type = self.h5[f'iterations/{iteration}/seg_index']['endpoint_type', :]
+            endpoint_type = self.h5[f'iterations/iter_{iteration:>08d}/seg_index']['endpoint_type', :]
             indices = np.flatnonzero(endpoint_type == Segment.SEG_ENDPOINT_RECYCLED)
             temp_list = [
                 (
-                    iteration_index if self.h5_framework else iteration_index + 1,
+                    iteration,
                     index,
-                    self.h5[f'iterations/{iteration}/seg_index']['weight', index],
+                    self.h5[f'iterations/iter_{iteration:>08d}/seg_index']['weight', index],
                 )
                 for index in indices
             ]
@@ -258,7 +258,7 @@ The output directory (--output-bstates-dir,-obd, by default "bstates_reverse") c
             elif len(possible_hits) >= 1:
                 possible_hits = sorted(possible_hits, key=lambda file: os.path.getctime(os.path.join(search_folder, file)))
                 log.warning(
-                    f'Found {possible_hits[-1]} as restart file for iteration {iteration} and walker {walker} based on file creation times. if this is incorrect, provide a file name using flag --rst-file'
+                    f'Found {possible_hits[-1]} as restart file for iteration {iteration} and walker {walker} based on file creation times. if this is incorrect, provide a file name using flag `--rst-file`.'
                 )
             source_file = possible_hits[-1]
             self.rst_extension = possible_hits[-1].split('.')[-1] if self.rst_extension is None else self.rst_extension
@@ -268,9 +268,9 @@ The output directory (--output-bstates-dir,-obd, by default "bstates_reverse") c
 
     def go(self):
         """
-        Main public method for running w_reverse. First runs ``w_succ`` to find the successfully recycled trajectories,
-        then iterates over them to copy the trajectories to ``output_bstates_dir``. Lastly, iterate over the
-        trajectories again to make the ``output_bstates_file``.
+        Main public method for running w_reverse. First runs ``_find_recycled_segments()`` to find the successfully
+        recycled trajectories, then iterates over them to copy the trajectories to ``output_bstates_dir``. Lastly,
+        iterate over the trajectories again to make the ``output_bstates_file``.
 
         """
         self.rng = np.random.default_rng(seed=self.seed) if self.rng is None else self.rng
@@ -281,7 +281,7 @@ The output directory (--output-bstates-dir,-obd, by default "bstates_reverse") c
             os.makedirs(self.output_bstates_dir, exist_ok=True)
 
             # Find successfully recycled trajectories and pick trajectories to copy
-            succ_pairs = self.w_succ()
+            succ_pairs = self._find_recycled_segments()
             total_pairs = min(self.max_n_bstates, len(succ_pairs))
             succ_pairs_used = self.rng.choice(
                 succ_pairs,
@@ -289,6 +289,8 @@ The output directory (--output-bstates-dir,-obd, by default "bstates_reverse") c
                 p=succ_pairs['weight'] / np.sum(succ_pairs['weight']),
                 replace=False,
             )
+
+        print(succ_pairs_used)
 
         # Loop though picked segments and copy
         total_weight = 0.0
