@@ -7,6 +7,7 @@ import numpy as np
 from tqdm.auto import tqdm
 
 from westpa.core.h5io import WESTIterationFile
+from westpa.core.data_manager import seg_id_dtype, n_iter_dtype, weight_dtype
 from westpa.core.propagators.loaders import restart_writer
 from westpa.core.segment import Segment
 from westpa.core.trajectory import mdtraj_supported_extensions
@@ -50,10 +51,32 @@ The output directory (--output-bstates-dir,-obd, by default "bstates_reverse") c
         self.rng = None
         self.top_exts, self.traj_exts = mdtraj_supported_extensions()
 
+    @property
+    def h5(self):
+        return self.data_reader.data_manager.we_h5file
+
     def add_args(self, parser):
         self.data_reader.add_args(parser)
 
-        rgroup = parser.add_argument_group('reverse options')
+        rgroup = parser.add_argument_group('w_reverse options')
+        rgroup.add_argument(
+            '-W',
+            '--west-data',
+            dest='we_h5filename',
+            metavar='WEST_H5FILE',
+            type=str,
+            default='west.h5',
+            help='''Take WEST data from WEST_H5FILE (default: read from the HDF5 file specified in west.cfg).''',
+        )
+        rgroup.add_argument(
+            '-r',
+            '--rcfile',
+            metavar='RCFILE',
+            dest='rcfile',
+            type=str,
+            default='west.cfg',
+            help='use RCFILE as the WEST run-time configuration file (default: %(default)s)',
+        )
         rgroup.add_argument(
             "--first-iter", "-fi", dest="first_iter", type=int, default=1, help="First iteration to consider (default: 1)"
         )
@@ -116,9 +139,8 @@ The output directory (--output-bstates-dir,-obd, by default "bstates_reverse") c
         self.config.update_from_file(args.rcfile)
         self.data_refs_dic = self.config.get(['west', 'data', 'data_refs'], {})
 
-        # Open the west.h5 file
-        self.data_reader.open('r')
-        self.h5 = self.data_reader.data_manager.we_h5file
+        ## Open the west.h5 file
+        # self.h5 = self.data_reader.data_manager.we_h5file
 
         # HDF5 framework or file path wrangling
         self.h5_framework = True if 'iteration' in self.data_refs_dic else False
@@ -144,14 +166,14 @@ The output directory (--output-bstates-dir,-obd, by default "bstates_reverse") c
                 self.traj_exc_exts.append(i)
 
         # Dealing with other w_reverse parameters
-        self.first_iter = args.first_iter
-        self.last_iter = args.last_iter or self.h5.attrs['west_current_iteration'] - 1
-        self.max_n_bstates = args.max_n_bstates
-        self.use_weights = args.use_weights
+        with self.data_reader:
+            self.first_iter = args.first_iter
+            self.last_iter = args.last_iter or self.h5.attrs['west_current_iteration'] - 1
+            self.max_n_bstates = args.max_n_bstates
+            self.use_weights = args.use_weights
 
         # pRNG stuff
         self.seed = args.seed
-        self.rng = np.random.default_rng(seed=self.seed) if self.rng is None else self.rng
         log.info(f'Using seed: {self.seed}')
 
     def w_succ(self):
@@ -171,16 +193,19 @@ The output directory (--output-bstates-dir,-obd, by default "bstates_reverse") c
         ):
             endpoint_type = self.h5[f'iterations/{iteration}/seg_index']['endpoint_type', :]
             indices = np.flatnonzero(endpoint_type == Segment.SEG_ENDPOINT_RECYCLED)
-            temp_array = [
-                [
+            temp_list = [
+                (
                     iteration_index if self.h5_framework else iteration_index + 1,
                     index,
                     self.h5[f'iterations/{iteration}/seg_index']['weight', index],
-                ]
+                )
                 for index in indices
             ]
-            succ += temp_array
-        return np.asarray(succ)
+            succ += temp_list
+
+        dtypes = np.dtype([('n_iter', n_iter_dtype), ('seg_id', seg_id_dtype), ('weight', weight_dtype)])
+
+        return np.asarray(succ, dtype=dtypes)
 
     def copy_traj(self, search_folder, iteration, walker):
         """
@@ -248,35 +273,37 @@ The output directory (--output-bstates-dir,-obd, by default "bstates_reverse") c
         trajectories again to make the ``output_bstates_file``.
 
         """
-        # make directory for bstates_reverse if it doesn't already exist
-        os.makedirs(self.output_bstates_dir, exist_ok=True)
+        self.rng = np.random.default_rng(seed=self.seed) if self.rng is None else self.rng
 
-        # Find successfully recycled trajectories and pick trajectories to copy
-        succ_pairs = self.w_succ()
-        total_pairs = min(self.max_n_bstates, len(succ_pairs))
-        succ_pairs_used = self.rng.choice(
-            succ_pairs,
-            size=total_pairs,
-            p=succ_pairs[:, 2] / np.sum(succ_pairs[:, 2], dtype=float),
-            replace=False,
-        )
+        with self.data_reader:
+
+            # make directory for bstates_reverse if it doesn't already exist
+            os.makedirs(self.output_bstates_dir, exist_ok=True)
+
+            # Find successfully recycled trajectories and pick trajectories to copy
+            succ_pairs = self.w_succ()
+            total_pairs = min(self.max_n_bstates, len(succ_pairs))
+            succ_pairs_used = self.rng.choice(
+                succ_pairs,
+                size=total_pairs,
+                p=succ_pairs['weight'] / np.sum(succ_pairs['weight']),
+                replace=False,
+            )
 
         # Loop though picked segments and copy
         total_weight = 0.0
         for idx, succ_pair in enumerate(tqdm(succ_pairs_used, total=total_pairs, desc="New bstates")):
-            iteration = int(succ_pair[0])
-            walker = int(succ_pair[1])
-            weight = float(succ_pair[2])
+            [iteration, walker, weight] = succ_pair
             total_weight += weight
             # check if using HDF5 framework
             if self.h5_framework:
                 with tempfile.TemporaryDirectory() as tmpdirname:
                     # Extract the restart data from the .h5 file
                     segment = Segment(n_iter=iteration, seg_id=walker, weight=weight)
-                    h5file = WESTIterationFile(self.traj_seg_path.format(n_iter=iteration))
-                    h5file.read_restart(segment)
-                    restart_writer(tmpdirname, segment)
-                    self.copy_traj(tmpdirname, iteration, walker)
+                    with WESTIterationFile(self.traj_seg_path.format(n_iter=iteration)) as h5file:
+                        h5file.read_restart(segment)
+                        restart_writer(tmpdirname, segment)
+                        self.copy_traj(tmpdirname, iteration, walker)
             else:
                 search_folder = self.traj_seg_path.format(n_iter=iteration, seg_id=walker)
                 self.copy_traj(search_folder, iteration, walker)
