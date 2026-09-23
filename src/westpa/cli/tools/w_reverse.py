@@ -290,8 +290,6 @@ The output directory (--output-bstates-dir,-obd, by default "bstates_reverse") c
                 replace=False,
             )
 
-        print(succ_pairs_used)
-
         # Loop though picked segments and copy
         total_weight = 0.0
         for idx, succ_pair in enumerate(tqdm(succ_pairs_used, total=total_pairs, desc="New bstates")):
