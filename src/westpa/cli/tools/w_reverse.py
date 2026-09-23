@@ -66,7 +66,7 @@ The output directory (--output-bstates-dir,-obd, by default "bstates_reverse") c
             metavar='WEST_H5FILE',
             type=str,
             default='west.h5',
-            help='''Take WEST data from WEST_H5FILE (default: read from the HDF5 file specified in west.cfg).''',
+            help='''Take WEST data from WEST_H5FILE (default: read from the HDF5 file specified in %(default)s).''',
         )
         rgroup.add_argument(
             '-r',
@@ -78,7 +78,7 @@ The output directory (--output-bstates-dir,-obd, by default "bstates_reverse") c
             help='use RCFILE as the WEST run-time configuration file (default: %(default)s)',
         )
         rgroup.add_argument(
-            "--first-iter", "-fi", dest="first_iter", type=int, default=1, help="First iteration to consider (default: 1)"
+            "--first-iter", "-fi", dest="first_iter", type=int, default=1, help="First iteration to consider (default: %(default)s)"
         )
         rgroup.add_argument(
             "--last-iter",
@@ -86,7 +86,7 @@ The output directory (--output-bstates-dir,-obd, by default "bstates_reverse") c
             dest="last_iter",
             type=int,
             default=None,
-            help="Last iteration to consider (default: None, i.e. last recorded iteration in `west.h5`)",
+            help="Last iteration to consider (default: None, i.e. last completed iteration in WEST_H5FILE)",
         )
         rgroup.add_argument(
             "--max-n-bstates",
@@ -95,8 +95,8 @@ The output directory (--output-bstates-dir,-obd, by default "bstates_reverse") c
             dest="max_n_bstates",
             type=int,
             default=10000,
-            help="Max number of bstates to copy over. Adjust this if you prefer "
-            + "a subset of the first bstates found. Default max of 10000.",
+            help="Max number of bstates to copy over. Adjust this if you prefer to include"
+            + "a larger subset of the first bstates found (default: max of %(default)s).",
         )
         rgroup.add_argument("--rst-file", '-rf', dest="rst_file", type=str, default=None, help="Path to the Restart File")
         rgroup.add_argument(
@@ -122,7 +122,7 @@ The output directory (--output-bstates-dir,-obd, by default "bstates_reverse") c
             "-uw",
             action='store_true',
             dest="use_weights",
-            help="Include the recycled event weight when making the bstates.txt file",
+            help="Include the recycled event weight when making the bstate file",
         )
         rgroup.add_argument(
             '--seed',
