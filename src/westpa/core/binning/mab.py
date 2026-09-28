@@ -274,7 +274,7 @@ def calculate_bin_boundaries(coords, weights, mask, skip, splitting, bottleneck,
     n_coords = mask.sum()
     # Grabbing all unmasked coords and weights
     unmasked_coords = coords[mask, :]
-    unmasked_weights = weights[mask] if weights is not None else None
+    unmasked_weights = weights[mask] if weights is not None else np.ones((mask.shape))
     # Replace any zero weights with non-zero values so that log(weight) is well-defined
     if unmasked_weights is not None:
         unmasked_weights[unmasked_weights == 0] = 10**-323
