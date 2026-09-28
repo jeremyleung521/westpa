@@ -197,11 +197,11 @@ def map_mab(coords: np.ndarray, mask: np.ndarray, output: np.ndarray[index_dtype
     # so points located outside of minlist/maxlist as determined by `binbounds_determination_mask` are clipped to the nearest bin.
     if strict:
         coords = allcoords[binbounds_determination_mask, :ndim]
-        weights = allcoords[binbounds_determination_mask, ndim] if allcoords.shape[1] >= ndim else None
+        weights = allcoords[binbounds_determination_mask, ndim] if allcoords.shape[1] > ndim else None
         mask = allmask[binbounds_determination_mask]
     else:
         coords = allcoords[allmask, :ndim]
-        weights = allcoords[allmask, ndim] if allcoords.shape[1] >= ndim else None
+        weights = allcoords[allmask, ndim] if allcoords.shape[1] > ndim else None
         mask = allmask[mask]
 
     originalcoords = np.copy(coords)
