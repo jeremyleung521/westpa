@@ -337,7 +337,11 @@ class WESTRC:
     def detect_mab_mapper(self):
         bin_dict = self.config.get(['west', 'system', 'system_options', 'bins'])
         use_mab = False
-        if bin_dict is not None:
+        if type(self._sim_manager).__name__ == 'MABSimManager' or type(self._we_driver).__name__ == 'MABDriver':
+            # Always try to pair MABSimManager with MABDriver
+            use_mab = True
+        elif bin_dict is not None:
+            # Check if there are any MABBinMappers hiding...
             mapper = bins_from_yaml_dict(bin_dict)
             use_mab = detect_mab_mapper(mapper)
 
@@ -346,7 +350,10 @@ class WESTRC:
     def detect_binless_mapper(self):
         bin_dict = self.config.get(['west', 'system', 'system_options', 'bins'])
         use_binless = False
-        if bin_dict is not None:
+        if type(self._sim_manager).__name__ == 'BinlessSimManager' or type(self._we_driver).__name__ == 'BinlessDriver':
+            # Always try to pair BinlessSimManager with BinlessDriver
+            use_binless = True
+        elif bin_dict is not None:
             mapper = bins_from_yaml_dict(bin_dict)
             use_binless = detect_binless_mapper(mapper)
 
