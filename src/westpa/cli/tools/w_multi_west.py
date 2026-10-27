@@ -161,20 +161,21 @@ Command-line options
 
     def total_number_of_walkers(self):
         self.total_walkers = [0] * self.niters
-        for key, west in self.westH5.items():
+        for idx, (key, west) in enumerate(self.westH5.items()):
             # Sometimes, we're smaller or larger by one. Hm.
             try:
-                self.total_walkers[:] += west['summary'][:-1]['n_particles']
+                self.total_walkers[idx] += west['summary'][:-1]['n_particles']
             except ValueError:
-                self.total_walkers[:] += west['summary'][:-1]['n_particles'][: len(self.total_walkers)]
+                self.total_walkers[idx] += west['summary'][:-1]['n_particles'][: len(self.total_walkers)]
 
     def go(self):
         pi = self.progress.indicator
         self.istates = True  # Assume serendipitously istates is same between runs...
+        self.niters = self.niters if self.niters is not None else float('inf')
+
         with pi:
             pi.new_operation('Initializing')
             self.open_files()
-            self.total_number_of_walkers()
             if self.auxall is True:
                 try:
                     self.aux = list(self.westH5[1]['iterations/iter_00000001/auxdata'].keys())
@@ -232,6 +233,8 @@ Command-line options
                     except NameError:
                         bstate_index = west['ibstates/0/bstate_index'][:]  # noqa: F841
                         bstate_pcoord = west['ibstates/0/bstate_pcoord'][:]  # noqa: F841
+
+            self.total_number_of_walkers()  # Not really needed?
 
             start_point = []
             self.source_sinks = list(set(self.source_sinks))

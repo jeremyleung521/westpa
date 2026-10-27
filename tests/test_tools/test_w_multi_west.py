@@ -28,6 +28,7 @@ class Test_W_Multi_West:
                 auxall=True,
                 no_reweight=False,
                 ibstates=True,
+                niters=None,
             ),
         ):
             entry_point()
@@ -56,6 +57,7 @@ class Test_W_Multi_West:
                 auxall=True,
                 no_reweight=False,
                 ibstates=True,
+                niters=None,
             ),
         ):
             entry_point()
