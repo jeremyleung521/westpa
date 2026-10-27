@@ -37,12 +37,6 @@ jobs:
         if: matrix.os == 'macos-latest'
         run: "brew install hdf5"
 
-      - name: Install HDF5 with apt
-        if: matrix.os != 'macos-latest' && matrix.python-version == 15
-        run: |
-          sudo apt update
-          sudo apt install -y pkg-config libhdf5-dev
-
       - name: Build wheels
         uses: pypa/cibuildwheel@v4.2.1
         env:
@@ -51,6 +45,11 @@ jobs:
           CIBW_ARCHS_MACOS: "universal2" # universal2 wheel for macos
           CIBW_ARCHS_LINUX: "auto64" # x86_64 and arm64, depending on the os
           CIBW_DEPENDENCY_VERSIONS: "pinned" # default
+          CIBW_BEFORE_TEST_LINUX: >
+            if ${{ matrix.python-version }} == 15; then 
+              sudo apt update
+              sudo apt -y libhdf5-dev
+            fi
           CIBW_TEST_COMMAND: >
             python -c "import westpa; print(westpa.__version__)" &&
             python -c "import westpa.core.propagators" &&
