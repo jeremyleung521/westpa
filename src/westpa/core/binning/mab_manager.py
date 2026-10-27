@@ -156,7 +156,7 @@ class MABSimManager(WESimManager):
         pcoords_with_weights = np.empty((n_segments, self.system.pcoord_ndim + 2), dtype=self.system.pcoord_dtype)
 
         for iseg, segment in enumerate(segments.values()):
-            pcoords_with_weights[iseg] = np.append(segment.pcoord[0, :], [segment.weight, 1.0])
+            pcoords_with_weights[iseg] = np.append(segment.pcoord[0, :], [segment.weight, 0.0])
 
         # Assign this iteration's segments' initial points to bins and report on bin population
         initial_binning = self.system.bin_mapper.construct_bins()

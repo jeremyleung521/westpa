@@ -13,21 +13,24 @@ class MABDriver(WEDriver):
         sent to the bin mapper at the same time, otherwise the inital and final bin boundaries can be inconsistent.'''
 
         log.debug("MABDriver in use.")
-        # collect initial and final coordinates into one place
+        # collect initial and final coordinates, note weights will be cast from float64 to float32 (default pcoord_dtype)
         n_segments = len(segments)
-        all_pcoords = np.empty((n_segments * 2, self.system.pcoord_ndim + 2), dtype=self.system.pcoord_dtype)
+        initial_pcoords = np.empty((n_segments, self.system.pcoord_ndim + 2), dtype=self.system.pcoord_dtype)
+        final_pcoords = np.empty((n_segments, self.system.pcoord_ndim + 2), dtype=self.system.pcoord_dtype)
+
+        # Also want to report during initializing, so this is a workaround.
+        state = 1.0 if initializing else 0.0
 
         for iseg, segment in enumerate(segments):
-            all_pcoords[iseg] = np.append(segment.pcoord[0, :], [segment.weight, 0.0])
-            all_pcoords[n_segments + iseg] = np.append(segment.pcoord[-1, :], [segment.weight, 1.0])
+            initial_pcoords[iseg] = np.append(segment.pcoord[0, :], [segment.weight, state])
+            final_pcoords[iseg] = np.append(segment.pcoord[-1, :], [segment.weight, 1.0])
 
         # assign based on initial and final progress coordinates
-        assignments = self.bin_mapper.assign(all_pcoords)
-        initial_assignments = assignments[:n_segments]
-        if initializing:
+        initial_assignments = self.bin_mapper.assign(initial_pcoords)
+        if initializing or np.all(final_pcoords == 0):
             final_assignments = initial_assignments
         else:
-            final_assignments = assignments[n_segments:]
+            final_assignments = self.bin_mapper.assign(final_pcoords)
 
         initial_binning = self.initial_binning
         final_binning = self.final_binning

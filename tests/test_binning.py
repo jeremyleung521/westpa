@@ -1,9 +1,11 @@
 import logging
 import os
 import pytest
+from itertools import product
 
 import h5py
 import numpy as np
+from numpy.testing import assert_array_equal
 from scipy.spatial.distance import cdist
 
 import westpa
@@ -15,7 +17,7 @@ from westpa.core.binning.assign import (
     VoronoiBinMapper,
     RecursiveBinMapper,
 )
-from westpa.core.binning.assign import coord_dtype
+from westpa.core.binning.assign import coord_dtype, index_dtype, rectilinear_assign_python
 from westpa.core.binning.binless import BinlessMapper
 from westpa.core.binning.mab import MABBinMapper, map_mab, log_bin_boundaries
 
@@ -59,6 +61,61 @@ class TestRectilinearBinMapper:
 
         assert (assigner.assign(coords) == [0, 5, 10, 10, 15, 7, 8]).all()
         assert list(assigner.labels) == expected_labels
+
+    def test2dAssign_v2(self):
+        boundaries = [(0, 1, 2, 3), (0, 1, 2)]
+        coords = np.array([(0.5, 0.5), (0.5, 1.5), (1.5, 0.5), (1.5, 1.5), (2.5, 0.5), (2.5, 1.5)])
+        assigner = RectilinearBinMapper(boundaries)
+
+        # first 6 points are in bins [0, 5]
+        assert (assigner.assign(coords) == [0, 1, 2, 3, 4, 5]).all()
+
+    def test3dAssign(self):
+        boundaries = [(0, 1, 2), (0, 1, 2, 3, 4, 5), (0, 1, 2)]
+        coords = list(product([0.5, 1.5], [0.5, 1.5, 2.5, 3.5, 4.5], [0.5, 1.5]))  # One point per bin, in row-major order
+        coords = np.asarray(coords)
+
+        assigner = RectilinearBinMapper(boundaries)
+
+        # first 20 points are in bins [0, 19]
+        assert (assigner.assign(coords) == list(range(20))).all()
+
+    def test3dAssign_v2(self) -> None:
+        boundaries = [(0, 1, 2, 3, 4, 5), (0, 1, 2, 3, 4, 5, 6), (0, 1, 2, 3, 4, 5, 6, 7)]
+        coords = np.asarray(
+            list(product([0.5, 1.5, 2.5, 3.5, 4.5], [0.5, 1.5, 2.5, 3.5, 4.5, 5.5], [0.5, 1.5, 2.5, 3.5, 4.5, 5.5, 6.5]))
+        )  # One point per bin, in row-major order
+
+        assigner = RectilinearBinMapper(boundaries)
+
+        # Each points located sequentially in bins [0, 210].
+        assert (assigner.assign(coords) == list(range(210))).all()
+
+        with pytest.raises(ValueError, match='is out of bin space in dimension'):
+            assigner.assign(np.asarray([(5.5, 1.5, 0.5), (1.5, 6.5, 1.5)]))
+
+    def test4dAssign(self) -> None:
+        boundaries = [[i for i in range(6)], [i for i in range(7)], [i for i in range(8)], [i for i in range(6)]]
+
+        # One point per bin, in row-major order
+        coords = np.asarray(
+            list(
+                product(
+                    [i + 0.5 for i in range(5)],
+                    [i + 0.5 for i in range(6)],
+                    [i + 0.5 for i in range(7)],
+                    [i + 0.5 for i in range(5)],
+                )
+            )
+        )
+        assigner = RectilinearBinMapper(boundaries)
+
+        # Each points located sequentially in bins [0, 1050].
+        assert np.prod([len(i) - 1 for i in boundaries]) == 1050
+        assert (assigner.assign(coords) == list(range(1050))).all()
+
+        with pytest.raises(ValueError, match='is out of bin space in dimension'):
+            assigner.assign(np.asarray([(5.5, 1.5, 0.5, 3.5), (1.5, 8.5, 1.5, 8.5)]))
 
 
 class TestPiecewiseBinMapper:
@@ -479,6 +536,8 @@ class TestMABBinMapper:
             ([2, 2], [0, 0], True, [1, 1], 5),
             ([2, 2], [86, 0], True, [0, 0], 6),
             ([2, 2], [86, 86], False, [0, 0], 7),
+            ([2, 2], [86, 0], 5, [0, 0], 8),
+            ([2, 2], [86, 86], 3, [1, 0], 9),
         ],
         ids=[
             'direction=[1,1], no bottleneck',
@@ -489,6 +548,8 @@ class TestMABBinMapper:
             'direction=[0,0], skip=[1,1]',
             'direction=[86,0]',
             'direction=[86,86], no bottleneck',
+            'direction=[86,0], 5 bottlenecks',
+            'direction=[86,86], 3 bottlenecks, skip=[1,0]',
         ],
     )
     def test_2x2_2d_grid_mab_bin_assignments(
@@ -498,7 +559,7 @@ class TestMABBinMapper:
         allcoords = self.input_mab_data['allcoords_2d_grid']
         N_total = allcoords.shape[0] // 2
         mask = np.full((N_total * 2), True)
-        output = np.zeros((N_total * 2), dtype=int)
+        output = np.zeros((N_total * 2), dtype=index_dtype)
         output = map_mab(
             coords=allcoords,
             mask=mask,
@@ -507,11 +568,16 @@ class TestMABBinMapper:
             direction=direction,
             bottleneck=bottleneck,
             skip=skip,
+            strict_Z=False,
         )
-        assert np.all(output[:N_total] == output[N_total:]), "Expected first half of bin assignments to equal second half"
-        assert np.all(
-            output == self.ref_mab_results['2d_grid'][ref_index]
-        ), f"Unexpected 2D grid MAB bin assignments with direction={direction}, bottleneck={bottleneck}, and skip={skip}"
+        assert_array_equal(
+            output[:N_total], output[N_total:], err_msg="Expected first half of bin assignments to equal second half"
+        )
+        assert_array_equal(
+            output,
+            self.ref_mab_results['2d_grid'][ref_index],
+            err_msg=f"Unexpected 2D grid MAB bin assignments with direction={direction}, bottleneck={bottleneck}, and skip={skip}",
+        )
 
     @pytest.mark.parametrize(
         "nbins_per_dim, direction, bottleneck, skip, ref_index",
@@ -531,7 +597,7 @@ class TestMABBinMapper:
         allcoords = self.input_mab_data['allcoords_3d_grid']
         N_total = allcoords.shape[0] // 2
         mask = np.full((N_total * 2), True)
-        output = list(np.zeros((N_total * 2), dtype=int))
+        output = np.zeros((N_total * 2), dtype=index_dtype)
         output = map_mab(
             coords=allcoords,
             mask=mask,
@@ -540,11 +606,16 @@ class TestMABBinMapper:
             direction=direction,
             bottleneck=bottleneck,
             skip=skip,
+            strict_Z=False,
         )
-        assert output[:N_total] == output[N_total:], "Expected first half of bin assignments to equal second half"
-        assert output == list(
-            self.ref_mab_results['3d_grid'][ref_index]
-        ), f"Unexpected 3D grid MAB bin assignments with direction={direction}, bottleneck={bottleneck}, and skip={skip}"
+        assert_array_equal(
+            output[:N_total], output[N_total:], err_msg="Expected first half of bin assignments to equal second half"
+        )
+        assert_array_equal(
+            output,
+            self.ref_mab_results['3d_grid'][ref_index],
+            err_msg=f"Unexpected 3D grid MAB bin assignments with direction={direction}, bottleneck={bottleneck}, and skip={skip}",
+        )
 
     @pytest.mark.parametrize(
         "nbins_per_dim, direction, bottleneck, skip, ref_index",
@@ -566,8 +637,10 @@ class TestMABBinMapper:
         allcoords = self.input_mab_data['allcoords_2d_gauss']
         N_total = allcoords.shape[0] // 2
         mask = np.full((N_total * 2), True)
-        output = np.zeros((N_total * 2), dtype=int)
-        output = map_mab(
+        bin_mask = mask.copy()
+        bin_mask[N_total:] = False
+        output = np.zeros((N_total * 2), dtype=index_dtype)
+        output[:] = map_mab(
             coords=allcoords,
             mask=mask,
             output=output,
@@ -575,11 +648,17 @@ class TestMABBinMapper:
             direction=direction,
             bottleneck=bottleneck,
             skip=skip,
+            strict_Z=False,
+            binbounds_determination_mask=bin_mask,
         )
-        assert np.all(output[:N_total] == output[N_total:]), "Expected first half of bin assignments to equal second half"
-        assert np.all(
-            output == self.ref_mab_results['2d_gauss'][ref_index]
-        ), f"Unexpected 2D Gaussian MAB bin assignments with direction={direction}, bottleneck={bottleneck}, and skip={skip}"
+        assert_array_equal(
+            output[:N_total], output[N_total:], err_msg="Expected first half of bin assignments to equal second half"
+        )
+        assert_array_equal(
+            output,
+            self.ref_mab_results['2d_gauss'][ref_index],
+            err_msg=f"Unexpected 2D Gaussian MAB bin assignments with direction={direction}, bottleneck={bottleneck}, and skip={skip}",
+        )
 
     @pytest.mark.parametrize(
         "skip, bottleneck, direction, minlist, maxlist, nbins_per_dim, n_bottleneck_filled, bottlenecks_forward, bottlenecks_reverse",
@@ -628,6 +707,7 @@ class TestMABBinMapper:
                 n_bottleneck_filled=n_bottleneck_filled,
                 bottlenecks_forward=bottlenecks_forward,
                 bottlenecks_reverse=bottlenecks_reverse,
+                strict_Z=False,
             )
 
         # Correct outputs for comparison.
@@ -638,7 +718,7 @@ Leading pcoord in each dimension: [1.0, 1.0]
 '''
 
         if bottleneck:
-            template_output += f'''Number of bottleneck bins filled: {n_bottleneck_filled} / 3
+            template_output += f'''Number of strict_Z=False bottleneck bins filled: {n_bottleneck_filled} / 3
 Dimension 0 forward bottleneck walker at: [{bottlenecks_forward[0]}]
 Dimension 0 backward bottleneck walker at: [{bottlenecks_reverse[0]}]
 Dimension 1 backward bottleneck walker at: [{bottlenecks_reverse[1]}]
@@ -681,13 +761,15 @@ def output_mab_reference():
                 ([2, 2], [0, 0], True, [1, 1]),
                 ([2, 2], [86, 0], True, [0, 0]),
                 ([2, 2], [86, 86], False, [0, 0]),
+                ([2, 2], [86, 0], 5, [0, 0]),
+                ([2, 2], [86, 86], 3, [1, 0]),
             ]
         ):
             allcoords = input_data['allcoords_2d_grid']
             N_total = allcoords.shape[0] // 2
             mask = np.full((N_total * 2), True)
-            output = np.zeros((N_total * 2), dtype=int)
-            output = map_mab(
+            output = np.zeros((N_total * 2), dtype=index_dtype)
+            output[:] = map_mab(
                 coords=allcoords,
                 mask=mask,
                 output=output,
@@ -695,20 +777,21 @@ def output_mab_reference():
                 direction=direction,
                 bottleneck=bottleneck,
                 skip=skip,
+                strict_Z=False,
             )
 
             f.create_dataset(f'2d_grid/test_result_{i:d}', data=output)
 
             # Create a cmap with the same number of colors as the number of bins
-            cmap = plt.cm.get_cmap('tab20', int(np.max(output) + 1))
+            cmap = plt.get_cmap('tab20', int(np.max(output) + 1))
 
             # Plot the synthetic data in 2D using a scatter plot
             # Include a cbar to shown the bin assignments
             plt.scatter(
-                allcoords[:N_total, 0],
-                allcoords[:N_total, 1],
-                s=allcoords[:N_total, 2] * 10000,
-                c=output[:N_total],
+                allcoords[N_total:, 0],
+                allcoords[N_total:, 1],
+                s=allcoords[N_total:, 2] * 10000,
+                c=output[N_total:],
                 cmap=cmap,
                 vmin=-0.5,
                 vmax=int(np.max(output)) + 0.5,
@@ -728,8 +811,8 @@ def output_mab_reference():
             allcoords = input_data['allcoords_3d_grid']
             N_total = allcoords.shape[0] // 2
             mask = np.full((N_total * 2), True)
-            output = np.zeros((N_total * 2), dtype=int)
-            output = map_mab(
+            output = np.zeros((N_total * 2), dtype=index_dtype)
+            output[:] = map_mab(
                 coords=allcoords,
                 mask=mask,
                 output=output,
@@ -737,6 +820,7 @@ def output_mab_reference():
                 direction=direction,
                 bottleneck=bottleneck,
                 skip=skip,
+                strict_Z=False,
             )
 
             f.create_dataset(f'3d_grid/test_result_{i:d}', data=output)
@@ -752,8 +836,10 @@ def output_mab_reference():
             allcoords = input_data['allcoords_2d_gauss']
             N_total = allcoords.shape[0] // 2
             mask = np.full((N_total * 2), True)
-            output = np.zeros((N_total * 2), dtype=int)
-            output = map_mab(
+            bin_mask = mask.copy()
+            bin_mask[:N_total] = False
+            output = np.zeros((N_total * 2), dtype=index_dtype)
+            output[:] = map_mab(
                 coords=allcoords,
                 mask=mask,
                 output=output,
@@ -761,20 +847,22 @@ def output_mab_reference():
                 direction=direction,
                 bottleneck=bottleneck,
                 skip=skip,
+                strict_Z=False,
+                binbounds_determination_mask=bin_mask,
             )
 
             f.create_dataset(f'2d_gauss/test_result_{i:d}', data=output)
 
             # Create a cmap with the same number of colors as the number of bins
-            cmap = plt.cm.get_cmap('tab20', int(np.max(output) + 1))
+            cmap = plt.get_cmap('tab20', int(np.max(output) + 1))
 
             # Plot the synthetic data in 2D using a scatter plot
             # Include a cbar to shown the bin assignments
             plt.scatter(
-                allcoords[:N_total, 0],
-                allcoords[:N_total, 1],
-                s=allcoords[:N_total, 2] * 10000,
-                c=output[:N_total],
+                allcoords[:, 0],
+                allcoords[:, 1],
+                s=allcoords[:, 2] * 10000,
+                c=output[:],
                 cmap=cmap,
                 vmin=-0.5,
                 vmax=int(np.max(output)) + 0.5,
@@ -813,3 +901,85 @@ class TestBinlessMapper:
         ) in caplog.record_tuples
 
         assert output == [0]
+
+
+class TestRectilinear_assign_python:
+    def test1dAssign(self):
+        bounds = [0.0, 1.0, 2.0, 3.0]
+        coords = np.array([0, 0.5, 1.5, 1.6, 2.0, 2.0, 2.9])[:, None]
+
+        output = rectilinear_assign_python(coords, [True] * len(coords), None, [bounds])
+        assert (output == [0, 0, 1, 1, 2, 2, 2]).all()
+
+    def test2dAssign(self):
+        """bin structure: [(a,b), (c,d)] => x in [a,b), y in [c, d)"""
+
+        boundaries = [(-1, -0.5, 0, 0.5, 1), (-1, -0.5, 0, 0.5, 1)]
+        coords = np.array([(-0.75, -0.75), (-0.25, -0.25), (0, 0), (0.25, 0.25), (0.75, 0.75), (-0.25, 0.75), (0.25, -0.75)])
+        output = rectilinear_assign_python(coords, [True] * len(coords), None, boundaries)
+
+        assert (output == [0, 5, 10, 10, 15, 7, 8]).all()
+
+    def test2dAssign_v2(self) -> None:
+        boundaries = [(0, 1, 2, 3), (0, 1, 2)]
+        coords = np.array([(0.5, 0.5), (0.5, 1.5), (1.5, 0.5), (1.5, 1.5), (2.5, 0.5), (2.5, 1.5)])
+
+        output = rectilinear_assign_python(coords, [True] * len(coords), None, boundaries)
+
+        # first 6 points are in bins [0, 5].
+        assert (output == [0, 1, 2, 3, 4, 5]).all()
+
+        with pytest.raises(ValueError, match='is out of bin space in dimension'):
+            rectilinear_assign_python(np.asarray([(3.5, 1.5)]), [True], None, boundaries)
+
+    def test3dAssign(self) -> None:
+        boundaries = [(0, 1, 2), (0, 1, 2, 3, 4, 5), (0, 1, 2)]
+        coords = np.asarray(
+            list(product([0.5, 1.5], [0.5, 1.5, 2.5, 3.5, 4.5], [0.5, 1.5]))
+        )  # One point per bin, in row-major order
+
+        output = rectilinear_assign_python(coords, [True] * len(coords), None, boundaries)
+
+        # first 20 points are in bins [0, 19].
+        assert (output == list(range(20))).all()
+
+        with pytest.raises(ValueError, match='is out of bin space in dimension'):
+            rectilinear_assign_python(np.asarray([(2.5, 1.5, 0.5), (1.5, 5.5, 1.5)]), [True, True], None, boundaries)
+
+    def test3dAssign_v2(self) -> None:
+        boundaries = [(0, 1, 2, 3, 4, 5), (0, 1, 2, 3, 4, 5, 6), (0, 1, 2, 3, 4, 5, 6, 7)]
+        coords = np.asarray(
+            list(product([0.5, 1.5, 2.5, 3.5, 4.5], [0.5, 1.5, 2.5, 3.5, 4.5, 5.5], [0.5, 1.5, 2.5, 3.5, 4.5, 5.5, 6.5]))
+        )  # One point per bin, in row-major order
+
+        output = rectilinear_assign_python(coords, [True] * len(coords), None, boundaries)
+
+        # first 20 points are in bins [0, 210].
+        assert (output == list(range(210))).all()
+
+        with pytest.raises(ValueError, match='is out of bin space in dimension'):
+            rectilinear_assign_python(np.asarray([(5.5, 1.5, 0.5), (1.5, 6.5, 1.5)]), [True, True], None, boundaries)
+
+    def test4dAssign(self) -> None:
+        boundaries = [[i for i in range(6)], [i for i in range(7)], [i for i in range(8)], [i for i in range(6)]]
+
+        # One point per bin, in row-major order
+        coords = np.asarray(
+            list(
+                product(
+                    [i + 0.5 for i in range(5)],
+                    [i + 0.5 for i in range(6)],
+                    [i + 0.5 for i in range(7)],
+                    [i + 0.5 for i in range(5)],
+                )
+            )
+        )
+        output = rectilinear_assign_python(coords, [True] * len(coords), None, boundaries)
+
+        # Each point is in bins [0, 1050]
+        nbins = np.prod([len(i) - 1 for i in boundaries])
+        assert nbins == 1050
+        assert (output == list(range(nbins))).all()
+
+        with pytest.raises(ValueError, match='is out of bin space in dimension'):
+            rectilinear_assign_python(np.asarray([(5.5, 1.5, 0.5, 3.5), (1.5, 8.5, 1.5, 8.5)]), [True, True], None, boundaries)

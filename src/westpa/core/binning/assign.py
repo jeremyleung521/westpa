@@ -45,6 +45,7 @@ import logging
 import pickle
 
 import numpy as np
+from scipy.stats import binned_statistic_dd
 
 from .bins import Bin
 from ._assign import output_map, apply_down, apply_down_argmin_across, rectilinear_assign
@@ -450,3 +451,82 @@ class RecursiveBinMapper(BinMapper):
             mapper.assign(coords, mask & rmasks[rindex], output)
 
         return output
+
+
+def rectilinear_assign_python(coords, mask, output, boundaries, strict=True):
+    """Bin the progress coordinate using numpy/scipy functions instead of
+    customized Cython functions.
+
+    Parameters
+    ----------
+    coords : np.ndarray
+        The progress coordinates to bin. Shape: (n_segs, n_dims).
+
+    mask : np.ndarray[bool]
+        Mask array to hide certain coordinates from view.
+
+    output : np.ndarray[np.uint16] of shape (len(coords),) or None
+        Output array of each segment's binid
+
+    boundaries : np.ndarray or ListLike of shape (n_dims, n_bin_per_dim)
+        A 2D numpy array (or Listlike) consisting of the bin boundaries of each dimension.
+
+    strict : bool, default : True
+        If True, raise ValueError if any coordinates lie outside of the defined bin boundaries. Else,
+        automatically clip trajectories to the nearest bin.
+
+    Returns
+    -------
+    np.ndarray[np.uint16]
+        The bin assignments for each simulation. Shape: (n_segs)
+    """
+    if isinstance(output, (np.ndarray, list)):
+        assert len(output) == len(coords), 'Provided output array is not of same length as the number of segments to assign'
+    else:
+        output = np.zeros(len(coords), dtype=index_dtype)
+
+    # Bin the progress coordinates
+    _, bin_edges, bid = binned_statistic_dd(
+        coords,
+        values=None,
+        statistic='count',
+        bins=boundaries,
+        expand_binnumbers=True,
+    )
+
+    # If binning a 1D coordinate, a 1D array will be returned.
+    bid = np.atleast_2d(bid)
+
+    # Check number of bins per dimension
+    nbins_per_dim = [len(edges) - 1 for edges in bin_edges]
+
+    # Clip the bin indices so any index outside of defined bins are moved
+    # to nearest defined bin. Only care about unmasked segments.
+    # Loop through each dimension...
+    for idx, ibid in enumerate(bid):
+        if np.any(ibid[mask] <= 0) or np.any(ibid[mask] >= len(boundaries[idx])):
+            bad = np.hstack((np.where(ibid[mask] <= 0)[0], np.where(ibid[mask] >= len(boundaries[idx]))[0]))
+            if strict:
+                raise ValueError(
+                    'coordinate value {} is out of bin space in dimension {}'.format(coords[mask][bad, idx, None], idx)
+                )
+            else:
+                bid[idx] = np.clip(ibid, 1, len(boundaries[idx]))
+                log.warning(
+                    'Simulation with progress coordinate {}, which lie outside the bin space dimension {}, are clipped into the nearest terminal bin.'.format(
+                        coords[mask][bad, idx, None], idx
+                    )
+                )
+
+    # Zero out first or the following bin_id calc will be wrong.
+    output[mask] = 0
+
+    # Calculate the bin indices in row-major order
+    for idx, ibid in enumerate(bid.T):
+        if not mask[idx]:
+            continue
+        for idim in range(len(nbins_per_dim) - 1):
+            output[idx] += (ibid[idim] - 1) * np.prod(nbins_per_dim[idim + 1 :])
+        output[idx] += ibid[-1] - 1
+
+    return output
