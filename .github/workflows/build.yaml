@@ -41,7 +41,7 @@ jobs:
         if: matrix.os != 'macos-latest' && matrix.python-version == 15
         run: |
           sudo apt update
-          sudo apt install -y libhdf5-dev
+          sudo apt install -y pkg-config libhdf5-dev
 
       - name: Build wheels
         uses: pypa/cibuildwheel@v4.2.1
