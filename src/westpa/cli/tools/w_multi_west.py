@@ -164,9 +164,9 @@ Command-line options
         for idx, (key, west) in enumerate(self.westH5.items()):
             # Sometimes, we're smaller or larger by one. Hm.
             try:
-                self.total_walkers[idx] += west['summary'][:-1]['n_particles']
-            except ValueError:
-                self.total_walkers[idx] += west['summary'][:-1]['n_particles'][: len(self.total_walkers)]
+                self.total_walkers[idx] += west['summary']['n_particles', :-1]
+            except (IndexError, ValueError):
+                self.total_walkers[idx] += west['summary']['n_particles', : self.n_iters]
 
     def go(self):
         pi = self.progress.indicator
@@ -234,7 +234,7 @@ Command-line options
                         bstate_index = west['ibstates/0/bstate_index'][:]  # noqa: F841
                         bstate_pcoord = west['ibstates/0/bstate_pcoord'][:]  # noqa: F841
 
-            self.total_number_of_walkers()  # Not really needed?
+            # self.total_number_of_walkers()  # Not really needed?
 
             start_point = []
             self.source_sinks = list(set(self.source_sinks))
@@ -338,7 +338,7 @@ Command-line options
                             for i in self.aux:
                                 maux[str(i)] = auxdata[str(i)]
                         if iter == 1:
-                            summary = westdict['summary'][...]
+                            summary = westdict['summary'][: self.niters, ...]
 
                         start_point.append(0)
                     if ifile != 0:

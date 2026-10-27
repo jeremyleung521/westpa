@@ -69,6 +69,37 @@ class Test_W_Multi_West:
         # clean up
         os.remove('multi.h5')
 
+    def test_run_w_multi_west_noaux_niter(self, ref_multi_noaux):
+        '''Testing if w_multi_west exception states runs as expected and the multi.h5 file looks good.'''
+
+        with mock.patch(
+            target='argparse.ArgumentParser.parse_args',
+            return_value=argparse.Namespace(
+                verbosity='debug',
+                rcfile=self.cfg_filepath,
+                max_queue_length=None,
+                west=self.h5_filepath,
+                output_file='multi.h5',
+                master='.',
+                sims='3',
+                aux=None,
+                auxall=True,
+                no_reweight=False,
+                ibstates=True,
+                niters=2,
+            ),
+        ):
+            entry_point()
+
+        assert os.path.isfile('./multi.h5'), "The multi.h5 file was not generated."
+        with h5py.File('./multi.h5', 'r') as h5file:
+            assert len(h5file['summary']) == 2
+            for iiter in range(2):
+                assert h5file[f'iterations/iter_{iiter + 1:>08}/pcoord']
+
+        # clean up
+        os.remove('multi.h5')
+
     def test_idtype(self, ref_idtype):
         '''Test if the new istate array is consistent if made with the create_idtype_array() function.'''
 
