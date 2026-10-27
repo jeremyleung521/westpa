@@ -124,6 +124,14 @@ Command-line options
         iogroup.add_argument(
             '-ib', '--ibstates', action='store_true', help='''Attempt to combine ibstates dataset. Default: False'''
         )
+        iogroup.add_argument(
+            '-li',
+            '--last-iter',
+            type=int,
+            metavar='niters',
+            default=None,
+            help='''Join files inclusively up to `niters` (or less, if not possible). Default is None, which is the minimum final iteration from the set of all the given files.''',
+        )
 
     def open_files(self):
         self.output_file = h5io.WESTPAH5File(self.output_file, 'w', creating_program=True)
@@ -149,11 +157,12 @@ Command-line options
         self.auxall = args.auxall
         self.reweight = args.no_reweight
         self.ibstates = args.ibstates
+        self.niters = args.niters
 
     def total_number_of_walkers(self):
         self.total_walkers = [0] * self.niters
         for key, west in self.westH5.items():
-            # Sometimes, we're smaller or larger by one.  Hm.
+            # Sometimes, we're smaller or larger by one. Hm.
             try:
                 self.total_walkers[:] += west['summary'][:-1]['n_particles']
             except ValueError:
@@ -206,7 +215,7 @@ Command-line options
                     self.n_sims[d['rt']] = 1
                 westh5.append(d)
                 if ifile == 0:
-                    self.niters = west.attrs['west_current_iteration'] - 1
+                    self.niters = min(west.attrs['west_current_iteration'] - 1, self.niters)
                 else:
                     self.niters = min(west.attrs['west_current_iteration'] - 1, self.niters)
 
@@ -303,7 +312,11 @@ Command-line options
                     if self.aux:
                         auxdata = {}
                         for i in self.aux:
-                            auxdata[str(i)] = westdict['iterations/iter_{0:08d}'.format(iter)]['auxdata'][str(i)][...]
+                            try:
+                                auxdata[str(i)] = westdict['iterations/iter_{0:08d}'.format(iter)]['auxdata'][str(i)][...]
+                            except KeyError as e:
+                                e.add_note(f'Problems with auxdata {str(i)} at iteration {iter} at file {ifile:>02}.')
+                                raise
                     if iter == 1 and ifile == 0:
                         new_dtype = np.dtype(seg_index.dtype.descr + [('group', '<i8')])
                     new_seg_index = np.zeros(seg_index.shape, dtype=new_dtype)
